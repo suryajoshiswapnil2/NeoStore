@@ -1,0 +1,3 @@
+rootProject.name = 'NeoStore'
+
+include ':app'
