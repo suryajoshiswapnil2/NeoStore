@@ -7,16 +7,17 @@
  */
 
 import React, {Component} from 'react';
-import {View, Text, TextInput, TouchableOpacity,ImageBackground,StatusBar, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from 'react-native';
+import {View, Text, ScrollView, TextInput, TouchableOpacity,ImageBackground,StatusBar, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from 'react-native';
 import {background} from '../../../assets/images';
 
 import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 //import Feather from 'react-native-vector-icons/Feather';
 import Header from "../../header/header";
+import * as Device from '../../../lib/globals'
 // 
 //import { } from 'react-native-elements';
-import {Radio, CheckBox} from './components';
+import {Radio, CheckBox, RadioGroup} from './components';
 
 
 export default class Register extends Component{
@@ -31,10 +32,13 @@ export default class Register extends Component{
   render() {
   //  const {navigate} = this.props.navigation;
     return (
+      
     <ImageBackground style={styles.mainContainer} source={background} >
     <Header title='Register' back={()=>{this.props.navigation.goBack()}} />
     <StatusBar barStyle = 'light-content' hidden={false}/>
-    <KeyboardAvoidingView style={ styles.container} behavior='padding' enabled>    
+    {/* <ScrollView style={{height: Device.window.height }}> */}
+    <KeyboardAvoidingView style={ styles.container} behavior='padding' enabled = {Device.isIOS ? true : false}>     
+    
     <TouchableWithoutFeedback onPress={ Keyboard.dismiss }>
       <View style={ styles.container}>
         <View style={ styles.containerHalf}>
@@ -123,8 +127,10 @@ export default class Register extends Component{
           </View>
           <View style={ styles.genderContainer}>
             <Text style={{ fontSize: 18, color: '#ffffff', fontWeight: 'bold'}}>Gender</Text>
+            <RadioGroup>
             <Radio label='Male' checked={false} color='#ffffff' />
             <Radio label='Female' checked={false} color='#ffffff' />
+            </RadioGroup>
           </View>
           <View style={ styles.inputContainer }>
             <Icon style={styles.icons}  name="mobile" size={30} color="white" />
@@ -137,15 +143,16 @@ export default class Register extends Component{
                 placeholderTextColor='#ffffff'
                 returnKeyType ='done' 
                 // onSubmitEditing={() => { this.firstNameInput.focus(); }}
-                // keyboardType='number-pad'
+                keyboardType={Device.isAndroid ? 'phone-pad' : 'default' }
                 ref={(input) => { this.mobileInput = input; }}
                 // blurOnSubmit={false}
                 onChangeText={(text) => this.setState({text})}
             />
           </View>
           <View style={ styles.termsContainer}>
-            <CheckBox label='' checked={false} color='#ffffff' style={{marginRight: 10,}} /> 
+            <CheckBox checked={false}    color='#ffffff' style={{marginRight: 10,}} > 
             <Text style={{color: '#ffffff', fontWeight: 'bold'}}>I agree the <Text style={{textDecorationLine:'underline'}}>Terms & conditions</Text></Text>
+           </CheckBox>
           </View>
           </View>
           <TouchableOpacity style={styles.loginButton}  onPress={this._onPressButton}>
@@ -154,9 +161,13 @@ export default class Register extends Component{
         </View>
         
       </View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>  
+      
       </KeyboardAvoidingView>
+      {/* </ScrollView> */}
+
       </ImageBackground>
+     
     );
   }
 }

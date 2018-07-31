@@ -15,13 +15,13 @@ export const styles = StyleSheet.create(
             zIndex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            marginHorizontal: 40/3,
+           // marginHorizontal: 40/3,
             // backgroundColor: '#F5FCFF',
           },
           containerHalf: {
             justifyContent: 'center',
             alignItems: 'center',
-            marginHorizontal: 100/3,
+            // marginHorizontal: 100/3,
             // backgroundColor: '#F5FCFF',
           },
           logoTitle: {
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create(
               borderColor: 'white',
               borderWidth: 1,
               marginBottom: 15,
-              padding: 5,
+            //   padding: 5,
               flexDirection: 'row',
           },
           genderContainer: {
@@ -62,12 +62,13 @@ export const styles = StyleSheet.create(
         },
           input: {
               alignSelf: "center", 
-              width: 205,
-              fontSize: 20,
+              width: 220 ,
+              fontSize: 18,
               color: '#ffffff' ,
-              height: 30,
+            //   height: 0,
               marginHorizontal: 10, 
-              padding: 5           
+              padding: 5,
+            //   backgroundColor: 'red'           
           },
           icons: {
               marginLeft: 10,

@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {View, Text, TextInput, TouchableOpacity,ImageBackground, KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, StatusBar  } from 'react-native';
+import {View, Text, TextInput, TouchableOpacity,ImageBackground,ScrollView, KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, StatusBar  } from 'react-native';
 import {background} from '../../../assets/images';
 
 import {styles} from './styles';
@@ -22,9 +22,11 @@ export default class Login extends Component{
     const {navigate} = this.props.navigation;
     return (
     <ImageBackground style={styles.mainContainer} source={background} >
+   
     <SafeAreaView style={styles.mainContainer}>
     {/* <Header title='login'/> */}
-      {/* <KeyboardAvoidingView style={ styles.container} behavior='padding' enabled> */}
+    {/* <ScrollView> */}
+      {/* <KeyboardAvoidingView style={ styles.container} behavior='position' enabled> */}
       {/* <KeyboardAwareScrollView
       resetScrollToCoords={{ x: 0, y: 0 }}
       contentContainerStyle={styles.container}
@@ -79,12 +81,14 @@ export default class Login extends Component{
         </TouchableWithoutFeedback>
       {/* </KeyboardAwareScrollView>  */}
       {/* </KeyboardAvoidingView> */}
+     
         <View style={styles.bottomContainer}>
             <Text style={{ color: '#ffffff', fontSize: 19}}>DONT HAVE AN ACCOUNT? </Text>
             <TouchableOpacity  onPress={ () => navigate('Register')}>
-            <Feather name='plus' style={{ fontFamily: 'Feather', backgroundColor:'lightred'}} color='#ffffff' size={138/3}></Feather>
+            <Feather name='plus' style={{ fontFamily: 'Feather', backgroundColor:'#E31616'}} color='#ffffff' size={138/3}></Feather>
           </TouchableOpacity>
         </View>
+      {/* </ScrollView> */}
         </SafeAreaView>
       </ImageBackground>
     );
