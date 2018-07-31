@@ -14,10 +14,63 @@ import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {SafeAreaView} from 'react-navigation'; 
-
+import {API} from '../../../lib/api';
 // import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export default class Login extends Component{
+
+
+    constructor(props){
+      super(props);
+      this.state = {
+        email: '',
+        password: '',
+      }
+    }
+
+
+  _doLogin = async (e) => {
+    // if( this.state.email !== '' &&  this.state.password !== '' )
+    //   this.props.navigation.navigate('Home');
+    // else
+    //  console.log(API.login);
+    // fetch(API.login, {
+    //     method: 'POST',
+    //     headers: {
+    //     Accept: 'application/json',
+    //             'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(this.state),
+    // }).then( (res) => {
+    //   console.log(res.json());
+    // }) .then((responseJson) => {
+    //   return responseJson;
+    // }).catch((error) => {
+    //   console.error(error);
+    // });
+
+    return fetch(API.login)
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(json){
+      return {
+        json
+        // city: json.name,
+        // temperature: kelvinToF(json.main.temp),
+        // description: _.capitalize(json.weather[0].description)
+      }
+    })
+    .catch(function(error) {
+    console.log('There has been a problem with your fetch operation: ' + error.message);
+     // ADD THIS THROW error
+      throw error;
+    });
+
+    // fetch( 'https://google.com' ).then(( response) => { response.json();  }).then( (res) => { console.log(res)}  );
+
+  } 
+
   render() {
     const {navigate} = this.props.navigation;
     return (
@@ -50,7 +103,7 @@ export default class Login extends Component{
                 returnKeyType ='next' 
                 onSubmitEditing={() => { this.passwordInput.focus(); }}
                 blurOnSubmit={false}
-                onChangeText={(text) => this.setState({text})}
+                onChangeText={(text) => this.setState({email: text})}
             />
           </View>
           <View style={ styles.inputContainer }>
@@ -64,13 +117,13 @@ export default class Login extends Component{
                 returnKeyType ='done' 
                 ref={(input) => { this.passwordInput = input; }}
                 // onSubmitEditing={() => { this.loginButton.press(); }}
-                onChangeText={(text) => this.setState({text})}
+                onChangeText={(text) => this.setState({password: text})}
             />
           </View>
           </View>
           <TouchableOpacity 
               style={styles.loginButton}  
-              onPress={this._onPressButton}
+              onPress={this._doLogin}
               ref={(input) => { this.loginButton = input; }}>
               <Text style={{ color: '#e91c1a', fontSize: 20 , fontWeight: 'bold'}}>LOGIN</Text>
           </TouchableOpacity>

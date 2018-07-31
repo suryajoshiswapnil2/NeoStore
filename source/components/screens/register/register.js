@@ -128,8 +128,8 @@ export default class Register extends Component{
           <View style={ styles.genderContainer}>
             <Text style={{ fontSize: 18, color: '#ffffff', fontWeight: 'bold'}}>Gender</Text>
             <RadioGroup>
-            <Radio label='Male' checked={false} color='#ffffff' />
-            <Radio label='Female' checked={false} color='#ffffff' />
+            <Radio label='Male' id='1' checked={false} color='#ffffff' />
+            <Radio label='Female' id='2' checked={false} color='#ffffff' />
             </RadioGroup>
           </View>
           <View style={ styles.inputContainer }>

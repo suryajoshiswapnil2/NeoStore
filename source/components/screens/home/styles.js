@@ -120,7 +120,7 @@ export const styles = StyleSheet.create(
               justifyContent: 'space-between',
           },
           wrapper: {
-           //   width: Device.window.width,
+              // width: Device.window.width ,
             //  height: 686/3,
         },
         slide1: {

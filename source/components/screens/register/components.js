@@ -15,10 +15,12 @@ var checkedItem = null;
 export class RadioGroup extends Component {
     checkRadio = () => {
 
-        // for ( i in this.props.children)
-        // {
-        //     if( ) 
-        // } 
+        for ( i in this.props.children)
+        {
+            if( this.props.children[i].props.id === checkedItem );
+            else
+                console.log(this.props);
+        } 
 
 
     };
@@ -31,17 +33,27 @@ export class RadioGroup extends Component {
 
 export class Radio extends Component{
     
-    state = {
-        checked : this.props.checked,
+    constructor(props){
+        super(props);
+        this.state = {
+            checked : this.props.checked,
+        };
     }
 
-    componentDidMount = () =>  {
-        console.log(this.props.children);
-    }
+    makeFalse = () => {
+        this.setState({
+            checked: false,
+        });
+    };
 
     render() {
     return (
-            <TouchableOpacity style={styles.container} onPress= { () =>  { checkedItem = this.props.refs; this.setState( {  checked: !this.state.checked  })}  } >
+            <TouchableOpacity style={styles.container} 
+                onPress= { () =>  { 
+                    this.setState( {checked: !this.state.checked  });
+                    if(this.state.checked)
+                        checkedItem = this.props.id; 
+                  }} >
                 <View style={[styles.circle, this.state.checked ? {backgroundColor: 'rgba(256,256,256,1.0)',} : {backgroundColor: 'rgba(256,256,256,0)',}, ]} >
             </View>
             <View>
@@ -58,7 +70,7 @@ export class CheckBox extends Component{
     state = {
         checked : this.props.checked, 
     }
-    
+
     render() {
     return (
             <TouchableOpacity style={styles.container} onPress= { () =>  {  this.setState( {  checked: !this.state.checked  })}  } >

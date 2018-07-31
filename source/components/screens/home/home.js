@@ -16,7 +16,7 @@ import {SafeAreaView} from 'react-navigation';
 import {CustomHeader} from '../../header/header'
 import * as Images from '../../../assets/images' 
 // import {Header} from 'react-native-elements';
-
+import * as Device from '../../../lib/globals'
 import Swiper from 'react-native-swiper'
 
 export default class Home extends Component{
@@ -27,7 +27,9 @@ export default class Home extends Component{
       //   source={require('../../../assets/images/icon.png')}
       //   style={[styles.icon, {tintColor: tintColor}]}
       // />
-      <Icon name='lock' size={20} style={[styles.icon, {tintColor: tintColor}]} /> 
+      // <Icon name='lock' size={20} style={[styles.icon, Device.isIOS ?  {  tintColor: tintColor } : null]} /> 
+      <Icon name='lock' size={20} style={styles.icon} /> 
+      
     ),
   };
 
@@ -41,7 +43,7 @@ export default class Home extends Component{
       <CustomHeader leftIcon='menu' leftAction={this.props.navigation.openDrawer} title="NeoSTORE"  rightIcon='search'/>
    
       <View style={styles.containerHalf}>
-     <Swiper style={styles.wrapper} showsButtons={true}>
+     <Swiper style={[styles.wrapper, Device.isAndroid ? {width: Device.window.width} : {} ]} showsButtons={true}>
       <View >
           <Image source={Images.slide1}   style={{resizeMode:'cover', height:'100%', width:'100%'}} ></Image>
         </View>
@@ -56,22 +58,22 @@ export default class Home extends Component{
       <View style={ styles.containerHalfBottom }>
       <View style={styles.containerBox}>
           <TouchableOpacity style={[styles.box1,]} >
-            <Text style={{textAlign: 'right' ,fontWeight: '500', fontSize: 25, color: '#ffffff' }}>Tables</Text>
-            <Icon name='tablet' style={{textAlign: 'left' }} color="#ffffff" size={80} />
+            <Text style={{textAlign: 'right' ,fontWeight: '500', fontSize: 20, color: '#ffffff' }}>Tables</Text>
+            <Icon name='tablet' style={{textAlign: 'left' }} color="#ffffff" size={70} />
           </TouchableOpacity>
           <TouchableOpacity style={[styles.box1,]}>
-            <Icon style={{textAlign: 'right' }} name='clipboard' color="#ffffff" size={80} />
-            <Text style={{textAlign: 'left',fontWeight: '500' , fontSize: 25, color: '#ffffff' }}>Sofas</Text>
+            <Icon style={{textAlign: 'right' }} name='clipboard' color="#ffffff" size={70} />
+            <Text style={{textAlign: 'left',fontWeight: '500' , fontSize: 20, color: '#ffffff' }}>Sofas</Text>
           </TouchableOpacity>
       </View>
       <View style={styles.containerBox}>
           <TouchableOpacity style={[styles.box2,]}>
-            <Text style={{textAlign: 'left',fontWeight: '500', fontSize: 25,  color: '#ffffff' }}>Chairs</Text>
-            <Icon name='wheelchair' color="#ffffff" style={{textAlign: 'right' }} size={80} />
+            <Text style={{textAlign: 'left',fontWeight: '500', fontSize: 20,  color: '#ffffff' }}>Chairs</Text>
+            <Icon name='wheelchair' color="#ffffff" style={{textAlign: 'right' }} size={70} />
           </TouchableOpacity>
           <TouchableOpacity style={[styles.box2,]}>
-          <Icon name='desktop' style={{textAlign: 'left' }} color="#ffffff" size={80} />
-            <Text style={{textAlign: 'right',fontWeight: '500' , fontSize: 25, color: '#ffffff' }}>Cupboards</Text>
+          <Icon name='desktop' style={{textAlign: 'left' }} color="#ffffff" size={70} />
+            <Text style={{textAlign: 'right',fontWeight: '500' , fontSize: 20, color: '#ffffff' }}>Cupboards</Text>
           </TouchableOpacity>
       </View>
       </View>
