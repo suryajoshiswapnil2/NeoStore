@@ -1,42 +1,53 @@
 //
 
 import {StyleSheet} from 'react-native';
+import * as Device from '../../../lib/globals'
 
 export const styles = StyleSheet.create(
     {
+        imageHolder:{
+            marginVertical: 60/3,
+        },
+        image: {
+            width: 400/3,
+            height: 400/3,
+            borderRadius: 400/3 /2 ,
+            // backgroundColor: 'green'
+        },
         mainContainer: {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            // backgroundColor: '#F5FCFF',
+            // backgroundColor: 'blue',
+            width: '100%',
           },
         container: {
             flex: 1,
-            justifyContent: 'flex-start',
+            justifyContent: 'center',
             alignItems: 'center',
-            margin: 40/3,
+            marginHorizontal: 40/3,
             // backgroundColor: '#F5FCFF',
           },
           containerHalf: {
-            justifyContent: 'flex-start',
+              flex:1,
+            justifyContent: 'center',
             alignItems: 'center',
-            marginHorizontal: 100/3,
+            // marginHorizontal: 100/3,
             // backgroundColor: '#F5FCFF',
           },
           logoTitle: {
             fontSize: 45,
             color: '#ffffff',
             fontWeight: 'bold',
-            marginTop: 30,
-            marginBottom: 25,
+            marginBottom: 50,
           },
           inputContainer: {
               alignSelf: "stretch", 
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
               alignItems: 'center',
               borderColor: 'white',
               borderWidth: 1,
-              marginBottom: 15,
+              marginBottom: 12,
               padding: 5,
               flexDirection: 'row',
           },
@@ -45,34 +56,54 @@ export const styles = StyleSheet.create(
               width: 205,
               fontSize: 20,
               color: '#ffffff' ,
-            //   height: 30,
+             // height: 30,
               marginHorizontal: 15, 
-              padding: 5           
+              padding: 4,           
           },
           icons: {
-              marginLeft: 15,  
+            marginLeft: 10,
+            height: 25,
+            width: 25,  
+            // backgroundColor: 'green',
+            textAlign: 'center'
           } ,
           inputBoxes: {
-              marginBottom: 50/3,
+              marginBottom: 30/3,
           },
           loginButton: {
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor:'#ffffff',
-              width: 275    ,
+              width: 283  ,
               paddingVertical: 12,
               borderRadius: 5,
               marginBottom: 12
           },
+          loginButtonSquare: {
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor:'#ffffff',
+            width: '100%'  ,
+            // paddingVertical: 12,
+            height: 157/3,
+        },
           bottomContainer: {
           //    flex: 1,
               bottom: 20,
               position: 'absolute',
+             // marginBottom: 20,
               flexDirection: 'row',
               alignItems: 'center',
-              width: 330,
+              width: '85%',
+            //   marginHorizontal: 50,
               justifyContent: 'space-between',
           },
+          containerHalfBottom:{
+            //   justifyContent: 'center',
+            //   backgroundColor: 'white',
+            //   borderColor: 'blue',
+              width: Device.window.width,
+          }
 
 
     }

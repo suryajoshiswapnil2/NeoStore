@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {View, Text, TextInput, TouchableOpacity,ImageBackground,ScrollView, KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, StatusBar  } from 'react-native';
+import {View, Text,Alert, TextInput, TouchableOpacity,ImageBackground,ScrollView, KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, StatusBar  } from 'react-native';
 import {background} from '../../../assets/images';
 
 import {styles} from './styles';
@@ -30,8 +30,44 @@ export default class Login extends Component{
 
 
   _doLogin = async (e) => {
+
+    // await fetch(API.login, {
+    //   method: 'POST',
+    //   headers: {
+    //   // Accept: 'application/json',
+    //   //         'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ email: "Kannan.Maravar@wwindia.com", password: "KannanMaravar123" }) ,} )
+    // .then( (data) => data.json())
+    // .then( (data) =>{ 
+    // // console.log(data, this.state)
+    //   Alert.alert(data.message)
+    // }
+    // ).catch(
+    //   () => { console.warn('Error in the APi')}
+    // );
+
+    // fetch('https://jsonplaceholder.typicode.com/todos/1')
+    // .then(response => response.json())
+    // .then(json => Alert.alert( JSON.stringify(  json)))
+
+
+    fetch(API.login, {
+      method: 'POST',
+      body: JSON.stringify( { email: 'foo', password: 'bar'}),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        // 'email' : 'foo',
+        // 'password' :  'bar',
+      }
+    })
+    .then(response => response.json())
+    .then((json) => {console.log(json); Alert.alert( JSON.stringify(json)) } )
+
+
+    // Promise.all();
     // if( this.state.email !== '' &&  this.state.password !== '' )
-      this.props.navigation.navigate('Home');
+      // this.props.navigation.navigate('Home');
     // else
     //  console.log(API.login);
     // fetch(API.login, {

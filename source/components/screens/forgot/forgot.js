@@ -21,7 +21,8 @@ export default class Forgot extends Component{
     const {navigate} = this.props.navigation;
     return (
     <ImageBackground style={styles.mainContainer} source={background} >
-    <Header title='Forgot Password' back={()=>{this.props.navigation.goBack()}}/>
+    {/* <Header title='Forgot Password' style={{fontSize: 20}} size={24}  back={()=>{this.props.navigation.goBack()}}/> */}
+    <Header title='Forgot Password' back={()=>{this.props.navigation.goBack()}} />
     <StatusBar barStyle='light-content' hidden={false} />
     <TouchableWithoutFeedback onPress={ Keyboard.dismiss }>
       <View style={ styles.container}>
@@ -50,7 +51,7 @@ export default class Forgot extends Component{
                 style={ styles.input } 
                 secureTextEntry= {true}
                 maxLength= {15}
-                placeholder="Password"
+                placeholder="New Password"
                 placeholderTextColor='#ffffff'
                 // keyboardType= 'email-address'
                 returnKeyType ='next' 

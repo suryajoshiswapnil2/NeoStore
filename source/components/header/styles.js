@@ -17,6 +17,12 @@ export const styles = StyleSheet.create({
     headText: {
       color: '#ffffff', 
      // marginLeft: '35%' ,
+      fontSize: 22,
+      // fontWeight: 'bold',
+    },
+    custHeadText: {
+      color: '#ffffff', 
+     // marginLeft: '35%' ,
       fontSize: 25,
       fontWeight: 'bold',
     },

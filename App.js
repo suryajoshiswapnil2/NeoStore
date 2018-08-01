@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import {View,Text,Image} from 'react-native'
-import { createSwitchNavigator, SwitchNavigator, StackNavigator, DrawerNavigator , } from  'react-navigation'
+import { createSwitchNavigator, createDrawerNavigator , createStackNavigator } from  'react-navigation'
 
 // User Component
 import Login from './source/components/screens/login/login';
@@ -17,8 +17,39 @@ import Register from './source/components/screens/register/register';
 import Home from './source/components/screens/home/home'
 import SideBar from './source/components/screens/sidebar/sidebar'
 import ResetPassword from './source/components/screens/resetpassword/resetpassword';
+import MyAccount from './source/components/screens/myaccount/myaccount';
+import EditProfile from './source/components/screens/editprofile/editprofile';
 
-const DashboardNav = DrawerNavigator({
+const MyAccountStack  = createStackNavigator(
+{
+  MyAccount: {
+    screen: MyAccount,
+    navigationOptions: {
+      header:null,
+    },
+  },  
+  EditProfile: {
+    screen: EditProfile,
+    navigationOptions: {
+      header:null,
+    },
+  },
+  ResetPassword: {
+    screen: ResetPassword,
+    navigationOptions: {
+      header:null,
+    },
+  },
+
+},
+{
+  initialRouteName: 'MyAccount'
+}
+
+);
+
+
+const DashboardNav = createDrawerNavigator({
   Home: {
     screen: Home,
     navigationOptions: {
@@ -43,12 +74,15 @@ const DashboardNav = DrawerNavigator({
       header:null,
     },
   },
-  ResetPassword: {
-    screen: ResetPassword,
-    navigationOptions: {
-      header:null,
-    },
+ 
+  MyAccount: {
+      screen: MyAccountStack,
+      navigationOptions:{
+        header: null,
   }
+  }
+
+  
 },
 {
   initialRouteName : "Home",
@@ -58,7 +92,7 @@ const DashboardNav = DrawerNavigator({
   ) 
 }
 );
-const Stack = StackNavigator({
+const Stack = createStackNavigator({
   Login: {
     screen: Login,
     navigationOptions: {
@@ -84,7 +118,7 @@ const Stack = StackNavigator({
   }
 },
 {
-  initialRouteName : "DashboardNav"
+  initialRouteName : "Login"
 }
 );
 

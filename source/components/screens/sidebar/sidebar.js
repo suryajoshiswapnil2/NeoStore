@@ -20,7 +20,7 @@ import {slide1} from '../../../assets/images'
 export default class SideBar extends Component{
 
   render() {
-    // const {navigate} = this.props.navigation;
+    const {navigate} = this.props.pro.navigation;
     return (
 
   <SafeAreaView style={styles.container}>
@@ -59,7 +59,7 @@ export default class SideBar extends Component{
             <Text style={styles.drawerText}>Cupboards</Text>
             
         </TouchableOpacity>
-        <TouchableOpacity style={styles.drawerItems}>
+        <TouchableOpacity style={styles.drawerItems} onPress= { () => navigate('MyAccount') }>
         <FeatherIcon style={styles.drawerIcon} name='user' size={20} color='#fff' > </FeatherIcon>
             <Text style={styles.drawerText}>My Account</Text>
             
@@ -74,7 +74,7 @@ export default class SideBar extends Component{
             <Text style={styles.drawerText}>My Orders</Text>
             
         </TouchableOpacity>
-        <TouchableOpacity style={styles.drawerItems}>
+        <TouchableOpacity style={styles.drawerItems} onPress= { () => navigate('Login') }>
             <FeatherIcon style={styles.drawerIcon} name='log-out' size={20} color='#fff' > </FeatherIcon>
             <Text style={styles.drawerText}>Logout</Text>
             

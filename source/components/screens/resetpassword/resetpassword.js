@@ -19,7 +19,7 @@ export default class ResetPassword extends Component{
     const {navigate} = this.props.navigation;
     return (
     <ImageBackground style={styles.mainContainer} source={background} >
-    <Header title='Forgot Password' back={()=>{this.props.navigation.goBack()}}/>
+    <Header title='Reset Password' back={()=>{this.props.navigation.goBack()}}/>
     <StatusBar barStyle='light-content' hidden={false} />
     <TouchableWithoutFeedback onPress={ Keyboard.dismiss }>
       <View style={ styles.container}>
@@ -27,12 +27,12 @@ export default class ResetPassword extends Component{
           <Text style={ styles.logoTitle }>NeoSTORE</Text>
           <View style={styles.inputBoxes}>
           <View style={ styles.inputContainer }>
-            <Icon style={styles.icons}  name="user" size={20} color="white" />
+            <Icon style={styles.icons}  name="lock" size={20} color="white" />
             <TextInput
                 autoCorrect = {false}
                 autoCapitalize= 'none'
                 style={styles.input}
-                placeholder="Username"
+                placeholder="Current Password"
                 maxLength= {15}
                 placeholderTextColor='#ffffff'
                 keyboardType= 'email-address'
@@ -48,7 +48,7 @@ export default class ResetPassword extends Component{
                 style={ styles.input } 
                 secureTextEntry= {true}
                 maxLength= {15}
-                placeholder="Password"
+                placeholder="New Password"
                 placeholderTextColor='#ffffff'
                 // keyboardType= 'email-address'
                 returnKeyType ='next' 

@@ -17,9 +17,9 @@ export default class Header extends Component {
             return(
                 <View style={styles.headerContainer} >
                 <TouchableOpacity style={styles.leftContainer} onPress={this.props.back}>
-                    <Feather name='chevron-left' color= '#ffffff'  size={30} />
+                    <Feather name='chevron-left' color= '#ffffff'  style={{fontWeight: 'bold'}} size={ this.props.size ? this.props.size :26}/>
                 </TouchableOpacity>
-                <Text style={styles.headText}>{this.state.title}</Text>
+                <Text style={[styles.headText, this.props.style]}>{this.state.title}</Text>
                 <View> 
                 </View>
                 </View>
@@ -43,7 +43,7 @@ export class CustomHeader extends Component {
             <TouchableOpacity style={styles.leftContainer} onPress={this.props.leftAction}>
                 <Feather name={this.props.leftIcon} color= '#ffffff'  size={this.props.size ? this.props.size :25 } />
             </TouchableOpacity>
-            <Text style={styles.headText}>{this.state.title}</Text>
+            <Text style={[styles.custHeadText, this.props.style] }>{this.state.title}</Text>
             <TouchableOpacity style={styles.rightContainer} onPress={this.props.rightAction}>
                 <Feather name={this.props.rightIcon} color= '#ffffff'  size={ this.props.size ? this.props.size :25} />
             </TouchableOpacity>

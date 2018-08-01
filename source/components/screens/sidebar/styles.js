@@ -57,7 +57,7 @@ export const styles = StyleSheet.create(
             borderTopWidth: .25,
             // borderColor: 'gray',
             borderTopColor: 'black',
-            height: 50,
+            height: 47,
             paddingHorizontal: 15,
             // paddingVertical: 5,
             // backgroundColor: 'red',

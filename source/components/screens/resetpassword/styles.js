@@ -15,9 +15,10 @@ export const styles = StyleSheet.create(
           },
         container: {
             flex: 1,
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             alignItems: 'center',
             marginHorizontal: 40/3,
+            marginVertical: 150/3,
             // backgroundColor: '#F5FCFF',
           },
           containerHalf: {
@@ -30,7 +31,7 @@ export const styles = StyleSheet.create(
             fontSize: 45,
             color: colors.white,
             fontWeight: 'bold',
-            marginBottom: 50,
+            marginBottom: 30,
           },
           inputContainer: {
               alignSelf: "stretch", 
