@@ -8,14 +8,15 @@
 
 import React, {Component} from 'react';
 import {View,Text,Image} from 'react-native'
-import { createSwitchNavigator, SwitchNavigator, StackNavigator, DrawerNavigator ,SafeAreaView,   DrawerItems } from  'react-navigation'
+import { createSwitchNavigator, SwitchNavigator, StackNavigator, DrawerNavigator , } from  'react-navigation'
 
 // User Component
 import Login from './source/components/screens/login/login';
 import Forgot from './source/components/screens/forgot/forgot';
 import Register from './source/components/screens/register/register';
 import Home from './source/components/screens/home/home'
-
+import SideBar from './source/components/screens/sidebar/sidebar'
+import ResetPassword from './source/components/screens/resetpassword/resetpassword';
 
 const DashboardNav = DrawerNavigator({
   Home: {
@@ -28,15 +29,11 @@ const DashboardNav = DrawerNavigator({
     screen: Home,
     navigationOptions: {
       header:null,
-    },navigationOptions: {
-      header:null,
     },
   },
   tables: {
     screen: Home,
     navigationOptions: {
-      header:null,
-    },navigationOptions: {
       header:null,
     },
   },
@@ -44,25 +41,20 @@ const DashboardNav = DrawerNavigator({
     screen: Home,
     navigationOptions: {
       header:null,
-    },navigationOptions: {
-      header:null,
     },
   },
+  ResetPassword: {
+    screen: ResetPassword,
+    navigationOptions: {
+      header:null,
+    },
+  }
 },
 {
   initialRouteName : "Home",
   contentComponent: ( props ) => (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'black'}}>
-    <View style={{ marginTop: 30,  backgroundColor: 'gray'}}>
-      <View style={{ justifyContent:'center', alignItems: 'center' }}>
-        <Image source={require('./source/assets/images/slide1.jpg')} style={{width: 50, height: 50, borderRadius: 25}}/>
-        <Text>Swapnil Suryajoshi</Text>
-        <Text>{props.email ? props.email :  'suryajoshiswapnil@gmail.com'}</Text>
-      </View>
-      <DrawerItems {...props}/>
-      <Text>Logout</Text>
-    </View>
-    </SafeAreaView>
+  
+        <SideBar pro={props} /> 
   ) 
 }
 );
@@ -92,7 +84,7 @@ const Stack = StackNavigator({
   }
 },
 {
-  initialRouteName : "Login"
+  initialRouteName : "DashboardNav"
 }
 );
 

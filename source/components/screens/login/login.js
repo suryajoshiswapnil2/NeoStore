@@ -31,7 +31,7 @@ export default class Login extends Component{
 
   _doLogin = async (e) => {
     // if( this.state.email !== '' &&  this.state.password !== '' )
-    //   this.props.navigation.navigate('Home');
+      this.props.navigation.navigate('Home');
     // else
     //  console.log(API.login);
     // fetch(API.login, {
@@ -49,25 +49,25 @@ export default class Login extends Component{
     //   console.error(error);
     // });
 
-    return fetch(API.login)
-    .then(function(response){
-      return response.json();
-    })
-    .then(function(json){
-      return {
-        json
-        // city: json.name,
-        // temperature: kelvinToF(json.main.temp),
-        // description: _.capitalize(json.weather[0].description)
-      }
-    })
-    .catch(function(error) {
-    console.log('There has been a problem with your fetch operation: ' + error.message);
-     // ADD THIS THROW error
-      throw error;
-    });
+    // return fetch(API.login)
+    // .then(function(response){
+    //   return response.json();
+    // })
+    // .then(function(json){
+    //     console.log(json);
+    //     return json;
+    //     // city: json.name,
+    //     // temperature: kelvinToF(json.main.temp),
+    //     // description: _.capitalizes(json.weather[0].description)
+      
+    // })
+    // .catch(function(error) {
+    // console.log('There has been a problem with your fetch operation: ' + error.message);
+    //  // ADD THIS THROW error
+    //   throw error;
+    // });
 
-    // fetch( 'https://google.com' ).then(( response) => { response.json();  }).then( (res) => { console.log(res)}  );
+    // fetch( 'https://google.co.in' ).then(( response) => { response.json();  }).then( (res) => { console.log(res)}  );
 
   } 
 

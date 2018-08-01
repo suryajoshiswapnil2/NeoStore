@@ -43,7 +43,7 @@ export default class Home extends Component{
       <CustomHeader leftIcon='menu' leftAction={this.props.navigation.openDrawer} title="NeoSTORE"  rightIcon='search'/>
    
       <View style={styles.containerHalf}>
-     <Swiper style={[styles.wrapper, Device.isAndroid ? {width: Device.window.width} : {} ]} showsButtons={true}>
+     <Swiper style={Device.isAndroid ? { width: Device.window.width } : null } showsButtons={true}> 
       <View >
           <Image source={Images.slide1}   style={{resizeMode:'cover', height:'100%', width:'100%'}} ></Image>
         </View>

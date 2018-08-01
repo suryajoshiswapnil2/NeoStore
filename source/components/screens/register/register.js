@@ -19,6 +19,7 @@ import * as Device from '../../../lib/globals'
 //import { } from 'react-native-elements';
 import {Radio, CheckBox, RadioGroup} from './components';
 
+ 
 
 export default class Register extends Component{
   
