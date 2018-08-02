@@ -2,6 +2,8 @@
 
 import {StyleSheet} from 'react-native';
 import * as Device from '../../../lib/globals'
+import colors from '../../../utils/colors'
+import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
@@ -20,6 +22,7 @@ export const styles = StyleSheet.create(
             alignItems: 'center',
             // backgroundColor: 'blue',
             width: '100%',
+            paddingTop: Device.isIOS ? 20 :0,
           },
         container: {
             flex: 1,
@@ -37,8 +40,8 @@ export const styles = StyleSheet.create(
           },
           logoTitle: {
             fontSize: 45,
-            color: '#ffffff',
-            fontWeight: 'bold',
+            color: colors.white,
+            fontWeight: font.weight.bold,
             marginBottom: 50,
           },
           inputContainer: {
@@ -55,8 +58,8 @@ export const styles = StyleSheet.create(
               alignSelf: "center", 
               width: 205,
               fontSize: 20,
-              color: '#ffffff' ,
-             // height: 30,
+              color: colors.white ,
+             height:  30,
               marginHorizontal: 15, 
               padding: 4,           
           },
@@ -73,7 +76,7 @@ export const styles = StyleSheet.create(
           loginButton: {
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor:'#ffffff',
+              backgroundColor:colors.white,
               width: 283  ,
               paddingVertical: 12,
               borderRadius: 5,
@@ -82,10 +85,11 @@ export const styles = StyleSheet.create(
           loginButtonSquare: {
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor:'#ffffff',
+            backgroundColor:colors.white,
             width: '100%'  ,
             // paddingVertical: 12,
-            height: 157/3,
+            height:  Device.isX ?  80   : 157/3,
+            paddingBottom: Device.isIOS ? 10 :0,
         },
           bottomContainer: {
           //    flex: 1,
@@ -97,12 +101,14 @@ export const styles = StyleSheet.create(
               width: '85%',
             //   marginHorizontal: 50,
               justifyContent: 'space-between',
+              
           },
           containerHalfBottom:{
             //   justifyContent: 'center',
             //   backgroundColor: 'white',
             //   borderColor: 'blue',
               width: Device.window.width,
+              
           }
 
 

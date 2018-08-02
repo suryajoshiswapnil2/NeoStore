@@ -7,37 +7,65 @@
  */
 
 import React, {Component} from 'react';
-import {View,Image, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
+import {View,Image, Text, TouchableOpacity,AsyncStorage, ScrollView, StatusBar } from 'react-native';
 
 import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import FeatherIcon from 'react-native-vector-icons/Feather'
  
 import {SafeAreaView, DrawerItems, } from 'react-navigation'; 
-import {slide1} from '../../../assets/images'
+import {user} from '../../../assets/images'
 
 
 export default class SideBar extends Component{
+
+
+constructor(props){
+
+    super(props);
+    this.state = {
+        first_name: '',
+        last_name: '',
+        email: '',
+        img_url: '',
+    }
+
+}
+
+   async componentDidMount(){
+
+    let data = await AsyncStorage.getItem('userData');
+    data = JSON.parse(data);
+  //  this.state.data = data;
+    this.setState( { 
+        first_name : data.first_name, 
+        last_name : data.first_name,
+        email : data.email,
+        img_url: data.profile_pic,
+       // data : data,
+    })
+        
+    }
 
   render() {
     const {navigate} = this.props.pro.navigation;
     return (
 
   <SafeAreaView style={styles.container}>
-  <StatusBar barStyle = 'light-content' hidden={false}/>
+  {/* <StatusBar barStyle = 'light-content' hidden={false}/> */}
       <View style={styles.profileContainer}>
-        <Image source={slide1} style={styles.profileAvatar}/>
-        <Text style={styles.title}>Swapnil Suryajoshi</Text>
-        <Text style={styles.email}>{this.props.email ? this.props.email : 'suryajoshiswapnil@gmail.com'}</Text>
+        <Image source={ this.state.img_url == null ? user : {uri: this.state.img_url } } style={styles.profileAvatar}/>
+        <Text style={styles.title}>{this.state.first_name + ' ' + this.state.last_name}</Text>
+        <Text style={styles.email}>{this.state.email}</Text>
       </View>
      
       <View style={styles.containerBottom}>
         {/* <DrawerItems {...this.props.pro}/> */}
-        <ScrollView>
+        <ScrollView style={ { flex:1}}>
         <TouchableOpacity style={styles.drawerItems}>
         <FeatherIcon style={styles.drawerIcon} name='shopping-cart' size={20} color='#fff' > </FeatherIcon>
             <Text style={styles.drawerText}>My Carts</Text>
-            <Text style={styles.notifications}>2</Text>
+            <View style={styles.notifications}><Text style={styles.notifications}>2</Text></View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.drawerItems}>
         <FeatherIcon style={styles.drawerIcon} name='tablet' size={20} color='#fff' > </FeatherIcon>

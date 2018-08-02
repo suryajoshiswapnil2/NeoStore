@@ -9,6 +9,7 @@
 import React, {Component} from 'react';
 import {View, Text, TextInput, TouchableOpacity,ImageBackground, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native';
 import {background} from '../../../assets/images';
+import {SafeAreaView} from 'react-navigation'; 
 
 import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -17,10 +18,34 @@ import Header from "../../header/header";
 
 
 export default class Forgot extends Component{
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      cpassword: '',
+    }
+  }
+
+
+
+  _doForgot() {
+
+
+
+  }
+
+
+
+
+
   render() {
     const {navigate} = this.props.navigation;
     return (
+
     <ImageBackground style={styles.mainContainer} source={background} >
+  
     {/* <Header title='Forgot Password' style={{fontSize: 20}} size={24}  back={()=>{this.props.navigation.goBack()}}/> */}
     <Header title='Forgot Password' back={()=>{this.props.navigation.goBack()}} />
     <StatusBar barStyle='light-content' hidden={false} />
@@ -75,7 +100,7 @@ export default class Forgot extends Component{
             />
           </View>
           </View>
-          <TouchableOpacity style={styles.loginButton}  onPress={this._onPressButton}>
+          <TouchableOpacity style={styles.loginButton}  onPress={this._doForgot}>
               <Text style={{ color: '#e91c1a', fontSize: 20 , fontWeight: 'bold'}}>RESET NOW</Text>
           </TouchableOpacity>
           <TouchableOpacity  onPress={ () => navigate('Login') }>

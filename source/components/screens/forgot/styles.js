@@ -1,6 +1,10 @@
 //
 
 import {StyleSheet} from 'react-native';
+import * as Device  from  '../../../lib/globals'
+import colors from '../../../utils/colors'
+import font from '../../../utils/fontSize'
+import fontSize from '../../../utils/fontSize';
 
 export const styles = StyleSheet.create(
     {
@@ -8,6 +12,7 @@ export const styles = StyleSheet.create(
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
+            paddingTop: Device.isIOS ? 20 :0,
             // backgroundColor: '#F5FCFF',
           },
         container: {
@@ -24,9 +29,9 @@ export const styles = StyleSheet.create(
             // backgroundColor: '#F5FCFF',
           },
           logoTitle: {
-            fontSize: 45,
-            color: '#ffffff',
-            fontWeight: 'bold',
+            fontSize: font.logoTitle,
+            color: colors.white,
+            fontWeight: font.weight.bold,
             marginTop: 30,
             marginBottom: 25,
           },
@@ -34,7 +39,7 @@ export const styles = StyleSheet.create(
               alignSelf: "stretch", 
               justifyContent: 'center',
               alignItems: 'center',
-              borderColor: 'white',
+              borderColor: colors.white,
               borderWidth: 1,
               marginBottom: 15,
               padding: 5,
@@ -44,7 +49,7 @@ export const styles = StyleSheet.create(
               alignSelf: "center", 
               width: 205,
               fontSize: 20,
-              color: '#ffffff' ,
+              color: colors.white ,
             //   height: 30,
               marginHorizontal: 15, 
               padding: 5           
@@ -58,7 +63,7 @@ export const styles = StyleSheet.create(
           loginButton: {
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor:'#ffffff',
+              backgroundColor: colors.white,
               width: 275    ,
               paddingVertical: 12,
               borderRadius: 5,

@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {View, Text,Alert, TextInput, TouchableOpacity,ImageBackground,ScrollView, KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, StatusBar  } from 'react-native';
+import {View, Text,Alert, TextInput, AsyncStorage, TouchableOpacity,ImageBackground,ScrollView, KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, StatusBar  } from 'react-native';
 import {background} from '../../../assets/images';
 
 import {styles} from './styles';
@@ -28,8 +28,66 @@ export default class Login extends Component{
       }
     }
 
+    async componentDidMount() {
+
+        let data = await AsyncStorage.getItem('userData');
+        if(data != null )
+        this.props.navigation.navigate('Home');
+    }
+
 
   _doLogin = async (e) => {
+    // console.log(this.props);
+    // this.props.navigation.navigate('Home');
+   
+   if( this.state.email == '' || this.state.password == '') {
+       return Alert.alert('Email or password empty!');
+  }
+      
+    let formData = new FormData();
+    for ( let i in this.state )
+      formData.append(i, this.state[i]);
+
+
+    await fetch(API.login, {
+      method: 'POST',
+      body: formData,
+    }).then(res => res.json()  ).then(  res =>{  
+      
+        // console.log(res);
+      if( res.status != 200) 
+        Alert.alert(res.user_msg) 
+      else{
+         AsyncStorage.setItem('userData', JSON.stringify(res.data));
+         Alert.alert(res.user_msg);
+         this.props.navigation.navigate('Home');
+
+      } 
+        
+      
+      }  );
+
+
+  //   await fetch( 'https://reqres.in', {
+  //       method: 'POST',
+  //       // headers: {
+  //       //   'email' : 'swapnil',
+  //       //   'password': 'asdajsn'
+  //       // },
+  //       headers: {},
+  //       body: 
+  //     //   {
+  //     //     "email": "peter@klaven",
+  //     //     "password": "cityslicka"
+  //     // },
+  //       JSON.stringify(this.state),
+  //       // this.state,
+  //   }).then(  
+  //     res => {console.log(res); res.json()},
+  //     rej => console.log(rej) 
+  //   ).then( res => console.log(res), 
+  // rej => console.log(rej) );
+
 
     // await fetch(API.login, {
     //   method: 'POST',
@@ -52,17 +110,17 @@ export default class Login extends Component{
     // .then(json => Alert.alert( JSON.stringify(  json)))
 
 
-    fetch(API.login, {
-      method: 'POST',
-      body: JSON.stringify( { email: 'foo', password: 'bar'}),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        // 'email' : 'foo',
-        // 'password' :  'bar',
-      }
-    })
-    .then(response => response.json())
-    .then((json) => {console.log(json); Alert.alert( JSON.stringify(json)) } )
+    // fetch(API.login, {
+    //   method: 'POST',
+    //   body: JSON.stringify( { email: 'foo', password: 'bar'}),
+    //   headers: {
+    //     "Content-type": "application/json; charset=UTF-8",
+    //     // 'email' : 'foo',
+    //     // 'password' :  'bar',
+    //   }
+    // })
+    // .then(response => response.json())
+    // .then((json) => {console.log(json); Alert.alert( JSON.stringify(json)) } )
 
 
     // Promise.all();
@@ -133,7 +191,7 @@ export default class Login extends Component{
                 autoCapitalize= 'none'
                 style={styles.input}
                 placeholder="Username"
-                maxLength= {15}
+                // maxLength= {15}
                 placeholderTextColor='#ffffff'
                 keyboardType= 'email-address'
                 returnKeyType ='next' 
@@ -147,7 +205,7 @@ export default class Login extends Component{
             <TextInput
                 style={ styles.input } 
                 secureTextEntry= {true}
-                maxLength= {15}
+                // maxLength= {15}
                 placeholder="Password"
                 placeholderTextColor='#ffffff'
                 returnKeyType ='done' 

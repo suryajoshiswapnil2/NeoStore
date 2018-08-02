@@ -8,25 +8,30 @@
 
 import React, {Component} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import * as Device  from  '../../../lib/globals'
+import colors from '../../../utils/colors'
+import font from '../../../utils/fontSize'
 
 
-var checkedItem = null; 
+var prevData = null; 
 
 export class RadioGroup extends Component {
-    checkRadio = () => {
+    // checkRadio = () => {
 
-        for ( i in this.props.children)
-        {
-            if( this.props.children[i].props.id === checkedItem );
-            else
-                console.log(this.props);
-        } 
+    //     for ( i in this.props.children)
+    //     {
+    //         if( this.props.children[i].props.id === checkedItem );
+    //         else
+    //             console.log(this.props);
+    //     } 
 
 
-    };
+    // };
+
+  
     render() {
         return (
-            <View style={{flexDirection: 'row'}} onTouchEnd = { this.checkRadio }>{this.props.children}</View>
+            <View style={{flexDirection: 'row'}}  onTouchEnd = { () =>  this.props.onPress }>{this.props.children}</View>
     );
     }
 }
@@ -38,6 +43,7 @@ export class Radio extends Component{
         this.state = {
             checked : this.props.checked,
         };
+
     }
 
     makeFalse = () => {
@@ -50,9 +56,7 @@ export class Radio extends Component{
     return (
             <TouchableOpacity style={styles.container} 
                 onPress= { () =>  { 
-                    this.setState( {checked: !this.state.checked  });
-                    if(this.state.checked)
-                        checkedItem = this.props.id; 
+                    this.setState( {checked: true  }); 
                   }} >
                 <View style={[styles.circle, this.state.checked ? {backgroundColor: 'rgba(256,256,256,1.0)',} : {backgroundColor: 'rgba(256,256,256,0)',}, ]} >
             </View>
@@ -92,7 +96,7 @@ const styles = StyleSheet.create(
             width: 15,
             height: 15,
             marginRight: 10,
-            borderColor: '#ffffff',
+            borderColor: colors.white,
             borderWidth: 1,
             borderRadius: 15 / 2,
         },
@@ -108,7 +112,7 @@ const styles = StyleSheet.create(
         checkboxContainer: {
             width: 12,
             height: 12,
-            borderColor: '#ffffff',
+            borderColor: colors.white,
             borderWidth: 1,
             padding: 1,
             justifyContent: 'center',

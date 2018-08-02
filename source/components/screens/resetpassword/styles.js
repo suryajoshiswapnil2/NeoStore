@@ -2,6 +2,7 @@
 
 import {StyleSheet} from 'react-native';
 import colors from '../../../utils/colors';
+import * as Device from '../../../lib/globals'
 // import font from '../../../utils/fontSize';
 
 
@@ -12,6 +13,7 @@ export const styles = StyleSheet.create(
             justifyContent: 'center',
             alignItems: 'center',
             // backgroundColor: '#F5FCFF',
+            paddingTop: Device.isIOS ? 20 :0,
           },
         container: {
             flex: 1,
@@ -48,7 +50,7 @@ export const styles = StyleSheet.create(
               width: 205,
               fontSize: 20,
               color: colors.white ,
-            //   height: 30,
+              height: 30,
               marginHorizontal: 15, 
               padding: 5           
           },

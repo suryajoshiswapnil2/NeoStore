@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {View, Text, TextInput, TouchableOpacity,StatusBar, Image  } from 'react-native';
+import {View, Text, TextInput, TouchableOpacity,StatusBar, Image, ImageBackground  } from 'react-native';
 
 import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -17,9 +17,12 @@ import {CustomHeader} from '../../header/header'
 import * as Images from '../../../assets/images' 
 // import {Header} from 'react-native-elements';
 import * as Device from '../../../lib/globals'
+import {background} from '../../../assets/images'
 import Swiper from 'react-native-swiper'
 
 export default class Home extends Component{
+
+
   static navigationOptions = {
     drawerLabel: 'Home Screen',
     drawerIcon: ({ tintColor }) => (
@@ -33,13 +36,27 @@ export default class Home extends Component{
     ),
   };
 
+  constructor(props){
+    super(props);
+    this.state = {};
+  }
+
+ async componentDidMount() {
+
+ 
+    // this.state = this.props.navigation.state.params.data;
+
+  }
+
+
   render() {
 
     const {navigate } = this.props.navigation;
     
     return (
-       <SafeAreaView style={styles.mainContainer}>
-      <StatusBar barStyle = 'dark-content' hidden={false}/>
+      // <ImageBackground style={styles.mainContainer} source={background} ></ImageBackground>
+       <View style={styles.mainContainer}>
+      <StatusBar barStyle = 'dark-content' hidden={false} backgroundColor='red'/>
       <CustomHeader leftIcon='menu' leftAction={this.props.navigation.openDrawer} title="NeoSTORE"  rightIcon='search'/>
    
       <View style={styles.containerHalf}>
@@ -56,6 +73,7 @@ export default class Home extends Component{
       </Swiper>
       </View>
       <View style={ styles.containerHalfBottom }>
+      <View style={styles.rowContainerBox}>
       <View style={styles.containerBox}>
           <TouchableOpacity style={[styles.box1,]} >
             <Text style={{textAlign: 'right' ,fontWeight: '500', fontSize: 20, color: '#ffffff' }}>Tables</Text>
@@ -77,7 +95,9 @@ export default class Home extends Component{
           </TouchableOpacity>
       </View>
       </View>
-      </SafeAreaView>
+      </View>
+      </View>
+     
     );
   }
 }

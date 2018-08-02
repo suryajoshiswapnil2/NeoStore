@@ -1,20 +1,59 @@
 //
 
 import {StyleSheet} from 'react-native';
+import * as Device  from  '../../../lib/globals'
+import colors from '../../../utils/colors'
+import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
+        square: {
+            width: 7,
+            height: 7,
+        },
+        checkboxContainer: {
+            width: 12,
+            height: 12,
+            borderColor: colors.white,
+            borderWidth: 1,
+            padding: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginRight: 10,
+        },
+        circle: {
+            width: 15,
+            height: 15,
+            marginRight: 10,
+            borderColor: colors.white,
+            borderWidth: 1,
+            borderRadius: 15 / 2,
+        },
+        radioContainer: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            // backgroundColor: 'blue'
+        },
         mainContainer: {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
+            paddingTop: Device.isIOS ? 20 :0,
             // backgroundColor: '#F5FCFF',
           },
+
+        scrollContainer: {
+            flex: 1,
+            // height: Device.window.height,
+            // zIndex: 1,
+        },
         container: {
             flex: 1,
             zIndex: 1,
             justifyContent: 'center',
             alignItems: 'center',
+            height: Device.window.height,
            // marginHorizontal: 40/3,
             // backgroundColor: '#F5FCFF',
           },
@@ -26,17 +65,17 @@ export const styles = StyleSheet.create(
           },
           logoTitle: {
             fontSize: 45,
-            color: '#ffffff',
-            fontWeight: 'bold',
-            marginBottom: 20,
+            color: colors.white,
+            fontWeight: font.weight.bold,
+            marginBottom: Device.isAndroid ? 15 : 20,
           },
           inputContainer: {
               alignSelf: "stretch", 
               justifyContent: 'center',
               alignItems: 'center',
-              borderColor: 'white',
+              borderColor: colors.white,
               borderWidth: 1,
-              marginBottom: 15,
+              marginBottom:  Device.isAndroid ? 12:  15,
             //   padding: 5,
               flexDirection: 'row',
           },
@@ -54,7 +93,7 @@ export const styles = StyleSheet.create(
             alignSelf: "stretch", 
             justifyContent: 'center',
             alignItems: 'center',
-           // borderColor: 'white',
+        //    borderColor: 'white',
            // borderWidth: 1,
            // marginBottom: 15,
             padding: 5,
@@ -64,8 +103,8 @@ export const styles = StyleSheet.create(
               alignSelf: "center", 
               width: 220 ,
               fontSize: 18,
-              color: '#ffffff' ,
-            //   height: 0,
+              color: colors.white ,
+              height:   Device.isAndroid ?  40 : 40,
               marginHorizontal: 10, 
               padding: 5,
             //   backgroundColor: 'red'           
@@ -80,7 +119,7 @@ export const styles = StyleSheet.create(
           loginButton: {
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor:'#ffffff',
+              backgroundColor:colors.white,
               width: 275    ,
               paddingVertical: 12,
               borderRadius: 5,

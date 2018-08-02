@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {View, Text, TextInput, TouchableOpacity,ImageBackground, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native';
+import {View, Text, TextInput, AsyncStorage, TouchableOpacity,ImageBackground, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native';
 import {background} from '../../../assets/images';
 import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -15,6 +15,32 @@ import Header from "../../header/header";
 
 
 export default class ResetPassword extends Component{
+ 
+
+  constructor(props) {
+
+      super(props);
+      this.state ={
+        access_token: '',
+        old_password: '',
+        password: '',
+        confirm_password: '',
+      }
+
+  }
+
+
+  async componentDidMount(){
+
+    let data = await AsyncStorage.getItem('userData');
+    data = JSON.parse(data);
+  //  this.state.data = data;
+  // alert(data);
+    this.setState( data )
+       // console.log(data, this.state)
+    }
+ 
+ 
   render() {
     const {navigate} = this.props.navigation;
     return (

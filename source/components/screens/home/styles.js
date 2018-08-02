@@ -2,6 +2,8 @@
 
 import {StyleSheet} from 'react-native';
 import * as Device from '../../../lib/globals'
+import colors from '../../../utils/colors'
+import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
@@ -9,21 +11,24 @@ export const styles = StyleSheet.create(
             flex: 1,
             // justifyContent: 'center',
             // alignItems: 'center',
-            // backgroundColor: '#F5FCFF',
+            // backgroundColor: 'white',
+            paddingTop: Device.isIOS ? 20 :0,
+            paddingBottom: Device.isIOS ? 20 :0,
+            
           },
         container: {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
             marginHorizontal: 40/3,
-            // backgroundColor: '#F5FCFF',
+            // backgroundColor: 'white',
           },
           containerHalf: {
             flex: 2,
             justifyContent: 'center',
             alignItems: 'center',
 
-            // backgroundColor: '#F5FCFF',
+            // backgroundColor: 'white',
           },
           containerHalfBottom: {
             flex: 3,
@@ -33,15 +38,17 @@ export const styles = StyleSheet.create(
             marginHorizontal: 40/3,
             marginVertical: 45/3,
             marginBottom: 15,
-            // backgroundColor: '#F5FCFF',
+            // backgroundColor: '#fff',
           },
           rowContainerBox:{
             //    backgroundColor: '#e91ffa',
                 flex:1,
                 flexDirection: 'column',
                 justifyContent: 'space-between',
+                alignItems: 'flex-end',
                 width: '100%',
                 //  alignItems: 'center'
+                // backgroundColor:'blue',
               },
           containerBox:{
         //    backgroundColor: '#e91ffa',
@@ -50,6 +57,7 @@ export const styles = StyleSheet.create(
             justifyContent: 'space-between',
             width: '100%',
             //  alignItems: 'center'
+            // backgroundColor:'blue',
           },
           box1: {
             padding: 60/3,
@@ -65,12 +73,12 @@ export const styles = StyleSheet.create(
               justifyContent: 'space-between',
             // flexDirection: 'row',
             width: '48%',
-            height: '90%',
+            // height: '95%',
             backgroundColor: '#e91c1a',
           },
           logoTitle: {
             fontSize: 45,
-            color: '#ffffff',
+            color: colors.white,
             fontWeight: 'bold',
             marginBottom: 50,
           },
@@ -88,7 +96,7 @@ export const styles = StyleSheet.create(
               alignSelf: "center", 
               width: 205,
               fontSize: 20,
-              color: '#ffffff' ,
+              color:colors.white,
              // height: 30,
               marginHorizontal: 15, 
               padding: 5           
@@ -102,7 +110,7 @@ export const styles = StyleSheet.create(
           loginButton: {
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor:'#ffffff',
+              backgroundColor:colors.white,
               width: 275    ,
               paddingVertical: 12,
               borderRadius: 5,
@@ -127,24 +135,24 @@ export const styles = StyleSheet.create(
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: '#9DD6EB',
+          // backgroundColor: '#9DD6EB',
         },
         slide2: {
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: '#97CAE5',
+          // backgroundColor: '#97CAE5',
         },
         slide3: {
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: '#92BBD9',
+          // backgroundColor: '#92BBD9',
         },
         text: {
-          color: '#fff',
+          color: colors.white,
           fontSize: 30,
-          fontWeight: 'bold',
+          fontWeight: font.weight.bold,
         },
         icon: {
             // width: 10,

@@ -7,10 +7,10 @@
  */
 
 import React, {Component} from 'react';
-import {View, Text,Image, TextInput, TouchableOpacity,ImageBackground,ScrollView, KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, StatusBar  } from 'react-native';
+import {View, Text,Image, TextInput, AsyncStorage, TouchableOpacity,ImageBackground,ScrollView, KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, StatusBar  } from 'react-native';
 import {background} from '../../../assets/images';
 import Header from '../../header/header'
-
+import {user} from '../../../assets/images'
 import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -19,13 +19,31 @@ import {API} from '../../../lib/api';
 
 export default class MyAccount extends Component{
 
-    constructor(props){
+ constructor(props){
       super(props);
-      this.state = {
-        email: '',
-        password: '',
-      }
+  this.state ={
+    first_name: '',
+    last_name: '',
+    email: '',
+    email: '',
+    phone_no: '',
+    dob: '',
+    profile_pic: '',
+  }
+
+     // this.state = JSON.parse ( AsyncStorage.getItem('userData') );
     }
+
+    async componentDidMount(){
+
+      let data = await AsyncStorage.getItem('userData');
+      data = JSON.parse(data);
+    //  this.state.data = data;
+    //alert(data);
+      this.setState( data )
+          
+      }
+
 
   render() {
     const {navigate} = this.props.navigation;
@@ -33,7 +51,7 @@ export default class MyAccount extends Component{
       
     <ImageBackground style={styles.mainContainer} source={background} >
     <Header title='My Account' back={()=>{this.props.navigation.navigate('Home')}}/>
-    <SafeAreaView style={styles.mainContainer}>
+    {/* <SafeAreaView style={styles.mainContainer}> */}
     <StatusBar barStyle = 'light-content'  hidden={false}/>
 
   
@@ -49,7 +67,7 @@ export default class MyAccount extends Component{
        <View style={{ flex:1,}}>
        <View style={ styles.containerHalf}>
        <View style={styles.imageHolder}>
-          <Image style={styles.image} source={require('../../../assets/images/icon.png')}/>
+          <Image style={styles.image} source= { this.state.profile_pic == null ? user : {uri: this.state.profile_pic}  }/>
        </View> 
           <View style={styles.inputBoxes}>
           <View style={ styles.inputContainer }>
@@ -59,7 +77,7 @@ export default class MyAccount extends Component{
                 placeholder="First Name"
                 selectTextOnFocus={false}
                 editable={false}
-                maxLength= {15}
+                value={this.state.first_name}
                 placeholderTextColor='#ffffff'
             />
           </View>
@@ -70,6 +88,7 @@ export default class MyAccount extends Component{
                 selectTextOnFocus={false}
                 editable={false}
                 placeholder="Last Name"
+                value={this.state.last_name}
                 placeholderTextColor='#ffffff'
             />
           </View>
@@ -78,7 +97,7 @@ export default class MyAccount extends Component{
             <TextInput
                 style={styles.input}
                 placeholder="Email"
-                maxLength= {15}
+                value={this.state.email}
                 selectTextOnFocus={false}
                 editable={false}
                 placeholderTextColor='#ffffff'
@@ -89,6 +108,7 @@ export default class MyAccount extends Component{
             <TextInput
                 style={styles.input}
                 placeholder="Phone Number"
+                value={this.state.phone_no}
                 selectTextOnFocus={false}
                 editable={false}
                 placeholderTextColor='#ffffff'
@@ -99,6 +119,7 @@ export default class MyAccount extends Component{
             <TextInput
                 style={styles.input}
                 placeholder="DOB"
+                value={this.state.dob == null ? ' ' : this.state.dob  }
                 selectTextOnFocus={false}
                 editable={false}
                 placeholderTextColor='#ffffff'
@@ -125,7 +146,7 @@ export default class MyAccount extends Component{
         </TouchableWithoutFeedback>
       {/* </KeyboardAvoidingView> */}
       {/* </ScrollView> */}
-        </SafeAreaView>
+        {/* </SafeAreaView> */}
       </ImageBackground>
     );
   }
