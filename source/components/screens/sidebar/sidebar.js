@@ -63,7 +63,7 @@ constructor(props){
         return res.data;
        } );
       
-       console.log(accountData)
+    //    console.log(accountData)
 
        this.setState( { 
         first_name : data.first_name, 
@@ -100,22 +100,22 @@ constructor(props){
             <Text style={styles.drawerText}>My Carts</Text>
             {this.state.total_carts > 0 && <View style={styles.notifications}><Text style={styles.notifications}>{this.state.total_carts} </Text></View>}
         </TouchableOpacity>
-        <TouchableOpacity style={styles.drawerItems}  onPress= { () => navigate('ProductList', {title: 'Tables'}) }>
+        <TouchableOpacity style={styles.drawerItems}  onPress= { () => navigate('ProductList', {title: 'Tables', _id:1 }) }>
         <FeatherIcon style={styles.drawerIcon} name='tablet' size={20} color='#fff' > </FeatherIcon>
             <Text style={styles.drawerText}>Tables</Text>
             
         </TouchableOpacity>
-        <TouchableOpacity style={styles.drawerItems}  onPress= { () => navigate('ProductList', {title: 'Sofa'}) }>
+        <TouchableOpacity style={styles.drawerItems}  onPress= { () => navigate('ProductList', {title: 'Sofa', _id:2}) }>
         <FeatherIcon style={styles.drawerIcon} name='airplay' size={20} color='#fff' > </FeatherIcon>
             <Text style={styles.drawerText}>Sofa</Text>
             
         </TouchableOpacity>
-        <TouchableOpacity style={styles.drawerItems}  onPress= { () => navigate('ProductList', {title: 'Chairs'}) }>
+        <TouchableOpacity style={styles.drawerItems}  onPress= { () => navigate('ProductList', {title: 'Chairs',_id:3}) }>
         <FeatherIcon style={styles.drawerIcon} name='copy' size={20} color='#fff' > </FeatherIcon>
             <Text style={styles.drawerText}>Chairs</Text>
             
         </TouchableOpacity>
-        <TouchableOpacity style={styles.drawerItems}  onPress= { () => navigate('ProductList', {title: 'Cupboards'}) }>
+        <TouchableOpacity style={styles.drawerItems}  onPress= { () => navigate('ProductList', {title: 'Cupboards',_id:4}) }>
         <FeatherIcon style={styles.drawerIcon} name='sidebar' size={20} color='#fff' > </FeatherIcon>
             <Text style={styles.drawerText}>Cupboards</Text>
             

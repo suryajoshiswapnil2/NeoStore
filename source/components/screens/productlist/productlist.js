@@ -19,6 +19,7 @@ export default class ProductList extends Component {
             offset: 0,
             list: [],
             dataSource: [],
+            product_category_id: this.props.navigation.state.params._id,
         }
     }
 
@@ -56,7 +57,8 @@ export default class ProductList extends Component {
     componentDidMount(){
      
         // console.log('called ComponentDidMount')
-        let url = API.productList+'?product_category_id=1'
+        let url = API.productList+'?product_category_id=' + this.state.product_category_id
+        alert(url)
         return fetch(url,{
             method: 'GET',
         })
@@ -74,6 +76,9 @@ export default class ProductList extends Component {
         }
           else {
              showError(responseJson.user_msg)
+             this.setState({
+                isLoading: false
+            })
           }
         })
         .catch((error) =>{

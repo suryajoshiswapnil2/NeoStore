@@ -93,7 +93,8 @@ const Stack = createStackNavigator({
       header:null
     },
   },
-  Register: {screen:Register,
+  Register: {
+    screen:Register,
     navigationOptions:{
       header:null
     },

@@ -81,21 +81,21 @@ export default class Home extends Component{
       <View style={ styles.containerHalfBottom }>
       <View style={styles.rowContainerBox}>
       <View style={styles.containerBox}>
-          <TouchableOpacity style={[styles.box1, { backgroundColor: '#e91b1a'}]} onPress={() => navigate('ProductList', {title: 'Tables'})} >
+          <TouchableOpacity style={[styles.box1, { backgroundColor: '#e91b1a'}]} onPress={() => navigate('ProductList', {title: 'Tables', _id: 1})} >
             <Text style={{textAlign: 'right' ,fontWeight: '500', fontSize: 21, color: '#ffffff' }}>Tables</Text>
             <Icon name='tablet' style={{textAlign: 'left' }} color="#ffffff" size={70} />
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.box1, { backgroundColor: '#bb0100'}]} onPress={() => navigate('ProductList', {title: 'Sofas'})}>
+          <TouchableOpacity style={[styles.box1, { backgroundColor: '#bb0100'}]} onPress={() => navigate('ProductList', {title: 'Sofas', _id: 2})}>
             <Icon style={{textAlign: 'right' }} name='clipboard' color="#ffffff" size={70} />
             <Text style={{textAlign: 'left',fontWeight: '500' , fontSize: 21, color: '#ffffff' }}>Sofas</Text>
           </TouchableOpacity>
       </View>
       <View style={styles.containerBox}>
-          <TouchableOpacity style={[styles.box2, {backgroundColor: '#fe3f3f'}]} onPress={() => navigate('ProductList', {title: 'Chairs'})}>
+          <TouchableOpacity style={[styles.box2, {backgroundColor: '#fe3f3f'}]} onPress={() => navigate('ProductList', {title: 'Chairs', _id: 3})}>
             <Text style={{textAlign: 'left',fontWeight: '500', fontSize: 21,  color: '#ffffff' }}>Chairs</Text>
             <Icon name='wheelchair' color="#ffffff" style={{textAlign: 'right' }} size={70} />
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.box2, {backgroundColor:'#9e0100' }]} onPress={() => navigate('ProductList', {title: 'Cupboards'})}>
+          <TouchableOpacity style={[styles.box2, {backgroundColor:'#9e0100' }]} onPress={() => navigate('ProductList', {title: 'Cupboards', _id: 4})}>
           <Icon name='desktop' style={{textAlign: 'left' }} color="#ffffff" size={70} />
             <Text style={{textAlign: 'right',fontWeight: '500' , fontSize: 21, color: '#ffffff' }}>Cupboards</Text>
           </TouchableOpacity>
