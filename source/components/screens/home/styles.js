@@ -67,14 +67,15 @@ export const styles = StyleSheet.create(
             height: '90%',
             
             // justifyContent: left, 
-            backgroundColor: '#e91c1a',
-          },box2: {
+            // backgroundColor: '#e91c1a',
+          },
+          box2: {
               padding: 60/3,
               justifyContent: 'space-between',
             // flexDirection: 'row',
             width: '48%',
             // height: '95%',
-            backgroundColor: '#e91c1a',
+            // backgroundColor: '#e91c1a',
           },
           logoTitle: {
             fontSize: 45,

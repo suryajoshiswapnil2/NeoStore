@@ -19,6 +19,7 @@ import * as Device from '../../../lib/globals'
 //import { } from 'react-native-elements';
 import {Radio, CheckBox, RadioGroup} from './components';
 import {API} from '../../../lib/api';
+import {validator,showError} from '../../../utils/validators'
  
 
 export default class Register extends Component{
@@ -43,25 +44,33 @@ export default class Register extends Component{
 
   _doRegister =  async () => 
   {
-    if(this.state.fname == '')
-      alert('please input first name');
-    else if(this.state.lname == '')
-      alert('plese input last name');
-      else if(this.state.email == '' )
-      alert('please input email');
-      else if(this.state.password == '' )
-      alert('please input password');
-    else if(this.state.cpassword == '')
-      alert('plese input confirm password');
-      else if(this.state.mobile == '')
-      alert('plese input mobile number');
-    else if(this.state.gender == '' )
-      alert('please select gender');
-    else if( this.state.agreed == '')
-      alert('please agree terms and condition');
-    else{
+
+    // for ( let i in this.state)
+    //     if( validator.emptyField(this.state[i]) )
+    //         return showError(i + ' field is empty!')
+
+
+ if( validator.emptyField(this.state.fname) )
+      return showError('please input first name!')
+  else if(validator.emptyField(this.state.lname))
+      return showError('please input last name!')
+  else if(validator.emptyField(this.state.email))
+      return showError('please input email address!')
+  else if(validator.emptyField(this.state.password))
+      return showError('please input password!')
+  else if(validator.emptyField(this.state.cpasword))
+      return showError('please input cofirm password!')
+  else if( validator.emptyField(this.state.mobile))
+      return showError('please input mobile number!')
+  else if( validator.emailField(this.state.email))
+      return showError('Invalid email address!')
+  else if(this.state.gender == '' )
+      return showError('please select gender');
+  else if( this.state.agreed == '')
+      return showError('please agree terms and condition');
+  else{
       if(this.state.password != this.state.cpasword)
-        alert('password and confirm password mismatched!');
+        return showError('password and confirm password mismatched!');
       else
       {
 
@@ -118,7 +127,7 @@ export default class Register extends Component{
                 autoCapitalize= 'none'
                 style={styles.input}
                 placeholder="First Name"
-                maxLength= {15}
+                maxLength= {20}
                 placeholderTextColor='#ffffff'
                 // keyboardType= 'default'
                 returnKeyType ='next' 
@@ -133,7 +142,7 @@ export default class Register extends Component{
                 style={ styles.input }
                 autoCorrect = {false}
                 autoCapitalize= 'none' 
-                maxLength= {15}
+                maxLength= {20}
                 placeholder="Last Name"
                 placeholderTextColor='#ffffff'
                 returnKeyType ='next' 
@@ -147,7 +156,7 @@ export default class Register extends Component{
             <Icon style={styles.icons}  name="envelope" size={20} color="white" />
             <TextInput
                 style={ styles.input } 
-                maxLength= {15}
+                maxLength= {50}
                 autoCorrect = {false}
                 autoCapitalize= 'none'
                 placeholder="Email"
@@ -227,7 +236,7 @@ export default class Register extends Component{
                 style={ styles.input }
                 autoCorrect = {false}
                 autoCapitalize= 'none' 
-                maxLength= {15}
+                maxLength= {13}
                 placeholder="Phone Number"
                 placeholderTextColor='#ffffff'
                 returnKeyType ='done' 

@@ -1,7 +1,7 @@
 export default colors = {
 
    pureRed: '#9e0100',
-   darkRed : 'bb0100',
+   darkRed : '#bb0100',
    red: '#e91c1a',
    lightRed: '#fe3f3f',
 
@@ -19,5 +19,8 @@ export default colors = {
    darkGray: '#7f7f7f',
    gray: '#8e8e8e',
    lightGray: '#bfbfbf',
+
+   productWhite: '#4f4f4f',
+   productManu: '#fe4040',
 
 }

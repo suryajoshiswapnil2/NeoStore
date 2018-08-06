@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {SafeAreaView} from 'react-navigation'; 
 import {API} from '../../../lib/api';
+import {validator,showError} from '../../../utils/validators'
 
 export default class MyAccount extends Component{
 
@@ -25,7 +26,6 @@ export default class MyAccount extends Component{
       
         first_name: '',
         last_name: '',
-        email: '',
         email: '',
         phone_no: '',
         dob: '',

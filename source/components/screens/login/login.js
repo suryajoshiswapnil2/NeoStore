@@ -15,6 +15,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {SafeAreaView} from 'react-navigation'; 
 import {API} from '../../../lib/api';
+import {validator,showError} from '../../../utils/validators'
+import FlashMessage from "react-native-flash-message"
+
+
+
 // import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export default class Login extends Component{
@@ -28,21 +33,47 @@ export default class Login extends Component{
       }
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
 
         let data = await AsyncStorage.getItem('userData');
+        // console.log(data)
         if(data != null )
         this.props.navigation.navigate('Home');
     }
+
+    _getAccount = async (token) => {
+
+     return ;
+    };
+
+    
+ isValid = () => {
+  return 
+  validator.emptyField(this.state.email) ? showError('username is empty!') 
+  : validator.emailField(this.state.password) ?  showError('password is empty!') 
+  : validator.emailField(this.state.email) ? showError('Invalid email!') 
+  : validator.passwordField(this.state.password) ? showError('Password contain some invalid characters!')
+  : true
+
+ }
+
 
 
   _doLogin = async (e) => {
     // console.log(this.props);
     // this.props.navigation.navigate('Home');
-   
-   if( this.state.email == '' || this.state.password == '') {
-       return Alert.alert('Email or password empty!');
-  }
+
+    // if(!this.isValid())
+    //   return false
+
+    if( validator.emptyField(this.state.email) )
+      return showError('Username is empty!', '',this.usernameInput)
+    else if(validator.emptyField(this.state.password))
+      return showError('Password is empty!', '' , this.passwordInput)
+    else if( validator.emailField(this.state.email))
+      return showError('Email is invalid!!', '',this.usernameInput)
+    else if( validator.passwordField(this.state.password))
+      return showError('Password should be 7-15 alpha-numeric characters!', '' , this.passwordInput)
       
     let formData = new FormData();
     for ( let i in this.state )
@@ -60,12 +91,21 @@ export default class Login extends Component{
       else{
          AsyncStorage.setItem('userData', JSON.stringify(res.data));
          Alert.alert(res.user_msg);
-         this.props.navigation.navigate('Home');
+   
+        //  _getAccount(res.access_token);
+         
+    this.props.navigation.navigate('Home');
 
       } 
         
       
-      }  );
+      }
+    
+    
+    
+    
+    
+    );
 
 
   //   await fetch( 'https://reqres.in', {
@@ -198,6 +238,7 @@ export default class Login extends Component{
                 onSubmitEditing={() => { this.passwordInput.focus(); }}
                 blurOnSubmit={false}
                 onChangeText={(text) => this.setState({email: text})}
+                ref={(input) => { this.usernameInput = input; }}
             />
           </View>
           <View style={ styles.inputContainer }>
@@ -235,8 +276,10 @@ export default class Login extends Component{
             <Feather name='plus' style={{ fontFamily: 'Feather', backgroundColor:'#E31616'}} color='#ffffff' size={138/3}></Feather>
           </TouchableOpacity>
         </View>
+        
       {/* </ScrollView> */}
         </SafeAreaView>
+        <FlashMessage position="top" />
       </ImageBackground>
     );
   }

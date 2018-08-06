@@ -7,8 +7,9 @@
  */
 
 import React, {Component} from 'react';
-import {View,Text,Image} from 'react-native'
+import {View,Text,Image,ActivityIndicator,AsyncStorage} from 'react-native'
 import { createSwitchNavigator, createDrawerNavigator , createStackNavigator } from  'react-navigation'
+import styles from './source/styles/styles'
 
 // User Component
 import Login from './source/components/screens/login/login';
@@ -19,6 +20,7 @@ import SideBar from './source/components/screens/sidebar/sidebar'
 import ResetPassword from './source/components/screens/resetpassword/resetpassword';
 import MyAccount from './source/components/screens/myaccount/myaccount';
 import EditProfile from './source/components/screens/editprofile/editprofile';
+import ProductList from  './source/components/screens/productlist/productlist'
 
 const MyAccountStack  = createStackNavigator(
 {
@@ -39,7 +41,7 @@ const MyAccountStack  = createStackNavigator(
     navigationOptions: {
       header:null,
     },
-  },
+  }
 
 },
 {
@@ -56,30 +58,17 @@ const DashboardNav = createDrawerNavigator({
       header:null,
     },
   },
-  Cupboards: {
-    screen: Home,
-    navigationOptions: {
-      header:null,
-    },
-  },
-  tables: {
-    screen: Home,
-    navigationOptions: {
-      header:null,
-    },
-  },
-  sofas: {
-    screen: Home,
-    navigationOptions: {
-      header:null,
-    },
-  },
- 
   MyAccount: {
       screen: MyAccountStack,
       navigationOptions:{
         header: null,
   }
+  },
+  ProductList: {
+    screen: ProductList,
+    navigationOptions:{
+      header: null,
+    }
   }
 
   
@@ -87,8 +76,7 @@ const DashboardNav = createDrawerNavigator({
 {
   initialRouteName : "Home",
   contentComponent: ( props ) => (
-  
-        <SideBar pro={props} /> 
+  <SideBar pro={props} /> 
   ) 
 }
 );
@@ -124,10 +112,50 @@ const Stack = createStackNavigator({
 
 
 export default class App extends Component{
+
+  constructor(props){
+    super(props)
+    this.state = {
+      isLoading : true,
+      isLogined: false,
+    }
+  }
+
+
+  async componentWillMount() {
+    
+    let data = await AsyncStorage.getItem('userData');
+    // console.log(data)
+    if(data != null ) {
+      this.setState({
+        isLoading: false,
+        isLogined: true,
+      })
+      return
+    }  
+      this.setState({
+      isLoading: false,
+      isLogined: false,
+    })
+    return
+  }
+
+
   render() {
-    return (
-          <Stack/>
-    );
+    
+    if( this.state.isLoading ) {
+      return ( 
+      <View style={styles.container}>
+        <ActivityIndicator  size="large" color="#0000ff" />
+       </View>)  
+    }
+    
+    if(this.state.isLogined)
+      return( <DashboardNav/>)
+    else
+      return( <Stack/>)
+
+    
   }
 }
 

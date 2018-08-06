@@ -15,7 +15,9 @@ import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import Header from "../../header/header";
-
+import {validator,showError} from '../../../utils/validators'
+import {API, apiCall} from '../../../lib/api'
+import FlashMessage from "react-native-flash-message"
 
 export default class Forgot extends Component{
 
@@ -30,15 +32,35 @@ export default class Forgot extends Component{
 
 
 
-  _doForgot() {
+  _doForgot = async () =>  {
 
+    if( validator.emptyField(this.state.email) )
+    return showError('Username is empty!', '')
+  else if(validator.emptyField(this.state.password))
+    return showError('Password is empty!')
+  else if( validator.emailField(this.state.email))
+    return showError('Email is invalid!!')
+  else if( validator.passwordField(this.state.password))
+    return showError('Password should be 7-15 alpha-numeric characters!')
+  else if(validator.passConfirm(this.state.password, this.state.cpassword))
+    return showError('password mismatched!')
+  
+    let formData = new FormData()
+    formData.append('email', this.state.email)
 
+  //  let data = apiCall(API.forgot, { 
+  //   method: 'POST',
+  //   headers: {},
+  //   body: formData,
+  //  });
+  await fetch(API.forgot, {
+    method: 'POST',
+    body: formData,
+  })
+  .then( res => res.json()  )
+  .then( res => showError(res.user_msg))
 
   }
-
-
-
-
 
   render() {
     const {navigate} = this.props.navigation;
@@ -67,7 +89,7 @@ export default class Forgot extends Component{
                 returnKeyType ='next' 
                 onSubmitEditing={() => { this.passwordInput.focus(); }}
                 blurOnSubmit={false}
-                onChangeText={(text) => this.setState({text})}
+                onChangeText={(text) => this.setState({email :text})}
             />
           </View>
           <View style={ styles.inputContainer }>
@@ -83,7 +105,7 @@ export default class Forgot extends Component{
                 onSubmitEditing={() => { this.confirmPasswordInput.focus(); }}
                 blurOnSubmit={false}
                 ref={(input) => { this.passwordInput = input; }}
-                onChangeText={(text) => this.setState({text})}
+                onChangeText={(text) => this.setState({password: text })}
             />
           </View>
           <View style={ styles.inputContainer }>
@@ -96,7 +118,7 @@ export default class Forgot extends Component{
                 placeholderTextColor='#ffffff'
                 returnKeyType ='done' 
                 ref={(input) => { this.confirmPasswordInput = input; }}
-                onChangeText={(text) => this.setState({text})}
+                onChangeText={(text) => this.setState({cpassword: text})}
             />
           </View>
           </View>
@@ -116,6 +138,7 @@ export default class Forgot extends Component{
         </View> */}
       </View>
       </TouchableWithoutFeedback>
+      <FlashMessage position="top" />
       </ImageBackground>
     );
   }
