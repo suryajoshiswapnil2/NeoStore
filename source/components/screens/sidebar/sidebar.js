@@ -13,7 +13,7 @@ import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import FeatherIcon from 'react-native-vector-icons/Feather'
  
-import {SafeAreaView, DrawerItems, } from 'react-navigation'; 
+import {SafeAreaView, DrawerItems, NavigationActions, StackActions } from 'react-navigation'; 
 import {user} from '../../../assets/images'
 import {API} from '../../../lib/api'
 import { showError } from '../../../utils/validators';
@@ -38,7 +38,12 @@ constructor(props){
     logout = async () => {
         await AsyncStorage.removeItem('userData');
         showError('Logout Successful!')
-        this.props.pro.navigation.navigate('Login');
+        this.props.pro.navigation.navigate('LoginStack');
+        // const resetAction = StackActions.reset({
+        //     index: 0,
+        //     actions: [NavigationActions.navigate({ routeName: 'LoginStack' })],
+        //   });
+        //   this.props.pro.navigation.dispatch(resetAction);
     }    
 
 
@@ -78,6 +83,91 @@ constructor(props){
         // console.log(this.state.total_carts)
     }
 
+
+
+renderMenuItems = () => {
+    const {navigate} = this.props.pro.navigation;
+    let arr = [
+           {
+               title: 'My Carts',
+               icon: 'shopping-cart',	
+               notifications: true,
+               value: this.state.total_carts,
+               navigate: () => { navigate('MyCart',)},
+           },
+           {
+               title: 'Tables',
+               icon: 'tablet',	
+               notifications: false,
+               navigate: () => { navigate('ProductList', {title: 'Tables', _id:1 })  },
+            },
+           {
+               title: 'Sofa',
+               icon: 'airplay',	
+               notifications: false,
+               navigate: () => { navigate('ProductList', {title: 'Sofa', _id:2 })  },
+           },
+           {
+               title: 'Chairs',
+               icon: 'copy',
+               notifications: false,
+               navigate: () => { navigate('ProductList', {title: 'Chairs', _id:3 })  },
+           },
+           {
+               title: 'Cupboards',
+               icon: 'sidebar',
+               notifications: false,
+               navigate: () => { navigate('ProductList', {title: 'Tables', _id:4 })  },
+           },
+           {
+               title: 'My Account',
+               icon: 'user',
+               notifications: false,
+               navigate: () => { navigate('MyAccount')  },
+           },
+           {
+               title: 'Store Locator',
+               icon: 'map-pin',
+               notifications: false,
+               navigate: () => { },
+           },
+           {
+               title: 'My Orders',
+               icon: 'list',
+               notifications: true,
+               value: this.state.total_orders,
+               navigate: () => { navigate('MyOrders')  },
+           },
+           {
+               title: 'Logout',
+               icon: 'log-out',
+               notifications: false,
+               navigate: () => { this.logout() },
+           }
+       ]
+   
+   let elems = []
+       
+   arr.forEach(element => {
+       elems.push(
+           <TouchableOpacity style={styles.drawerItems} onPress={element.navigate}>
+           <FeatherIcon style={styles.drawerIcon} name={element.icon} size={20} color='#fff' />
+               <Text style={styles.drawerText}>{element.title}</Text>
+               {
+                   element.notifications 
+                   && 
+                   (element.value > 0  
+                       && 
+                           <View style={styles.notifications}><Text style={styles.notifications}>{element.value}</Text></View>)
+               }
+           </TouchableOpacity>
+       ) 
+   })
+   
+   return elems
+   
+}
+
   render() {
     const {navigate} = this.props.pro.navigation;
     return (
@@ -95,7 +185,7 @@ constructor(props){
       <View style={styles.containerBottom}>
         {/* <DrawerItems {...this.props.pro}/> */}
         <ScrollView style={ { flex:1}}>
-        <TouchableOpacity style={styles.drawerItems}>
+        {/* <TouchableOpacity style={styles.drawerItems}>
         <FeatherIcon style={styles.drawerIcon} name='shopping-cart' size={20} color='#fff' > </FeatherIcon>
             <Text style={styles.drawerText}>My Carts</Text>
             {this.state.total_carts > 0 && <View style={styles.notifications}><Text style={styles.notifications}>{this.state.total_carts} </Text></View>}
@@ -139,7 +229,8 @@ constructor(props){
             <FeatherIcon style={styles.drawerIcon} name='log-out' size={20} color='#fff' > </FeatherIcon>
             <Text style={styles.drawerText}>Logout</Text>
             
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        {this.renderMenuItems()}
         </ScrollView>
       </View>
       </SafeAreaView>

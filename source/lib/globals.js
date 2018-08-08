@@ -8,4 +8,5 @@ module.exports = {
         isIOS: Platform.OS == 'ios' ? true : false, // check for ios 
         isAndroid: Platform.OS == 'android' ? true: false,  
         isX: Dimensions.get("window").height == 812 ? true : false,
+        iosMargin: 22,
 };

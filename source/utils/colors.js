@@ -22,5 +22,9 @@ export default colors = {
 
    productWhite: '#4f4f4f',
    productManu: '#fe4040',
+   productTitle: '#262626',
+
+   orderText: '#1c1c1c',
+
 
 }

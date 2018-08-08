@@ -42,9 +42,9 @@ export default class ProductList extends Component {
         this.setState(
             {
                 list: list.concat( 
-                    dataSource.slice(offset, (offset + 5) > limit ? 
-                    limit : ( offset + 5)  )),
-                offset: (offset + 5 ) > limit ? limit : (offset + 5),
+                    dataSource.slice(offset, (offset + 7) > limit ? 
+                    limit : ( offset + 7)  )),
+                offset: (offset + 7 ) > limit ? limit : (offset + 7),
             }
         )   
         
@@ -58,7 +58,7 @@ export default class ProductList extends Component {
      
         // console.log('called ComponentDidMount')
         let url = API.productList+'?product_category_id=' + this.state.product_category_id
-        alert(url)
+        // alert(url)
         return fetch(url,{
             method: 'GET',
         })
@@ -103,13 +103,14 @@ export default class ProductList extends Component {
          
             <View style={styles.container}>
             <StatusBar barStyle = 'dark-content' hidden={false} />
-            <CustomHeader leftIcon='menu' leftAction={this.props.navigation.openDrawer} title={this.props.navigation.state.params.title} rightIcon='search'/>
+            <CustomHeader leftIcon='chevron-left' style={{fontSize: 20,}} leftAction={()=>{this.props.navigation.navigate('Home')}} title={this.props.navigation.state.params.title} rightIcon='search'/>
                   <FlatList
                     data={this.state.list} 
                     extraData={this.state}
                     renderItem={({item}) => 
-                        <ProductItem  id={item.id} name={item.name} rating={item.rating} cost={item.cost} url={item.product_images} producer={item.producer} />
-                }
+                        
+                        <ProductItem id={item.id} navigate={this.props.navigation.navigate} name={item.name} rating={item.rating} cost={item.cost} url={item.product_images} producer={item.producer} />
+                } 
                     
                     onEndReached ={ () => {
                         //  console.log('end reached')

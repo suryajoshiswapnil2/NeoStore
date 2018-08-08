@@ -21,6 +21,31 @@ import ResetPassword from './source/components/screens/resetpassword/resetpasswo
 import MyAccount from './source/components/screens/myaccount/myaccount';
 import EditProfile from './source/components/screens/editprofile/editprofile';
 import ProductList from  './source/components/screens/productlist/productlist'
+import ProductDetails from './source/components/screens/productdetails/productdetails'
+import MyOrders from './source/components/screens/myorder/myorders'
+import MyCart from './source/components/screens/mycart/mycart'
+
+
+const ProductStack = createStackNavigator(
+{
+  ProductList: {
+    screen: ProductList,
+    navigationOptions:{
+      header: null,
+    }
+  },
+  ProductDetails: {
+    screen: ProductDetails,
+    navigationOptions:{
+      header: null,
+    }
+  },
+
+},
+{
+  initialRouteName: 'ProductList'
+}
+)
 
 const MyAccountStack  = createStackNavigator(
 {
@@ -51,36 +76,8 @@ const MyAccountStack  = createStackNavigator(
 );
 
 
-const DashboardNav = createDrawerNavigator({
-  Home: {
-    screen: Home,
-    navigationOptions: {
-      header:null,
-    },
-  },
-  MyAccount: {
-      screen: MyAccountStack,
-      navigationOptions:{
-        header: null,
-  }
-  },
-  ProductList: {
-    screen: ProductList,
-    navigationOptions:{
-      header: null,
-    }
-  }
+const LoginStack = createStackNavigator({
 
-  
-},
-{
-  initialRouteName : "Home",
-  contentComponent: ( props ) => (
-  <SideBar pro={props} /> 
-  ) 
-}
-);
-const Stack = createStackNavigator({
   Login: {
     screen: Login,
     navigationOptions: {
@@ -99,6 +96,67 @@ const Stack = createStackNavigator({
       header:null
     },
   },
+},
+{
+  initialRouteName : "Login"
+}
+)
+
+const DashboardNav = createDrawerNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      header:null,
+    },
+  },
+  MyAccount: {
+      screen: MyAccountStack,
+      navigationOptions:{
+        header: null,
+  }
+  },
+  MyOrders: {
+    screen: MyOrders,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  MyCart: {
+    screen: MyCart,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  // ProductList: {
+  //   screen: ProductList,
+  //   navigationOptions:{
+  //     header: null,
+  //   }
+  // },
+  ProductStack:{
+    screen: ProductStack,
+    navigationOptions: {
+      header: null,
+    }
+  }
+},
+{
+  initialRouteName : "Home",
+  contentComponent: ( props ) => (
+  <SideBar pro={props} /> 
+  ) 
+}
+);
+
+
+const Stack = createSwitchNavigator({
+
+  LoginStack: {
+    screen : LoginStack,
+    navigationOptions : {
+      header : null,
+    }
+  },
   DashboardNav : {
     screen : DashboardNav,
     navigationOptions : {
@@ -107,7 +165,27 @@ const Stack = createStackNavigator({
   }
 },
 {
-  initialRouteName : "Login"
+  initialRouteName : "LoginStack"
+}
+);
+
+const HomeStack = createSwitchNavigator({
+
+  LoginStack: {
+    screen : LoginStack,
+    navigationOptions : {
+      header : null,
+    }
+  },
+  DashboardNav : {
+    screen : DashboardNav,
+    navigationOptions : {
+      header : null,
+    }
+  }
+},
+{
+  initialRouteName : "DashboardNav"
 }
 );
 
@@ -152,7 +230,7 @@ export default class App extends Component{
     }
     
     if(this.state.isLogined)
-      return( <DashboardNav/>)
+      return( <HomeStack/>)
     else
       return( <Stack/>)
 

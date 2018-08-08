@@ -9,14 +9,17 @@ export const API = {
    forgot: 'http://staging.php-dev.in:8844/trainingapp/api/users/forgot',
    changePassword: 'http://staging.php-dev.in:8844/trainingapp/api/users/change',
    setRatings: 'http://staging.php-dev.in:8844/trainingapp/api/products/setRating',
+   addToCart: 'http://staging.php-dev.in:8844/trainingapp/api/addToCart',
+   editCart: 'http://staging.php-dev.in:8844/trainingapp/api/editCart',
+   deleteCart: 'http://staging.php-dev.in:8844/trainingapp/api/deleteCart',
 
 
    //GET
    accountDetails: 'http://staging.php-dev.in:8844/trainingapp/api/users/getUserData',
    productList: 'http://staging.php-dev.in:8844/trainingapp/api/products/getList',
    productDetails: 'http://staging.php-dev.in:8844/trainingapp/api/products/getDetail',
-
-
+   listCartItems: 'http://staging.php-dev.in:8844/trainingapp/api/cart',
+   orderList: 'http://staging.php-dev.in:8844/trainingapp/api/orderList',
 };
 
 

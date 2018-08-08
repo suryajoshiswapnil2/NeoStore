@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import {View, Text, Image, } from 'react-native'
+import {View, Text, Image,TouchableOpacity } from 'react-native'
 
 import {StyleSheet} from 'react-native';
 import * as Device from '../../../lib/globals'
 import colors from '../../../utils/colors'
 import font from '../../../utils/fontSize'
-
+import {Rating} from 'react-native-ratings'
 export default class ProductItem extends Component {
 
     constructor(props)
@@ -21,8 +21,9 @@ export default class ProductItem extends Component {
     }
 
     render(){
+        // const {navigate} = this.props.navigation
         return(
-          
+    <TouchableOpacity onPress={ () => { this.props.navigate('ProductDetails', { _id: this.props.id})}} >       
      <View style={styles.itemContainer}>
             <View style={styles.imageContainer}>
                 <Image style={styles.image} source={{uri: this.props.url } }></Image>
@@ -34,10 +35,24 @@ export default class ProductItem extends Component {
                 </View>
                 <View style={styles.bottomContainer}>
                     <Text style={styles.price}>Rs. {this.props.cost}</Text>
-                    <Text style={styles.rating}>{this.props.rating}</Text>
+                    {/* <Text style={styles.rating}>{this.props.rating}</Text> */}
+                    <Rating
+                    type='custom'
+                        ratingCount={5}
+                        startingValue={this.props.rating}
+                        onFinishRating={this.ratingCompleted}
+                        imageSize={15}
+                     
+                        style={{ paddingVertical: 8, }}
+                        readonly
+                        ratingBackgroundColor='gray'
+                        // ratingColor='#000'
+                        />
                 </View>
             </View>
         </View>
+</TouchableOpacity>
+
         )
     }
 }

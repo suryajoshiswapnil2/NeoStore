@@ -1,0 +1,117 @@
+import React, { Component } from 'react'
+import {View,ScrollView,AsyncStorage, Keyboard,TextInput,Modal,TouchableWithoutFeedback, Share, Text,StatusBar,FlatList,Image,ActivityIndicator, TouchableOpacity} from 'react-native'
+import {CustomHeader} from '../../header/header'
+
+import {styles} from './styles'
+import { API } from '../../../lib/api';
+import { showError } from '../../../utils/validators'
+import Feather from 'react-native-vector-icons/Feather'
+import {Rating} from 'react-native-ratings'
+
+
+
+
+export default class MyOrders extends Component {
+
+    constructor(props)
+    {
+        super(props)
+        this.state ={
+            isLoading : true,
+            access_token: '',
+            data:[],
+        }
+    }
+
+    renderPrice = (value) => {
+        return (<View style={styles.costContainer}>
+                    <Text style={styles.icon}>&#8377; </Text>
+                    <Text style={styles.cost}>{value}.00</Text>
+                </View>)
+    } 
+
+
+    componentDidMount = async () => {
+        
+                    
+       let data = await AsyncStorage.getItem('userData');
+   
+       data = JSON.parse(data);
+
+       this.setState( { 
+         access_token: data.access_token,   
+       } )
+
+        return fetch(API.orderList,{
+            method: 'GET',
+            headers: {
+                access_token: this.state.access_token
+            }
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          if (responseJson.status == 200) {
+              console.log(responseJson)
+            this.setState({
+                isLoading: false,
+                data: responseJson.data,      
+            });
+        }
+          else {
+             showError(responseJson.user_msg)
+             this.setState({
+                isLoading: false
+            })
+          }
+        })
+        .catch((error) =>{
+          console.error(error);
+        });
+
+    }
+
+    render(){
+
+        if(this.state.isLoading){
+            return(
+                <View style={styles.container}>
+                    <ActivityIndicator size='large' color="#0000ff"/>
+                </View>
+            )
+          }
+
+        return(
+            
+            <View style={styles.container}>
+            <StatusBar barStyle = 'dark-content' hidden={false} />
+            <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.goBack()}} title='My Orders' rightIcon='search'/>
+            <View style={styles.mainContainer}>
+            { this.state.data.length != 0 ? <Text>No products in list</Text> : 
+                <FlatList 
+                    data={[{key: 'a', id: 15, cost: 1554, created: '8 aug 2018'},{key: 'b', id: 15, cost: 1554, created: '8 aug 2018'}]}
+                    renderItem={({item}) => 
+                <TouchableOpacity onPress={this.doSomething}>    
+                    <View style={styles.boxContainer}>
+                            <View style={styles.left}>
+                                <View style={styles.textContainer}>
+                                    <Text style={styles.upperText}>Order ID: {item.id}</Text>
+                                </View>
+                                <View style={styles.textBottomContainer}>
+                                    <Text style={styles.bottomText}>Ordered Date: {item.created}</Text>
+                                </View>
+                            </View>
+                            <View style={styles.right}>
+                                    {/* <Text style={styles.cost}>&#8377; {item.cost}</Text> */}
+                                    {this.renderPrice(item.cost)}
+                            </View>
+                    </View>
+                </TouchableOpacity>
+                
+                }
+                />
+            }
+            </View>
+            </View>  
+        )
+    }
+}

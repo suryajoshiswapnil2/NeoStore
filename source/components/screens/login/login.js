@@ -83,7 +83,9 @@ export default class Login extends Component{
     await fetch(API.login, {
       method: 'POST',
       body: formData,
-    }).then(res => res.json()  ).then(  res =>{  
+    })
+    .then( res => res.json())
+    .then( res =>{  
       
         // console.log(res);
       if( res.status != 200) 
