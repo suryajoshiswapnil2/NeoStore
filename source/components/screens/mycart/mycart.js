@@ -94,7 +94,7 @@ export default class MyCart extends Component {
                 <FlatList 
                     data={this.state.data}
                     renderItem={({item}) => 
-                
+                <ScrollView horizontal={true} width={600} >
                     <View style={styles.boxContainer}>
                             <View style={styles.left}>
                                 <View style={styles.textContainer}>
@@ -111,15 +111,23 @@ export default class MyCart extends Component {
                                     <Text style={styles.cost}>&#8377; {item.product.cost * item.quantity }.00</Text>
                                 </View>
                             </View>
+                            <View style={{marginRight: -100}}>
+                                <Text>Delete</Text>
+                            </View>
                     </View>
-                
+                </ScrollView>
                 }
                 />
             }
                 <View style={styles.totalContainer}>
                        <Text style={styles.total}>Total</Text>
-                       <Text style={styles.total}>&#8377; {this.state.total}</Text>
+                       <Text style={styles.total}>&#8377; {this.state.total}.00</Text>
                 </View>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={[styles.button, {backgroundColor:'red'}]}  onPress={() => {this._addToCart()}}>
+                        <Text style={[styles.buttonText, {fontWeight: 'bold', textAlign:'center'}]} >ORDER NOW</Text>
+                    </TouchableOpacity>
+                </View> 
             </View>
             </View>  
         )

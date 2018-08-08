@@ -11,13 +11,13 @@ export const styles = StyleSheet.create(
             flex: 1,
             marginTop: Device.iosMargin,
             justifyContent: 'flex-start',
-            alignItems: 'center',
+            // alignItems: 'center',
           },
           mainContainer: {
-              flex:1,
+            //   flex:1,
             //   height: Device.window.height,
-              justifyContent: 'center',
-              alignItems: 'center',
+            //   justifyContent: 'center',
+            //   alignItems: 'center',
           },
           boxContainer: {
               justifyContent: 'center',
@@ -25,7 +25,7 @@ export const styles = StyleSheet.create(
               height: 110,
               width: Device.window.width,
               backgroundColor: colors.white,  
-              padding: 10,
+              paddingHorizontal: 15,
               flexDirection: 'row',
               borderBottomColor: colors.gray,
               borderBottomWidth: 0.5,
@@ -93,12 +93,41 @@ export const styles = StyleSheet.create(
               alignItems: 'center',
           },
           total:{
-              fontSize: 15,
-              fontWeight: 'bold',
+              fontSize: 17,
+              fontWeight: '600',
+              color: colors.lightBlack
           },
           totalContainer: {
                flexDirection: 'row',
-               flex: 1, 
-          }
+               justifyContent: 'space-between',
+               height: 70,
+            //    flex: 1, 
+            //   backgroundColor:'red' ,
+              alignItems: 'center',
+              paddingHorizontal: 20,
+              borderBottomWidth: 0.5,
+              borderBottomColor: colors.gray,  
+          },
+          button: {
+            marginVertical: 30,
+            backgroundColor: colors.gray,
+            height: 50,
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 12,
+            color: colors.white,
+            borderRadius: 6,   
+        },
+        buttonText:{
+            fontSize: 20,
+            color: colors.white,
+        },
+        buttonContainer:{
+            width: '90%',
+            justifyContent: 'center',
+            marginHorizontal: 18,
+         
+        }
     }
 );
