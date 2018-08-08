@@ -7,7 +7,7 @@ import { API } from '../../../lib/api';
 import { showError } from '../../../utils/validators'
 import Feather from 'react-native-vector-icons/Feather'
 import {Rating} from 'react-native-ratings'
-
+import { SwipeListView } from 'react-native-swipe-list-view'
 
 
 
@@ -91,10 +91,10 @@ export default class MyCart extends Component {
             <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.goBack()}} title='My Cart' rightIcon='search'/>
             <View style={styles.mainContainer}>
             { this.state.data.length <= 0 ? <Text>No products in list</Text> : 
-                <FlatList 
+                <SwipeListView
+                    useFlatList 
                     data={this.state.data}
                     renderItem={({item}) => 
-                <ScrollView horizontal={true} width={600} >
                     <View style={styles.boxContainer}>
                             <View style={styles.left}>
                                 <View style={styles.textContainer}>
@@ -111,12 +111,16 @@ export default class MyCart extends Component {
                                     <Text style={styles.cost}>&#8377; {item.product.cost * item.quantity }.00</Text>
                                 </View>
                             </View>
-                            <View style={{marginRight: -100}}>
-                                <Text>Delete</Text>
-                            </View>
                     </View>
-                </ScrollView>
-                }
+                    }
+                    renderHiddenItem={ (data, rowMap) => (
+                        <View style={styles.rowBack}>
+                            <Text>Left</Text>
+                            <Text>Right</Text>
+                        </View>
+                    )}
+                    leftOpenValue={75}
+                    rightOpenValue={-75}
                 />
             }
                 <View style={styles.totalContainer}>
