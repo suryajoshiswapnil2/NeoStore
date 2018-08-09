@@ -14,10 +14,10 @@ export const styles = StyleSheet.create(
             // alignItems: 'center',
           },
           mainContainer: {
-            //   flex:1,
-            //   height: Device.window.height,
-            //   justifyContent: 'center',
-            //   alignItems: 'center',
+              flex:1,
+              height: Device.window.height,
+              justifyContent: 'center',
+              alignItems: 'center',
           },
           boxContainer: {
               justifyContent: 'center',
@@ -128,6 +128,24 @@ export const styles = StyleSheet.create(
             justifyContent: 'center',
             marginHorizontal: 18,
          
+        },
+        rowBack: {
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'flex-end',
+            height: 110,
+            // backgroundColor: 'red',
+            width: 75,
+            borderBottomWidth: 0.5,
+            borderBottomColor: colors.gray,
+        },
+        iconDelete: {
+            backgroundColor: colors.red,
+            borderRadius: 18,
+            padding: 5,
+            color: colors.white,
+            textAlign:'center',
         }
     }
 );

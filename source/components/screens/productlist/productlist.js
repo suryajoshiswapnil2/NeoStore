@@ -103,19 +103,17 @@ export default class ProductList extends Component {
          
             <View style={styles.container}>
             <StatusBar barStyle = 'dark-content' hidden={false} />
-            <CustomHeader leftIcon='chevron-left' style={{fontSize: 20,}} leftAction={()=>{this.props.navigation.navigate('Home')}} title={this.props.navigation.state.params.title} rightIcon='search'/>
+            <CustomHeader leftIcon='chevron-left' style={{fontSize: 20,}} leftAction={()=>{this.props.navigation.navigate('Home')}} title={this.props.navigation.state.params.title} rightIcon='search'/>      
                   <FlatList
                     data={this.state.list} 
                     extraData={this.state}
                     renderItem={({item}) => 
-                        
                         <ProductItem id={item.id} navigate={this.props.navigation.navigate} name={item.name} rating={item.rating} cost={item.cost} url={item.product_images} producer={item.producer} />
-                } 
-                    
+                    }   
                     onEndReached ={ () => {
                         //  console.log('end reached')
-                     this.fetchResults()}
-                     }
+                        this.fetchResults()}
+                    }
                     onEndReachedThreshold={0.1}
                     keyExtractor={(item) => item.id.toString()}
                   />

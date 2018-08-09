@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View,ScrollView,AsyncStorage, Keyboard,TextInput,Modal,TouchableWithoutFeedback, Share, Text,StatusBar,FlatList,Image,ActivityIndicator, TouchableOpacity} from 'react-native'
+import {View,ScrollView,AsyncStorage,Alert, Keyboard,TextInput,Modal,TouchableWithoutFeedback, Share, Text,StatusBar,FlatList,Image,ActivityIndicator, TouchableOpacity} from 'react-native'
 import {CustomHeader} from '../../header/header'
 
 import {styles} from './styles'
@@ -22,6 +22,38 @@ export default class MyCart extends Component {
             data:[],
             total: 0,
         }
+    }
+
+
+    closeRow(rowMap, rowKey) {
+		if (rowMap[rowKey]) {
+			rowMap[rowKey].closeRow();
+		}
+	}
+
+    // Delete row from flatlist 
+    // Accept Two arguments rowMap which contain data and Key for identification
+    _deleteItem = (rowMap, rowKey) => {
+
+        this.status = false
+        Alert.alert(
+            'Delete Item',
+            'Are you sure to delete this item from cart!',
+            [
+              {text: 'Cancel', onPress: () => this.status = false, style: 'cancel'},
+              {text: 'Delete', onPress: () => this.status = true},
+            ],
+            { cancelable: false }
+        ) 
+
+        if( ! this.status )
+            return 
+
+        this.closeRow(rowMap, rowKey);
+		const newData = [...this.state.data];
+		const prevIndex = this.state.data.findIndex(item => item.key === rowKey);
+		newData.splice(prevIndex, 1);
+		this.setState({data: newData});
     }
 
     componentDidMount = async () => {
@@ -89,8 +121,13 @@ export default class MyCart extends Component {
             <View style={styles.container}>
             <StatusBar barStyle = 'dark-content' hidden={false} />
             <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.goBack()}} title='My Cart' rightIcon='search'/>
-            <View style={styles.mainContainer}>
-            { this.state.data.length <= 0 ? <Text>No products in list</Text> : 
+            
+            { this.state.data.length <= 0 ?
+                (<View style={styles.mainContainer}>
+                    <Text>No products in list</Text>
+                </View> )
+                : 
+                (<View>
                 <SwipeListView
                     useFlatList 
                     data={this.state.data}
@@ -115,14 +152,16 @@ export default class MyCart extends Component {
                     }
                     renderHiddenItem={ (data, rowMap) => (
                         <View style={styles.rowBack}>
-                            <Text>Left</Text>
-                            <Text>Right</Text>
+                            <TouchableOpacity onPress={() => { this._deleteItem(rowMap, data.item.id) }}>
+                                <Feather name='trash' style={styles.iconDelete} size={25}></Feather>
+                            </TouchableOpacity>
                         </View>
                     )}
-                    leftOpenValue={75}
                     rightOpenValue={-75}
+                    disableRightSwipe={true}
+                    keyExtractor={ item => item.product.id.toString() } 
                 />
-            }
+            
                 <View style={styles.totalContainer}>
                        <Text style={styles.total}>Total</Text>
                        <Text style={styles.total}>&#8377; {this.state.total}.00</Text>
@@ -132,7 +171,9 @@ export default class MyCart extends Component {
                         <Text style={[styles.buttonText, {fontWeight: 'bold', textAlign:'center'}]} >ORDER NOW</Text>
                     </TouchableOpacity>
                 </View> 
-            </View>
+                </View>)
+            }
+            
             </View>  
         )
     }
