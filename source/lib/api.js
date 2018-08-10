@@ -23,6 +23,10 @@ export const API = {
 };
 
 
-export const apiCall = async (url, data) => {
-   return await fetch(url, data).then(res => res.json() ).then( res => res );
+export const apiCall = 
+    (url, data, callback)  => {
+      return fetch(url, data)
+                .then( res => res.json() )
+                  .then( res => callback == undefined ? res.data : callback(res) )
+                    .catch(err => console.log(err))
 }

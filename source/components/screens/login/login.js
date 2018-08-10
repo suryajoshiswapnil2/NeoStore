@@ -14,7 +14,7 @@ import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {SafeAreaView} from 'react-navigation'; 
-import {API} from '../../../lib/api';
+import {API, apiCall} from '../../../lib/api';
 import {validator,showError} from '../../../utils/validators'
 import FlashMessage from "react-native-flash-message"
 
@@ -31,36 +31,13 @@ export default class Login extends Component{
       }
     }
 
-    // async componentWillMount() {
-
-    //     let data = await AsyncStorage.getItem('userData');
-    //     // console.log(data)
-    //     if(data != null )
-    //     this.props.navigation.navigate('Home');
-    // }
-
-
-    // isValid = () => {
-    //   return 
-    //     validator.emptyField(this.state.email) ? showError('username is empty!') 
-    //     : validator.emailField(this.state.password) ?  showError('password is empty!') 
-    //     : validator.emailField(this.state.email) ? showError('Invalid email!') 
-    //     : validator.passwordField(this.state.password) ? showError('Password contain some invalid characters!')
-    //     : true
-
-    // }
-
     componentDidMount(){
       this.setState({
         isLoading: false,
       })
     }
 
-
   _doLogin = async (e) => {
-
-    // if(!this.isValid())
-    //   return false
 
     if( validator.emptyField(this.state.email) )
       return showError('Username is empty!', '',this.usernameInput)
@@ -75,6 +52,14 @@ export default class Login extends Component{
     formData.append('email', this.state.email)
     formData.append('password', this.state.password)
 
+    // apiCall(API.login, {
+    //     method: 'POST',
+    //     body: formData,
+    // },(res) => {
+
+    //    console.log('apicall',res) 
+
+    // });
 
     await fetch(API.login, {
       method: 'POST',
@@ -99,7 +84,7 @@ export default class Login extends Component{
           console.log(res,'account details')  
 
           if(res.status == 200 ) {
-              this.props.navigation.navigate('Home',{ data: res.data })
+              this.props.navigation.navigate('Home',res.data)
           }         
         })
         .catch(err => console.log(err.message))

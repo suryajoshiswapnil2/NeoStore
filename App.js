@@ -111,7 +111,7 @@ const ProductStack = createStackNavigator(
         header:null,
       },
     },
-    MyAccount: {
+    MyAccountStack: {
         screen: MyAccountStack,
         navigationOptions:{
           header: null,
@@ -192,5 +192,4 @@ export default class App extends Component{
     
   }
 }
-
 

@@ -1,96 +1,72 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
 
 import React, {Component} from 'react';
 import {View,Image, Text, TouchableOpacity,AsyncStorage, ScrollView, StatusBar } from 'react-native';
 
 import {styles} from './styles';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import FeatherIcon from 'react-native-vector-icons/Feather'
  
 import {SafeAreaView, DrawerItems, NavigationActions, StackActions } from 'react-navigation'; 
 import {user} from '../../../assets/images'
-import {API} from '../../../lib/api'
+import {API, apiCall} from '../../../lib/api'
 import { showError } from '../../../utils/validators';
+import { userData, userDataService } from '../../../lib/serviceProvider';
+
+let accountData = null
 
 export default class SideBar extends Component{
 
+    constructor(props){
+        super(props);
+        this.state = {
+            access_token: '',
+        };
 
-constructor(props){
-
-    super(props);
-    this.state = {
-        first_name: '',
-        last_name: '',
-        email: '',
-        img_url: '',
-        total_carts: 0,
-        total_orders: 0,
-        accountData:  null,
+        this.accountData = {
+            total_carts: 0,
+            total_orders: 0,
+            user_data: {
+                profile_pic: null,
+                first_name: null,
+                last_name: null,
+                email: null,
+            },
+        };
+        
     }
-
-}
 
     logout = async () => {
         await AsyncStorage.removeItem('access_token');
         showError('Logout Successful!')
         this.props.navigation.navigate('LoginStack');
-        // const resetAction = StackActions.reset({
-        //     index: 0,
-        //     actions: [NavigationActions.navigate({ routeName: 'LoginStack' })],
-        //   });
-        //   this.props.pro.navigation.dispatch(resetAction);
     }    
 
+  async componentWillMount(){
 
-   async componentWillMount(){
-    let accountData = {};
-    let data = await AsyncStorage.getItem('access_token');
+    //    setTimeout(() => {
+    //        console.log("Sidebar Fired");
+    //         userDataService.setUserData('email', "sagars.shinde@wwindiac.om");
+    //    }, 5000);
 
-    accountData =  await fetch( API.accountDetails, {
-        method: 'GET',
-        headers:  {
-          access_token: data,
-        },
-        body: '',
+        let data = await AsyncStorage.getItem('access_token');
+        this.setState({
+            access_token:data,
         })
-    .then( res => res.json() )
-    .then( res => res.data );
-      
-       console.log(accountData)
 
-       this.setState( { 
-        first_name : accountData.user_data.first_name, 
-        last_name : accountData.user_data.first_name,
-        email : accountData.user_data.email,
-        img_url: accountData.user_data.profile_pic,
-        total_carts: accountData.total_carts,
-        total_orders: accountData.total_orders,
-       // data : data,
-    })
-
-    this.setState({
-        accountData: accountData.user_data,
-    })
-
-        console.log(this.state.accountData)
+        return this.fetchData()
     }
 
 
 
-renderMenuItems = () => {
-    const {navigate} = this.props.navigation;
-    let arr = [
+    renderMenuItems = () => {
+
+
+        const {navigate} = this.props.navigation;
+        let arr = [
            {
                title: 'My Carts',
                icon: 'shopping-cart',	
                notifications: true,
-               value: this.state.total_carts,
+               value: this.accountData.total_carts,
                navigate: () => { navigate('MyCart',)},
            },
            {
@@ -121,7 +97,7 @@ renderMenuItems = () => {
                title: 'My Account',
                icon: 'user',
                notifications: false,
-               navigate: () => { navigate('MyAccount', this.state.accountData)  },
+               navigate: () => { navigate('MyAccount', accountData)  },
            },
            {
                title: 'Store Locator',
@@ -133,7 +109,7 @@ renderMenuItems = () => {
                title: 'My Orders',
                icon: 'list',
                notifications: true,
-               value: this.state.total_orders,
+               value: this.accountData.total_orders,
                navigate: () => { navigate('MyOrders')  },
            },
            {
@@ -150,7 +126,6 @@ renderMenuItems = () => {
        elems.push(
           
            <TouchableOpacity style={styles.drawerItems} onPress={element.navigate}>
-           { console.log(element)}
            <FeatherIcon style={styles.drawerIcon} name={element.icon} size={20} color='#fff' />
                <Text style={styles.drawerText}>{element.title}</Text>
                {
@@ -168,18 +143,42 @@ renderMenuItems = () => {
    
 }
 
-  render() {
+     fetchData = async () => {
+        
+        accountData = await apiCall(API.accountDetails, {
+                method: 'GET',
+                headers:  {
+                access_token: this.state.access_token,
+            }
+        });
+
+        if(accountData == null)
+        return
+
+        this.accountData = accountData
+
+        // console.log('sidebar called', this.accountData)
+
+    }
+
+
+
+ render() {
+  
+    this.fetchData()
+
     const {navigate} = this.props.navigation;
+  
     return (
 
   <SafeAreaView style={styles.container}>
   {/* <StatusBar barStyle = 'light-content' hidden={false}/> */}
       <View style={styles.profileContainer}>
        <TouchableOpacity onPress={ () => navigate('MyAccount') }>
-        <Image source={ this.state.img_url == null ? user : {uri: this.state.img_url } } style={styles.profileAvatar}/>
+        <Image source={ this.accountData.user_data.profile_pic == null ? user : {uri: this.accountData.user_data.profile_pic } } style={styles.profileAvatar}/>
         </TouchableOpacity>
-        <Text style={styles.title}>{this.state.first_name + ' ' + this.state.last_name}</Text>
-        <Text style={styles.email}>{this.state.email}</Text>
+        <Text style={styles.title}>{this.accountData.user_data.first_name + ' ' + this.accountData.user_data.last_name}</Text>
+        <Text style={styles.email}>{ this.accountData.user_data.email }</Text>
       </View>
      
       <View style={styles.containerBottom}>
@@ -230,7 +229,7 @@ renderMenuItems = () => {
             <Text style={styles.drawerText}>Logout</Text>
             
         </TouchableOpacity> */}
-        { this.state.accountData == null ? null : this.renderMenuItems()}
+        { accountData == null ? null : this.renderMenuItems()}
         </ScrollView>
       </View>
       </SafeAreaView>

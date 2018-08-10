@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
-import {View,ScrollView,AsyncStorage,Alert,Picker, PickerIOS,Text,StatusBar,FlatList,Image,ActivityIndicator, TouchableOpacity} from 'react-native'
+import {View,AsyncStorage,Alert,Text,StatusBar,Image,ActivityIndicator, TouchableOpacity} from 'react-native'
 import {CustomHeader} from '../../header/header'
-import { Dropdown } from 'react-native-material-dropdown';
 
 import {styles} from './styles'
-import { API } from '../../../lib/api';
+import { API, apiCall } from '../../../lib/api';
 import { showError } from '../../../utils/validators'
 import Feather from 'react-native-vector-icons/Feather'
-import {Rating} from 'react-native-ratings'
 import { SwipeListView } from 'react-native-swipe-list-view'
+import ModalDropdown from 'react-native-modal-dropdown';
 
 export default class MyCart extends Component {
 
@@ -21,7 +20,6 @@ export default class MyCart extends Component {
             data:[],
             total: 0,
             product_quantity: 0,
-            language: 'java',
         }
     }
 
@@ -51,15 +49,14 @@ export default class MyCart extends Component {
                     let formData = new FormData()
                     formData.append('product_id', rowKey)
 
-                    await fetch(API.deleteCart, {
+
+                    apiCall(API.deleteCart, { 
                         method: 'POST',
                         headers: {
                             access_token: this.state.access_token
                         },
                         body: formData
-                    })
-                    .then( res => res.json())
-                    .then( res => {
+                    }, (res) => {
                         console.log(res)
                         if(res.status == 200)
                         {
@@ -81,7 +78,38 @@ export default class MyCart extends Component {
                             })
                         }
                     })
-                    .catch(err => console.log(err))
+
+                    // await fetch(API.deleteCart, {
+                    //     method: 'POST',
+                    //     headers: {
+                    //         access_token: this.state.access_token
+                    //     },
+                    //     body: formData
+                    // })
+                    // .then( res => res.json())
+                    // .then( res => {
+                    //     console.log(res)
+                    //     if(res.status == 200)
+                    //     {
+                    //         this.closeRow(rowMap, rowKey);
+                    //         const newData = [...this.state.data];
+                    //         const prevIndex = this.state.data.findIndex(item => item.key === rowKey);
+                    //         newData.splice(prevIndex, 1);
+                    //         this.setState({data: newData});
+                    //         alert(res.user_msg)
+                    //         this.setState({
+                    //             isLoading: false,
+                    //         })
+                    //         this.render()
+                    //     }
+                    //     else{
+                    //         alert(res.user_msg)
+                    //         this.setState({
+                    //             isLoading: false,
+                    //         })
+                    //     }
+                    // })
+                    // .catch(err => console.log(err))
               } },
             ],
             { cancelable: false }
@@ -91,42 +119,67 @@ export default class MyCart extends Component {
     }
 
     componentDidMount = async () => {
-        
-                    
+      
        let data = await AsyncStorage.getItem('access_token');
 
        this.setState( { 
          access_token: data,   
        } )
 
-        return fetch(API.listCartItems,{
+
+       return apiCall(API.listCartItems, {
             method: 'GET',
             headers: {
                 access_token: data
             }
-        })
-        .then((response) => response.json())
-        .then((responseJson) => {
-          if (responseJson.status == 200) {
-              console.log(responseJson)
-            this.setState({
-                isLoading: false,
-                data: responseJson.data,      
-            });
-            if(responseJson.data == null)
-                return
-            this._cal_total()
-        }
-          else {
-             showError(responseJson.user_msg)
-             this.setState({
-                isLoading: false
-            })
-          }
-        })
-        .catch((error) =>{
-          console.error(error);
-        });
+            }, (res) => {
+            if (res.status == 200) {
+                // console.log(res)
+                this.setState({
+                    isLoading: false,
+                    data: res.data,      
+                });
+                if(res.data == null)
+                    return
+                this._cal_total()
+            }
+            else {
+                showError(res.user_msg)
+                this.setState({
+                    isLoading: false
+                })
+            }
+       })
+
+
+        // return fetch(API.listCartItems,{
+        //     method: 'GET',
+        //     headers: {
+        //         access_token: data
+        //     }
+        // })
+        // .then((response) => response.json())
+        // .then((responseJson) => {
+        //   if (responseJson.status == 200) {
+        //       console.log(responseJson)
+        //     this.setState({
+        //         isLoading: false,
+        //         data: responseJson.data,      
+        //     });
+        //     if(responseJson.data == null)
+        //         return
+        //     this._cal_total()
+        // }
+        //   else {
+        //      showError(responseJson.user_msg)
+        //      this.setState({
+        //         isLoading: false
+        //     })
+        //   }
+        // })
+        // .catch((error) =>{
+        //   console.error(error);
+        // });
 
     }
 
@@ -146,25 +199,29 @@ export default class MyCart extends Component {
 
     render(){
 
+        let data = [
+            { value: 1, }, 
+            { value: 2, }, 
+            { value: 3, },
+            { value: 4, }, 
+            { value: 5, }, 
+            { value: 6, },
+            { value: 7, }, 
+            { value: 8, } 
+        ];
+
         if(this.state.isLoading){
             return(
-                <View style={styles.container}>
+                <View style={styles.loaderContainer}>
                     <ActivityIndicator size='large' color="#0000ff"/>
                 </View>
             )
           }
-          let data = [{
-            value: 1,
-          }, {
-            value: 2,
-          }, {
-            value: 3,
-          }];
 
         return(
             
             <View style={styles.container}>
-            <StatusBar barStyle = 'dark-content' hidden={false} />
+            <StatusBar barStyle = 'light-content' hidden={false} />
             <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.goBack()}} title='My Cart' rightIcon='search'/>
             
             { this.state.data == null ?
@@ -189,12 +246,23 @@ export default class MyCart extends Component {
                                     <Text style={styles.bottomText}>({item.product.product_category})</Text>
                                 </View>
                                 <View style={styles.bottomContainer}>
-                                    <View style={{backgroundColor:'red', width: 100, height:50}}>
-                                        <Dropdown
-                                            // label={item.quantity}
-                                            data={data}
-                                        />
-                                    </View>
+                                <View style={{ width: 96,}}>
+                                    <ModalDropdown 
+                                        dropdownStyle={{width: 100,}} 
+                                        style={{width: 50, fontSize: 25, padding: 5,  height: 30, backgroundColor: '#ededed', alignItems: 'center'}} 
+                                        options={[1,2,3,4,5,6,7,8,9]}
+                                        onSelect= { (index, value) => {this.setState({
+                                            product_quantity: value,
+                                        })
+                                        
+                                    }}
+                                        >
+                                        <View style={{flexDirection: 'row'}}> 
+                                            <Text style={{fontSize: 16}}>{item.quantity} </Text>
+                                            <Feather name='chevron-down' size={20} />
+                                        </View>
+                                    </ModalDropdown>
+                                </View>
                                     
                                     {/* <Text style={styles.cost}>{item.quantity}</Text> */}
                                     <Text style={styles.cost}>&#8377; {item.product.cost * item.quantity }.00</Text>
