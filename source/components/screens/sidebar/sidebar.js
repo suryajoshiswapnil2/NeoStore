@@ -31,14 +31,15 @@ constructor(props){
         img_url: '',
         total_carts: 0,
         total_orders: 0,
+        accountData:  null,
     }
 
 }
 
     logout = async () => {
-        await AsyncStorage.removeItem('userData');
+        await AsyncStorage.removeItem('access_token');
         showError('Logout Successful!')
-        this.props.pro.navigation.navigate('LoginStack');
+        this.props.navigation.navigate('LoginStack');
         // const resetAction = StackActions.reset({
         //     index: 0,
         //     actions: [NavigationActions.navigate({ routeName: 'LoginStack' })],
@@ -47,46 +48,43 @@ constructor(props){
     }    
 
 
-   async componentDidMount(){
+   async componentWillMount(){
     let accountData = {};
-    let data = await AsyncStorage.getItem('userData');
-    data = JSON.parse(data);
-  //  this.state.data = data;
-    
+    let data = await AsyncStorage.getItem('access_token');
 
     accountData =  await fetch( API.accountDetails, {
         method: 'GET',
         headers:  {
-          access_token: data.access_token,
+          access_token: data,
         },
         body: '',
-      }).then(
-        res => res.json()
-  
-      ).then(res => {
-        res.status == 200 ? AsyncStorage.setItem('data', JSON.stringify(res.data)) : alert(res.user_msg)
-        return res.data;
-       } );
+        })
+    .then( res => res.json() )
+    .then( res => res.data );
       
-    //    console.log(accountData)
+       console.log(accountData)
 
        this.setState( { 
-        first_name : data.first_name, 
-        last_name : data.first_name,
-        email : data.email,
-        img_url: data.profile_pic,
+        first_name : accountData.user_data.first_name, 
+        last_name : accountData.user_data.first_name,
+        email : accountData.user_data.email,
+        img_url: accountData.user_data.profile_pic,
         total_carts: accountData.total_carts,
         total_orders: accountData.total_orders,
        // data : data,
     })
 
-        // console.log(this.state.total_carts)
+    this.setState({
+        accountData: accountData.user_data,
+    })
+
+        console.log(this.state.accountData)
     }
 
 
 
 renderMenuItems = () => {
-    const {navigate} = this.props.pro.navigation;
+    const {navigate} = this.props.navigation;
     let arr = [
            {
                title: 'My Carts',
@@ -123,13 +121,13 @@ renderMenuItems = () => {
                title: 'My Account',
                icon: 'user',
                notifications: false,
-               navigate: () => { navigate('MyAccount')  },
+               navigate: () => { navigate('MyAccount', this.state.accountData)  },
            },
            {
                title: 'Store Locator',
                icon: 'map-pin',
                notifications: false,
-               navigate: () => { },
+               navigate: () => { navigate('OrderDetail') },
            },
            {
                title: 'My Orders',
@@ -150,7 +148,9 @@ renderMenuItems = () => {
        
    arr.forEach(element => {
        elems.push(
+          
            <TouchableOpacity style={styles.drawerItems} onPress={element.navigate}>
+           { console.log(element)}
            <FeatherIcon style={styles.drawerIcon} name={element.icon} size={20} color='#fff' />
                <Text style={styles.drawerText}>{element.title}</Text>
                {
@@ -169,7 +169,7 @@ renderMenuItems = () => {
 }
 
   render() {
-    const {navigate} = this.props.pro.navigation;
+    const {navigate} = this.props.navigation;
     return (
 
   <SafeAreaView style={styles.container}>
@@ -230,7 +230,7 @@ renderMenuItems = () => {
             <Text style={styles.drawerText}>Logout</Text>
             
         </TouchableOpacity> */}
-        {this.renderMenuItems()}
+        { this.state.accountData == null ? null : this.renderMenuItems()}
         </ScrollView>
       </View>
       </SafeAreaView>

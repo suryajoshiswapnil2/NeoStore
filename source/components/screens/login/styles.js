@@ -7,6 +7,12 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
+        loaderContainer:{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: colors.red,
+        },
         mainContainer: {
             flex: 1,
             justifyContent: 'center',

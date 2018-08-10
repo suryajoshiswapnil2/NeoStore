@@ -67,15 +67,13 @@ export default class Home extends Component{
    
       <View style={styles.containerHalf}>
      <Swiper style={Device.isAndroid ? { width: Device.window.width } : null } showsButtons={true}> 
-      <View >
-          <Image source={Images.slide1}   style={{resizeMode:'cover', height:'100%', width:'100%'}} ></Image>
-        </View>
-        <View >
-        <Image source={Images.slide2} style={{resizeMode:'cover', height:'100%', width:'100%'}}></Image>
-        </View>
-        <View >
-        <Image source={Images.slide3 } style={{resizeMode:'cover', height:'100%', width:'100%'}}></Image>
-        </View>  
+
+        {this.props.navigation.state.params.product_categories.map( elem => {
+           return  (<View >
+                      <Image source={{uri: elem.icon_image }} style={{resizeMode:'cover', height:'100%', width:'100%'}} ></Image>
+                    </View>)
+        }  
+        )}
       </Swiper>
       </View>
       <View style={ styles.containerHalfBottom }>

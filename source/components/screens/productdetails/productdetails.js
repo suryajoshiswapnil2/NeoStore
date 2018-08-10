@@ -55,11 +55,10 @@ export default class ProductDetails extends Component {
 
     async componentDidMount(){
                   
-       let data = await AsyncStorage.getItem('userData');
-       data = JSON.parse(data);
+       let data = await AsyncStorage.getItem('access_token');
 
        this.setState( { 
-         access_token: data.access_token,   
+         access_token: data,   
        } )
 
         let url = API.productDetails+'?product_id=' + this.state.product_id

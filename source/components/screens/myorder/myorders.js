@@ -34,18 +34,12 @@ export default class MyOrders extends Component {
     componentDidMount = async () => {
         
                     
-       let data = await AsyncStorage.getItem('userData');
-   
-       data = JSON.parse(data);
-
-       this.setState( { 
-         access_token: data.access_token,   
-       } )
+       let data = await AsyncStorage.getItem('access_token');
 
         return fetch(API.orderList,{
             method: 'GET',
             headers: {
-                access_token: this.state.access_token
+                access_token: data
             }
         })
         .then((response) => response.json())

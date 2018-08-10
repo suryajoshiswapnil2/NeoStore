@@ -67,9 +67,10 @@ export const styles = StyleSheet.create(
               fontSize: 18,  
               color: colors.gray, 
               width: '100%',
+              fontStyle: 'italic'
           },
           bottomContainer: {
-              width: 150,
+            //   width: 150,
               flexDirection: 'row',
               justifyContent: 'space-between',
               width: '100%'

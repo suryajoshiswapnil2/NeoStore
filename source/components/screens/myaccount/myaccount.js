@@ -21,7 +21,7 @@ export default class MyAccount extends Component{
 
  constructor(props){
       super(props);
-  this.state ={
+  this.state = {
     first_name: '',
     last_name: '',
     email: '',
@@ -36,11 +36,13 @@ export default class MyAccount extends Component{
 
     async componentDidMount(){
 
-      let data = await AsyncStorage.getItem('userData');
-      data = JSON.parse(data);
+        
+      // let data = await AsyncStorage.getItem('userData');
+      // data = JSON.parse(data);
     //  this.state.data = data;
     //alert(data);
-      this.setState( data )
+    console.log(this.props.navigation.state)
+      this.setState( this.props.navigation.state.params )
           
       }
 
