@@ -20,7 +20,8 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
-  StatusBar
+  StatusBar,
+  ActivityIndicator
 } from "react-native";
 
 import { background } from "../../../assets/images";
@@ -28,22 +29,108 @@ import Header from "../../header/header";
 import { user } from "../../../assets/images";
 import { styles } from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Feather from "react-native-vector-icons/Feather";
 import { SafeAreaView } from "react-navigation";
-import { API } from "../../../lib/api";
-import { validator, showError } from "../../../utils/validators";
-
+import { API, apiCall } from "../../../lib/api";
+import ImagePicker from 'react-native-image-picker'
 export default class MyAccount extends Component {
   constructor(props) {
     console.log(props);
     super(props);
-    this.state = props.navigation.state.params;
+    this.state = {
+        ...props.navigation.state.params,
+        isLoading: true,            
+    };
   }
 
-  _doUpdate = () => {};
+  componentDidMount(){
+      this.setState({
+          isLoading: false,
+      })
+  }
+
+  getImages = () =>
+  {
+
+    var options = {
+        title: 'Select Avatar',
+        // customButtons: [
+        //   {name: 'fb', title: 'Choose Photo from Facebook'},
+        // ],
+        storageOptions: {
+          skipBackup: true,
+          path: 'images'
+        }
+      };
+      ImagePicker.showImagePicker(options, (response) => {
+        console.log('Response = ', response);
+      
+        if (response.didCancel) {
+          console.log('User cancelled image picker');
+        }
+        else if (response.error) {
+          console.log('ImagePicker Error: ', response.error);
+        }
+        else if (response.customButton) {
+          console.log('User tapped custom button: ', response.customButton);
+        }
+        else {
+        //   let source = { uri: response.uri };
+        //   let source = { uri: 'data:image/jpeg;base64,' + response.data };
+          let source = 'data:image/jpeg;base64,' + response.data;
+      
+          this.setState({
+            profile_pic: source
+          });
+        }
+      });
+  }
+
+  _doUpdate = () => {
+
+        this.setState({
+            isLoading: true,
+        })
+
+       let formData= new FormData()
+       formData.append('first_name',this.state.first_name)
+       formData.append('last_name', this.state.last_name)
+       formData.append('email', this.state.email)
+       formData.append('dob', '18-08-1998')
+       formData.append('phone_no', this.state.phone_no)
+       formData.append('profile_pic', this.state.profile_pic)
+       console.log(formData)
+
+       apiCall(API.updateDetails, {
+           method: 'POST',
+           headers: {
+              access_token: this.state.access_token,
+           },
+           body: formData,
+       }, (res) => {
+            // console.log(res)
+            alert(res.user_msg)
+
+       }) 
+
+       this.setState({
+        isLoading: false,
+      })
+
+  };
 
   render() {
     const { navigate } = this.props.navigation;
+
+    // if(this.state.isLoading)
+    // {
+    //     return
+    //     (
+    //         <View style={styles.loaderContainer}>
+    //             <ActivityIndicator size="large" color="#0000ff" />
+    //         </View>
+    //     )
+    // }
+
     return (
       <ImageBackground style={styles.mainContainer} source={background}>
         <Header
@@ -63,14 +150,16 @@ export default class MyAccount extends Component {
               <View style={styles.containerHalf}>
                 <View style={styles.imageHolder}>
                   {/* <Image style={styles.image} source={require('../../../assets/images/icon.png')}/> */}
-                  <Image
-                    style={styles.image}
-                    source={
-                      this.state.profile_pic == null
-                        ? user
-                        : { uri: this.state.profile_pic }
-                    }
-                  />
+                  <TouchableOpacity onPress={ () => this.getImages()}>
+                    <Image
+                        style={styles.image}
+                        source={
+                        this.state.profile_pic == null
+                            ? user
+                            : { uri: this.state.profile_pic }
+                        }
+                    />
+                  </TouchableOpacity>
                 </View>
                 <View style={styles.inputBoxes}>
                   <View style={styles.inputContainer}>
@@ -86,6 +175,7 @@ export default class MyAccount extends Component {
                       style={styles.input}
                       placeholder="First Name"
                       maxLength={20}
+                    //   editable={false}
                       value={this.state.first_name}
                       placeholderTextColor="#ffffff"
                       keyboardType="email-address"
@@ -109,6 +199,7 @@ export default class MyAccount extends Component {
                       maxLength={20}
                       autoCorrect={false}
                       autoCapitalize="none"
+                    //   editable={false}
                       value={this.state.last_name}
                       placeholder="Last Name"
                       placeholderTextColor="#ffffff"

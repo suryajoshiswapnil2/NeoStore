@@ -12,6 +12,7 @@ export const API = {
    addToCart: 'http://staging.php-dev.in:8844/trainingapp/api/addToCart',
    editCart: 'http://staging.php-dev.in:8844/trainingapp/api/editCart',
    deleteCart: 'http://staging.php-dev.in:8844/trainingapp/api/deleteCart',
+   updateDetails: 'http://staging.php-dev.in:8844/trainingapp/api/users/update',
 
 
    //GET

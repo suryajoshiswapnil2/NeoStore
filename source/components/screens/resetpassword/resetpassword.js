@@ -22,7 +22,7 @@ import { background } from "../../../assets/images";
 import { styles } from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Header from "../../header/header";
-import { API } from "../../../lib/api";
+import { API, apiCall } from "../../../lib/api";
 import { validator, showError } from "../../../utils/validators";
 export default class ResetPassword extends Component {
   constructor(props) {
@@ -54,20 +54,37 @@ export default class ResetPassword extends Component {
     formData.append("password", this.state.password);
     formData.append("confirm_password", this.state.confirm_password);
 
-    await fetch(API.changePassword, {
-      method: "POST",
-      headers: {
-        access_token: this.state.access_token
-      },
-      body: formData
-    })
-      .then(res => res.json())
-      .then(res => {
+
+    apiCall(API.changePassword, {
+        method: "POST",
+        headers: {
+          access_token: this.state.access_token
+        },
+        body: formData
+    }, (res) => {
+        console.log(res)
         if (res.status == 200) {
-          alert(res.user_msg);
-          this.props.navigation.goBack();
-        } else alert(res.user_msg);
-      });
+            alert(res.user_msg);
+            this.props.navigation.goBack();
+        } 
+        else 
+            alert(res.user_msg);
+    })
+
+    // await fetch(API.changePassword, {
+    //   method: "POST",
+    //   headers: {
+    //     access_token: this.state.access_token
+    //   },
+    //   body: formData
+    // })
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     if (res.status == 200) {
+    //       alert(res.user_msg);
+    //       this.props.navigation.goBack();
+    //     } else alert(res.user_msg);
+    //   });
   };
 
   async componentDidMount() {

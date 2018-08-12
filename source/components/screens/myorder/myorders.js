@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import {View,ScrollView,AsyncStorage, Keyboard,TextInput,Modal,TouchableWithoutFeedback, Share, Text,StatusBar,FlatList,Image,ActivityIndicator, TouchableOpacity} from 'react-native'
+import {View, AsyncStorage, Text,StatusBar,FlatList,ActivityIndicator, TouchableOpacity} from 'react-native'
 import {CustomHeader} from '../../header/header'
 
 import {styles} from './styles'
-import { API } from '../../../lib/api';
+import { API, apiCall } from '../../../lib/api';
 import { showError } from '../../../utils/validators'
 
 
@@ -33,32 +33,57 @@ export default class MyOrders extends Component {
         
                     
        let data = await AsyncStorage.getItem('access_token');
-
-        return fetch(API.orderList,{
-            method: 'GET',
-            headers: {
-                access_token: data
-            }
-        })
-        .then((response) => response.json())
-        .then((responseJson) => {
-          if (responseJson.status == 200) {
-              console.log(responseJson)
-            this.setState({
-                isLoading: false,
-                data: responseJson.data,      
-            });
-        }
-          else {
-             showError(responseJson.user_msg)
-             this.setState({
-                isLoading: false
+      
+       try{
+            apiCall(API.orderList, {
+                method: 'GET',
+                headers: {
+                    access_token: data
+                }
+            }, (res) => {
+                if (res.status == 200) {
+                    console.log(res)
+                    this.setState({
+                        isLoading: false,
+                        data: res.data,      
+                    });
+                }
+                else {
+                showError(res.user_msg)
+                this.setState({
+                    isLoading: false
+                })
+                }
             })
-          }
-        })
-        .catch((error) =>{
-          console.error(error);
-        });
+        }
+        catch(err){
+            console.log(err)
+        }
+        // return fetch(API.orderList,{
+        //     method: 'GET',
+        //     headers: {
+        //         access_token: data
+        //     }
+        // })
+        // .then((response) => response.json())
+        // .then((responseJson) => {
+        //   if (responseJson.status == 200) {
+        //       console.log(responseJson)
+        //     this.setState({
+        //         isLoading: false,
+        //         data: responseJson.data,      
+        //     });
+        // }
+        //   else {
+        //      showError(responseJson.user_msg)
+        //      this.setState({
+        //         isLoading: false
+        //     })
+        //   }
+        // })
+        // .catch((error) =>{
+        //   console.error(error);
+        // });
 
     }
 

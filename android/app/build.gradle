@@ -91,14 +91,31 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
+
+ 
 def enableProguardInReleaseBuilds = false
 
+
+// Remove it 
+// def _ext = rootProject.ext;
+
+// def _compileSdkVersion = _ext.has('compileSdkVersion') ? _ext.compileSdkVersion : 25;
+// def _buildToolsVersion = _ext.has('buildToolsVersion') ? _ext.buildToolsVersion : '25.0.2';
+// def _minSdkVersion = _ext.has('minSdkVersion') ? _ext.minSdkVersion : 16;
+// def _targetSdkVersion = _ext.has('targetSdkVersion') ? _ext.targetSdkVersion : 25;
+
+
 android {
+    // Default
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
+    // compileSdkVersion _compileSdkVersion
+    // buildToolsVersion _buildToolsVersion
 
     defaultConfig {
         applicationId "com.neostore"
+        // minSdkVersion _minSdkVersion
+        // targetSdkVersion _targetSdkVersion
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -106,6 +123,10 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+    }
+    // New Addition
+    lintOptions {
+        abortOnError false
     }
     splits {
         abi {
@@ -137,6 +158,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-picker')
     compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"

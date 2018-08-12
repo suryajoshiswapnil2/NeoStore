@@ -7,6 +7,12 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
+        loaderContainer:{
+            flex:1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex:10,
+        },
         imageHolder:{
             marginBottom: 60/3,
         },

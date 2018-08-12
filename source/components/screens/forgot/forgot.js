@@ -9,11 +9,9 @@
 import React, {Component} from 'react';
 import {View, Text, TextInput, TouchableOpacity,ImageBackground, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native';
 import {background} from '../../../assets/images';
-import {SafeAreaView} from 'react-navigation'; 
 
 import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
 import Header from "../../header/header";
 import {validator,showError} from '../../../utils/validators'
 import {API, apiCall} from '../../../lib/api'
@@ -53,12 +51,24 @@ export default class Forgot extends Component{
   //   headers: {},
   //   body: formData,
   //  });
-  await fetch(API.forgot, {
-    method: 'POST',
-    body: formData,
-  })
-  .then( res => res.json()  )
-  .then( res => showError(res.user_msg))
+    try {
+        apiCall(API.forgot, {
+            method: 'POST',
+            body: formData,
+        }, (res) => {
+            showError(res.user_msg)
+        })
+    }
+    catch(err)
+    {
+        console.log(err)
+    }
+//   await fetch(API.forgot, {
+//     method: 'POST',
+//     body: formData,
+//   })
+//   .then( res => res.json()  )
+//   .then( res => showError(res.user_msg))
 
   }
 

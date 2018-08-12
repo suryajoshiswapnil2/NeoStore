@@ -14,25 +14,22 @@ import {
   TextInput,
   TouchableOpacity,
   ImageBackground,
-  ScrollView,
-  KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
   StatusBar
 } from "react-native";
 import { background } from "../../../assets/images";
-import Header, { CustomHeader } from "../../header/header";
+import Header from "../../header/header";
 import { user } from "../../../assets/images";
 import { styles } from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Feather from "react-native-vector-icons/Feather";
-import { SafeAreaView } from "react-navigation";
-import { API } from "../../../lib/api";
+
 
 export default class MyAccount extends Component {
   constructor(props) {
     super(props);
-    this.state = props.navigation.state.params;
+    console.log(props)
+    this.state = props.navigation.state.params.user_data;
   }
 
   render() {

@@ -9,7 +9,7 @@ import {SafeAreaView, DrawerItems, NavigationActions, StackActions } from 'react
 import {user} from '../../../assets/images'
 import {API, apiCall} from '../../../lib/api'
 import { showError } from '../../../utils/validators';
-import { userData, userDataService } from '../../../lib/serviceProvider';
+import { userData, sync } from '../../../lib/serviceProvider';
 
 let accountData = null
 
@@ -144,6 +144,9 @@ export default class SideBar extends Component{
 }
 
      fetchData = async () => {
+
+        sync(this.state.access_token)
+
         
         accountData = await apiCall(API.accountDetails, {
                 method: 'GET',
@@ -165,8 +168,10 @@ export default class SideBar extends Component{
 
  render() {
   
-    this.fetchData()
+    // this.fetchData()
 
+    sync(this.state.access_token)
+    
     const {navigate} = this.props.navigation;
   
     return (
@@ -175,10 +180,10 @@ export default class SideBar extends Component{
   {/* <StatusBar barStyle = 'light-content' hidden={false}/> */}
       <View style={styles.profileContainer}>
        <TouchableOpacity onPress={ () => navigate('MyAccount') }>
-        <Image source={ this.accountData.user_data.profile_pic == null ? user : {uri: this.accountData.user_data.profile_pic } } style={styles.profileAvatar}/>
+        <Image source={ userData.user_data.profile_pic == null ? user : {uri: userData.user_data.profile_pic } } style={styles.profileAvatar}/>
         </TouchableOpacity>
-        <Text style={styles.title}>{this.accountData.user_data.first_name + ' ' + this.accountData.user_data.last_name}</Text>
-        <Text style={styles.email}>{ this.accountData.user_data.email }</Text>
+        <Text style={styles.title}>{userData.user_data.first_name + ' ' + userData.user_data.last_name}</Text>
+        <Text style={styles.email}>{ userData.user_data.email }</Text>
       </View>
      
       <View style={styles.containerBottom}>

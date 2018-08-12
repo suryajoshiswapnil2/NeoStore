@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View,AsyncStorage,Alert,Text,StatusBar,Image,ActivityIndicator, TouchableOpacity} from 'react-native'
+import {View,AsyncStorage,Alert,Text,StatusBar,Image,ActivityIndicator,ScrollView, TouchableOpacity} from 'react-native'
 import {CustomHeader} from '../../header/header'
 
 import {styles} from './styles'
@@ -229,7 +229,7 @@ export default class MyCart extends Component {
                     <Text>No products in list</Text>
                 </View> )
                 : 
-                (<View>
+                (<ScrollView style={{flex: 1}}>
                 <SwipeListView
                     useFlatList 
                     data={this.state.data}
@@ -291,7 +291,7 @@ export default class MyCart extends Component {
                         <Text style={[styles.buttonText, {fontWeight: 'bold', textAlign:'center'}]} >ORDER NOW</Text>
                     </TouchableOpacity>
                 </View> 
-                </View>)
+                </ScrollView>)
             }
             </View>  
         )
