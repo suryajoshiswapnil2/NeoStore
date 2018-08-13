@@ -6,10 +6,8 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {View,Text,Image,ActivityIndicator,AsyncStorage} from 'react-native'
+import React, {Component} from 'react'
 import { createSwitchNavigator, createDrawerNavigator , createStackNavigator } from  'react-navigation'
-import styles from './source/styles/styles'
 
 import Startup from './source/root/startup'
 import Login from './source/components/screens/login/login';
@@ -25,7 +23,8 @@ import ProductDetails from './source/components/screens/productdetails/productde
 import MyOrders from './source/components/screens/myorder/myorders'
 import MyCart from './source/components/screens/mycart/mycart'
 import OrderDetail from './source/components/screens/orderdetail/orderdetail'
-
+import AddAddress from './source/components/screens/addaddress/addaddress'
+import AddressList from './source/components/screens/addresslist/addresslist'
 
 
 const ProductStack = createStackNavigator(
@@ -47,6 +46,27 @@ const ProductStack = createStackNavigator(
   {
     initialRouteName: 'ProductList'
   }
+  )
+
+  const AddressStack = createStackNavigator(
+      {
+        AddressList: {
+            screen: AddressList,
+            navigationOptions:{ 
+                header: null,
+            }
+        },
+        AddAddress: {
+            screen: AddAddress,
+            navigationOptions: {
+                header: null,
+            }
+        },
+
+      },
+      {
+          initialRouteName: 'AddressList'
+      }
   )
   
   const MyAccountStack  = createStackNavigator(
@@ -129,12 +149,13 @@ const ProductStack = createStackNavigator(
         header: null,
       }
     },
-    // ProductList: {
-    //   screen: ProductList,
-    //   navigationOptions:{
-    //     header: null,
-    //   }
-    // },
+
+    AddressStack: {
+      screen: AddressStack,
+      navigationOptions:{
+        header: null,
+      }
+    },
     ProductStack:{
       screen: ProductStack,
       navigationOptions: {

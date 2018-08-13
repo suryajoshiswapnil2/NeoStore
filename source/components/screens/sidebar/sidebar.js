@@ -9,7 +9,7 @@ import {SafeAreaView, DrawerItems, NavigationActions, StackActions } from 'react
 import {user} from '../../../assets/images'
 import {API, apiCall} from '../../../lib/api'
 import { showError } from '../../../utils/validators';
-import { userData, sync } from '../../../lib/serviceProvider';
+import { userData, sync, userDataService } from '../../../lib/serviceProvider';
 
 let accountData = null
 
@@ -18,20 +18,8 @@ export default class SideBar extends Component{
     constructor(props){
         super(props);
         this.state = {
-            access_token: '',
-        };
-
-        this.accountData = {
-            total_carts: 0,
-            total_orders: 0,
-            user_data: {
-                profile_pic: null,
-                first_name: null,
-                last_name: null,
-                email: null,
-            },
-        };
-        
+            isLoading: true,
+        };        
     }
 
     logout = async () => {
@@ -40,25 +28,29 @@ export default class SideBar extends Component{
         this.props.navigation.navigate('LoginStack');
     }    
 
-  async componentWillMount(){
+  async componentDidMount(){
 
     //    setTimeout(() => {
     //        console.log("Sidebar Fired");
-    //         userDataService.setUserData('email', "sagars.shinde@wwindiac.om");
+    //         userDataService.setUserData('total_carts', 7);
     //    }, 5000);
 
-        let data = await AsyncStorage.getItem('access_token');
+        // let data = await AsyncStorage.getItem('access_token');
+        // this.setState({
+        //     access_token:data,
+        // })
+
+        // return this.fetchData()
         this.setState({
-            access_token:data,
+            isLoading: false,
         })
 
-        return this.fetchData()
     }
 
-
-
     renderMenuItems = () => {
-
+        // this.setState({
+        //     isLoading: true,
+        // })
 
         const {navigate} = this.props.navigation;
         let arr = [
@@ -66,7 +58,7 @@ export default class SideBar extends Component{
                title: 'My Carts',
                icon: 'shopping-cart',	
                notifications: true,
-               value: this.accountData.total_carts,
+               value: userData.total_carts,
                navigate: () => { navigate('MyCart',)},
            },
            {
@@ -97,19 +89,19 @@ export default class SideBar extends Component{
                title: 'My Account',
                icon: 'user',
                notifications: false,
-               navigate: () => { navigate('MyAccount', accountData)  },
+               navigate: () => { navigate('MyAccount', userData)  },
            },
            {
                title: 'Store Locator',
                icon: 'map-pin',
                notifications: false,
-               navigate: () => { navigate('OrderDetail') },
+               navigate: () => { navigate('AddressList') },
            },
            {
                title: 'My Orders',
                icon: 'list',
                notifications: true,
-               value: this.accountData.total_orders,
+               value: userData.total_orders,
                navigate: () => { navigate('MyOrders')  },
            },
            {
@@ -122,10 +114,9 @@ export default class SideBar extends Component{
    
    let elems = []
        
-   arr.forEach(element => {
+   arr.forEach((element,key) => {
        elems.push(
-          
-           <TouchableOpacity style={styles.drawerItems} onPress={element.navigate}>
+           <TouchableOpacity key={key} style={styles.drawerItems} onPress={element.navigate}>
            <FeatherIcon style={styles.drawerIcon} name={element.icon} size={20} color='#fff' />
                <Text style={styles.drawerText}>{element.title}</Text>
                {
@@ -138,39 +129,42 @@ export default class SideBar extends Component{
            </TouchableOpacity>
        ) 
    })
-   
+  
+//    this.setState({
+//         isLoading: false,
+//    })
+
    return elems
    
 }
 
-     fetchData = async () => {
+    //  fetchData = async () => {
 
-        sync(this.state.access_token)
+    //     sync(this.state.access_token)
 
         
-        accountData = await apiCall(API.accountDetails, {
-                method: 'GET',
-                headers:  {
-                access_token: this.state.access_token,
-            }
-        });
+    //     accountData = await apiCall(API.accountDetails, {
+    //             method: 'GET',
+    //             headers:  {
+    //             access_token: this.state.access_token,
+    //         }
+    //     });
 
-        if(accountData == null)
-        return
+    //     if(accountData == null)
+    //     return
 
-        this.accountData = accountData
+    //     this.accountData = accountData
 
-        // console.log('sidebar called', this.accountData)
+    //     // console.log('sidebar called', this.accountData)
 
-    }
+    // }
 
 
 
  render() {
   
     // this.fetchData()
-
-    sync(this.state.access_token)
+    // sync(this.state.access_token)
     
     const {navigate} = this.props.navigation;
   
@@ -180,10 +174,10 @@ export default class SideBar extends Component{
   {/* <StatusBar barStyle = 'light-content' hidden={false}/> */}
       <View style={styles.profileContainer}>
        <TouchableOpacity onPress={ () => navigate('MyAccount') }>
-        <Image source={ userData.user_data.profile_pic == null ? user : {uri: userData.user_data.profile_pic } } style={styles.profileAvatar}/>
+        <Image source={userData.user_data.profile_pic == null ? user : {uri: userData.user_data.profile_pic}}  style={styles.profileAvatar}/>
         </TouchableOpacity>
-        <Text style={styles.title}>{userData.user_data.first_name + ' ' + userData.user_data.last_name}</Text>
-        <Text style={styles.email}>{ userData.user_data.email }</Text>
+        <Text style={styles.title}>{userData.user_data.first_name} {userData.user_data.last_name}</Text>
+        <Text style={styles.email}>{userData.user_data.email}</Text>
       </View>
      
       <View style={styles.containerBottom}>
@@ -234,7 +228,7 @@ export default class SideBar extends Component{
             <Text style={styles.drawerText}>Logout</Text>
             
         </TouchableOpacity> */}
-        { accountData == null ? null : this.renderMenuItems()}
+        { this.renderMenuItems() }
         </ScrollView>
       </View>
       </SafeAreaView>

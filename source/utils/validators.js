@@ -4,6 +4,7 @@ import { showMessage, hideMessage } from "react-native-flash-message";
 
 export let validator= {
     digitsOnly: text => ! /[0-9*#+]{10,13}/.test(text) ,
+    digitsOnlyZip: text => ! /[0-9]{6}/.test(text) ,
     emptyField: text  =>  text.trim() === '' ? true : false ,
     emailField: text =>  ! /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(text),
     passwordField: text => ! /[0-9a-z]{7,15}/i.test(text),

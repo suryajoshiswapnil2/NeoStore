@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 
 import { View, ActivityIndicator, AsyncStorage } from "react-native";
-import {
-  createSwitchNavigator,
-  createDrawerNavigator,
-  createStackNavigator
-} from "react-navigation";
 
 import { userDataService } from "../lib/serviceProvider";
 
@@ -37,6 +32,8 @@ export default class Startup extends Component {
             }
         }, (res) => {
             if (res.status == 200) {
+                // console.log(res)
+                userDataService.setData(res.data)
                 this.props.navigation.navigate("Home", res.data);
                 return true;
             }

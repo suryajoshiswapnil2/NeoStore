@@ -8,23 +8,29 @@ export let userData = {
         email: '',
         phone_no: '',
         dob: '',
+        access_token: '',
     },
     product_categories: [],
     total_carts: 0,
     total_orders: 0,
 }
 
-// export const userDataService = {
-//     setUserData : (key, value) => {
-//         userData[key] = value;
-//     }
-// };
+export const userDataService = {
+    setUserData : (key, value) => {
+        userData[key] = value;
+    },
+    setData : (obj) => {
+        userData = obj
+    } 
+};
+
+
 
 
 export const sync = (access_token) => {
 
-    console.log('sync called')
-    console.log(userData)
+    // console.log('sync called')
+    // console.log(userData)
     apiCall(API.accountDetails, {
         method: 'GET',
         headers:  {

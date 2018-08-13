@@ -23,13 +23,14 @@ import Header from "../../header/header";
 import { user } from "../../../assets/images";
 import { styles } from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { userData, sync, userDataService } from '../../../lib/serviceProvider';
 
 
 export default class MyAccount extends Component {
   constructor(props) {
     super(props);
     console.log(props)
-    this.state = props.navigation.state.params.user_data;
+    // this.state = userData.user_data;
   }
 
   render() {
@@ -60,9 +61,9 @@ export default class MyAccount extends Component {
                 <Image
                   style={styles.image}
                   source={
-                    this.state.profile_pic == null
+                    userData.user_data.profile_pic == null
                       ? user
-                      : { uri: this.state.profile_pic }
+                      : { uri: userData.user_data.profile_pic }
                   }
                 />
               </View>
@@ -79,7 +80,7 @@ export default class MyAccount extends Component {
                     placeholder="First Name"
                     selectTextOnFocus={false}
                     editable={false}
-                    value={this.state.first_name}
+                    value={userData.user_data.first_name}
                     placeholderTextColor="#ffffff"
                   />
                 </View>
@@ -95,7 +96,7 @@ export default class MyAccount extends Component {
                     selectTextOnFocus={false}
                     editable={false}
                     placeholder="Last Name"
-                    value={this.state.last_name}
+                    value={userData.user_data.last_name}
                     placeholderTextColor="#ffffff"
                   />
                 </View>
@@ -109,7 +110,7 @@ export default class MyAccount extends Component {
                   <TextInput
                     style={styles.input}
                     placeholder="Email"
-                    value={this.state.email}
+                    value={userData.user_data.email}
                     selectTextOnFocus={false}
                     editable={false}
                     placeholderTextColor="#ffffff"
@@ -125,7 +126,7 @@ export default class MyAccount extends Component {
                   <TextInput
                     style={styles.input}
                     placeholder="Phone Number"
-                    value={this.state.phone_no}
+                    value={userData.user_data.phone_no}
                     selectTextOnFocus={false}
                     editable={false}
                     placeholderTextColor="#ffffff"
@@ -141,7 +142,7 @@ export default class MyAccount extends Component {
                   <TextInput
                     style={styles.input}
                     placeholder="DOB"
-                    value={this.state.dob == null ? " " : this.state.dob}
+                    value={userData.user_data.dob == null ? " " : userData.user_data.dob}
                     selectTextOnFocus={false}
                     editable={false}
                     placeholderTextColor="#ffffff"
@@ -151,7 +152,7 @@ export default class MyAccount extends Component {
               <TouchableOpacity
                 style={styles.loginButton}
                 onPress={() => {
-                  navigate("EditProfile", this.state);
+                  navigate("EditProfile", userData.user_data);
                 }}
                 ref={input => {
                   this.loginButton = input;

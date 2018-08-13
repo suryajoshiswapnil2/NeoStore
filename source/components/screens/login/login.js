@@ -16,11 +16,11 @@ import Feather from 'react-native-vector-icons/Feather';
 import {SafeAreaView} from 'react-navigation'; 
 import {API, apiCall} from '../../../lib/api';
 import {validator,showError} from '../../../utils/validators'
-import FlashMessage from "react-native-flash-message"
+import FlashMessage from "react-native-flash-message";
+import {userDataService} from "../../../lib/serviceProvider";
 
 
 export default class Login extends Component{
-
 
     constructor(props){
       super(props);
@@ -52,46 +52,66 @@ export default class Login extends Component{
     formData.append('email', this.state.email)
     formData.append('password', this.state.password)
 
-    // apiCall(API.login, {
-    //     method: 'POST',
-    //     body: formData,
-    // },(res) => {
-
-    //    console.log('apicall',res) 
-
-    // });
-
-    await fetch(API.login, {
-      method: 'POST',
-      body: formData,
-    })
-    .then( res => res.json())
-    .then( async res => {
-      console.log(res,'login')  
+    apiCall(API.login,{
+        method: 'POST',
+        body: formData,
+    },
+      (res) => {
+       
       if( res.status != 200) 
         Alert.alert(res.user_msg) 
       else {
-        await AsyncStorage.setItem('access_token', res.data.access_token);
+        AsyncStorage.setItem('access_token', res.data.access_token);
+          
+        apiCall(API.accountDetails, {
+            method: 'GET',    
+            headers: {
+              access_token: res.data.access_token
+            }
+         }, (res) => {
+            if(res.status == 200 ) {
+                userDataService.setData(res.data)
+                this.props.navigation.navigate('Home',res.data)
+            }    
+         })   
 
-        await fetch(API.accountDetails, {
-          method: 'GET',    
-          headers: {
-            access_token: res.data.access_token
-          }  
-        })
-        .then(res => res.json())
-        .then( res => {
-          console.log(res,'account details')  
+        
+      } 
+    })
 
-          if(res.status == 200 ) {
-              this.props.navigation.navigate('Home',res.data)
-          }         
-        })
-        .catch(err => console.log(err.message))
 
-      }       
-    }
-    );
+
+    // await fetch(API.login, {
+    //   method: 'POST',
+    //   body: formData,
+    // })
+    // .then( res => res.json())
+    // .then( async res => {
+    //   console.log(res,'login')  
+    //   if( res.status != 200) 
+    //     Alert.alert(res.user_msg) 
+    //   else {
+    //     await AsyncStorage.setItem('access_token', res.data.access_token);
+
+    //     await fetch(API.accountDetails, {
+    //       method: 'GET',    
+    //       headers: {
+    //         access_token: res.data.access_token
+    //       }  
+    //     })
+    //     .then(res => res.json())
+    //     .then( res => {
+    //       console.log(res,'account details')  
+
+    //       if(res.status == 200 ) {
+    //           this.props.navigation.navigate('Home',res.data)
+    //       }         
+    //     })
+    //     .catch(err => console.log(err.message))
+
+    //   }       
+    // }
+    // );
 
   } 
 

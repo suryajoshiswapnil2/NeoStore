@@ -18,7 +18,7 @@ import * as Device from '../../../lib/globals'
 // 
 //import { } from 'react-native-elements';
 import {Radio, CheckBox, RadioGroup} from './components';
-import {API} from '../../../lib/api';
+import {API, apiCall} from '../../../lib/api';
 import {validator,showError} from '../../../utils/validators'
  
 
@@ -50,25 +50,25 @@ export default class Register extends Component{
     //         return showError(i + ' field is empty!')
 
 
- if( validator.emptyField(this.state.fname) )
+    if( validator.emptyField(this.state.fname) )
       return showError('please input first name!')
-  else if(validator.emptyField(this.state.lname))
+    else if(validator.emptyField(this.state.lname))
       return showError('please input last name!')
-  else if(validator.emptyField(this.state.email))
+    else if(validator.emptyField(this.state.email))
       return showError('please input email address!')
-  else if(validator.emptyField(this.state.password))
+    else if(validator.emptyField(this.state.password))
       return showError('please input password!')
-  else if(validator.emptyField(this.state.cpasword))
+    else if(validator.emptyField(this.state.cpasword))
       return showError('please input cofirm password!')
-  else if( validator.emptyField(this.state.mobile))
+    else if( validator.emptyField(this.state.mobile))
       return showError('please input mobile number!')
-  else if( validator.emailField(this.state.email))
+    else if( validator.emailField(this.state.email))
       return showError('Invalid email address!')
-  else if(this.state.gender == '' )
+    else if(this.state.gender == '' )
       return showError('please select gender');
-  else if( this.state.agreed == '')
+    else if( this.state.agreed == '')
       return showError('please agree terms and condition');
-  else{
+    else{
       if(this.state.password != this.state.cpasword)
         return showError('password and confirm password mismatched!');
       else
@@ -88,16 +88,22 @@ export default class Register extends Component{
         for (let i in data)
             formData.append(i, data[i]);    
 
-        await fetch(API.registration, {
+        apiCall(API.registration, {
+            method: 'POST',
+            body: formData,
+        } , (res) => alert(res.message))
+      
+      
+        // await fetch(API.registration, {
 
-          method: 'POST',
-          body: formData,
+        //   method: 'POST',
+        //   body: formData,
 
-        }).then(res => res.json()).then(  
+        // }).then(res => res.json()).then(  
 
-          res => 
-            alert(res.message)
-        );
+        //   res => 
+        //     alert(res.message)
+        // );
 
         }
 

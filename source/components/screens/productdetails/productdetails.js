@@ -15,6 +15,9 @@ import {
   ActivityIndicator,
   TouchableOpacity
 } from "react-native";
+
+import { userData, sync, userDataService } from '../../../lib/serviceProvider';
+
 import { CustomHeader } from "../../header/header";
 
 import { styles } from "./styles";
@@ -35,7 +38,6 @@ export default class ProductDetails extends Component {
       isRating: false,
       newRating: 3,
       product_quantity: "",
-      access_token: ""
     };
   }
 
@@ -46,25 +48,28 @@ export default class ProductDetails extends Component {
     await fetch(API.addToCart, {
       method: "POST",
       headers: {
-        access_token: this.state.access_token
+        access_token: userData.user_data.access_token
       },
       body: formData
     })
       .then(res => res.json())
       .then(res => {
         console.log(res);
-        if (res.status == 200) showError(res.user_msg);
+        if (res.status == 200) {
+            userDataService.setUserData('total_carts', res.total_carts)    
+            showError(res.user_msg);
+        }
         else showError(res.user_msg);
       })
       .catch(err => console.error(err.message));
   };
 
-  async componentDidMount() {
-    let data = await AsyncStorage.getItem("access_token");
+ componentDidMount() {
+    // let data = await AsyncStorage.getItem("access_token");
 
-    this.setState({
-      access_token: data
-    });
+    // this.setState({
+    //   access_token: data
+    // });
 
     let url = API.productDetails + "?product_id=" + this.state.product_id;
     return fetch(url, {
@@ -112,14 +117,7 @@ export default class ProductDetails extends Component {
         >
           <Image
             source={{ uri: element.image }}
-            style={{
-              width: 105,
-              height: 90,
-              resizeMode: "contain",
-              borderColor: "gray",
-              borderWidth: 1,
-              marginRight: 10
-            }}
+            style={styles.content}
           />
         </TouchableOpacity>
       );
@@ -304,15 +302,7 @@ export default class ProductDetails extends Component {
               >
                 <View
                   onTouchEnd={() => this.setState({ isBuying: true })}
-                  style={{
-                    width: "90%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "70%",
-                    margin: 50,
-                    backgroundColor: "white",
-                    borderRadius: 10
-                  }}
+                  style={styles.modalContent}
                 >
                   <Text style={styles.nameModal}>{this.state.data.name}</Text>
                   <View style={styles.imageModal}>
@@ -388,15 +378,7 @@ export default class ProductDetails extends Component {
               >
                 <View
                   onTouchEnd={() => this.setState({ isRating: true })}
-                  style={{
-                    width: "90%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "70%",
-                    margin: 50,
-                    backgroundColor: "white",
-                    borderRadius: 10
-                  }}
+                  style={styles.modalContent}
                 >
                   <Text style={styles.nameModal}>{this.state.data.name}</Text>
                   <Image

@@ -128,6 +128,23 @@ export const styles = StyleSheet.create(
               borderColor: colors.gray,
               borderWidth: 2,
               padding: 8,
+          },
+          content: {
+            width: 105,
+            height: 90,
+            resizeMode: "contain",
+            borderColor: colors.gray,
+            borderWidth: 1,
+            marginRight: 10
+          },
+          modalContent: {
+            width: "90%",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "70%",
+            margin: 50,
+            backgroundColor: colors.white,
+            borderRadius: 10
           }
 
     }

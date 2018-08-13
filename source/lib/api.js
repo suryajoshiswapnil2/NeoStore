@@ -1,31 +1,38 @@
 
+import {NetInfo} from 'react-native'
+
 const host ='http://staging.php-dev.in:8844/trainingapp/api'
 
 export const API = {
     
    //POST 
-   login: 'http://staging.php-dev.in:8844/trainingapp/api/users/login',
-   registration : 'http://staging.php-dev.in:8844/trainingapp/api/users/register',
-   forgot: 'http://staging.php-dev.in:8844/trainingapp/api/users/forgot',
-   changePassword: 'http://staging.php-dev.in:8844/trainingapp/api/users/change',
-   setRatings: 'http://staging.php-dev.in:8844/trainingapp/api/products/setRating',
-   addToCart: 'http://staging.php-dev.in:8844/trainingapp/api/addToCart',
-   editCart: 'http://staging.php-dev.in:8844/trainingapp/api/editCart',
-   deleteCart: 'http://staging.php-dev.in:8844/trainingapp/api/deleteCart',
-   updateDetails: 'http://staging.php-dev.in:8844/trainingapp/api/users/update',
+   login: host + '/users/login',
+   registration : host + '/users/register',
+   forgot: host + '/users/forgot',
+   changePassword: host + '/users/change',
+   setRatings: host + '/products/setRating',
+   addToCart: host + '/addToCart',
+   editCart: host + '/editCart',
+   deleteCart: host + '/deleteCart',
+   updateDetails: host + '/users/update',
 
 
    //GET
-   accountDetails: 'http://staging.php-dev.in:8844/trainingapp/api/users/getUserData',
-   productList: 'http://staging.php-dev.in:8844/trainingapp/api/products/getList',
-   productDetails: 'http://staging.php-dev.in:8844/trainingapp/api/products/getDetail',
-   listCartItems: 'http://staging.php-dev.in:8844/trainingapp/api/cart',
-   orderList: 'http://staging.php-dev.in:8844/trainingapp/api/orderList',
+   accountDetails: host + '/users/getUserData',
+   productList: host + '/products/getList',
+   productDetails: host + '/products/getDetail',
+   listCartItems: host + '/cart',
+   orderList: host + '/orderList',
 };
 
 
 export const apiCall = 
     (url, data, callback)  => {
+        console.log('api called')
+      // check for internet connectivity   
+    //   let status = NetInfo.isConnected.fetch().then( isConnected => isConnected ? 'online' : 'offline')
+    //   console.log(status)  
+
       return fetch(url, data)
                 .then( res => res.json() )
                   .then( res => callback == undefined ? res.data : callback(res) )

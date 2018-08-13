@@ -31,6 +31,7 @@ import { styles } from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { SafeAreaView } from "react-navigation";
 import { API, apiCall } from "../../../lib/api";
+import { userData, sync, userDataService } from '../../../lib/serviceProvider';
 import ImagePicker from 'react-native-image-picker'
 export default class MyAccount extends Component {
   constructor(props) {
@@ -103,12 +104,15 @@ export default class MyAccount extends Component {
        apiCall(API.updateDetails, {
            method: 'POST',
            headers: {
-              access_token: this.state.access_token,
+              access_token: userData.user_data.access_token,
            },
            body: formData,
        }, (res) => {
             // console.log(res)
-            alert(res.user_msg)
+            if(res.status == 200) {
+                
+                alert(res.user_msg)
+            }
 
        }) 
 
@@ -121,15 +125,15 @@ export default class MyAccount extends Component {
   render() {
     const { navigate } = this.props.navigation;
 
-    // if(this.state.isLoading)
-    // {
-    //     return
-    //     (
-    //         <View style={styles.loaderContainer}>
-    //             <ActivityIndicator size="large" color="#0000ff" />
-    //         </View>
-    //     )
-    // }
+    if(this.state.isLoading)
+    {
+        return
+        (
+            <View style={styles.loaderContainer}>
+                <ActivityIndicator size="large" color="#0000ff" />
+            </View>
+        )
+    }
 
     return (
       <ImageBackground style={styles.mainContainer} source={background}>

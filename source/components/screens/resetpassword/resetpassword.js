@@ -24,11 +24,12 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Header from "../../header/header";
 import { API, apiCall } from "../../../lib/api";
 import { validator, showError } from "../../../utils/validators";
+import { userData, sync, userDataService } from '../../../lib/serviceProvider';
 export default class ResetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      access_token: "",
+
       old_password: "",
       password: "",
       confirm_password: ""
@@ -58,7 +59,7 @@ export default class ResetPassword extends Component {
     apiCall(API.changePassword, {
         method: "POST",
         headers: {
-          access_token: this.state.access_token
+          access_token: userData.user_data.access_token
         },
         body: formData
     }, (res) => {
@@ -88,12 +89,12 @@ export default class ResetPassword extends Component {
   };
 
   async componentDidMount() {
-    let data = await AsyncStorage.getItem("access_token");
+    // let data = await AsyncStorage.getItem("access_token");
     //  this.state.data = data;
     // alert(data);
-    this.setState({
-      access_token: data
-    });
+    // this.setState({
+    //   access_token: data
+    // });
     // console.log(data, this.state)
   }
 

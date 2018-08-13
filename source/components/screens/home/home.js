@@ -51,12 +51,13 @@ export default class Home extends Component {
 
         <View style={styles.containerHalf}>
           <Swiper
+            dotColor='red'
+            activeDotColor='black'
             style={Device.isAndroid ? { width: Device.window.width } : null}
-            showsButtons={true}
-          >
-            {this.props.navigation.state.params.product_categories.map(elem => {
+            showsButtons={false}   >
+            {this.props.navigation.state.params.product_categories.map((elem, key) => {
                   return (
-                    <View>
+                    <View key={key}>
                       <Image
                         source={{ uri: elem.icon_image }}
                         style={{
