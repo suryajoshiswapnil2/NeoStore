@@ -14,6 +14,7 @@ import {
 import { CustomHeader } from "../../header/header";
 
 import { styles } from "./styles";
+import { userData } from "../../../lib/serviceProvider";
 
 
 
@@ -61,6 +62,7 @@ export default class AddAddress extends Component {
         let arr = []    
         if(r == null) {
             arr =  [{
+                name: userData.user_data.first_name + ' ' + userData.user_data.last_name,
                 addr: this.state.addr,
                 landmark: this.state.landmark,
                 city: this.state.city,
@@ -72,10 +74,11 @@ export default class AddAddress extends Component {
             // console.log('result1',arr)
         }
         else {
-            // arr = JSON.parse(r)
+            arr = JSON.parse(r)
             arr = 
-            // arr.concat(
+            arr.concat(
                 [{
+                name: userData.user_data.first_name + ' ' + userData.user_data.last_name,    
                 addr: this.state.addr,
                 landmark: this.state.landmark,
                 city: this.state.city,
@@ -83,7 +86,7 @@ export default class AddAddress extends Component {
                 zip_code: this.state.zip_code,
                 country: this.state.country,
             }]
-        // )
+        )
             AsyncStorage.setItem('addr', JSON.stringify(arr))
             console.log('result2',arr)
         }

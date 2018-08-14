@@ -95,13 +95,13 @@ export default class SideBar extends Component{
                title: 'Store Locator',
                icon: 'map-pin',
                notifications: false,
-               navigate: () => { navigate('AddressList') },
+               navigate: () => { navigate('StoreLocator') },
            },
            {
                title: 'My Orders',
                icon: 'list',
-               notifications: true,
-               value: userData.total_orders,
+               notifications: false,
+            //    value: userData.total_orders,
                navigate: () => { navigate('MyOrders')  },
            },
            {

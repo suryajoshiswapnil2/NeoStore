@@ -140,6 +140,9 @@ export default class OrderDetail extends Component {
   };
 
   render() {
+
+    const {order_id} = this.props.navigation.state.params
+   
     if (this.state.isLoading) {
       return (
         <View style={styles.container}>
@@ -157,7 +160,7 @@ export default class OrderDetail extends Component {
           leftAction={() => {
             this.props.navigation.goBack();
           }}
-          title="Order ID: 15895"
+          title={"Order ID: " + order_id}
           rightIcon="search"
         />
 

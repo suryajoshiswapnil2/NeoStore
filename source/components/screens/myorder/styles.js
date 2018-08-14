@@ -12,6 +12,7 @@ export const styles = StyleSheet.create(
             marginTop: Device.iosMargin,
             justifyContent: 'center',
             alignItems: 'center',
+            backgroundColor: colors.white
           },
           mainContainer: {
               flex:1,

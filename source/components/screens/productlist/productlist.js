@@ -58,7 +58,7 @@ export default class ProductList extends Component {
     let url =
       API.productList +
       "?product_category_id=" +
-      this.state.product_category_id;
+      this.state.product_category_id +'&limit=1000';
     // alert(url)
     return fetch(url, {
       method: "GET"

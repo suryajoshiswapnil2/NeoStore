@@ -47,41 +47,65 @@ export const styles = StyleSheet.create(
             width: '92%',
             justifyContent: 'center',
             marginHorizontal: 18,
+            marginVertical: 10,
         },
         titleContainer: {
-            width: Device.window.width - 34,
+            width: Device.window.width,
+            borderBottomColor: colors.gray,
+            borderBottomWidth: 0.8,
+            paddingHorizontal: 20,
             justifyContent: 'center',
             alignItems: 'flex-start',
-            height: 60,
+            height: 50,
         },
         title:{
             fontSize: font.smallMed,
             color: colors.lightBlack,
         },
         name: {
-            fontSize: font.medium   ,
+            fontSize: 22,
             color: colors.lightBlack,
-            fontWeight: font.weight.bold
+            fontWeight: font.weight.bold,
+            marginBottom: 5,
         },
         address: {
-            fontSize: font.small,
+            fontSize: 18,
             color: colors.lightBlack,
+            width: 290,
         },
         radioButton: {
             width: 18,
             height: 18,
             backgroundColor: colors.white,
-            marginRight: 20,
+            marginRight: 12,
             borderRadius: 9,
-            borderColor: colors.gray,
-            borderWidth: 4,
-
+            borderColor: colors.lightGray,
+            borderWidth: 3,
+        },
+        selected: {
+            backgroundColor: colors.gray,
         },
         addressContainer:{
             flexDirection: 'row',
             justifyContent:'center',
             alignItems: 'center',
+            marginTop:15,
+        },
+        content: {
+            borderColor: colors.gray,
+            borderWidth: 0.5,
+            borderRadius: 4,
+            padding: 10,
+            // marginTop: 13,
+        },
+        delete:{
+            position: 'absolute',
+            // alignSelf: 'flex-end',
+            right: 5,
+            // color: colors.gray,
+            top: 5,
         }
           
     }
 );
+

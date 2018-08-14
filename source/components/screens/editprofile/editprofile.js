@@ -125,15 +125,15 @@ export default class MyAccount extends Component {
   render() {
     const { navigate } = this.props.navigation;
 
-    if(this.state.isLoading)
-    {
-        return
-        (
-            <View style={styles.loaderContainer}>
-                <ActivityIndicator size="large" color="#0000ff" />
-            </View>
-        )
-    }
+    // if(this.state.isLoading)
+    // {
+    //     return
+    //     (
+    //         <View style={styles.loaderContainer}>
+    //             <ActivityIndicator size="large" color="#0000ff" />
+    //         </View>
+    //     )
+    // }
 
     return (
       <ImageBackground style={styles.mainContainer} source={background}>

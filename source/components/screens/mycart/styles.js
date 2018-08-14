@@ -11,12 +11,14 @@ export const styles = StyleSheet.create(
             // marginTop: Device.iosMargin,
             justifyContent: 'center',
             alignItems: 'center',
+            
           },
         container: {
             flex: 1,
             marginTop: Device.iosMargin,
             justifyContent: 'flex-start',
             // alignItems: 'center',
+            backgroundColor:colors.white,
           },
           mainContainer: {
               flex:1,
@@ -63,13 +65,13 @@ export const styles = StyleSheet.create(
           }
           ,
           upperText:{
-              fontSize: 20,
+              fontSize: 18,
               color: colors.orderText, 
-              width: '100%',
+            //   width: '100%',
             //   backgroundColor: 'red'
           },
           bottomText:{
-              fontSize: 18,  
+              fontSize: 17,  
               color: colors.gray, 
               width: '100%',
           },

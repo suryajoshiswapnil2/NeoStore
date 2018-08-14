@@ -145,6 +145,21 @@ export const styles = StyleSheet.create(
             margin: 50,
             backgroundColor: colors.white,
             borderRadius: 10
+          },
+          qinput: {
+            width: 80,
+            height: 40,
+            borderColor: "green",
+            borderWidth: 2,
+            padding: 10,
+            margin: 20
+          },
+          containerContent: {
+            flex: 1,
+            zIndex: 2147483647,
+            backgroundColor: "rgba(0,0,0,0.3)",
+            justifyContent: "center",
+            alignItems: "center"
           }
 
     }

@@ -5,6 +5,7 @@ import {CustomHeader} from '../../header/header'
 import {styles} from './styles'
 import { API, apiCall } from '../../../lib/api';
 import { showError } from '../../../utils/validators'
+import { userData } from '../../../lib/serviceProvider';
 
 
 
@@ -16,7 +17,7 @@ export default class MyOrders extends Component {
         super(props)
         this.state ={
             isLoading : true,
-            access_token: '',
+            // access_token: '',
             data:[],
         }
     }
@@ -32,13 +33,14 @@ export default class MyOrders extends Component {
     componentDidMount = async () => {
         
                     
-       let data = await AsyncStorage.getItem('access_token');
-      
+    //    let data = await AsyncStorage.getItem('access_token');
+        
+
        try{
             apiCall(API.orderList, {
                 method: 'GET',
                 headers: {
-                    access_token: data
+                    access_token: userData.user_data.access_token
                 }
             }, (res) => {
                 if (res.status == 200) {
@@ -100,14 +102,14 @@ export default class MyOrders extends Component {
         return(
             
             <View style={styles.container}>
-            <StatusBar barStyle = 'dark-content' hidden={false} />
-            <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.goBack()}} title='My Orders' rightIcon='search'/>
+            {/* <StatusBar barStyle = 'dark-content' hidden={false} /> */}
+            <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Orders' rightIcon='search'/>
             <View style={styles.mainContainer}>
             { this.state.data.length != 0 ? <Text>No products in list</Text> : 
                 <FlatList 
-                    data={[{key: 'a', id: 15, cost: 1554, created: '8 aug 2018'},{key: 'b', id: 15, cost: 1554, created: '8 aug 2018'}]}
+                    data={[{key: 'a', id: 15, cost: 1554, created: '8 aug 2018'},{key: 'b', id: 1984, cost: 1554, created: '8 aug 2018'}]}
                     renderItem={({item}) => 
-                <TouchableOpacity onPress={this.doSomething}>    
+                <TouchableOpacity onPress={ () => { this.props.navigation.navigate('OrderDetail', { order_id: item.id })}}>    
                     <View style={styles.boxContainer}>
                             <View style={styles.left}>
                                 <View style={styles.textContainer}>

@@ -8,6 +8,7 @@ import { showError } from '../../../utils/validators'
 import Feather from 'react-native-vector-icons/Feather'
 import { SwipeListView } from 'react-native-swipe-list-view'
 import ModalDropdown from 'react-native-modal-dropdown';
+import { userData, userDataService } from '../../../lib/serviceProvider';
 
 export default class MyCart extends Component {
 
@@ -46,6 +47,8 @@ export default class MyCart extends Component {
                         isLoading: true,
                     })
 
+                    console.log(rowKey)
+
                     let formData = new FormData()
                     formData.append('product_id', rowKey)
 
@@ -62,14 +65,16 @@ export default class MyCart extends Component {
                         {
                             this.closeRow(rowMap, rowKey);
                             const newData = [...this.state.data];
-                            const prevIndex = this.state.data.findIndex(item => item.key === rowKey);
+                            const prevIndex = this.state.data.findIndex(item => item.product_id === rowKey);
                             newData.splice(prevIndex, 1);
                             this.setState({data: newData});
+                            userDataService.setUserData('total_carts', res.total_carts)
                             alert(res.user_msg)
                             this.setState({
                                 isLoading: false,
                             })
-                            this.render()
+                            
+                            // this.render()
                         }
                         else{
                             alert(res.user_msg)
@@ -221,8 +226,8 @@ export default class MyCart extends Component {
         return(
             
             <View style={styles.container}>
-            <StatusBar barStyle = 'light-content' hidden={false} />
-            <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.goBack()}} title='My Cart' rightIcon='search'/>
+            {/* <StatusBar barStyle = 'light-content' hidden={false} /> */}
+            <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Cart' rightIcon='search'/>
             
             { this.state.data == null ?
                 (<View style={styles.mainContainer}>
@@ -287,7 +292,7 @@ export default class MyCart extends Component {
                        <Text style={styles.total}>&#8377; {this.state.total}.00</Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={[styles.button, {backgroundColor:'red'}]}  onPress={() => {this._addToCart()}}>
+                    <TouchableOpacity style={[styles.button, {backgroundColor:'red'}]}  onPress={() => { this.props.navigation.navigate('AddressList') }}>
                         <Text style={[styles.buttonText, {fontWeight: 'bold', textAlign:'center'}]} >ORDER NOW</Text>
                     </TouchableOpacity>
                 </View> 

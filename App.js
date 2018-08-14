@@ -123,6 +123,58 @@ const ProductStack = createStackNavigator(
     initialRouteName : "Login"
   }
   )
+
+  const OrderStack = createStackNavigator({
+
+    MyOrders: {
+        screen: MyOrders,
+        navigationOptions: {
+            header: null,
+        }
+    },
+    OrderDetail: {
+        screen: OrderDetail,
+        navigationOptions:{
+          header: null,
+        }
+    },
+
+    },
+    {
+        initialRouteName: 'MyOrders'
+    }
+)
+
+  const MyCartStack = createStackNavigator({
+        MyCart: {
+            screen: MyCart,
+            navigationOptions: {
+            header: null,
+            }
+        },
+        // AddressStack: {
+        //     screen: AddressStack,
+        //     navigationOptions:{
+        //         header: null,
+        //     }
+        // },  
+        AddressList: {
+            screen: AddressList,
+            navigationOptions:{ 
+                header: null,
+            }
+        },
+        AddAddress: {
+            screen: AddAddress,
+            navigationOptions: {
+                header: null,
+            }
+        },
+    },
+    {
+        initialRouteName: 'MyCart'  
+  })  
+
   
   const DashboardNav = createDrawerNavigator({
     Home: {
@@ -131,39 +183,34 @@ const ProductStack = createStackNavigator(
         header:null,
       },
     },
+
+    // Complete
     MyAccountStack: {
         screen: MyAccountStack,
         navigationOptions:{
           header: null,
     }
     },
-    MyOrders: {
-      screen: MyOrders,
-      navigationOptions: {
-        header: null,
-      }
-    },
-    MyCart: {
-      screen: MyCart,
+    
+    // Complete
+    MyCartStack: {
+      screen: MyCartStack,
       navigationOptions: {
         header: null,
       }
     },
 
-    AddressStack: {
-      screen: AddressStack,
-      navigationOptions:{
-        header: null,
-      }
-    },
+    // Complete
     ProductStack:{
       screen: ProductStack,
       navigationOptions: {
         header: null,
       }
     },
-    OrderDetail: {
-      screen: OrderDetail,
+
+    // Complete Order Stack 
+    OrderStack: {
+      screen: OrderStack,
       navigationOptions:{
         header: null,
       }

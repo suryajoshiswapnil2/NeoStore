@@ -10,6 +10,9 @@ import {
     TouchableOpacity
 } from "react-native";
 
+import Feather from 'react-native-vector-icons/Feather'
+
+
 import  {userData} from '../../../lib/serviceProvider'
 
 import { CustomHeader } from "../../header/header";
@@ -23,17 +26,45 @@ export default class AddressList extends Component {
         super(props);
         this.state = {
             isLoading: true,
+            addr_arr: [],
+            selected: 0,
         }
+        this.deleteItem.bind(this)
+        
     }
+ 
 
     componentDidMount(){
 
-        let addr_arr = AsyncStorage.getItem('addr')
-        console.log(addr_arr)
-
-        this.setState({
-            isLoading: false,
+        AsyncStorage.getItem('addr').then(val => {
+            this.setState({
+                addr_arr: JSON.parse(val), 
+                isLoading: false,
+            })
         })
+
+    }
+
+    deleteItem = (index) => {
+
+        Alert.alert(
+            'Delete address', 
+            'Are you sure to delete?',
+            [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'Delete', onPress: () =>   {
+
+                        this.setState({
+                            addr_arr: this.state.addr_arr.filter(( _, i ) => i !== index ) 
+                        })
+                        // Make Permanent changes to AsyncStorage
+                        // AsyncStorage.setItem('addr', JSON.stringify(this.state.addr_arr))
+                        
+                }},
+              ],
+              { cancelable: false }
+        )
+
     }
 
     render() {
@@ -51,9 +82,9 @@ export default class AddressList extends Component {
                 leftIcon="chevron-left"
                 style={{ fontSize: 19 }}
                 leftAction={() => {
-                    this.props.navigation.navigate('Home');
+                    this.props.navigation.goBack();
                 }}
-                title="Add Address"
+                title="Address List"
                 rightIcon="plus"
                 rightAction= { () => { this.props.navigation.navigate('AddAddress')}}
             />
@@ -61,21 +92,39 @@ export default class AddressList extends Component {
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>Shipping Address</Text>
                 </View>
-                <View style={styles.addressContainer}>
-                    <TouchableOpacity onPress={this.doSomething}> 
-                        <View style={styles.radioButton}>
-                        </View>
-                    </TouchableOpacity>
-                    <View>
-                        <Text style={styles.name}>{userData.user_data.first_name} {userData.user_data.last_name}</Text>
-                        <Text style={styles.address}>Amravati, Amravati, Maharashtra, INDIA</Text>
+                {  this.state.addr_arr.length == 0 ? 
+
+                    <View style={{flex:1, justifyContent: 'center'}}>
+                        <Text>No Address in list, Please add.</Text>
                     </View>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={[styles.button, {backgroundColor:'red'}]}  onPress={() => {this._add_addr()}}>
-                        <Text style={[styles.buttonText, {fontWeight: 'bold', textAlign:'center'}]} >PLACE ORDER</Text>
-                    </TouchableOpacity>
-                </View> 
+                    :
+                    this.state.addr_arr.map((elem ,index) => (
+                        <View key={index} style={styles.addressContainer}>
+                            <TouchableOpacity onPress={ () => this.setState({selected: index}) }> 
+                                <View style={[styles.radioButton, this.state.selected == index ? styles.selected: null]}>
+                                </View>
+                            </TouchableOpacity>
+                            <View style={styles.content}>
+                                <Text style={styles.name}>{elem.name}</Text>
+                                <Text style={styles.address}>
+                                    {elem.addr}, {elem.landmark}, {elem.city}, {elem.state} - {elem.zip_code}, {elem.country}
+                                </Text>
+                                <TouchableOpacity onPress={() => this.deleteItem(index)} style={styles.delete} >
+                                    <Feather name='x' color='#8e8e8e'  size= {20}/>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                ))}
+                { this.state.addr_arr.length != 0 ?
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={[styles.button, {backgroundColor:'red'}]}  onPress={() => {this._add_add}}>
+                            <Text style={[styles.buttonText, {fontWeight: 'bold', textAlign:'center'}]} >PLACE ORDER</Text>
+                        </TouchableOpacity>
+                    </View>                 
+                    :
+                    null
+                }
+
             </View>    
         </View>
         );

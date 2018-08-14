@@ -110,9 +110,9 @@ export default class ProductDetails extends Component {
 
   renderImages = () => {
     let JSX = [];
-    this.state.data.product_images.forEach(element => {
+    this.state.data.product_images.forEach((element, index) => {
       JSX.push(
-        <TouchableOpacity
+        <TouchableOpacity key={index}
           onPress={() => this.setState({ curImg: element.image })}
         >
           <Image
@@ -293,12 +293,7 @@ export default class ProductDetails extends Component {
               }}
             >
               <View
-                style={{
-                  flex: 1,
-                  backgroundColor: "rgba(0,0,0,0.3)",
-                  justifyContent: "center",
-                  alignItems: "center"
-                }}
+                style={styles.containerContent}
               >
                 <View
                   onTouchEnd={() => this.setState({ isBuying: true })}
@@ -316,14 +311,7 @@ export default class ProductDetails extends Component {
                     autoCapitalize="none"
                     autoCorrect={false}
                     maxLength={1}
-                    style={{
-                      width: 80,
-                      height: 40,
-                      borderColor: "green",
-                      borderWidth: 2,
-                      padding: 10,
-                      margin: 20
-                    }}
+                    style={styles.qinput}
                     keyboardType="numeric"
                     onChangeText={input => {
                       this.setState({ product_quantity: input });
@@ -368,13 +356,7 @@ export default class ProductDetails extends Component {
               }}
             >
               <View
-                style={{
-                  flex: 1,
-                  zIndex: 2147483647,
-                  backgroundColor: "rgba(0,0,0,0.3)",
-                  justifyContent: "center",
-                  alignItems: "center"
-                }}
+                style={styles.containerContent}
               >
                 <View
                   onTouchEnd={() => this.setState({ isRating: true })}
