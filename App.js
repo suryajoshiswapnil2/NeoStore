@@ -26,6 +26,7 @@ import OrderDetail from './source/components/screens/orderdetail/orderdetail'
 import AddAddress from './source/components/screens/addaddress/addaddress'
 import AddressList from './source/components/screens/addresslist/addresslist'
 
+import StoreLocator from './source/components/screens/StoreLocator/StoreLocator'
 
 const ProductStack = createStackNavigator(
   {
@@ -214,6 +215,14 @@ const ProductStack = createStackNavigator(
       navigationOptions:{
         header: null,
       }
+    },
+
+    // complete
+    StoreLocator: {
+        screen: StoreLocator,
+        navigationOptions: {
+            header: null,
+        }
     }
   },
   {
