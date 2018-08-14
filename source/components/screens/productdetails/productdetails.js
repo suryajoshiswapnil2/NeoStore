@@ -284,7 +284,7 @@ export default class ProductDetails extends Component {
             transparent={true}
             visible={this.state.isBuying}
             onRequestClose={() => {
-              alert("Modal has been closed.");
+              this.setState({isBuying: false});
             }}
           >
             <TouchableWithoutFeedback
@@ -347,7 +347,7 @@ export default class ProductDetails extends Component {
             visible={this.state.isRating}
             value={this.state.product_quantity}
             onRequestClose={() => {
-              alert("Modal has been closed.");
+                this.setState({isRating: false});;
             }}
           >
             <TouchableWithoutFeedback

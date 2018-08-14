@@ -12,7 +12,7 @@ export const styles = StyleSheet.create(
             marginTop: Device.iosMargin,
             justifyContent: 'flex-start',
             // alignItems: 'center',
-            backgroundColor: colors.darkWhite
+            backgroundColor: colors.white
         },
         loaderContainer: {
             flex:1,

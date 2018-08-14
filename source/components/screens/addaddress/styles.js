@@ -54,8 +54,8 @@ export const styles = StyleSheet.create(
         input: {
             backgroundColor: colors.white,
             paddingHorizontal: 10,
-            paddingVertical: 6,
             color: colors.lightBlack,
+
         },
         full: {
             width: Device.window.width - 50 
@@ -71,10 +71,12 @@ export const styles = StyleSheet.create(
             marginBottom: 15,
         },
         multi: {
-            height: 80,
+            height: Device.isIOS? 80: 80 ,
+            marginVertical: Device.isIOS ? 10: 0,
         },
         single: {
-            height: 25,
+            height: Device.isIOS? undefined: 40 ,
+            marginVertical: Device.isIOS ? 10: 0,
         },
         inputRowContainer:{
             flexDirection: 'row',

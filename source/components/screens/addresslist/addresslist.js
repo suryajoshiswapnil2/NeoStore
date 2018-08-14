@@ -37,6 +37,13 @@ export default class AddressList extends Component {
     componentDidMount(){
 
         AsyncStorage.getItem('addr').then(val => {
+            if(val == null){
+                this.setState({
+                    isLoading: false,
+                    addr_arr: null,
+                })
+                return
+            }
             this.setState({
                 addr_arr: JSON.parse(val), 
                 isLoading: false,
@@ -92,7 +99,7 @@ export default class AddressList extends Component {
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>Shipping Address</Text>
                 </View>
-                {  this.state.addr_arr.length == 0 ? 
+                {  this.state.addr_arr == null ? 
 
                     <View style={{flex:1, justifyContent: 'center'}}>
                         <Text>No Address in list, Please add.</Text>
@@ -115,7 +122,7 @@ export default class AddressList extends Component {
                             </View>
                         </View>
                 ))}
-                { this.state.addr_arr.length != 0 ?
+                { this.state.addr_arr != null ?
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={[styles.button, {backgroundColor:'red'}]}  onPress={() => {this._add_add}}>
                             <Text style={[styles.buttonText, {fontWeight: 'bold', textAlign:'center'}]} >PLACE ORDER</Text>

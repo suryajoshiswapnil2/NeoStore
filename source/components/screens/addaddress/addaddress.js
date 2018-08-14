@@ -58,7 +58,7 @@ export default class AddAddress extends Component {
         // console.log('completed validations')
 
         AsyncStorage.getItem('addr').then((r) => {
-            // console.log(r)
+            console.log(r)
         let arr = []    
         if(r == null) {
             arr =  [{
@@ -71,6 +71,7 @@ export default class AddAddress extends Component {
                 country: this.state.country,
             }];
             AsyncStorage.setItem('addr', JSON.stringify(arr))
+            alert('Address added Successfully!')
             // console.log('result1',arr)
         }
         else {
@@ -88,7 +89,8 @@ export default class AddAddress extends Component {
             }]
         )
             AsyncStorage.setItem('addr', JSON.stringify(arr))
-            console.log('result2',arr)
+            alert('Address added Successfully!')
+            // console.log('result2',arr)
         }
 
         })
@@ -168,6 +170,7 @@ export default class AddAddress extends Component {
                                 placeholder='ADDRESS'
                                 placeholderTextColor= '#333333'
                                 autoCapitalize='none'
+                                numberOfLines={5}
                                 autoCorrect={false}
                                 autoFocus={true}
                                 returnKeyType='next'
@@ -265,7 +268,7 @@ export default class AddAddress extends Component {
                         <View style={styles.input} >
                             <TextInput
                                 style={[styles.half, styles.single]}
-                                multiline={true} 
+                                multiline={false} 
                                 placeholder='COUNTRY'
                                 placeholderTextColor= '#333333'
                                 autoCapitalize='none'
