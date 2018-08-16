@@ -85,6 +85,7 @@ export const styles = StyleSheet.create(
               fontSize: 15,
           },
           button: {
+            //   marginTop: 20,
               backgroundColor: colors.gray,
               height: 50,
               width: 170,

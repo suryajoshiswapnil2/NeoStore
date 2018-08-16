@@ -24,7 +24,7 @@ import { styles } from "./styles";
 import { API } from "../../../lib/api";
 import { showError } from "../../../utils/validators";
 import Feather from "react-native-vector-icons/Feather";
-import { Rating } from "react-native-ratings";
+import { Rating, AirbnbRating } from "react-native-ratings";
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -367,21 +367,24 @@ export default class ProductDetails extends Component {
                     source={{ uri: this.state.curImg }}
                     style={styles.selectedImage}
                   />
-                  <Rating
-                    type="custom"
-                    ratingCount={5}
-                    startingValue={this.state.newRating}
-                    style={{ marginVertical: 20 }}
-                    onFinishRating={this.rateItems}
-                    imageSize={45}
-                    fractions={0}
-                    ratingBackgroundColor="#7f7f7f"
-                    ratingColor="#ffba00"
-                  />
+                    <View style={{ marginVertical: 20 }}> 
+                        <AirbnbRating
+                            type="custom"
+                            ratingCount={5}
+                            startingValue={this.state.newRating}
+                            // style={{ marginVertical: 20 }}
+                            onFinishRating={this.rateItems}
+                            imageSize={45}
+                            fractions={0}
+                            ratingBackgroundColor="#7f7f7f"
+                            ratingColor="#ffba00"
+                            showRating= {false}
+                        />
+                    </View>
                   <TouchableOpacity
                     style={[
                       styles.button,
-                      { backgroundColor: "red", width: 230 }
+                      { backgroundColor: "red", width: 230, marginTop: 20, }
                     ]}
                     onPress={() => {
                       this._postRating();

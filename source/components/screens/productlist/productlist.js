@@ -142,7 +142,6 @@ export default class ProductList extends Component {
 
   render() {
 
-    console.log('render called')
     if (this.state.isLoading) {
       return (
         <View style={styles.container}>
