@@ -37,7 +37,7 @@ export default class ProductItem extends Component {
                     <Text style={styles.price}>Rs. {this.props.cost}</Text>
                     {/* <Text style={styles.rating}>{this.props.rating}</Text> */}
                     <Rating
-                    type='custom'
+                        type='custom'
                         ratingCount={5}
                         startingValue={this.props.rating}
                         onFinishRating={this.ratingCompleted}

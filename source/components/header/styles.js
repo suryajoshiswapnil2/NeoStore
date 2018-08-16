@@ -32,6 +32,11 @@ export const styles = StyleSheet.create({
         left: Device.isIOS ? 15 : 15,
         bottom: Device.isIOS ? 12 : 11,
     },
+    leftCustomContainer: {
+        position: 'absolute',
+        left: Device.isIOS ? 15 : 15,
+        bottom: Device.isIOS ? 12 : 15,
+    },
     rightContainer: {
         position: 'absolute',
         right: Device.isIOS ? 15 : 15,
@@ -40,7 +45,7 @@ export const styles = StyleSheet.create({
     },
     customHeaderContainer: {
         flexDirection: 'row',
-        backgroundColor: '#e91c1a',
+        backgroundColor: '#e91c1a', 
         height: Device.isIOS ? 50 : 55,
         marginTop: Device.isX ? 15 : 0,
         width: Device.window.width,

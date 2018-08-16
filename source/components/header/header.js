@@ -47,7 +47,7 @@ export class CustomHeader extends Component {
     return (
       <View style={styles.customHeaderContainer}>
         <TouchableOpacity
-          style={styles.leftContainer}
+          style={styles.leftCustomContainer}
           onPress={this.props.leftAction}
         >
           <Feather

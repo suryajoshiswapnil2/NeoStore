@@ -15,7 +15,7 @@ export default class MyCart extends Component {
     constructor(props)
     {
         super(props)
-        this.state ={
+        this.state = {
             isLoading : true,
             access_token: '',
             data:[],
@@ -67,10 +67,11 @@ export default class MyCart extends Component {
                             const newData = [...this.state.data];
                             const prevIndex = this.state.data.findIndex(item => item.product_id === rowKey);
                             newData.splice(prevIndex, 1);
-                            this.setState({data: newData});
+                            // this.setState({data: newData});
                             userDataService.setUserData('total_carts', res.total_carts)
                             alert(res.user_msg)
                             this.setState({
+                                data: newData,
                                 isLoading: false,
                             })
                             
@@ -125,17 +126,16 @@ export default class MyCart extends Component {
 
     componentDidMount = async () => {
       
-       let data = await AsyncStorage.getItem('access_token');
+    //    let data = await AsyncStorage.getItem('access_token');
 
        this.setState( { 
-         access_token: data,   
-       } )
-
+         access_token: userData.user_data.access_token,   
+       })
 
        return apiCall(API.listCartItems, {
             method: 'GET',
             headers: {
-                access_token: data
+                access_token: userData.user_data.access_token
             }
             }, (res) => {
             if (res.status == 200) {
@@ -222,6 +222,7 @@ export default class MyCart extends Component {
                 </View>
             )
           }
+        console.log(this.state.data)  
 
         return(
             

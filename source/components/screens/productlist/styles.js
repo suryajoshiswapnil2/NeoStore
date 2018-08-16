@@ -88,7 +88,24 @@ export const styles = StyleSheet.create(
           bottomViewerText:{
               color: colors.white,
               fontSize: 15,
-          }
+          },
+          bottomViewer2: {
+            position: 'absolute',
+            height: 35,
+            borderRadius: 5,
+            justifyContent: 'center',
+            alignItems: 'center',
+            opacity: .95,
+            backgroundColor: colors.black,
+            bottom: 10,
+            width: 100
+          //   width: Device.window.width,    
+            },
+            bottomViewerText2:{
+                color: colors.white,
+                fontSize: 16,
+            }
+          
 
     }
 )

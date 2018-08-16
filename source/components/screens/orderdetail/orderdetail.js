@@ -145,7 +145,7 @@ export default class OrderDetail extends Component {
    
     if (this.state.isLoading) {
       return (
-        <View style={styles.container}>
+        <View style={styles.loaderContainer}>
           <ActivityIndicator size="large" color="#0000ff" />
         </View>
       );

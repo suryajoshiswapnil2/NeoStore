@@ -38,3 +38,37 @@ export const apiCall =
                   .then( res => callback == undefined ? res.data : callback(res) )
                     .catch(err => console.log(err))
 }
+
+
+export const get = (url, headers, callback, err ) => {
+
+    let init = { method: 'GET' }
+    headers != null ? init['headers'] = headers : null
+    
+    fetch( url, init ).then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('Something went wrong');
+        }
+      })
+      .then( res => callback == undefined ? res : callback(res) )
+      .catch( error => err == undefined ? console.log(err) : err(error) );
+} 
+
+export const post = (url, headers, body, callback, err ) => {
+
+    let init = { method: 'POST' }
+    headers != null ? init['headers'] = headers : null
+    body != null ? init['body'] = body : null
+
+    fetch( url, init ).then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('Something went wrong');
+        }
+      })
+      .then( res => callback == undefined ? res : callback(res) )
+      .catch( error => err == undefined ? console.log(err) : err(error) );
+}

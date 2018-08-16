@@ -6,7 +6,13 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
- 
+        loaderContainer: {
+            flex: 1,
+            // marginTop: Device.iosMargin,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: colors.white
+          },
         container: {
             flex: 1,
             marginTop: Device.iosMargin,

@@ -64,11 +64,15 @@ export const styles = StyleSheet.create(
         },
         name: {
             fontSize: 22,
+            fontFamily: Device.isAndroid ? 'Gotham-Medium' : undefined,
             color: colors.lightBlack,
-            fontWeight: font.weight.bold,
+            opacity: 0.8,            
+            // fontWeight: font.weight.bold,
             marginBottom: 5,
         },
         address: {
+            opacity: 0.5,
+            fontFamily: Device.isAndroid ? 'Gotham-Book' : undefined,
             fontSize: 18,
             color: colors.lightBlack,
             width: 290,
@@ -93,7 +97,7 @@ export const styles = StyleSheet.create(
         },
         content: {
             borderColor: colors.gray,
-            borderWidth: 0.5,
+            borderWidth: 0.2,
             borderRadius: 4,
             padding: 10,
             // marginTop: 13,

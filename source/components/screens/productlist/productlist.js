@@ -10,21 +10,27 @@ import {
 import { CustomHeader } from "../../header/header";
 
 import { styles } from "./styles";
-import { API } from "../../../lib/api";
+import { API, get } from "../../../lib/api";
 import { showError } from "../../../utils/validators";
 import ProductItem from "./productItem";
 
 export default class ProductList extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isLoading: true,
+      isListLoading: false,
+      end: false,
       limit: 0,
       offset: 0,
       list: [],
-      dataSource: [],
       product_category_id: this.props.navigation.state.params._id
     };
+   
+    this.data = {
+        page: 1,
+    }
   }
 
   fetchResults = () => {
@@ -53,40 +59,90 @@ export default class ProductList extends Component {
     // return list
   };
 
+
+  lazyLoad = () => {
+    //   console.log('end',this.state.end)
+      if(this.state.end)
+        return  
+
+      this.setState({
+        isListLoading: true,
+      })
+
+      url = API.productList + '?product_category_id=' + this.state.product_category_id +
+        '&limit=6' + '&page=' + this.data.page;
+        
+      let {list, limit, offset} = this.state
+
+      get(url, null, res => {
+          
+         if( res.data == null )
+            this.setState({
+                end: true,
+                isListLoading: false,
+            })
+
+         else {
+            this.setState({
+                list: list.concat(res.data),
+                limit: limit + res.data.length,
+                offset: offset + res.data.length,
+                isListLoading: false,
+            })
+            this.data.page += 1
+        }
+      }, (e) => {
+            this.setState({
+                end: true,
+                isListLoading: false,
+            })
+      } )  
+  }
+
+
   componentDidMount() {
     // console.log('called ComponentDidMount')
-    let url =
-      API.productList +
-      "?product_category_id=" +
-      this.state.product_category_id +'&limit=1000';
-    // alert(url)
-    return fetch(url, {
-      method: "GET"
+
+    this.lazyLoad();
+    this.setState({
+        isLoading: false,
     })
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.status == 200) {
-          this.setState({
-            isLoading: false,
-            dataSource: responseJson.data,
-            limit: responseJson.data.length,
-            offset: 0
-            // list: responseJson.data.slice(0,5),
-          });
-          this.fetchResults();
-        } else {
-          showError(responseJson.user_msg);
-          this.setState({
-            isLoading: false
-          });
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+
+    // let url =
+    //   API.productList +
+    //   "?product_category_id=" +
+    //   this.state.product_category_id +'&limit=6&page='+this.data.page;
+    // // alert(url)
+    // return fetch(url, {
+    //   method: "GET"
+    // })
+    //   .then(response => response.json())
+    //   .then(responseJson => {
+    //     if (responseJson.status == 200) {
+    //       this.data.page += 1
+    //       this.setState({
+    //         isLoading: false,
+    //         dataSource: responseJson.data,
+    //         limit: responseJson.data.length,
+    //         offset: 0
+    //         // list: responseJson.data.slice(0,5),
+    //       });
+    //       this.fetchResults();
+    //     } else {
+    //       showError(responseJson.user_msg);
+    //       this.setState({
+    //         isListLoading: false
+    //       });
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
   }
 
   render() {
+
+    console.log('render called')
     if (this.state.isLoading) {
       return (
         <View style={styles.container}>
@@ -125,16 +181,29 @@ export default class ProductList extends Component {
           )}
           onEndReached={() => {
             //  console.log('end reached')
-            this.fetchResults();
+            // this.fetchResults();
+            this.lazyLoad()
           }}
           onEndReachedThreshold={0.1}
           keyExtractor={item => item.id.toString()}
         />
-        <View style={styles.bottomViewer}>
+
+        {this.state.isListLoading &&  
+            (<ActivityIndicator color='red' size='small'/>) 
+            }
+         { this.state.end && <Text style={{opacity: 0.5}}>All items are loaded successfully.</Text>}   
+        {/* <View style={styles.bottomViewer}>
           <Text style={styles.bottomViewerText}>
             SHOWING {this.state.offset} OF {this.state.limit}
           </Text>
+        </View> */}
+        <View style={styles.bottomViewer2}>
+          <Text style={styles.bottomViewerText2}>
+            {this.state.offset} OF {this.state.limit}
+          </Text>
         </View>
+
+
       </View>
     );
   }

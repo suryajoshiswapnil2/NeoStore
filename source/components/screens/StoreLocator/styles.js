@@ -23,7 +23,7 @@ export const styles = StyleSheet.create(
           mapContainer: {
             flex:1,
             width: Device.window.width,
-            backgroundColor: 'red',
+            // backgroundColor: 'red',
             justifyContent: 'center',
             alignItems: 'center',
           },
@@ -35,7 +35,7 @@ export const styles = StyleSheet.create(
           addrItem:{
             //   height: 50,
               paddingVertical: 20,
-              paddingHorizontal: 10,  
+              paddingHorizontal: 20,  
               borderBottomColor: colors.gray,
               borderBottomWidth: .6,
               flexDirection: 'row',
@@ -53,6 +53,11 @@ export const styles = StyleSheet.create(
           ad:{
             color:colors.productWhite,
             fontSize: 15,
+            fontFamily: 'Roboto',
+          },
+          map: {
+              width: Device.window.width,
+              height: '100%'
           }
     }
 );
