@@ -24,6 +24,17 @@ export const styles = StyleSheet.create(
             borderWidth: 0.5,
             borderRadius: 400/3 /2 ,
         },
+        imageTouch: {
+            width: 400/3,
+            height: 400/3,
+            justifyContent:'center',
+            alignItems: 'center', 
+            backgroundColor: colors.white,
+            // borderColor: colors.gray,
+            // borderWidth: 5.5,
+            borderRadius: 400/3 /2 ,
+            // backgroundColor: 'green'
+        },
         image: {
             width: 400/3,
             height: 400/3,

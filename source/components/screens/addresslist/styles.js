@@ -6,7 +6,6 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
- 
         container: {
             flex: 1,
             marginTop: Device.iosMargin,

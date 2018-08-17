@@ -27,6 +27,7 @@ export default class Startup extends Component {
 
 
     get(API.accountDetails, {access_token: data}, (res) => {
+        // console.log(res)
         if (res.status == 200) {
             userDataService.setData(res.data)
             this.props.navigation.navigate("Home", res.data);

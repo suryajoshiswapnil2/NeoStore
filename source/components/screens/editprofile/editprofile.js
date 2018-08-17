@@ -43,6 +43,7 @@ export default class MyAccount extends Component {
         isLoading: true,
         chosenDate: this.toDate(props.navigation.state.params.dob),      
         openIOSPicker: false,  
+        imagePicked: false,
     };
     // console.log('date to string',this.toStr(new Date()))
     console.log('this',props.navigation.state.params.profile_pic)
@@ -52,6 +53,7 @@ export default class MyAccount extends Component {
   componentDidMount(){
       this.setState({
           isLoading: false,
+          imageLoading: false,
       })
   }
 
@@ -87,6 +89,9 @@ export default class MyAccount extends Component {
   getImages = () =>
   {
 
+    this.setState({
+        imageLoading: true,
+    })
     var options = {
         title: 'Select Avatar',
         // customButtons: [
@@ -98,7 +103,7 @@ export default class MyAccount extends Component {
         }
       };
       ImagePicker.showImagePicker(options, (response) => {
-        console.log('Response = ', response);
+        // console.log('Response = ', response);
       
         if (response.didCancel) {
           console.log('User cancelled image picker');
@@ -115,9 +120,14 @@ export default class MyAccount extends Component {
           let source = 'data:image/jpeg;base64,' + response.data;
       
           this.setState({
-            profile_pic: source
+            imagePicked: true,
+            profile_pic: source,
+            imageLoading: false,
           });
         }
+        this.setState({
+            imageLoading: false,
+        })
       });
   }
 
@@ -142,8 +152,9 @@ export default class MyAccount extends Component {
        formData.append('email', this.state.email)
        formData.append('dob', this.state.dob)
        formData.append('phone_no', this.state.phone_no)
-       formData.append('profile_pic', this.state.profile_pic)
-    //    console.log(formData)
+       formData.append('profile_pic', this.state.imagePicked ? this.state.profile_pic : null)
+
+       console.log(formData)
 
         post(API.updateDetails, {access_token: userData.user_data.access_token,}, formData, (res) => {
             alert(res.user_msg)
@@ -203,7 +214,8 @@ export default class MyAccount extends Component {
               <View style={styles.containerHalf}>
                 <View style={styles.imageHolder}>
                   {/* <Image style={styles.image} source={require('../../../assets/images/icon.png')}/> */}
-                  <TouchableOpacity onPress={ () => this.getImages()}>
+                  <TouchableOpacity style={styles.imageTouch} onPress={ () => this.getImages()}>
+                  {this.state.imageLoading ? <ActivityIndicator size='small' color='blue'/> :
                     <Image
                         style={styles.image}
                         source={
@@ -212,6 +224,7 @@ export default class MyAccount extends Component {
                             : { uri: this.state.profile_pic }
                         }
                     />
+                    }
                   </TouchableOpacity>
                 </View>
                 <View style={styles.inputBoxes}>

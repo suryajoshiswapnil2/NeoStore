@@ -51,7 +51,7 @@ export default class SideBar extends Component{
         // this.setState({
         //     isLoading: true,
         // })
-
+        // console.log(userData.total_orders)
         const {navigate} = this.props.navigation;
         let arr = [
            {
@@ -100,8 +100,8 @@ export default class SideBar extends Component{
            {
                title: 'My Orders',
                icon: 'list',
-               notifications: false,
-            //    value: userData.total_orders,
+               notifications: false, // default is true
+               value: userData.total_orders, // count of number of orders
                navigate: () => { navigate('MyOrders')  },
            },
            {
