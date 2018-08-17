@@ -185,7 +185,7 @@ export default class ProductList extends Component {
             // this.fetchResults();
             this.lazyLoad()
           }}
-          onEndReachedThreshold={0.1}
+          onEndReachedThreshold={0.7}
           keyExtractor={item => item.id.toString()}
         />
 

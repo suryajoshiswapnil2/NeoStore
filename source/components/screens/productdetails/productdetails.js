@@ -16,7 +16,7 @@ import {
   TouchableOpacity
 } from "react-native";
 
-import { userData, sync, userDataService } from '../../../lib/serviceProvider';
+import { userData, sync, userDataService, getCategory } from '../../../lib/serviceProvider';
 
 import { CustomHeader } from "../../header/header";
 
@@ -38,6 +38,7 @@ export default class ProductDetails extends Component {
       isRating: false,
       newRating: 3,
       product_quantity: "",
+      isOOS: true, // out of stock
     };
   }
 
@@ -192,7 +193,7 @@ export default class ProductDetails extends Component {
               <View style={styles.header}>
                 <Text style={styles.name}>{this.state.data.name}</Text>
                 <Text style={styles.category}>
-                  Category - {this.state.data.product_category_id}
+                  Category - { getCategory(this.state.data.product_category_id)}
                 </Text>
                 <View style={styles.bottomContainer}>
                   <Text style={styles.company}>{this.state.data.producer}</Text>
@@ -217,6 +218,7 @@ export default class ProductDetails extends Component {
                       flexDirection: "row",
                       width: "85%",
                       justifyContent: "space-between",
+                      alignItems: 'center',
                       marginTop: 15,
                       marginBottom: 5
                     }}
@@ -230,6 +232,7 @@ export default class ProductDetails extends Component {
                     >
                       Rs. {this.state.data.cost}
                     </Text>
+                    { this.state.isOOS ? <Text style={{color:'red', fontSize: 14, fontWeight: '500'}}>Out of Stock</Text> : null}
                     <TouchableOpacity onPress={() => this.shareData()}>
                       <Feather name="share-2" size={25} color="gray" />
                     </TouchableOpacity>
@@ -252,7 +255,7 @@ export default class ProductDetails extends Component {
                   {/* </View> */}
                 </View>
                 <View style={styles.description}>
-                  <Text style={styles.descTitle}>DESCRIIPTION</Text>
+                  <Text style={styles.descTitle}>DESCRIPTION</Text>
                   <Text style={styles.desc}>{this.state.data.description}</Text>
                 </View>
               </View>

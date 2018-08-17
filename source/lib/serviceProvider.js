@@ -25,6 +25,15 @@ export const userDataService = {
 };
 
 
+export const getCategory = (id) => {
+
+    if(userData.product_categories.length == 0)
+        return null
+
+    return userData.product_categories.find(elem => elem.id == id ).name
+} 
+
+
 
 
 export const sync = (access_token) => {

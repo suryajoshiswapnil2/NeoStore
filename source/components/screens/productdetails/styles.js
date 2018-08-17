@@ -29,7 +29,7 @@ export const styles = StyleSheet.create(
              
           },
           category:{
-              fontSize: 24,
+              fontSize: 20,
               color: colors.pureBlack
           },
           company:{
@@ -104,8 +104,9 @@ export const styles = StyleSheet.create(
               alignItems: 'center',
             //   marginHorizontal: 40,   
               padding: 5,
-              borderWidth: 1, 
-              borderColor: 'green',
+              borderWidth: 1.3, 
+              borderColor: colors.darkWhite,
+              borderRadius: 3,
             //   marginBottom: 5,   
             },
           images: {
