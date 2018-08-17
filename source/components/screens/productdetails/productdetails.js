@@ -21,7 +21,7 @@ import { userData, sync, userDataService, getCategory } from '../../../lib/servi
 import { CustomHeader } from "../../header/header";
 
 import { styles } from "./styles";
-import { API } from "../../../lib/api";
+import { API, post } from "../../../lib/api";
 import { showError } from "../../../utils/validators";
 import Feather from "react-native-vector-icons/Feather";
 import { Rating, AirbnbRating } from "react-native-ratings";
@@ -135,18 +135,30 @@ export default class ProductDetails extends Component {
     formData.append("product_id", this.state.product_id);
     formData.append("rating", this.state.newRating);
 
-    return fetch(API.setRatings, {
-      method: "POST",
-      body: formData
-    })
-      .then(res => res.json())
-      .then(res => {
+    // return fetch(API.setRatings, {
+    //   method: "POST",
+    //   body: formData
+    // })
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     if (res.status == 200) {
+    //     //   console.log(res);
+    //       alert(res.user_msg);
+    //     } else alert(res.user_msg);
+    //   })
+    //   .catch(error => console.log(error.message));
+
+      post(API.setRatings, {}, formData, res => {
         if (res.status == 200) {
-          console.log(res);
-          alert(res.user_msg);
-        } else alert(res.user_msg);
+            //   console.log(res);
+              alert(res.user_msg);
+            } else alert(res.user_msg);
+      }, err => alert(err.message))
+
+      this.setState({
+          isRating: false,
       })
-      .catch(error => console.log(error.message));
+
   };
   // _change_quantity = (input) => {
   //     if(input == 0 || input == 9)

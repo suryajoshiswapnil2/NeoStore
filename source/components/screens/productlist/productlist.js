@@ -77,6 +77,7 @@ export default class ProductList extends Component {
     //   console.log(url)  
 
       return get(url, null, res => {
+        //   console.log(res)
           
          if( res.data == null )
             this.setState({
@@ -95,6 +96,7 @@ export default class ProductList extends Component {
             // this.data.page += 1
         }
       }, (e) => {
+            // console.log(e)
             this.setState({
                 end: true,
                 isListLoading: false,

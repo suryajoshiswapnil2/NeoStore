@@ -54,6 +54,7 @@ export default class AddressList extends Component {
     }
 
     _place_order = () => {
+
         let form = new FormData()
         let {addr_arr, selected} = this.state
 
@@ -62,6 +63,7 @@ export default class AddressList extends Component {
 
         post(API.order, { access_token: userData.user_data.access_token }, form, res => alert(res.user_msg) ,
         err => alert(err.message)  )
+
     }
 
     deleteItem = (index) => {
@@ -74,7 +76,7 @@ export default class AddressList extends Component {
                 {text: 'Delete', onPress: () =>   {
 
                         this.setState({
-                            addr_arr: this.state.addr_arr.filter(( _, i ) => i !== index ) 
+                            addr_arr: this.state.addr_arr.filter(( _value, i ) => i !== index ) 
                         })
                         // Make Permanent changes to AsyncStorage
                         // AsyncStorage.setItem('addr', JSON.stringify(this.state.addr_arr))
