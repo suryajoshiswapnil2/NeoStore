@@ -97,7 +97,7 @@ export const styles = StyleSheet.create(
         },
         content: {
             borderColor: colors.gray,
-            borderWidth: Device.isIOS? 0.9 : 0.2,
+            borderWidth: Device.isIOS? 0.25 : 0.2,
             borderRadius: 4,
             padding: 10,
             // marginTop: 13,

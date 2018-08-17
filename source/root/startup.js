@@ -6,7 +6,7 @@ import { userDataService } from "../lib/serviceProvider";
 
 import styles from "./styles";
 
-import { API, apiCall } from "../lib/api";
+import { API, apiCall, get } from "../lib/api";
 
 export default class Startup extends Component {
   constructor(props) {
@@ -24,29 +24,48 @@ export default class Startup extends Component {
     }
 
     // Validate the Access Token
-    try {
-        apiCall(API.accountDetails, {
-            method: "GET",
-            headers: {
-            access_token: data
-            }
-        }, (res) => {
-            if (res.status == 200) {
-                // console.log(res)
-                userDataService.setData(res.data)
-                console.log('swagja',res.data)
-                this.props.navigation.navigate("Home", res.data);
-                return true;
-            }
-            AsyncStorage.removeItem("access_token");
-            this.props.navigation.navigate("LoginStack");
-        })
-    }
-    catch(err){ // Network related issues
+
+
+    get(API.accountDetails, {access_token: data}, (res) => {
+        if (res.status == 200) {
+            userDataService.setData(res.data)
+            this.props.navigation.navigate("Home", res.data);
+            return true;
+        }
         AsyncStorage.removeItem("access_token");
+        this.props.navigation.navigate("LoginStack");  
+
+    }, err => {
+        alert(err.message)
+        // AsyncStorage.removeItem("access_token");
+        // Network issue, Exit from app
         this.props.navigation.navigate("LoginStack");
         console.log(err)
-    }
+    })
+
+    // try {
+    //     apiCall(API.accountDetails, {
+    //         method: "GET",
+    //         headers: {
+    //             access_token: data
+    //         }
+    //     }, (res) => {
+    //         if (res.status == 200) {
+    //             // console.log(res)
+    //             userDataService.setData(res.data)
+
+    //             this.props.navigation.navigate("Home", res.data);
+    //             return true;
+    //         }
+    //         AsyncStorage.removeItem("access_token");
+    //         this.props.navigation.navigate("LoginStack");
+    //     })
+    // }
+    // catch(err){ // Network related issues
+    //     AsyncStorage.removeItem("access_token");
+    //     this.props.navigation.navigate("LoginStack");
+    //     console.log(err)
+    // }
 
     // await fetch(API.accountDetails, {
     //   method: "GET",

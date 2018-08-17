@@ -55,8 +55,11 @@ export default class AddressList extends Component {
 
     _place_order = () => {
         let form = new FormData()
-        let {addr_arr} = this.state
+        let {addr_arr, selected} = this.state
+
+        addr_arr = addr_arr[selected]
         form.append('address', addr_arr.addr + ', ' + addr_arr.landmark + ', ' + addr_arr.city + '-' + addr_arr.zip_code + ', ' + addr_arr.country )
+
         post(API.order, { access_token: userData.user_data.access_token }, form, res => alert(res.user_msg) ,
         err => alert(err.message)  )
     }
@@ -126,7 +129,7 @@ export default class AddressList extends Component {
                                     {elem.addr}, {elem.landmark}, {elem.city}, {elem.state} - {elem.zip_code}, {elem.country}
                                 </Text>
                                  <TouchableOpacity onPress={() => this.deleteItem(index)} style={styles.delete} >
-                                    <Feather name='x' color='#8e8e8e'  size= {20}/>
+                                    <Feather name='x' color='#8e8e8e' size= {20}/>
                                 </TouchableOpacity>
                             </View>
                         </View>

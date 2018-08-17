@@ -26,6 +26,7 @@ export default class ProductList extends Component {
       limit: 0,
       offset: 0,
       list: [],
+      page: 1,
       product_category_id: this.props.navigation.state.params._id
     };
    
@@ -62,20 +63,20 @@ export default class ProductList extends Component {
 
 
   lazyLoad = () => {
-      console.log('called',this.state.list)
+    //   console.log('called',this.state.list)
       if(this.state.end)
         return  
 
       this.setState({
         isListLoading: true,
       })
-
+      let {list, limit, offset, page} = this.state
       url = API.productList + '?product_category_id=' + this.state.product_category_id +
-        '&limit=6' + '&page=' + this.data.page;
-        
-      let {list, limit, offset} = this.state
+        '&limit=6' + '&page=' + page;
 
-      get(url, null, res => {
+    //   console.log(url)  
+
+      return get(url, null, res => {
           
          if( res.data == null )
             this.setState({
@@ -88,9 +89,10 @@ export default class ProductList extends Component {
                 list: list.concat(res.data),
                 limit: limit + res.data.length,
                 offset: offset + res.data.length,
+                page: page + 1,
                 isListLoading: false,
             })
-            this.data.page += 1
+            // this.data.page += 1
         }
       }, (e) => {
             this.setState({
@@ -185,7 +187,7 @@ export default class ProductList extends Component {
             // this.fetchResults();
             this.lazyLoad()
           }}
-          onEndReachedThreshold={0.7}
+          onEndReachedThreshold={0.1}
           keyExtractor={item => item.id.toString()}
         />
 

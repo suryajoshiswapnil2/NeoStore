@@ -3,7 +3,7 @@ import {View,AsyncStorage,Alert,Text,StatusBar,Image,ActivityIndicator,ScrollVie
 import {CustomHeader} from '../../header/header'
 
 import {styles} from './styles'
-import { API, apiCall } from '../../../lib/api';
+import { API, apiCall, post } from '../../../lib/api';
 import { showError } from '../../../utils/validators'
 import Feather from 'react-native-vector-icons/Feather'
 import { SwipeListView } from 'react-native-swipe-list-view'
@@ -18,10 +18,39 @@ export default class MyCart extends Component {
         this.state = {
             isLoading : true,
             access_token: '',
-            data:[],
+            data:[], 
             total: 0,
             product_quantity: 0,
         }
+    }
+
+    _editCart = (a,b) => { // a -> product_id , b-> value
+        
+        let {data, total} = this.state
+        
+        let index = data.findIndex( elem => elem.product_id == a )
+        data[index].quantity = b 
+        // cost of all other items excluding this 
+        let cost = total - data[index].product.sub_total
+        
+        let sum = data[index].product.cost * b
+        data[index].product.sub_total = sum
+        cost += sum
+        
+        this.setState({
+            data: data,
+            total: cost,
+        })
+
+        let formData = new FormData()
+        formData.append('product_id', data[index].product_id )
+        formData.append('quantity', data[index].quantity)
+
+        // console.log(formData)
+
+        post(API.editCart, {access_token: userData.user_data.access_token}, formData, res => console.log(res.user_msg), err => alert(err.message) )
+
+        // console.log('stage changed', this.state.data)
     }
 
 
@@ -41,7 +70,7 @@ export default class MyCart extends Component {
             [
               {text: 'Cancel', onPress: () => null, style: 'cancel'},
               {text: 'Delete', onPress:async () => {
-
+                // console.log(rowMap, rowKey)
 
                     this.setState({
                         isLoading: true,
@@ -52,15 +81,39 @@ export default class MyCart extends Component {
                     let formData = new FormData()
                     formData.append('product_id', rowKey)
 
+                    // apiCall(API.deleteCart, { 
+                    //     method: 'POST',
+                    //     headers: {
+                    //         access_token: this.state.access_token
+                    //     },
+                    //     body: formData
+                    // }, (res) => {
+                    //     // console.log(res)
+                    //     if(res.status == 200)
+                    //     {
+                    //         this.closeRow(rowMap, rowKey);
+                    //         const newData = [...this.state.data];
+                    //         const prevIndex = this.state.data.findIndex(item => item.product_id === rowKey);
+                    //         newData.splice(prevIndex, 1);
+                    //         // this.setState({data: newData});
+                    //         userDataService.setUserData('total_carts', res.total_carts)
+                    //         alert(res.user_msg)
+                    //         this.setState({
+                    //             data: newData,
+                    //             isLoading: false,
+                    //         })
+                            
+                    //         // this.render()
+                    //     }
+                    //     else{
+                    //         alert(res.user_msg)
+                    //         this.setState({
+                    //             isLoading: false,
+                    //         })
+                    //     }
+                    // })
 
-                    apiCall(API.deleteCart, { 
-                        method: 'POST',
-                        headers: {
-                            access_token: this.state.access_token
-                        },
-                        body: formData
-                    }, (res) => {
-                        // console.log(res)
+                    post(API.deleteCart, { access_token: this.state.access_token }, formData, (res) => {
                         if(res.status == 200)
                         {
                             this.closeRow(rowMap, rowKey);
@@ -74,8 +127,7 @@ export default class MyCart extends Component {
                                 data: newData,
                                 isLoading: false,
                             })
-                            
-                            // this.render()
+                            this._cal_total();
                         }
                         else{
                             alert(res.user_msg)
@@ -83,8 +135,9 @@ export default class MyCart extends Component {
                                 isLoading: false,
                             })
                         }
-                    })
+                    }, err => {alert(err.message); this.setState({ isLoading: false,}) })
 
+                    
                     // await fetch(API.deleteCart, {
                     //     method: 'POST',
                     //     headers: {
@@ -254,14 +307,12 @@ export default class MyCart extends Component {
                                 <View style={styles.bottomContainer}>
                                 <View style={{ width: 96,}}>
                                     <ModalDropdown 
-                                        dropdownStyle={{width: 100,}} 
+                                        dropdownStyle={{width: 50, marginLeft: -9,}} 
                                         style={{width: 50, fontSize: 25, padding: 5,  height: 30, backgroundColor: '#ededed', alignItems: 'center'}} 
-                                        options={[1,2,3,4,5,6,7,8,9]}
-                                        onSelect= { (index, value) => {this.setState({
-                                            product_quantity: value,
-                                        })
-                                        
-                                    }}
+                                        options={[1,2,3,4,5,6,7,8]}
+                                        onSelect= { (index, value) => {                                        
+                                            this._editCart(item.product_id, value);
+                                        }}
                                         >
                                         <View style={{flexDirection: 'row'}}> 
                                             <Text style={{fontSize: 16}}>{item.quantity} </Text>

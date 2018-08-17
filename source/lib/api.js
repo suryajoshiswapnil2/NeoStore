@@ -31,7 +31,7 @@ export const API = {
 
 export const apiCall = 
     (url, data, callback)  => {
-        console.log('api called')
+   
       // check for internet connectivity   
     //   let status = NetInfo.isConnected.fetch().then( isConnected => isConnected ? 'online' : 'offline')
     //   console.log(status)  

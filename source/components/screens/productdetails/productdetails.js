@@ -38,7 +38,7 @@ export default class ProductDetails extends Component {
       isRating: false,
       newRating: 3,
       product_quantity: "",
-      isOOS: true, // out of stock
+      isOOS: false, // out of stock
     };
   }
 
