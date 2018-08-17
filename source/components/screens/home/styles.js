@@ -12,7 +12,7 @@ export const styles = StyleSheet.create(
             // justifyContent: 'center',
             // alignItems: 'center',
             // backgroundColor: 'white',
-            paddingTop: Device.isIOS ? 20 :0,
+            paddingTop: Device.isIOS ? 22 :0,
             paddingBottom: Device.isIOS ? 20 :0,
             
           },

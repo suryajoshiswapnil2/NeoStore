@@ -51,10 +51,20 @@ export default class OrderDetail extends Component {
    
     if (this.state.isLoading) {
       return (
-          
-        <View style={styles.loaderContainer}>
-          <ActivityIndicator size="large" color="#0000ff" />
-        </View>
+            <View style={{ flex:1, paddingTop: 22 }}>
+                <CustomHeader
+                    leftIcon="chevron-left"
+                    style={{ fontSize: 19 }}
+                    leftAction={() => {
+                        this.props.navigation.goBack();
+                    }}
+                    title={"Order ID: " + order_id}
+                    rightIcon="search"
+                    />
+                <View style={{flex:1, justifyContent: 'center'}}>
+                    <ActivityIndicator size='large' color='blue' />    
+                </View>    
+            </View>
       );
     }
 

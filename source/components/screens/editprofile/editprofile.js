@@ -15,6 +15,7 @@ import {
   TextInput,
   AsyncStorage,
   TouchableOpacity,
+  KeyboardAvoidingView,
   ImageBackground,
   DatePickerIOS,
   TouchableWithoutFeedback,
@@ -44,15 +45,17 @@ export default class MyAccount extends Component {
         chosenDate: this.toDate(props.navigation.state.params.dob),      
         openIOSPicker: false,  
         imagePicked: false,
+        dataLoading: false,
+        loading: true,
     };
     // console.log('date to string',this.toStr(new Date()))
-    console.log('this',props.navigation.state.params.profile_pic)
+    // console.log('this',props.navigation.state.params.profile_pic)
   
   }
 
   componentDidMount(){
       this.setState({
-          isLoading: false,
+          loading: false,
           imageLoading: false,
       })
   }
@@ -141,9 +144,10 @@ export default class MyAccount extends Component {
   _doUpdate = () => {
 
         // console.log('thiss',this.state.profile_pic)
+        
 
         this.setState({
-            isLoading: true,
+            dataLoading: true,
         }) 
 
        let formData= new FormData()
@@ -154,11 +158,20 @@ export default class MyAccount extends Component {
        formData.append('phone_no', this.state.phone_no)
        formData.append('profile_pic', this.state.imagePicked ? this.state.profile_pic : null)
 
-       console.log(formData)
+    //    console.log(formData)
 
         post(API.updateDetails, {access_token: userData.user_data.access_token,}, formData, (res) => {
             alert(res.user_msg)
+            
+            this.setState({
+                dataLoading: false,
+            })
+
         }, err => alert(err.message) )
+        
+        // this.setState({
+        //     dataLoading: false,
+        //   })
         
     //    apiCall(API.updateDetails, {
     //        method: 'POST',
@@ -175,25 +188,27 @@ export default class MyAccount extends Component {
 
     //    }).catch(err => console.log(err)) 
 
-       this.setState({
-        isLoading: false,
-      })
+   
 
   };
 
   render() {
+     
     // console.log('date',this.state.chosenDate)
+
     const { navigate } = this.props.navigation;
 
-    // if(this.state.isLoading)
-    // {
-    //     return
-    //     (
-    //         <View style={styles.loaderContainer}>
-    //             <ActivityIndicator size="large" color="#0000ff" />
-    //         </View>
-    //     )
-    // }
+    // problem in the following statement 
+
+    if(this.state.loading)
+    {
+        return (
+
+            <View style={styles.loaderContainer}>
+                <ActivityIndicator size="large" color="#0000ff" />
+            </View>
+        )
+    }
 
     return (
       <ImageBackground style={styles.mainContainer} source={background}>
@@ -207,7 +222,7 @@ export default class MyAccount extends Component {
           <StatusBar barStyle="light-content" hidden={false} />
 
           {/* <ScrollView> */}
-          {/* <KeyboardAvoidingView style={ styles.container} behavior='position' enabled> */}
+          <KeyboardAvoidingView style={ styles.container} behavior='position' enabled>
 
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1 }}>
@@ -360,14 +375,13 @@ export default class MyAccount extends Component {
                   onPress={this._doUpdate}
                   ref={input => {
                     this.loginButton = input;
-                  }}
-                >
-                  <Text style={{ color: "#e91c1a", fontSize: 20 }}>SUBMIT</Text>
+                  }}>
+                    {this.state.dataLoading ? <ActivityIndicator size='small' color='blue' /> : <Text style={{ color: "#e91c1a", fontSize: 20 }}>SUBMIT</Text>}
                 </TouchableOpacity>
               </View>
             </View>
           </TouchableWithoutFeedback>
-          {/* </KeyboardAvoidingView> */}
+          </KeyboardAvoidingView>
           {/* </ScrollView> */}
          {Device.isIOS ? <Modal
             visible={this.state.openIOSPicker}
@@ -389,6 +403,20 @@ export default class MyAccount extends Component {
                     />
             </View>
           </Modal> : null}
+
+
+
+          {/* {this.state.dataLoading && <Modal visible={true} ><ActivityIndicator size='large'/></Modal>} */}
+          
+          {/* <Modal
+            visible={this.state.dataLoading}
+            transparent={true}
+            style={{justifyContent:'center', alignItems: 'center',}}
+            >
+            <ActivityIndicator size="large" color="#0000ff" />
+
+          </Modal>   */}
+         
         </SafeAreaView>
       </ImageBackground>
     );

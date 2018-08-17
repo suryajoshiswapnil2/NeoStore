@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   StatusBar,
   Image,
+  ActivityIndicator,
 } from "react-native";
 
 import { styles } from "./styles";
@@ -29,12 +30,40 @@ export default class Home extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+        isLoading: true,
+    }
+  }
+
+ 
+
+  componentDidMount(){
+        this.setState({
+            isLoading: false,
+        })
   }
 
   render() {
     const { navigate } = this.props.navigation;
 
+    
+    if(this.state.isLoading)
+        return(
+            <View style={{ flex:1, paddingTop: 22 }}>
+                <CustomHeader
+                    leftIcon="menu"
+                    leftAction={this.props.navigation.openDrawer}
+                    title="NeoSTORE"
+                    rightIcon="search"
+                    />
+                <View style={{flex:1, justifyContent: 'center'}}>
+                    <ActivityIndicator size='large' color='blue' />    
+                </View>    
+            </View>
+    )
+
     return (
+        
       // <ImageBackground style={styles.mainContainer} source={background} ></ImageBackground>
       <View style={styles.mainContainer}>
         <StatusBar
@@ -48,6 +77,8 @@ export default class Home extends Component {
           title="NeoSTORE"
           rightIcon="search"
         />
+        
+        {/* {this.state.isLoading && <ActivityIndicator size='large' color='blue' />} */}
 
         <View style={styles.containerHalf}>
           <Swiper

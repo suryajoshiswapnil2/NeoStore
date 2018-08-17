@@ -34,6 +34,7 @@ export default class MyAccount extends Component {
   }
 
   render() {
+    // console.log('render editprofile')
     const { navigate } = this.props.navigation;
     return (
       <ImageBackground style={styles.mainContainer} source={background}>

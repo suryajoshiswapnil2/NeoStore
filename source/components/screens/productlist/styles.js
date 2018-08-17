@@ -9,7 +9,7 @@ export const styles = StyleSheet.create(
  
         container: {
             flex: 1,
-            marginTop: Device.isIOS? 20: 0,
+            marginTop: Device.isIOS? 22: 0,
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: colors.white

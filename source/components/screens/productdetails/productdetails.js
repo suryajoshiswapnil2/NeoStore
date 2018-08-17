@@ -151,13 +151,12 @@ export default class ProductDetails extends Component {
       post(API.setRatings, {}, formData, res => {
         if (res.status == 200) {
             //   console.log(res);
-              alert(res.user_msg);
+            alert(res.user_msg);
+
             } else alert(res.user_msg);
       }, err => alert(err.message))
+      return true
 
-      this.setState({
-          isRating: false,
-      })
 
   };
   // _change_quantity = (input) => {
@@ -179,11 +178,20 @@ export default class ProductDetails extends Component {
   render() {
     if (this.state.isLoading) {
       return (
-        <View style={styles.container}>
-          {/* <StatusBar barStyle = 'dark-content' hidden={false} /> */}
-          {/* <CustomHeader leftIcon='menu' leftAction={this.props.navigation.openDrawer} title={this.props.navigation.state.params.title}  rightIcon='search'/> */}
-          <ActivityIndicator size="large" color="#0000ff" />
-        </View>
+            <View style={{ flex:1, paddingTop: 22 }}>
+                <CustomHeader
+                    leftIcon="chevron-left"
+                    style={{ fontSize: 19 }}
+                    leftAction={() => {
+                        this.props.navigation.goBack();
+                    }}
+                    title={this.state.data.name}
+                    rightIcon="search"
+                    />                   
+                <View style={{flex:1, justifyContent: 'center'}}>
+                <ActivityIndicator size='large' color='blue' />    
+                </View>    
+            </View>
       );
     }
 
@@ -338,6 +346,7 @@ export default class ProductDetails extends Component {
                       { backgroundColor: "red", width: 180 }
                     ]}
                     onPress={() => {
+                        // this.setState({isBuying: false,})
                       this._addToCart();
                     }}
                   >
@@ -374,7 +383,7 @@ export default class ProductDetails extends Component {
                 style={styles.containerContent}
               >
                 <View
-                  onTouchEnd={() => this.setState({ isRating: true })}
+                //   onTouchEnd={() => this.setState({ isRating: true })}
                   style={styles.modalContent}
                 >
                   <Text style={styles.nameModal}>{this.state.data.name}</Text>
@@ -402,7 +411,10 @@ export default class ProductDetails extends Component {
                       { backgroundColor: "red", width: 230, marginTop: 20, }
                     ]}
                     onPress={() => {
-                      this._postRating();
+                        this._postRating()
+                    //   if (this._postRating())
+                        // this.setState({ isRating: false })
+                        
                     }}
                   >
                     <Text style={[styles.buttonText, { fontWeight: "bold" }]}>

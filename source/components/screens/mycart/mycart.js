@@ -270,8 +270,11 @@ export default class MyCart extends Component {
 
         if(this.state.isLoading){
             return(
-                <View style={styles.loaderContainer}>
-                    <ActivityIndicator size='large' color="#0000ff"/>
+                <View style={{ flex:1, paddingTop: 22 }}>
+                    <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Cart' rightIcon='search'/>
+                    <View style={{flex:1, justifyContent: 'center'}}>
+                        <ActivityIndicator size='large' color='blue' />    
+                    </View>    
                 </View>
             )
           }

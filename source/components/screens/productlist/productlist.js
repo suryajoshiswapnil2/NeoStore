@@ -149,11 +149,20 @@ export default class ProductList extends Component {
 
     if (this.state.isLoading) {
       return (
-        <View style={styles.container}>
-          {/* <StatusBar barStyle = 'dark-content' hidden={false} /> */}
-          {/* <CustomHeader leftIcon='menu' leftAction={this.props.navigation.openDrawer} title={this.props.navigation.state.params.title}  rightIcon='search'/> */}
-          <ActivityIndicator size="large" color="#0000ff" />
-        </View>
+                <View style={{ flex:1, paddingTop: 22 }}>
+                    <CustomHeader
+                        leftIcon="chevron-left"
+                        style={{ fontSize: 20 }}
+                        leftAction={() => {
+                            this.props.navigation.navigate("Home");
+                        }}
+                        title={this.props.navigation.state.params.title}
+                        rightIcon="search"
+                        />                    
+                    <View style={{flex:1, justifyContent: 'center'}}>
+                    <ActivityIndicator size='large' color='blue' />    
+                    </View>    
+                </View>
       );
     }
 
