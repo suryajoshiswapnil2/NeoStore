@@ -4,6 +4,7 @@ import {
   Text,
   StatusBar,
   FlatList,
+  ScrollView,
   Image,
   ActivityIndicator
 } from "react-native";
@@ -61,7 +62,7 @@ export default class ProductList extends Component {
 
 
   lazyLoad = () => {
-    //   console.log('end',this.state.end)
+      console.log('called',this.state.list)
       if(this.state.end)
         return  
 
@@ -164,6 +165,7 @@ export default class ProductList extends Component {
           title={this.props.navigation.state.params.title}
           rightIcon="search"
         />
+        <View style={{flex:1}}>
         <FlatList
           data={this.state.list}
           extraData={this.state}
@@ -188,14 +190,15 @@ export default class ProductList extends Component {
         />
 
         {this.state.isListLoading &&  
-            (<ActivityIndicator color='red' size='small'/>) 
+            (<View><ActivityIndicator color='red' size='small'/></View>) 
             }
-         { this.state.end && <Text style={{opacity: 0.5}}>All items are loaded successfully.</Text>}   
+         { this.state.end && <Text style={{opacity: 0.5, textAlign: 'center'}}>All items are loaded successfully.</Text>}   
         {/* <View style={styles.bottomViewer}>
           <Text style={styles.bottomViewerText}>
             SHOWING {this.state.offset} OF {this.state.limit}
           </Text>
         </View> */}
+        </View>
         <View style={styles.bottomViewer2}>
           <Text style={styles.bottomViewerText2}>
             {this.state.offset} OF {this.state.limit}
