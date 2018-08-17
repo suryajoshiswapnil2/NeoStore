@@ -34,6 +34,7 @@ export default class Startup extends Component {
             if (res.status == 200) {
                 // console.log(res)
                 userDataService.setData(res.data)
+                console.log('swagja',res.data)
                 this.props.navigation.navigate("Home", res.data);
                 return true;
             }

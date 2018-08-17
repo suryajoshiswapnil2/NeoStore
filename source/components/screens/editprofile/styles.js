@@ -7,6 +7,11 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
+        button:{
+            padding: 10,
+            // backgroundColor: 'green',
+            justifyContent: 'center',
+        },
         loaderContainer:{
             flex:1,
             alignItems: 'center',

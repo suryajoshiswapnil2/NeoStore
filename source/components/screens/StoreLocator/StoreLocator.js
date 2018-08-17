@@ -76,7 +76,7 @@ export default class StoreLocator extends Component {
                             style={styles.map}
                             // loadingEnabled= {true}
                             initialRegion={{
-                                latitude: 19.137048 ,
+                                latitude: 19.137048,
                                 longitude: 73.006706,
                                 latitudeDelta: 1.1922,
                                 longitudeDelta: 0.1421,

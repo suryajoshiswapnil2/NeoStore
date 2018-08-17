@@ -7,9 +7,6 @@ import { API, apiCall } from '../../../lib/api';
 import { showError } from '../../../utils/validators'
 import { userData } from '../../../lib/serviceProvider';
 
-
-
-
 export default class MyOrders extends Component {
 
     constructor(props)
@@ -91,6 +88,8 @@ export default class MyOrders extends Component {
 
     render(){
 
+        // let dummy = [{key: 'a', id: 15, cost: 1554, created: '8 aug 2018'},{key: 'b', id: 1984, cost: 1554, created: '8 aug 2018'}]
+
         if(this.state.isLoading){
             return(
                 <View style={styles.container}>
@@ -105,9 +104,10 @@ export default class MyOrders extends Component {
             {/* <StatusBar barStyle = 'dark-content' hidden={false} /> */}
             <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Orders' rightIcon='search'/>
             <View style={styles.mainContainer}>
-            { this.state.data.length != 0 ? <Text>No products in list</Text> : 
+            { this.state.data.length == 0 ? <Text>No products in list</Text> : 
                 <FlatList 
-                    data={[{key: 'a', id: 15, cost: 1554, created: '8 aug 2018'},{key: 'b', id: 1984, cost: 1554, created: '8 aug 2018'}]}
+                    data={this.state.data}
+                    keyExtractor={item => item.id.toString()}
                     renderItem={({item}) => 
                 <TouchableOpacity onPress={ () => { this.props.navigation.navigate('OrderDetail', { order_id: item.id })}}>    
                     <View style={styles.boxContainer}>

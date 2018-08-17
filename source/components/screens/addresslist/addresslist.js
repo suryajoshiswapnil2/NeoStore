@@ -18,6 +18,7 @@ import  {userData} from '../../../lib/serviceProvider'
 import { CustomHeader } from "../../header/header";
 
 import { styles } from "./styles";
+import { post, API } from "../../../lib/api";
 
 
 
@@ -50,6 +51,14 @@ export default class AddressList extends Component {
             })
         })
 
+    }
+
+    _place_order = () => {
+        let form = new FormData()
+        let {addr_arr} = this.state
+        form.append('address', addr_arr.addr + ', ' + addr_arr.landmark + ', ' + addr_arr.city + '-' + addr_arr.zip_code + ', ' + addr_arr.country )
+        post(API.order, { access_token: userData.user_data.access_token }, form, res => alert(res.user_msg) ,
+        err => alert(err.message)  )
     }
 
     deleteItem = (index) => {
@@ -116,7 +125,7 @@ export default class AddressList extends Component {
                                 <Text style={styles.address}>
                                     {elem.addr}, {elem.landmark}, {elem.city}, {elem.state} - {elem.zip_code}, {elem.country}
                                 </Text>
-                                <TouchableOpacity onPress={() => this.deleteItem(index)} style={styles.delete} >
+                                 <TouchableOpacity onPress={() => this.deleteItem(index)} style={styles.delete} >
                                     <Feather name='x' color='#8e8e8e'  size= {20}/>
                                 </TouchableOpacity>
                             </View>
@@ -124,7 +133,7 @@ export default class AddressList extends Component {
                 ))}
                 { this.state.addr_arr != null ?
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={[styles.button, {backgroundColor:'red'}]}  onPress={() => {this._add_add}}>
+                        <TouchableOpacity style={[styles.button, {backgroundColor:'red'}]}  onPress={() => {this._place_order()}}>
                             <Text style={[styles.buttonText, {fontWeight: 'bold', textAlign:'center'}]} >PLACE ORDER</Text>
                         </TouchableOpacity>
                     </View>                 

@@ -15,6 +15,7 @@ export const API = {
    editCart: host + '/editCart',
    deleteCart: host + '/deleteCart',
    updateDetails: host + '/users/update',
+   order: host + '/order',
 
 
    //GET
@@ -23,6 +24,8 @@ export const API = {
    productDetails: host + '/products/getDetail',
    listCartItems: host + '/cart',
    orderList: host + '/orderList',
+   orderDetail: host + '/orderDetail',
+   
 };
 
 

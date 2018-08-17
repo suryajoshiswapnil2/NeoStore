@@ -47,7 +47,7 @@ export default class MyCart extends Component {
                         isLoading: true,
                     })
 
-                    console.log(rowKey)
+                    // console.log(rowKey)
 
                     let formData = new FormData()
                     formData.append('product_id', rowKey)
@@ -60,7 +60,7 @@ export default class MyCart extends Component {
                         },
                         body: formData
                     }, (res) => {
-                        console.log(res)
+                        // console.log(res)
                         if(res.status == 200)
                         {
                             this.closeRow(rowMap, rowKey);
@@ -222,7 +222,7 @@ export default class MyCart extends Component {
                 </View>
             )
           }
-        console.log(this.state.data)  
+        // console.log(this.state.data)  
 
         return(
             
@@ -230,7 +230,7 @@ export default class MyCart extends Component {
             {/* <StatusBar barStyle = 'light-content' hidden={false} /> */}
             <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Cart' rightIcon='search'/>
             
-            { this.state.data == null ?
+            { this.state.data == null || this.state.data.length == 0 ?
                 (<View style={styles.mainContainer}>
                     <Text>No products in list</Text>
                 </View> )
