@@ -158,7 +158,7 @@ export default class MyAccount extends Component {
        formData.append('phone_no', this.state.phone_no)
        formData.append('profile_pic', this.state.imagePicked ? this.state.profile_pic : null)
 
-    //    console.log(formData)
+       console.log(formData)
 
         post(API.updateDetails, {access_token: userData.user_data.access_token,}, formData, (res) => {
             alert(res.user_msg)

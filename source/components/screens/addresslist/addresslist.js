@@ -6,6 +6,7 @@ import {
     Alert,
     Text,
     FlatList,
+    ScrollView,
     ActivityIndicator,
     TouchableOpacity
 } from "react-native";
@@ -61,7 +62,17 @@ export default class AddressList extends Component {
         addr_arr = addr_arr[selected]
         form.append('address', addr_arr.addr + ', ' + addr_arr.landmark + ', ' + addr_arr.city + '-' + addr_arr.zip_code + ', ' + addr_arr.country )
 
-        post(API.order, { access_token: userData.user_data.access_token }, form, res => alert(res.user_msg) ,
+        post(API.order, { access_token: userData.user_data.access_token }, form, res => {
+            Alert.alert('Info','Address added Successfully!', 
+            [
+                {text:'Ok', onPress: () => { 
+                    this.props.navigation.navigate('Home');
+                } }
+            ]
+            )  
+            
+            // alert(res.user_msg)
+        } ,
         err => alert(err.message)  )
 
     }
@@ -125,6 +136,7 @@ export default class AddressList extends Component {
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>Shipping Address</Text>
                 </View>
+                <ScrollView>
                 {  this.state.addr_arr == null ? 
 
                     <View style={{flex:1, justifyContent: 'center'}}>
@@ -148,6 +160,7 @@ export default class AddressList extends Component {
                             </View>
                         </View>
                 ))}
+                </ScrollView>
                 { this.state.addr_arr != null ?
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={[styles.button, {backgroundColor:'red'}]}  onPress={() => {this._place_order()}}>

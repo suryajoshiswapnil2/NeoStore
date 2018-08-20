@@ -24,7 +24,7 @@ export default class MyCart extends Component {
         }
     }
 
-    _editCart = (a,b) => { // a -> product_id , b-> value
+    _editCart = (a, b) => { // a -> product_id , b-> value
         
         let {data, total} = this.state
         

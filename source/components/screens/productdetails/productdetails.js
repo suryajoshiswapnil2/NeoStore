@@ -3,6 +3,7 @@ import {
   View,
   ScrollView,
   AsyncStorage,
+  Alert,
   Keyboard,
   TextInput,
   Modal,
@@ -46,23 +47,45 @@ export default class ProductDetails extends Component {
     let formData = new FormData();
     formData.append("product_id", this.state.product_id);
     formData.append("quantity", this.state.product_quantity);
-    await fetch(API.addToCart, {
-      method: "POST",
-      headers: {
-        access_token: userData.user_data.access_token
-      },
-      body: formData
-    })
-      .then(res => res.json())
-      .then(res => {
-        console.log(res);
+
+    post(API.addToCart, {access_token: userData.user_data.access_token}, formData, res => {
         if (res.status == 200) {
             userDataService.setUserData('total_carts', res.total_carts)    
-            showError(res.user_msg);
+            Alert.alert('Info',res.user_msg, 
+            [
+                {text:'Ok', onPress: () => { this.setState({
+                    isBuying: false,
+                  })  } }
+            ]
+         )
         }
-        else showError(res.user_msg);
-      })
-      .catch(err => console.error(err.message));
+        else alert(res.user_msg);
+    }, err => {
+        console.log(err)
+        alert(err.message)
+    })
+
+    // this.setModalVisible(false)
+
+    return false
+
+    // await fetch(API.addToCart, {
+    //   method: "POST",
+    //   headers: {
+    //     access_token: userData.user_data.access_token
+    //   },
+    //   body: formData
+    // })
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     console.log(res);
+    //     if (res.status == 200) {
+    //         userDataService.setUserData('total_carts', res.total_carts)    
+    //         showError(res.user_msg);
+    //     }
+    //     else showError(res.user_msg);
+    //   })
+    //   .catch(err => console.error(err.message));
   };
 
  componentDidMount() {
@@ -127,7 +150,8 @@ export default class ProductDetails extends Component {
   };
 
   setModalVisible(visible) {
-    this.setState({ isBuying: visible });
+    this.setState({ isBuying: false });
+    console.log('moving back', this.state.isBuying)
   }
 
   _postRating = () => {
@@ -151,10 +175,20 @@ export default class ProductDetails extends Component {
       post(API.setRatings, {}, formData, res => {
         if (res.status == 200) {
             //   console.log(res);
-            alert(res.user_msg);
+            // alert(res.user_msg);
+            Alert.alert('Info',res.user_msg, 
+                [
+                    {text:'Ok', onPress: () => { this.setState({
+                        isRating: false,
+                      })  } }
+                ]
+             )
 
             } else alert(res.user_msg);
       }, err => alert(err.message))
+
+
+
       return true
 
 
@@ -286,6 +320,7 @@ export default class ProductDetails extends Component {
             <TouchableOpacity
               style={[styles.button, { backgroundColor: "red" }]}
               onPress={() => {
+                //   true
                 this.setState({ isBuying: true });
               }}
             >
@@ -312,14 +347,15 @@ export default class ProductDetails extends Component {
           >
             <TouchableWithoutFeedback
               onPress={() => {
-                Keyboard.dismiss(), this.setState({ isBuying: false });
+                Keyboard.dismiss(); this.setState({ isBuying: false });
               }}
             >
               <View
                 style={styles.containerContent}
               >
+              <TouchableWithoutFeedback>
                 <View
-                  onTouchEnd={() => this.setState({ isBuying: true })}
+                //   onTouchEnd={() => this.setState({ isBuying: true })}
                   style={styles.modalContent}
                 >
                   <Text style={styles.nameModal}>{this.state.data.name}</Text>
@@ -346,7 +382,7 @@ export default class ProductDetails extends Component {
                       { backgroundColor: "red", width: 180 }
                     ]}
                     onPress={() => {
-                        // this.setState({isBuying: false,})
+                    
                       this._addToCart();
                     }}
                   >
@@ -360,7 +396,9 @@ export default class ProductDetails extends Component {
                     </Text>
                   </TouchableOpacity>
                 </View>
+                </TouchableWithoutFeedback>
               </View>
+              
             </TouchableWithoutFeedback>
           </Modal>
           <Modal
@@ -382,6 +420,7 @@ export default class ProductDetails extends Component {
               <View
                 style={styles.containerContent}
               >
+              <TouchableWithoutFeedback>
                 <View
                 //   onTouchEnd={() => this.setState({ isRating: true })}
                   style={styles.modalContent}
@@ -422,6 +461,7 @@ export default class ProductDetails extends Component {
                     </Text>
                   </TouchableOpacity>
                 </View>
+              </TouchableWithoutFeedback>
               </View>
             </TouchableWithoutFeedback>
           </Modal>

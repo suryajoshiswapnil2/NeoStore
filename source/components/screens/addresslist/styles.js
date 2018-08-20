@@ -62,7 +62,7 @@ export const styles = StyleSheet.create(
             color: colors.lightBlack,
         },
         name: {
-            fontSize: 22,
+            fontSize: 19,
             fontFamily: Device.isAndroid ? 'Gotham-Medium' : undefined,
             color: colors.lightBlack,
             opacity: Device.isIOS? undefined:  0.8,            
@@ -72,7 +72,7 @@ export const styles = StyleSheet.create(
         address: {
             opacity:Device.isIOS? undefined:  0.5,
             fontFamily: Device.isAndroid ? 'Gotham-Book' : undefined,
-            fontSize: 18,
+            fontSize: 15,
             color: colors.lightBlack,
             width: 290,
         },

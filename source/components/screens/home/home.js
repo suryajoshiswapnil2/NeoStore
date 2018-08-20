@@ -75,6 +75,7 @@ export default class Home extends Component {
           leftIcon="menu"
           leftAction={this.props.navigation.openDrawer}
           title="NeoSTORE"
+        //   rightAction={this.props.navigation.goBack}
           rightIcon="search"
         />
         
