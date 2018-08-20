@@ -209,7 +209,7 @@ export default class ProductList extends Component {
         //     </View>
         //   } 
           ListFooterComponent={this.state.isListLoading &&  
-            (<View><ActivityIndicator color='red' size='large'/></View>) 
+            (<View><ActivityIndicator color='blue' size='large'/></View>) 
           }
           keyExtractor={item => item.id.toString()}
         />
