@@ -67,7 +67,7 @@ export const styles = StyleSheet.create(
               width: 275    ,
               paddingVertical: 12,
               borderRadius: 5,
-              marginBottom: 12
+            //   marginBottom: 12
           },
           bottomContainer: {
           //    flex: 1,

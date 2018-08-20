@@ -192,11 +192,10 @@ export default class ResetPassword extends Component {
                 </View>
               </View>
               <TouchableOpacity
-                style={styles.loginButton}
-                onPress={this._resetPassword}
-              >
-                {this.state.isLoading ? <ActivityIndicator size="small" color="#0000ff" />  : <Text style={{ color: "#e91c1a", fontSize: 20, fontWeight: "bold" }}>RESET</Text>}
-                 </TouchableOpacity>
+                    style={styles.loginButton}
+                    onPress={this._resetPassword}>
+                    {this.state.isLoading ? <ActivityIndicator size="small" color="#0000ff" />  : <Text style={{ color: "#e91c1a", fontSize: 20, fontWeight: "bold" }}>RESET</Text>}
+              </TouchableOpacity>
             </View>
           </View>
         </TouchableWithoutFeedback>

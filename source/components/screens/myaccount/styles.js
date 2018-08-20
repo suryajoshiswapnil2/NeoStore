@@ -93,8 +93,8 @@ export const styles = StyleSheet.create(
             backgroundColor:colors.white,
             width: '100%'  ,
             // paddingVertical: 12,
-            height:  Device.isX ?  80   : 157/3,
-            paddingBottom: Device.isIOS ? 10 :0,
+            height:  Device.isX ?  80 : 157/3,
+            paddingBottom: Device.isX ? 10 :0,
         },
           bottomContainer: {
           //    flex: 1,
