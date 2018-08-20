@@ -7,14 +7,14 @@
  */
 
 import React, {Component} from 'react';
-import {View, Text,Alert, TextInput, ActivityIndicator,AsyncStorage, TouchableOpacity,ImageBackground,ScrollView, KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, StatusBar  } from 'react-native';
+import {View, Text,Alert, TextInput,BackHandler, ActivityIndicator,AsyncStorage, TouchableOpacity,ImageBackground,ScrollView, KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, StatusBar  } from 'react-native';
 import {background} from '../../../assets/images';
 
 import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {SafeAreaView} from 'react-navigation'; 
-import {API, apiCall} from '../../../lib/api';
+import {API, get, post} from '../../../lib/api';
 import {validator,showError} from '../../../utils/validators'
 import FlashMessage from "react-native-flash-message";
 import {userDataService} from "../../../lib/serviceProvider";
@@ -28,6 +28,7 @@ export default class Login extends Component{
         email: '',
         password: '',
         isLoading: true,
+        loading: false, 
       }
     }
 
@@ -48,36 +49,82 @@ export default class Login extends Component{
     else if( validator.passwordField(this.state.password))
       return showError('Password should be 7-15 alpha-numeric characters!', '' , this.passwordInput)
       
+
+    this.setState({
+        loading: true,
+    })  
+
     let formData = new FormData();
     formData.append('email', this.state.email)
     formData.append('password', this.state.password)
 
-    apiCall(API.login,{
-        method: 'POST',
-        body: formData,
-    },
-      (res) => {
+
+    post(API.login, {}, formData, res => {
+        if( res.status != 200) { 
+            this.setState({
+                loading: false,
+            })  
+            Alert.alert('Error',res.user_msg) 
+        }
+        else {
+            AsyncStorage.setItem('access_token', res.data.access_token);
+
+            get(API.accountDetails, { access_token: res.data.access_token}, res => {
+
+                if(res.status == 200 ) {
+                    userDataService.setData(res.data)
+                    this.props.navigation.navigate('Home',res.data)
+                }else { 
+
+                    this.setState({
+                        loading: false,
+                    })  
+                    Alert.alert('Error',res.user_msg)                     
+                }
+            }, err => {
+                console.log(err)
+                Alert.alert('Error', 'No Internet connection available!', [
+                    {text: 'Retry', onPress: () => this._doLogin() },
+                    {text: 'Exit', onPress: () => BackHandler.exitApp() }
+                ])
+            })
+        } 
+    }, err => {
+        console.log(err)
+        Alert.alert('Error', 'No Internet connection available!', [
+            {text: 'Retry', onPress: () => this._doLogin() },
+            {text: 'Exit', onPress: () => BackHandler.exitApp() }
+        ])
+    } )
+
+
+
+    // apiCall(API.login,{
+    //     method: 'POST',
+    //     body: formData,
+    // },
+    //   (res) => {
        
-      if( res.status != 200) 
-        Alert.alert(res.user_msg) 
-      else {
-        AsyncStorage.setItem('access_token', res.data.access_token);
+    //   if( res.status != 200) 
+    //     Alert.alert(res.user_msg) 
+    //   else {
+    //     AsyncStorage.setItem('access_token', res.data.access_token);
           
-        apiCall(API.accountDetails, {
-            method: 'GET',    
-            headers: {
-              access_token: res.data.access_token
-            }
-         }, (res) => {
-            if(res.status == 200 ) {
-                userDataService.setData(res.data)
-                this.props.navigation.navigate('Home',res.data)
-            }    
-         })   
+    //     apiCall(API.accountDetails, {
+    //         method: 'GET',    
+    //         headers: {
+    //           access_token: res.data.access_token
+    //         }
+    //      }, (res) => {
+    //         if(res.status == 200 ) {
+    //             userDataService.setData(res.data)
+    //             this.props.navigation.navigate('Home',res.data)
+    //         }    
+    //      })   
 
         
-      } 
-    })
+    //   } 
+    // })
 
 
 
@@ -119,7 +166,7 @@ export default class Login extends Component{
     const {navigate} = this.props.navigation;
 
     if(this.state.isLoading)
-      return( 
+      return ( 
           <ImageBackground style={styles.mainContainer} source={background} >
               <ActivityIndicator  size="large" color="#0000ff" />
           </ImageBackground>
@@ -177,7 +224,7 @@ export default class Login extends Component{
                 style={styles.loginButton}  
                 onPress={this._doLogin}
                 ref={(input) => { this.loginButton = input; }}>
-                <Text style={{ color: '#e91c1a', fontSize: 20 , fontWeight: 'bold'}}>LOGIN</Text>
+                {this.state.loading ? <ActivityIndicator size='small' color='blue'/>:<Text style={{ color: '#e91c1a', fontSize: 25 , fontWeight: 'bold'}}>LOGIN</Text>}
             </TouchableOpacity>
             <TouchableOpacity  onPress={ () => navigate('Forgot')}>
                 <Text style={{ color: '#ffffff', fontSize: 20,}}>Forgot Password?</Text>

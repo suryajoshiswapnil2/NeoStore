@@ -11,7 +11,7 @@ import {
   View,
   Text,
   TextInput,
-  AsyncStorage,
+  ActivityIndicator,
   TouchableOpacity,
   ImageBackground,
   TouchableWithoutFeedback,
@@ -29,7 +29,7 @@ export default class ResetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      isLoading: false,  
       old_password: "",
       password: "",
       confirm_password: ""
@@ -37,6 +37,9 @@ export default class ResetPassword extends Component {
   }
 
   _resetPassword = async () => {
+
+
+
     if (validator.emptyField(this.state.old_password))
       return showError("Old password is empty!");
     else if (validator.emptyField(this.state.password))
@@ -47,6 +50,10 @@ export default class ResetPassword extends Component {
       validator.passConfirm(this.state.password, this.state.confirm_password)
     )
       return showError("New password and confirm password mismatched!");
+
+    this.setState({
+        isLoading: true,
+    })
 
     let accountData = {};
     let formData = new FormData();
@@ -86,19 +93,18 @@ export default class ResetPassword extends Component {
     //       this.props.navigation.goBack();
     //     } else alert(res.user_msg);
     //   });
+
+    this.setState({
+        isLoading: false,
+    })
   };
 
-  async componentDidMount() {
-    // let data = await AsyncStorage.getItem("access_token");
-    //  this.state.data = data;
-    // alert(data);
-    // this.setState({
-    //   access_token: data
-    // });
-    // console.log(data, this.state)
-  }
+// componentDidMount() {
+// 
+// }
 
   render() {
+
     const { navigate } = this.props.navigation;
     return (
       <ImageBackground style={styles.mainContainer} source={background}>
@@ -189,12 +195,8 @@ export default class ResetPassword extends Component {
                 style={styles.loginButton}
                 onPress={this._resetPassword}
               >
-                <Text
-                  style={{ color: "#e91c1a", fontSize: 20, fontWeight: "bold" }}
-                >
-                  RESET
-                </Text>
-              </TouchableOpacity>
+                {this.state.isLoading ? <ActivityIndicator size="small" color="#0000ff" />  : <Text style={{ color: "#e91c1a", fontSize: 20, fontWeight: "bold" }}>RESET</Text>}
+                 </TouchableOpacity>
             </View>
           </View>
         </TouchableWithoutFeedback>

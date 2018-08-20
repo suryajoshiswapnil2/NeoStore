@@ -69,6 +69,7 @@ export const styles = StyleSheet.create(
               alignItems: 'center',
               backgroundColor: colors.white,
               width: 275    ,
+              height: 50,
               paddingVertical: 12,
               borderRadius: 5,
               marginBottom: 12

@@ -13,7 +13,7 @@ export const styles = StyleSheet.create(
             // alignItems: 'center',
             // backgroundColor: 'white',
             paddingTop: Device.isIOS ? 22 :0,
-            paddingBottom: Device.isIOS ? 20 :0,
+            // paddingBottom: Device.isIOS ? 5 :0,
             
           },
         container: {
@@ -74,7 +74,7 @@ export const styles = StyleSheet.create(
               justifyContent: 'space-between',
             // flexDirection: 'row',
             width: '48%',
-            // height: '95%',
+            height: '90%',
             // backgroundColor: '#e91c1a',
           },
           logoTitle: {

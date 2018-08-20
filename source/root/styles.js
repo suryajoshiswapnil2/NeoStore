@@ -8,8 +8,18 @@ export default styles = StyleSheet.create(
         container:{
             flex:1,
             alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: colors.red,
+            // justifyContent: 'flex-start',
+            // backgroundColor: colors.red,
+        },
+        mainContainer: {
+            flex:1,
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+        },
+        title: {
+            color: colors.white,
+            marginBottom: 5,
+            // fontFamily: 'Gotham-Medium',
         }
 
     }

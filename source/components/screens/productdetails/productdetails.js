@@ -178,7 +178,7 @@ export default class ProductDetails extends Component {
   render() {
     if (this.state.isLoading) {
       return (
-            <View style={{ flex:1, paddingTop: 22 }}>
+            <View style={styles.container}>
                 <CustomHeader
                     leftIcon="chevron-left"
                     style={{ fontSize: 19 }}

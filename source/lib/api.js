@@ -49,11 +49,18 @@ export const get = (url, headers, callback, err ) => {
     headers != null ? init['headers'] = headers : null
     
     fetch( url, init ).then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error('Something went wrong');
-        }
+        // console.log(res)
+
+        // if (res.ok) {
+        //   return res.json();
+        // } else {
+        //   return res.json();
+           
+        //   throw new Error('Something went wrong');
+        // }
+        
+        return res.json()
+        
       })
       .then( res => callback == undefined ? res : callback(res) )
       .catch( error => err == undefined ? console.log(err) : err(error) );
@@ -66,11 +73,16 @@ export const post = (url, headers, body, callback, err ) => {
     body != null ? init['body'] = body : null
 
     fetch( url, init ).then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error('Something went wrong');
-        }
+        // console.log(res)
+
+        // if (res.ok) {
+        //   return res.json();
+        // } else {
+        //   return res.json()
+        //   throw new Error('Something went wrong');
+        // }
+
+        return res.json()
       })
       .then( res => callback == undefined ? res : callback(res) )
       .catch( error => err == undefined ? console.log(err) : err(error) );

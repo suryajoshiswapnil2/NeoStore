@@ -11,7 +11,7 @@ export default class Loader extends Component {
     {
         super(props)
         this.state = {
-
+            
         }
     }
 

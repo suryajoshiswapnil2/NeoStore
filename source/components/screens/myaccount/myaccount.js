@@ -16,6 +16,7 @@ import {
   ImageBackground,
   TouchableWithoutFeedback,
   Keyboard,
+  ActivityIndicator,
   StatusBar
 } from "react-native";
 import { background } from "../../../assets/images";
@@ -30,12 +31,39 @@ export default class MyAccount extends Component {
   constructor(props) {
     super(props);
     console.log(props)
+    this.state = {
+        isLoading: true,
+    }
     // this.state = userData.user_data;
+  }
+
+  componentDidMount(){
+      this.setState({
+          isLoading: false,
+      })
   }
 
   render() {
     // console.log('render editprofile')
     const { navigate } = this.props.navigation;
+
+    if(this.state.isLoading)
+    {
+        return (
+            <ImageBackground style={[styles.mainContainer,{justifyContent: 'flex-start'}]} source={background}>
+                <Header
+                title="My Account"
+                back={() => {
+                    this.props.navigation.navigate("Home");
+                }}
+                />
+            <View style={styles.mainContainer}>
+                <ActivityIndicator size="large" color="#0000ff" />
+            </View>
+            </ImageBackground>           
+        )
+    }
+
     return (
       <ImageBackground style={styles.mainContainer} source={background}>
         <Header
@@ -45,7 +73,7 @@ export default class MyAccount extends Component {
           }}
         />
         {/* <SafeAreaView style={styles.mainContainer}> */}
-        <StatusBar barStyle="light-content" hidden={false} />
+        {/* <StatusBar barStyle="light-content" hidden={false} /> */}
 
         {/* <ScrollView> */}
         {/* <KeyboardAvoidingView style={ styles.container} behavior='position' enabled> */}

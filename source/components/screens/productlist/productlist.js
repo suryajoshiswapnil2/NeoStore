@@ -4,8 +4,6 @@ import {
   Text,
   StatusBar,
   FlatList,
-  ScrollView,
-  Image,
   ActivityIndicator
 } from "react-native";
 import { CustomHeader } from "../../header/header";
@@ -64,12 +62,14 @@ export default class ProductList extends Component {
 
   lazyLoad = () => {
     //   console.log('called',this.state.list)
+    // console.log('called')
       if(this.state.end)
         return  
 
       this.setState({
         isListLoading: true,
       })
+
       let {list, limit, offset, page} = this.state
       url = API.productList + '?product_category_id=' + this.state.product_category_id +
         '&limit=6' + '&page=' + page;
@@ -77,9 +77,9 @@ export default class ProductList extends Component {
     //   console.log(url)  
 
       return get(url, null, res => {
-        //   console.log(res)
+        //   console.log('asdas',res)
           
-         if( res.data == null )
+         if( res.status != 200 )
             this.setState({
                 end: true,
                 isListLoading: false,
@@ -146,6 +146,7 @@ export default class ProductList extends Component {
   }
 
   render() {
+    // console.log('render called')
 
     if (this.state.isLoading) {
       return (
@@ -166,7 +167,9 @@ export default class ProductList extends Component {
       );
     }
 
+    
     return (
+
       <View style={styles.container}>
         <StatusBar barStyle="light-content" hidden={false} />
         <CustomHeader
@@ -205,18 +208,18 @@ export default class ProductList extends Component {
         {this.state.isListLoading &&  
             (<View><ActivityIndicator color='red' size='small'/></View>) 
             }
-         { this.state.end && <Text style={{opacity: 0.5, textAlign: 'center'}}>All items are loaded successfully.</Text>}   
+         { this.state.end  && <Text style={{opacity: 0.5, textAlign: 'center'}}>All items are loaded successfully.</Text>}   
         {/* <View style={styles.bottomViewer}>
           <Text style={styles.bottomViewerText}>
             SHOWING {this.state.offset} OF {this.state.limit}
           </Text>
         </View> */}
         </View>
-        <View style={styles.bottomViewer2}>
+        { !this.state.isListLoading && (<View style={styles.bottomViewer2}>
           <Text style={styles.bottomViewerText2}>
             {this.state.offset} OF {this.state.limit}
           </Text>
-        </View>
+        </View>)}
 
 
       </View>

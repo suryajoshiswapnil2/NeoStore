@@ -49,7 +49,7 @@ export default class Home extends Component {
     
     if(this.state.isLoading)
         return(
-            <View style={{ flex:1, paddingTop: 22 }}>
+            <View style={styles.mainContainer}>
                 <CustomHeader
                     leftIcon="menu"
                     leftAction={this.props.navigation.openDrawer}

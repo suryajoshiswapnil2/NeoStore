@@ -92,8 +92,20 @@ export default class AddressList extends Component {
 
         if(this.state.isLoading){
 
-            return ( <View style={styles.loaderContainer}>
-                        <ActivityIndicator size='large' color='#00f'/>
+            return ( <View style={styles.container}>
+                        <CustomHeader
+                            leftIcon="chevron-left"
+                            style={{ fontSize: 19 }}
+                            leftAction={() => {
+                                this.props.navigation.goBack();
+                            }}
+                            title="Address List"
+                            rightIcon="plus"
+                            rightAction= { () => { this.props.navigation.navigate('AddAddress')}}
+                        />
+                        <View style={styles.loaderContainer}>
+                            <ActivityIndicator size='large' color='#00f'/>
+                        </View>    
                     </View> )
         }
 

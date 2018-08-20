@@ -203,10 +203,17 @@ export default class MyAccount extends Component {
     if(this.state.loading)
     {
         return (
-
+            <ImageBackground style={styles.mainContainer} source={background}>
+                <Header
+                title="Edit Profile"
+                back={() => {
+                    this.props.navigation.goBack();
+                }}
+                />
             <View style={styles.loaderContainer}>
                 <ActivityIndicator size="large" color="#0000ff" />
             </View>
+            </ImageBackground>
         )
     }
 

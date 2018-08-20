@@ -92,7 +92,7 @@ export default class MyOrders extends Component {
 
         if(this.state.isLoading){
             return(
-                <View style={{ flex:1, paddingTop: 22 }}>
+                <View style={styles.container}>
                 <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Orders' rightIcon='search'/>
                 <View style={{flex:1, justifyContent: 'center'}}>
                     <ActivityIndicator size='large' color='blue' />    

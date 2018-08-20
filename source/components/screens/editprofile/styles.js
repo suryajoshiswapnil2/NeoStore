@@ -50,7 +50,7 @@ export const styles = StyleSheet.create(
             // backgroundColor: 'blue',
             width: '100%',
             zIndex: 1,
-            paddingTop: Device.isIOS ? 20 :0,
+            paddingTop: Device.isIOS ? 22 :0,
           },
         container: {
             flex: 1,

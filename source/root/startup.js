@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { View, ActivityIndicator, AsyncStorage } from "react-native";
+import { View,BackHandler,Text, Alert, ActivityIndicator, AsyncStorage ,ImageBackground} from "react-native";
 
 import { userDataService } from "../lib/serviceProvider";
 
@@ -8,12 +8,16 @@ import styles from "./styles";
 
 import { API, apiCall, get } from "../lib/api";
 
+import {background} from '../assets/images'
+
 export default class Startup extends Component {
   constructor(props) {
     super(props);
+    this.do_processing = this.do_processing.bind(this)
   }
 
-  async componentWillMount() {
+  
+  do_processing = async () =>  {
 
     let data = await AsyncStorage.getItem("access_token");
 
@@ -33,15 +37,24 @@ export default class Startup extends Component {
             this.props.navigation.navigate("Home", res.data);
             return true;
         }
+        console.log(res)
+        alert(res.message)
         AsyncStorage.removeItem("access_token");
         this.props.navigation.navigate("LoginStack");  
 
     }, err => {
-        alert(err.message)
+        // alert(err.message)
+        // alert('No Internet connection available!')
+
+        Alert.alert('Error', 'No Internet connection available!', [
+            {text: 'Retry', onPress: () => this.do_processing() },
+            {text: 'Exit', onPress: () => BackHandler.exitApp() }
+        ])
+        
         // AsyncStorage.removeItem("access_token");
         // Network issue, Exit from app
-        this.props.navigation.navigate("LoginStack");
-        console.log(err)
+        // this.props.navigation.navigate("LoginStack");
+        // console.log('srtart',err)
     })
 
     // try {
@@ -98,14 +111,26 @@ export default class Startup extends Component {
     //     console.log(err);
     //   });
 
-    return;
+    return true;
+  }
+
+  componentWillMount() {
+
+    return this.do_processing();
+
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
+      <ImageBackground style={styles.container} source={background} >
+        <View style={styles.mainContainer}>
+            <Text style={[styles.title, {fontSize: 30,}]}>Welcome to</Text>
+            <Text style={[styles.title, {fontSize: 45, fontWeight: '700'}]}>NeoSTORE</Text>
+        </View>
+        <View style={[styles.mainContainer, {justifyContent: 'center'}]}>
+            <ActivityIndicator size="large" color="#ffffff"/>
+        </View>
+      </ImageBackground>
     );
   }
 }
