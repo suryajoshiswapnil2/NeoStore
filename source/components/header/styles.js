@@ -53,5 +53,22 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         // padding: 10,
         zIndex: 2,
-    }
+    },
+    rowContainer:{
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between'
+    },
+    modalContainer: {
+        flexDirection: 'row',
+        backgroundColor: '#e91c1a', 
+        height: Device.isIOS ? 50 : 55,
+        // marginTop: Device.iosMargin,
+        marginTop: Device.isX ? Device.iosMargin + 15 : Device.iosMargin,
+        width: Device.window.width,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        // padding: 10,
+        zIndex: 2,
+    },
 });

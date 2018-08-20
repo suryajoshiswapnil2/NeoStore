@@ -17,7 +17,7 @@ import {
   TouchableOpacity
 } from "react-native";
 
-import { userData, sync, userDataService, getCategory } from '../../../lib/serviceProvider';
+import { userData, userDataService, getCategory } from '../../../lib/serviceProvider';
 
 import { CustomHeader } from "../../header/header";
 
@@ -347,13 +347,13 @@ export default class ProductDetails extends Component {
           >
             <TouchableWithoutFeedback
               onPress={() => {
-                Keyboard.dismiss(); this.setState({ isBuying: false });
+                this.setState({ isBuying: false });
               }}
             >
               <View
                 style={styles.containerContent}
               >
-              <TouchableWithoutFeedback>
+              <TouchableWithoutFeedback onPress={ () => Keyboard.dismiss()}>
                 <View
                 //   onTouchEnd={() => this.setState({ isBuying: true })}
                   style={styles.modalContent}
