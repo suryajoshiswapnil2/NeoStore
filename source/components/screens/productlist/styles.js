@@ -14,6 +14,11 @@ export const styles = StyleSheet.create(
             alignItems: 'center',
             backgroundColor: colors.white
           },
+          mainContainer: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
           // itemContainer: {
           //   flex: 1,
           //   flexDirection: 'row',
@@ -91,11 +96,11 @@ export const styles = StyleSheet.create(
           },
           bottomViewer2: {
             position: 'absolute',
-            height: 35,
+            height: 30,
             borderRadius: 5,
             justifyContent: 'center',
             alignItems: 'center',
-            opacity: .95,
+            opacity: .90,
             backgroundColor: colors.black,
             bottom: 10,
             width: 100

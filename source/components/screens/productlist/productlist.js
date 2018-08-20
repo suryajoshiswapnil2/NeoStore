@@ -196,18 +196,27 @@ export default class ProductList extends Component {
               producer={item.producer}
             />
           )}
-          onEndReached={() => {
+          onEndReached={(info ) => {
             //  console.log('end reached')
             // this.fetchResults();
+            console.log(info)
             this.lazyLoad()
           }}
           onEndReachedThreshold={0.1}
+        //   ListEmptyComponent = {
+        //     <View style={styles.mainContainer}>
+        //         <Text>No products in list</Text>
+        //     </View>
+        //   } 
+          ListFooterComponent={this.state.isListLoading &&  
+            (<View><ActivityIndicator color='red' size='large'/></View>) 
+          }
           keyExtractor={item => item.id.toString()}
         />
 
-        {this.state.isListLoading &&  
+        {/* {this.state.isListLoading &&  
             (<View><ActivityIndicator color='red' size='small'/></View>) 
-            }
+            } */}
          { this.state.end  && <Text style={{opacity: 0.5, textAlign: 'center'}}>All items are loaded successfully.</Text>}   
         {/* <View style={styles.bottomViewer}>
           <Text style={styles.bottomViewerText}>
