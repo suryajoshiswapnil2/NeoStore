@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View,AsyncStorage,Alert,Text,StatusBar,Image,ActivityIndicator,ScrollView, TouchableOpacity} from 'react-native'
+import {View,Vibration,Alert,Text,StatusBar,Image,ActivityIndicator,ScrollView, TouchableOpacity} from 'react-native'
 import {CustomHeader} from '../../header/header'
 
 import {styles} from './styles'
@@ -71,6 +71,8 @@ export default class MyCart extends Component {
     // Delete row from flatlist 
     // Accept Two arguments rowMap which contain data and Key for identification
     _deleteItem = async (rowMap, rowKey) => {
+
+        Vibration.vibrate(100)
 
         Alert.alert(
             'Delete Item',
