@@ -6,7 +6,11 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
- 
+        modalImage:{
+            width: '100%',
+            height: '100%',
+            resizeMode: 'contain',
+        },
         container: {
             flex: 1,
             marginTop: Device.isIOS? 22: 0,
@@ -115,6 +119,24 @@ export const styles = StyleSheet.create(
               borderRadius: 3,
             //   marginBottom: 5,   
             },
+            bigMainImage:{
+                justifyContent: 'center',
+                alignItems: 'center',
+              //   marginHorizontal: 40,   
+                padding: 10,
+                backgroundColor: colors.white,
+                // margin: 10,
+                borderWidth: 1.3, 
+                borderRadius: 10,
+                borderColor: colors.gray,
+                // borderRadius: 3,
+              //   marginBottom: 5,  
+                // marginVertical: 50,
+                // marginHorizontal: 10,  
+                width: '98%',
+                height: '40%'
+
+              },
           images: {
 
             flexDirection: 'row',

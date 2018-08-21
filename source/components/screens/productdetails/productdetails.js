@@ -36,6 +36,7 @@ export default class ProductDetails extends Component {
       newRating: 3,
       product_quantity: "",
       isOOS: false, // out of stock
+      imageContainer: false,
     };
   }
 
@@ -295,12 +296,14 @@ export default class ProductDetails extends Component {
                       <Feather name="share-2" size={25} color="gray" />
                     </TouchableOpacity>
                   </View>
-                  <View style={styles.mainImage}>
-                    <Image
-                      source={{ uri: this.state.curImg }}
-                      style={styles.selectedImage}
-                    />
-                  </View>
+                  <TouchableOpacity onPress={ () => this.setState({ imageContainer: true})}>
+                    <View style={styles.mainImage}>
+                        <Image
+                            source={{ uri: this.state.curImg }}
+                            style={styles.selectedImage}
+                            />
+                    </View>
+                  </TouchableOpacity>
                   {/* <View style={styles.images}> */}
                   <ScrollView horizontal={true} style={styles.images}>
                     {this.renderImages()}
@@ -406,12 +409,9 @@ export default class ProductDetails extends Component {
             </TouchableWithoutFeedback>
           </Modal>
           <Modal
-            style={{ width: 100, height: 100 }}
             animationType="slide"
             transparent={true}
-            closeOnClick={true}
             visible={this.state.isRating}
-            value={this.state.product_quantity}
             onRequestClose={() => {
                 this.setState({isRating: false});;
             }}
@@ -468,6 +468,26 @@ export default class ProductDetails extends Component {
               </TouchableWithoutFeedback>
               </View>
             </TouchableWithoutFeedback>
+          </Modal>
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={this.state.imageContainer}
+            onRequestClose={() => {
+                this.setState({imageContainer: false});;
+            }}
+          >
+          <TouchableWithoutFeedback onPress={() => this.setState({imageContainer: false,})}>
+            <View style={styles.containerContent}>
+                <TouchableWithoutFeedback>
+                    <View style={styles.bigMainImage}>
+                        <Image
+                            source={{ uri: this.state.curImg }}
+                            style={styles.modalImage}/>
+                    </View>
+                </TouchableWithoutFeedback>
+            </View>
+           </TouchableWithoutFeedback>
           </Modal>
         </View>
       </View>
