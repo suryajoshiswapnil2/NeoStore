@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as Device from '../../../lib/globals'
 import {validator, showError} from '../../../utils/validators'
 import {
     View,
@@ -6,7 +7,11 @@ import {
     Alert,
     Text,
     StatusBar,
+    ScrollView,
+    KeyboardAvoidingView,
     ActivityIndicator,
+    TouchableWithoutFeedback,
+    Keyboard,
     TextInput,
     TouchableOpacity
 } from "react-native";
@@ -166,14 +171,17 @@ export default class AddAddress extends Component {
             
             <CustomHeader
                 leftIcon="chevron-left"
-                style={{ fontSize: 19 }}
+                style={{ fontSize: 20 }}
                 leftAction={() => {
                     this.props.navigation.goBack();
                 }}
                 title="Add Address"
                 rightIcon="search"
             />
-            <View style={styles.mainContainer}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <ScrollView >
+            <KeyboardAvoidingView behavior={Device.isIOS? 'position' : 'padding' }enabled>
+            <View style={styles.mainContainer}> 
                 <View style={styles.inputContainer}>
                     <View style={styles.titleContainer}>
                         <Text style={styles.title}>ADDRESS</Text>
@@ -187,7 +195,7 @@ export default class AddAddress extends Component {
                                 autoCapitalize='none'
                                 numberOfLines={5}
                                 autoCorrect={false}
-                                autoFocus={true}
+                                // autoFocus={true}
                                 returnKeyType='next'
                                 onSubmitEditing= { () => this.land.focus()}
                                 ref={t => this.addr = t}
@@ -300,7 +308,10 @@ export default class AddAddress extends Component {
                         <Text style={[styles.buttonText, {fontWeight: 'bold', textAlign:'center'}]} >SAVE ADDRESS</Text>
                     </TouchableOpacity>
                 </View> 
-            </View>    
+            </View> 
+            </KeyboardAvoidingView>
+            </ScrollView>
+            </TouchableWithoutFeedback> 
         </View>
         );
   }

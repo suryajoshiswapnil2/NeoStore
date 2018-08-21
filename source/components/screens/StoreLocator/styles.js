@@ -46,14 +46,16 @@ export const styles = StyleSheet.create(
             // backgroundColor: 'red',
           },
           n:{
+            ...font.family.medium, 
             color: colors.lightBlack,
             fontWeight: font.weight.bold,
-            fontSize: 16,
+            fontSize: 15,
           },
           ad:{
+            ...font.family.book, 
             color:colors.productWhite,
-            fontSize: 15,
-            fontFamily: 'Roboto',
+            fontSize: 13,
+            // fontFamily: 'Roboto',
           },
           map: {
               width: Device.window.width,

@@ -67,9 +67,9 @@
 		<string>rubicon-icon-font.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
-		<string>Gotham-Bold.ttf</string>
-		<string>Gotham-Book.ttf</string>
-		<string>Gotham-Medium.ttf</string>
+		<string>GothamBold.otf</string>
+		<string>GothamBook.otf</string>
+		<string>GothamMedium.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

@@ -100,6 +100,7 @@ export const styles = StyleSheet.create(
             // backgroundColor: 'blue'
           },
           price:{
+            ...font.family.medium, 
             fontSize: 25,
             fontWeight: 'bold',
             color: colors.red,
@@ -109,13 +110,15 @@ export const styles = StyleSheet.create(
 
           },
           manufacturer:{
+            ...font.family.book, 
             fontSize: 15,
             color: colors.darkGray,
             // backgroundColor: 'blue'
           },
           title:{
+            ...font.family.medium, 
             fontSize: 18,
-            fontWeight: 'bold',
+            // fontWeight: 'bold',
             color: colors.productWhite,
             marginBottom: 1,
             // backgroundColor:'red'
@@ -124,6 +127,7 @@ export const styles = StyleSheet.create(
             flex:1,
               // backgroundColor: 'red',
               flexDirection: 'column',
+              marginTop: 5,
               justifyContent: 'flex-start',
           },
           bottomContainer:{

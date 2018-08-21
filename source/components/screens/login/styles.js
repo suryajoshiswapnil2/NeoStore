@@ -34,9 +34,10 @@ export const styles = StyleSheet.create(
             // backgroundColor: '#F5FCFF',
           },
           logoTitle: {
+            ...font.family.bold, 
             fontSize: font.logoTitle,
             color: colors.white,
-            fontWeight: font.weight.bold,
+            // fontWeight: font.weight.bold,
             marginBottom: 50,
           },
           inputContainer: {

@@ -1,9 +1,10 @@
 //
 
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import * as Device from '../../../lib/globals';
 import colors from '../../../utils/colors';
 import font from '../../../utils/fontSize';
+
 
 export const styles = StyleSheet.create(
     {
@@ -31,12 +32,23 @@ export const styles = StyleSheet.create(
          
         },
         title : {
+            ...font.family.medium,
+            // ...Platform.select({
+            //     ios: {
+            //       fontFamily: "roboto",
+            //     },
+            //     android: {
+            //       fontFamily: "gotham-medium",
+            //     },
+            //   }),
             fontSize: 50/3,
             fontWeight: 'bold',
             color: colors.white,
             marginBottom:2,
         },
         email : {
+            // fontFamily: 'Gotham-Medium',
+            ...font.family.Book,
             fontSize: 11,
             // fontWeight: 'bold',
             color: colors.white,
@@ -69,6 +81,7 @@ export const styles = StyleSheet.create(
             height: 40/2
         },
         drawerText:{
+            ...font.family.Medium,
             flex:1,
             color: colors.white,
             fontWeight: font.weight.bold,
@@ -76,6 +89,7 @@ export const styles = StyleSheet.create(
             marginHorizontal:20,
         },
         notifications:{
+            // ...font.family.book,
             // flex:1,
         //    justifyContent:'center',
         //    alignSelf: 'center', 

@@ -2,6 +2,7 @@ import {
     StyleSheet
 } from 'react-native';
 import * as Device from '../../lib/globals'
+import font from '../../utils/fontSize'
 
 export const styles = StyleSheet.create({
     headerContainer: {
@@ -22,10 +23,15 @@ export const styles = StyleSheet.create({
         // fontWeight: 'bold',
     },
     custHeadText: {
+        // backgroundColor: 'blue',
+        textAlign: 'center',
+        ...font.family.medium, 
         color: '#ffffff',
+        // height: 30,
+        marginTop: Device.isIOS ? 8 : undefined,
         // marginLeft: '35%' ,
-        fontSize: 25,
-        fontWeight: 'bold',
+        fontSize: Device.isIOS ? 20 : 25,
+        // fontWeight: 'bold',
     },
     leftContainer: {
         position: 'absolute',

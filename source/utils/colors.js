@@ -25,6 +25,6 @@ export default colors = {
    productTitle: '#262626',
 
    orderText: '#1c1c1c',
-
+   order: '#6b6b6b', 
 
 }

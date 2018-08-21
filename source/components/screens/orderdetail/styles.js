@@ -65,14 +65,17 @@ export const styles = StyleSheet.create(
           }
           ,
           upperText:{
-              fontSize: 19,
-              color: colors.orderText, 
+            ...font.family.book, 
+              fontSize: 17,
+              fontWeight: '400',
+              color: '#000', 
             //   width: '100%',
             //   backgroundColor: 'red'
           },
           bottomText:{
-              fontSize: 17,  
-              color: colors.gray, 
+            ...font.family.book, 
+              fontSize: 15,  
+              color: colors.order, 
               width: '100%',
               fontStyle: 'italic'
           },
@@ -88,6 +91,7 @@ export const styles = StyleSheet.create(
             //   backgroundColor:'red' 
           },
           cost: {
+            ...font.family.book, 
               fontSize: 17,
               color: colors.lightBlack,
           },
@@ -101,6 +105,7 @@ export const styles = StyleSheet.create(
               alignItems: 'center',
           },
           total:{
+            ...font.family.medium, 
               fontSize: 17,
               fontWeight: '600',
               color: colors.lightBlack

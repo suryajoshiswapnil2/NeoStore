@@ -1,7 +1,21 @@
+
+
+export const Gotham = {
+    book: {
+        fontFamily: 'Gotham-Book',
+    },
+    medium: {
+        fontFamily: 'Gotham-Medium',
+    },
+    bold: {
+        fontFamily: 'Gotham-Bold',
+    }
+}
+
 export default font = {
     Medium : 23,
     Book: 13, 
-    logoTitle: 45,
+    logoTitle: 48,
     weight: {
         bold: 'bold',
         bolder: '700',
@@ -13,8 +27,9 @@ export default font = {
     largeMedium: 25,
     large: 30,
     xLarge: 35,
-
+    family: Gotham,
 }
+
 export const GOTHAM = {
     Medium : 23,
     Book: 13, 

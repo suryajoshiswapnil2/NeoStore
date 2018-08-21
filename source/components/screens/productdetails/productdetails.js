@@ -215,7 +215,7 @@ export default class ProductDetails extends Component {
             <View style={styles.container}>
                 <CustomHeader
                     leftIcon="chevron-left"
-                    style={{ fontSize: 19 }}
+                    style={{ fontSize: 20 }}
                     leftAction={() => {
                         this.props.navigation.goBack();
                     }}
@@ -279,6 +279,7 @@ export default class ProductDetails extends Component {
                   >
                     <Text
                       style={{
+                        // fontFamily: 'Gotham-medium',  
                         fontSize: 25,
                         color: "#ff0000",
                         fontWeight: "500"
@@ -365,7 +366,7 @@ export default class ProductDetails extends Component {
                       style={[styles.selectedImage]}
                     />
                   </View>
-                  <Text style={{ marginTop: 20, fontSize: 18 }}>Enter Qty</Text>
+                  <Text style={{ marginTop: 15, fontSize: 18, fontFamily: 'Gotham-Book' }}>Enter Qty</Text>
                   <TextInput
                     autoCapitalize="none"
                     autoCorrect={false}

@@ -26,7 +26,7 @@ export const styles = StyleSheet.create(
         },   
 
         button: {
-            marginVertical: 30,
+            // marginVertical: 30,
             backgroundColor: colors.gray,
             height: 55,
             width: '100%',
@@ -38,6 +38,7 @@ export const styles = StyleSheet.create(
         },
 
         buttonText: {
+            // ...font.family.book,
             fontSize: font.medium,
             color: colors.white,
         },
@@ -46,32 +47,35 @@ export const styles = StyleSheet.create(
             width: '92%',
             justifyContent: 'center',
             marginHorizontal: 18,
-            marginVertical: 10,
+            marginVertical: 20,
         },
         titleContainer: {
             width: Device.window.width,
             borderBottomColor: colors.gray,
-            borderBottomWidth: 0.8,
+            borderBottomWidth: 0.5,
             paddingHorizontal: 20,
             justifyContent: 'center',
             alignItems: 'flex-start',
             height: 50,
         },
         title:{
+            ...font.family.book,
             fontSize: font.smallMed,
             color: colors.lightBlack,
         },
         name: {
+            ...font.family.medium,
             fontSize: 19,
-            fontFamily: Device.isAndroid ? 'Gotham-Medium' : undefined,
+            // fontFamily: Device.isAndroid ? 'Gotham-Medium' : undefined,
             color: colors.lightBlack,
             opacity: Device.isIOS? undefined:  0.8,            
-            fontWeight: Device.isAndroid? undefined: font.weight.bold,
+            // fontWeight: Device.isAndroid? undefined: font.weight.bold,
             marginBottom: 5,
         },
         address: {
+            ...font.family.book,
             opacity:Device.isIOS? undefined:  0.5,
-            fontFamily: Device.isAndroid ? 'Gotham-Book' : undefined,
+            // fontFamily: Device.isAndroid ? 'Gotham-Book' : undefined,
             fontSize: 15,
             color: colors.lightBlack,
             width: 290,
@@ -103,10 +107,14 @@ export const styles = StyleSheet.create(
         },
         delete:{
             position: 'absolute',
+            
             // alignSelf: 'flex-end',
             right: 5,
             // color: colors.gray,
             top: 5,
+        },
+        iconss:{
+            ...font.family.book,
         }
           
     }

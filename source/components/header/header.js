@@ -80,7 +80,7 @@ export class CustomHeader extends Component {
           <TouchableOpacity
             style={styles.rightContainer}
             // onPress={this.props.rightAction}
-            onPress={ () => this.open_search() }
+            onPress={ this.props.rightAction == undefined ? () =>  this.open_search() : this.props.rightAction }
          >
             <Feather
               name={this.props.rightIcon}

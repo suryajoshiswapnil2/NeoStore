@@ -13,6 +13,7 @@ import {
   Text,
   Image,
   TextInput,
+  ScrollView,
   AsyncStorage,
   TouchableOpacity,
   KeyboardAvoidingView,
@@ -228,7 +229,7 @@ export default class MyAccount extends Component {
         <SafeAreaView style={styles.mainContainer}>
           <StatusBar barStyle="light-content" hidden={false} />
 
-          {/* <ScrollView> */}
+          <ScrollView>
           <KeyboardAvoidingView style={ styles.container} behavior='position' enabled>
 
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -295,7 +296,9 @@ export default class MyAccount extends Component {
                       ref={input => {
                         this.passwordInput = input;
                       }}
-                      // onSubmitEditing={() => { this.loginButton.press(); }}
+                      onSubmitEditing={() => {
+                        this.emailInput.focus();
+                      }}
                       onChangeText={text => this.setState({ last_name: text })}
                     />
                   </View>
@@ -316,8 +319,11 @@ export default class MyAccount extends Component {
                       placeholderTextColor="#ffffff"
                       keyboardType="email-address"
                       returnKeyType="next"
+                      ref={input => {
+                        this.emailInput = input;
+                      }}
                       onSubmitEditing={() => {
-                        this.passwordInput.focus();
+                        this.phoneInput.focus();
                       }}
                       blurOnSubmit={false}
                       onChangeText={text => this.setState({ email: text })}
@@ -339,10 +345,10 @@ export default class MyAccount extends Component {
                       placeholderTextColor="#ffffff"
                       keyboardType="phone-pad"
                       returnKeyType="next"
-                      value={this.state.phone_no}
-                      onSubmitEditing={() => {
-                        this.passwordInput.focus();
+                      ref={input => {
+                        this.phoneInput = input;
                       }}
+                      value={this.state.phone_no}
                       blurOnSubmit={false}
                       onChangeText={text => this.setState({ phone_no: text })}
                     />
@@ -388,8 +394,8 @@ export default class MyAccount extends Component {
               </View>
             </View>
           </TouchableWithoutFeedback>
-          </KeyboardAvoidingView>
-          {/* </ScrollView> */}
+          
+          
          {Device.isIOS ? <Modal
             visible={this.state.openIOSPicker}
             transparent={true}
@@ -410,8 +416,8 @@ export default class MyAccount extends Component {
                     />
             </View>
           </Modal> : null}
-
-
+          </KeyboardAvoidingView>
+          </ScrollView>
 
           {/* {this.state.dataLoading && <Modal visible={true} ><ActivityIndicator size='large'/></Modal>} */}
           

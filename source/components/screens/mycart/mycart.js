@@ -284,7 +284,7 @@ export default class MyCart extends Component {
             
             <View style={styles.container}>
             {/* <StatusBar barStyle = 'light-content' hidden={false} /> */}
-            <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Cart' rightIcon='search'/>
+            <CustomHeader leftIcon='chevron-left' style={{fontSize: 21,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Cart' rightIcon='search'/>
             
             { this.state.data == null || this.state.data.length == 0 ?
                 (<View style={styles.mainContainer}>

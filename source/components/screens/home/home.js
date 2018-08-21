@@ -5,7 +5,7 @@
  * @format
  * @flow
  */
-
+import font from '../../../utils/fontSize'
 import React, { Component } from "react";
 import {
   View,
@@ -114,6 +114,7 @@ export default class Home extends Component {
               >
                 <Text
                   style={{
+                    ...font.family.medium, 
                     textAlign: "right",
                     fontWeight: "500",
                     fontSize: 21,
@@ -143,6 +144,7 @@ export default class Home extends Component {
                 />
                 <Text
                   style={{
+                    ...font.family.medium,  
                     textAlign: "left",
                     fontWeight: "500",
                     fontSize: 21,
@@ -162,6 +164,7 @@ export default class Home extends Component {
               >
                 <Text
                   style={{
+                    ...font.family.medium, 
                     textAlign: "left",
                     fontWeight: "500",
                     fontSize: 21,
@@ -191,6 +194,7 @@ export default class Home extends Component {
                 />
                 <Text
                   style={{
+                    ...font.family.medium, 
                     textAlign: "right",
                     fontWeight: "500",
                     fontSize: 21,

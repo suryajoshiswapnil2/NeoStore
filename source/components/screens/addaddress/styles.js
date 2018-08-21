@@ -49,18 +49,22 @@ export const styles = StyleSheet.create(
             marginHorizontal: 18,
         },
         title: {
-            fontSize: font.smallMed,
+            ...font.family.medium,
+            // fontSize: font.smallMed,
         },
         input: {
+            
             backgroundColor: colors.white,
             paddingHorizontal: 10,
             color: colors.lightBlack,
-
+            
         },
         full: {
+            ...font.family.book,
             width: Device.window.width - 50 
         },
         half: {
+            ...font.family.book,
             width: Device.window.width / 2 - 43 
         },
         inputContainer: {

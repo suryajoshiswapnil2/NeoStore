@@ -54,7 +54,7 @@ export default class OrderDetail extends Component {
             <View style={styles.container}>
                 <CustomHeader
                     leftIcon="chevron-left"
-                    style={{ fontSize: 19 }}
+                    style={{ fontSize: 20 }}
                     leftAction={() => {
                         this.props.navigation.goBack();
                     }}

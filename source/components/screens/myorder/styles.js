@@ -41,15 +41,15 @@ export const styles = StyleSheet.create(
               alignItems: 'center',  
           },
           upperText:{
-              fontSize: 18,
+            ...font.family.book, 
+              fontSize: 16,
               marginBottom: 10,
               color: colors.orderText, 
-
           },
           bottomText:{
-
+            ...font.family.book, 
               marginTop: 10,
-              fontSize: 15,  
+              fontSize: 12,  
               color: colors.pureBlack, 
           },
           textBottomContainer: {
@@ -58,10 +58,12 @@ export const styles = StyleSheet.create(
             borderTopColor: colors.lightGray,
           },
           cost: {
-              fontSize: 20,
+            ...font.family.book, 
+              fontSize: 18,
               color: colors.lightBlack,
           },
           icon: {
+            ...font.family.book, 
               fontSize: 25,
               color: colors.lightBlack,
           },

@@ -36,19 +36,19 @@ export const getCategory = (id) => {
 
 
 
-export const sync = (access_token) => {
+// export const sync = (access_token) => {
 
-    // console.log('sync called')
-    // console.log(userData)
-    apiCall(API.accountDetails, {
-        method: 'GET',
-        headers:  {
-            access_token: access_token,
-        }
-    }, (res) => {
-        if(res.status == 200)
-            userData = res.data
-    })
+//     // console.log('sync called')
+//     // console.log(userData)
+//     apiCall(API.accountDetails, {
+//         method: 'GET',
+//         headers:  {
+//             access_token: access_token,
+//         }
+//     }, (res) => {
+//         if(res.status == 200)
+//             userData = res.data
+//     })
     
 
-}
+// }

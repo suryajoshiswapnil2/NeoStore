@@ -69,7 +69,7 @@ export default class StoreLocator extends Component {
 
         return(
             <View style={styles.container}>
-                <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='Store Locator' rightIcon='search'/>
+                <CustomHeader leftIcon='chevron-left' style={{fontSize: 20,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='Store Locator' rightIcon='search'/>
                 <View style={styles.mainContainer}>
                     <View style={styles.mapContainer}>
                         <MapView

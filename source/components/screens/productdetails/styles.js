@@ -23,17 +23,21 @@ export const styles = StyleSheet.create(
 
           },
           name: {
-              fontSize: 20,
+            ...font.family.medium,               
+              fontSize: 21,
               color: colors.productTitle,
-              fontWeight: 'bold',
+            //   fontWeight: 'bold',
              
           },
           category:{
-              fontSize: 20,
+            ...font.family.book, 
+              fontSize: 18,
               color: colors.pureBlack
           },
           company:{
-            color: colors.pureBlack
+            ...font.family.book, 
+            color: colors.pureBlack,
+            fontSize: 15,
           },
           bottomContainer:{
                 flexDirection: 'row',
@@ -67,7 +71,7 @@ export const styles = StyleSheet.create(
           },
           imageHolder: {
             borderBottomColor: colors.gray,
-            borderBottomWidth: 1,
+            borderBottomWidth: 0.5,
             justifyContent: 'center',
             alignItems: 'center',
           },
@@ -75,12 +79,14 @@ export const styles = StyleSheet.create(
             padding: 15,
           },
           descTitle:{
+            ...font.family.medium, 
               fontSize: 17,
               color: colors.black,
               fontWeight: 'bold',
               marginBottom: 5,
           },
           desc:{
+            ...font.family.book, 
               color: colors.lightBlack,
               fontSize: 15,
           },
@@ -123,8 +129,9 @@ export const styles = StyleSheet.create(
            
           },
           nameModal: {
+            ...font.family.book, 
               fontSize: 20,
-              marginBottom: 20,
+              marginBottom: 15,
           },
           imageModal: {
               borderColor: colors.gray,
@@ -154,7 +161,8 @@ export const styles = StyleSheet.create(
             borderColor: "green",
             borderWidth: 2,
             padding: 10,
-            margin: 20
+            marginTop: 10,
+            marginBottom: 20
           },
           containerContent: {
             flex: 1,

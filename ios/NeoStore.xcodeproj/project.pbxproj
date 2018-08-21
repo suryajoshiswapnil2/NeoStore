@@ -55,6 +55,9 @@
 		D03460252BF347DE97C774C2 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A45EF9CAF45F4524B9250AE9 /* libRNImagePicker.a */; };
 		D0E23D5F33F44173B9C87889 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7ABDFF3D27045C2816D08A1 /* Zocial.ttf */; };
 		EACEC952D894313487F35CCC /* libPods-NeoStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C278B8439222CDE9AFBA0691 /* libPods-NeoStore.a */; };
+		F23372BE212BDFDF000FAD90 /* GothamBook.otf in Resources */ = {isa = PBXBuildFile; fileRef = F23372BB212BDFDF000FAD90 /* GothamBook.otf */; };
+		F23372BF212BDFDF000FAD90 /* GothamMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = F23372BC212BDFDF000FAD90 /* GothamMedium.otf */; };
+		F23372C0212BDFDF000FAD90 /* GothamBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F23372BD212BDFDF000FAD90 /* GothamBold.otf */; };
 		F2D83AC12109AF2F00FE8C9B /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D83A972109AF2E00FE8C9B /* Entypo.ttf */; };
 		F2D83AC22109AF2F00FE8C9B /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D83ABD2109AF2E00FE8C9B /* Foundation.ttf */; };
 		F2D83AC32109AF2F00FE8C9B /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D83ABE2109AF2E00FE8C9B /* Feather.ttf */; };
@@ -67,9 +70,6 @@
 		F2D83AD12109AF4300FE8C9B /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D83ACA2109AF4300FE8C9B /* SimpleLineIcons.ttf */; };
 		F2D83AD22109AF4300FE8C9B /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D83ACB2109AF4300FE8C9B /* MaterialIcons.ttf */; };
 		F2D83AD32109AF4300FE8C9B /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D83ACC2109AF4300FE8C9B /* Zocial.ttf */; };
-		F2D8795721230C2B000CCF55 /* Gotham-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D8795421230C2B000CCF55 /* Gotham-Bold.ttf */; };
-		F2D8795821230C2B000CCF55 /* Gotham-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D8795521230C2B000CCF55 /* Gotham-Medium.ttf */; };
-		F2D8795921230C2B000CCF55 /* Gotham-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D8795621230C2B000CCF55 /* Gotham-Book.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -409,6 +409,9 @@
 		D7ABDFF3D27045C2816D08A1 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		E14AB98BBEE545099888154C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		E1BA95312A764C6A80FC6BFD /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		F23372BB212BDFDF000FAD90 /* GothamBook.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GothamBook.otf; path = ../source/assets/Fonts/Gotham/GothamBook.otf; sourceTree = "<group>"; };
+		F23372BC212BDFDF000FAD90 /* GothamMedium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GothamMedium.otf; path = ../source/assets/Fonts/Gotham/GothamMedium.otf; sourceTree = "<group>"; };
+		F23372BD212BDFDF000FAD90 /* GothamBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GothamBold.otf; path = ../source/assets/Fonts/Gotham/GothamBold.otf; sourceTree = "<group>"; };
 		F2D83A972109AF2E00FE8C9B /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = ../source/assets/Fonts/Entypo.ttf; sourceTree = "<group>"; };
 		F2D83ABD2109AF2E00FE8C9B /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Foundation.ttf; path = ../source/assets/Fonts/Foundation.ttf; sourceTree = "<group>"; };
 		F2D83ABE2109AF2E00FE8C9B /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Feather.ttf; path = ../source/assets/Fonts/Feather.ttf; sourceTree = "<group>"; };
@@ -421,9 +424,6 @@
 		F2D83ACA2109AF4300FE8C9B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SimpleLineIcons.ttf; path = ../source/assets/Fonts/SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		F2D83ACB2109AF4300FE8C9B /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = ../source/assets/Fonts/MaterialIcons.ttf; sourceTree = "<group>"; };
 		F2D83ACC2109AF4300FE8C9B /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Zocial.ttf; path = ../source/assets/Fonts/Zocial.ttf; sourceTree = "<group>"; };
-		F2D8795421230C2B000CCF55 /* Gotham-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gotham-Bold.ttf"; path = "../source/assets/Fonts/Gotham-Bold.ttf"; sourceTree = "<group>"; };
-		F2D8795521230C2B000CCF55 /* Gotham-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gotham-Medium.ttf"; path = "../source/assets/Fonts/Gotham-Medium.ttf"; sourceTree = "<group>"; };
-		F2D8795621230C2B000CCF55 /* Gotham-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gotham-Book.ttf"; path = "../source/assets/Fonts/Gotham-Book.ttf"; sourceTree = "<group>"; };
 		F763B31EBAA64D8A931A56AA /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -661,9 +661,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				F2D8795421230C2B000CCF55 /* Gotham-Bold.ttf */,
-				F2D8795621230C2B000CCF55 /* Gotham-Book.ttf */,
-				F2D8795521230C2B000CCF55 /* Gotham-Medium.ttf */,
+				F23372BD212BDFDF000FAD90 /* GothamBold.otf */,
+				F23372BB212BDFDF000FAD90 /* GothamBook.otf */,
+				F23372BC212BDFDF000FAD90 /* GothamMedium.otf */,
 				F2D83AC92109AF4200FE8C9B /* icomoon.ttf */,
 				F2D83AC72109AF4200FE8C9B /* Ionicons.ttf */,
 				F2D83AC82109AF4200FE8C9B /* MaterialCommunityIcons.ttf */,
@@ -1241,24 +1241,24 @@
 				F2D83AC42109AF2F00FE8C9B /* EvilIcons.ttf in Resources */,
 				F2D83AD32109AF4300FE8C9B /* Zocial.ttf in Resources */,
 				F2D83AD12109AF4300FE8C9B /* SimpleLineIcons.ttf in Resources */,
+				F23372BF212BDFDF000FAD90 /* GothamMedium.otf in Resources */,
 				F2D83AC22109AF2F00FE8C9B /* Foundation.ttf in Resources */,
-				F2D8795821230C2B000CCF55 /* Gotham-Medium.ttf in Resources */,
 				F2D83ACF2109AF4300FE8C9B /* MaterialCommunityIcons.ttf in Resources */,
 				F2D83AC32109AF2F00FE8C9B /* Feather.ttf in Resources */,
 				F2D83AC12109AF2F00FE8C9B /* Entypo.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				F2D83AD02109AF4300FE8C9B /* icomoon.ttf in Resources */,
 				22F26428D34E49FEBFFC9EB1 /* Entypo.ttf in Resources */,
-				F2D8795721230C2B000CCF55 /* Gotham-Bold.ttf in Resources */,
-				F2D8795921230C2B000CCF55 /* Gotham-Book.ttf in Resources */,
 				4AE7B4918D3C4645A48F5F13 /* EvilIcons.ttf in Resources */,
 				2D0FC75045D447A0B18DBC08 /* Feather.ttf in Resources */,
+				F23372BE212BDFDF000FAD90 /* GothamBook.otf in Resources */,
 				3A0BEB79C48D416C83A04048 /* FontAwesome.ttf in Resources */,
 				B2F5DB3BC5B74E018003E915 /* Foundation.ttf in Resources */,
 				062062D42A034EDF8DAC5C30 /* Ionicons.ttf in Resources */,
 				8EDC818A4A614409888CE3D6 /* MaterialCommunityIcons.ttf in Resources */,
 				BB9D8261DBE14C1BA8F9443D /* MaterialIcons.ttf in Resources */,
 				BFE2902A92924868A87833A7 /* Octicons.ttf in Resources */,
+				F23372C0212BDFDF000FAD90 /* GothamBold.otf in Resources */,
 				9A1331778D07412399C4DDBC /* Roboto_medium.ttf in Resources */,
 				1E761B9BCF0446ADBC3D65D1 /* Roboto.ttf in Resources */,
 				9AF9F81458494E0FB6AAD066 /* rubicon-icon-font.ttf in Resources */,

@@ -106,7 +106,7 @@ export default class AddressList extends Component {
             return ( <View style={styles.container}>
                         <CustomHeader
                             leftIcon="chevron-left"
-                            style={{ fontSize: 19 }}
+                            style={{ fontSize: 20 }}
                             leftAction={() => {
                                 this.props.navigation.goBack();
                             }}
@@ -155,7 +155,7 @@ export default class AddressList extends Component {
                                     {elem.addr}, {elem.landmark}, {elem.city}, {elem.state} - {elem.zip_code}, {elem.country}
                                 </Text>
                                  <TouchableOpacity onPress={() => this.deleteItem(index)} style={styles.delete} >
-                                    <Feather name='x' color='#8e8e8e' size= {20}/>
+                                    <Feather name='x' style={styles.iconss} color='#8e8e8e' size= {20}/>
                                 </TouchableOpacity>
                             </View>
                         </View>
