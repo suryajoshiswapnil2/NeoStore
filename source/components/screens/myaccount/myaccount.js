@@ -44,7 +44,7 @@ export default class MyAccount extends Component {
   }
 
   render() {
-    // console.log('render editprofile')
+    console.log('render profile')
     const { navigate } = this.props.navigation;
 
     if(this.state.isLoading)

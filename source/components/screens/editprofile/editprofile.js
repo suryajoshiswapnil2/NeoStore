@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React, { Component } from "react";
+import React, { Component } from "react" 
 import * as Device from '../../../lib/globals'
 import {
   View,
@@ -15,6 +15,7 @@ import {
   TextInput,
   ScrollView,
   AsyncStorage,
+  ActionSheetIOS,
   TouchableOpacity,
   KeyboardAvoidingView,
   ImageBackground,
@@ -24,7 +25,7 @@ import {
   Modal,
   StatusBar,
   DatePickerAndroid,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 
 import { background } from "../../../assets/images";
@@ -33,7 +34,7 @@ import { user } from "../../../assets/images";
 import { styles } from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { SafeAreaView } from "react-navigation";
-import { API, apiCall, post } from "../../../lib/api";
+import { API, apiCall, post, get } from "../../../lib/api";
 import { userData, sync, userDataService } from '../../../lib/serviceProvider';
 import ImagePicker from 'react-native-image-picker'
 export default class MyAccount extends Component {
@@ -92,6 +93,14 @@ export default class MyAccount extends Component {
 
   getImages = () =>
   {
+    // ActionSheetIOS.showActionSheetWithOptions({
+    //     options: ['Cancel', 'Remove'],
+    //     destructiveButtonIndex: 1,
+    //     cancelButtonIndex: 0,
+    //   },
+    //   (buttonIndex) => {
+    //     if (buttonIndex === 1) { /* destructive action */ }
+    //   });
 
     this.setState({
         imageLoading: true,
@@ -101,6 +110,10 @@ export default class MyAccount extends Component {
         // customButtons: [
         //   {name: 'fb', title: 'Choose Photo from Facebook'},
         // ],
+        maxWidth: 300 ,
+        maxHeight: 300,
+        quality: 0.5,
+        cameraType: 'front',
         storageOptions: {
           skipBackup: true,
           path: 'images'
@@ -151,24 +164,65 @@ export default class MyAccount extends Component {
             dataLoading: true,
         }) 
 
+        // let usr_data = {
+        //     profile_pic: this.state.profile_pic,
+        //     first_name: this.state.first_name,
+        //     last_name: this.state.last_name,
+        //     email: this.state.email,
+        //     phone_no: this.state.phone_no,
+        //     dob: this.state.dob,
+        //     access_token: userData.user_data.access_token,
+        // };
+
+        let image = null
+
+        if( !this.state.imagePicked ){
+            // console.log(this.state.profile_pic)    
+           image =  fetch(this.state.profile_pic, {
+                method: 'GET',
+                headers: {}
+            })
+            .then( res => res.blob())
+            .then(res => {
+                    
+                var reader = new FileReader();
+                reader.readAsDataURL(res); 
+                reader.onloadend = function() {
+                    // image =reader.result;
+                    // console.log(image);
+                    return reader.result
+                }
+                }
+            )
+        }
+
        let formData= new FormData()
        formData.append('first_name',this.state.first_name)
        formData.append('last_name', this.state.last_name)
        formData.append('email', this.state.email)
        formData.append('dob', this.state.dob)
        formData.append('phone_no', this.state.phone_no)
-       formData.append('profile_pic', this.state.imagePicked ? this.state.profile_pic : null)
+       formData.append('profile_pic', this.state.imagePicked ? this.state.profile_pic : image)
 
        console.log(formData)
 
         post(API.updateDetails, {access_token: userData.user_data.access_token,}, formData, (res) => {
             alert(res.user_msg)
             
+            userDataService.setUserData('user_data', res.data)
+
+            console.log(res)
+
             this.setState({
                 dataLoading: false,
             })
 
-        }, err => alert(err.message) )
+        }, err =>{ 
+            alert(err.message) 
+            this.setState({
+                dataLoading: false,
+            })
+        })
         
         // this.setState({
         //     dataLoading: false,

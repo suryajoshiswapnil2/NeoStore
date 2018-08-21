@@ -25,22 +25,29 @@ export default class MyCart extends Component {
     }
 
     _editCart = (a, b) => { // a -> product_id , b-> value
+
+        // console.log('edit cart called')
         
         let {data, total} = this.state
         
+        console.log('data = ',this.state.data)
+
         let index = data.findIndex( elem => elem.product_id == a )
         data[index].quantity = b 
         // cost of all other items excluding this 
         let cost = total - data[index].product.sub_total
         
+        
+
         let sum = data[index].product.cost * b
         data[index].product.sub_total = sum
         cost += sum
         
         this.setState({
-            data: data,
+            // data: data,
             total: cost,
         })
+        // console.log(data, cost)
 
         let formData = new FormData()
         formData.append('product_id', data[index].product_id )
@@ -48,9 +55,10 @@ export default class MyCart extends Component {
 
         // console.log(formData)
 
-        post(API.editCart, {access_token: userData.user_data.access_token}, formData, res => console.log(res.user_msg), err => alert(err.message) )
+        post(API.editCart, {access_token: userData.user_data.access_token}, formData, res => console.log(res), err => alert(err.message) )
 
         // console.log('stage changed', this.state.data)
+
     }
 
 

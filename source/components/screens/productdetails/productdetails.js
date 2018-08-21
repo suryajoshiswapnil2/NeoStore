@@ -18,9 +18,7 @@ import {
 } from "react-native";
 
 import { userData, userDataService, getCategory } from '../../../lib/serviceProvider';
-
 import { CustomHeader } from "../../header/header";
-
 import { styles } from "./styles";
 import { API, post } from "../../../lib/api";
 import { showError } from "../../../utils/validators";
@@ -119,11 +117,13 @@ export default class ProductDetails extends Component {
       });
   }
   shareData = () => {
+    
+    // console.log(this.state.data)
     Share.share(
       {
-        message: this.state.data.desc,
-        url: "http://neosofttech.in",
-        title: this.state.data.name
+        message: this.state.data.description ,
+        url: "https://neosofttech.in",
+        title: this.state.data.name,
       },
       {
         // Android only:
