@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     headerContainer: {
         flexDirection: 'row',
         backgroundColor: '#e91c1a',
-        height: Device.isIOS ? 50 : 50,
+        height: Device.isIOS ? 50 : 55,
         marginTop: Device.isX ? 15 : 0,
         width: Device.window.width,
         alignItems: Device.isAndroid ? 'center' : 'flex-end',
@@ -17,10 +17,15 @@ export const styles = StyleSheet.create({
         zIndex: 2,
     },
     headText: {
-        color: '#ffffff',
-        // marginLeft: '35%' ,
-        fontSize: 22,
-        // fontWeight: 'bold',
+              // backgroundColor: 'blue',
+              textAlign: 'center',
+              ...font.family.medium, 
+              color: '#ffffff',
+            //   height: 30,
+              marginTop: Device.isIOS ? 0 : 0,
+              // marginLeft: '35%' ,
+              fontSize: Device.isIOS ? 20 : 21,
+              // fontWeight: 'bold',
     },
     custHeadText: {
         // backgroundColor: 'blue',
@@ -36,7 +41,7 @@ export const styles = StyleSheet.create({
     leftContainer: {
         position: 'absolute',
         left: Device.isIOS ? 15 : 15,
-        bottom: Device.isIOS ? 12 : 11,
+        bottom: Device.isIOS ? 12 : 15,
     },
     leftCustomContainer: {
         position: 'absolute',

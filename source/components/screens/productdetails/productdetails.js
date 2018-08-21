@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   View,
   ScrollView,
-  AsyncStorage,
   Alert,
   Keyboard,
   TextInput,
@@ -11,7 +10,6 @@ import {
   Share,
   Text,
   StatusBar,
-  FlatList,
   Image,
   ActivityIndicator,
   TouchableOpacity
@@ -53,7 +51,9 @@ export default class ProductDetails extends Component {
             [
                 {text:'Ok', onPress: () => { this.setState({
                     isBuying: false,
-                  })  } }
+                  })  
+                } 
+            }
             ]
          )
         }
@@ -178,9 +178,12 @@ export default class ProductDetails extends Component {
             // alert(res.user_msg);
             Alert.alert('Info',res.user_msg, 
                 [
-                    {text:'Ok', onPress: () => { this.setState({
+                    {
+                        text:'Ok', onPress: () => { this.setState({
                         isRating: false,
-                      })  } }
+                      })
+                    } 
+                }
                 ]
              )
 

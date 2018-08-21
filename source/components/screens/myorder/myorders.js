@@ -3,7 +3,7 @@ import {View, AsyncStorage, Text,StatusBar,FlatList,ActivityIndicator, Touchable
 import {CustomHeader} from '../../header/header'
 
 import {styles} from './styles'
-import { API, apiCall } from '../../../lib/api';
+import { API, apiCall, get } from '../../../lib/api';
 import { showError } from '../../../utils/validators'
 import { userData } from '../../../lib/serviceProvider';
 
@@ -27,37 +27,59 @@ export default class MyOrders extends Component {
     } 
 
 
-    componentDidMount = async () => {
+    componentDidMount = () => {
         
                     
     //    let data = await AsyncStorage.getItem('access_token');
         
-
-       try{
-            apiCall(API.orderList, {
-                method: 'GET',
-                headers: {
-                    access_token: userData.user_data.access_token
-                }
-            }, (res) => {
-                if (res.status == 200) {
-                    console.log(res)
-                    this.setState({
-                        isLoading: false,
-                        data: res.data,      
-                    });
-                }
-                else {
-                showError(res.user_msg)
+        get(API.orderList, { access_token: userData.user_data.access_token,} , res => {
+            if(res.status == 200)
+            {
                 this.setState({
-                    isLoading: false
+                    isLoading: false,
+                    data: res.data,
                 })
-                }
+            }
+            else {
+                alert(res.user_msg)
+                this.setState({
+                    isLoading: false,
+                })
+            }
+        }, err => {
+            console.log(err); 
+            alert(err.message)
+            this.setState({
+                isLoading: false,
             })
-        }
-        catch(err){
-            console.log(err)
-        }
+        } );
+
+
+    //    try{
+    //         apiCall(API.orderList, {
+    //             method: 'GET',
+    //             headers: {
+    //                 access_token: userData.user_data.access_token
+    //             }
+    //         }, (res) => {
+    //             if (res.status == 200) {
+    //                 console.log(res)
+    //                 this.setState({
+    //                     isLoading: false,
+    //                     data: res.data,      
+    //                 });
+    //             }
+    //             else {
+    //             showError(res.user_msg)
+    //             this.setState({
+    //                 isLoading: false
+    //             })
+    //             }
+    //         })
+    //     }
+    //     catch(err){
+    //         console.log(err)
+    //     }
         // return fetch(API.orderList,{
         //     method: 'GET',
         //     headers: {

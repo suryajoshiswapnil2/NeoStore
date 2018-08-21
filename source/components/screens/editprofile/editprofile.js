@@ -14,8 +14,6 @@ import {
   Image,
   TextInput,
   ScrollView,
-  AsyncStorage,
-  ActionSheetIOS,
   TouchableOpacity,
   KeyboardAvoidingView,
   ImageBackground,
@@ -23,7 +21,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Modal,
-  StatusBar,
   DatePickerAndroid,
   ActivityIndicator,
 } from "react-native";
@@ -34,8 +31,8 @@ import { user } from "../../../assets/images";
 import { styles } from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { SafeAreaView } from "react-navigation";
-import { API, apiCall, post, get } from "../../../lib/api";
-import { userData, sync, userDataService } from '../../../lib/serviceProvider';
+import { API, post, get } from "../../../lib/api";
+import { userData, userDataService } from '../../../lib/serviceProvider';
 import ImagePicker from 'react-native-image-picker'
 export default class MyAccount extends Component {
   constructor(props) {
@@ -49,6 +46,7 @@ export default class MyAccount extends Component {
         imagePicked: false,
         dataLoading: false,
         loading: true,
+        imageLoading: true,
     };
     // console.log('date to string',this.toStr(new Date()))
     // console.log('this',props.navigation.state.params.profile_pic)
@@ -176,25 +174,25 @@ export default class MyAccount extends Component {
 
         let image = null
 
-        if( !this.state.imagePicked ){
-            // console.log(this.state.profile_pic)    
-           image =  fetch(this.state.profile_pic, {
-                method: 'GET',
-                headers: {}
-            })
-            .then( res => res.blob())
-            .then(res => {
+        // if( !this.state.imagePicked ){
+        //     // console.log(this.state.profile_pic)    
+        //    image =  fetch(this.state.profile_pic, {
+        //         method: 'GET',
+        //         headers: {}
+        //     })
+        //     .then( res => res.blob())
+        //     .then(res => {
                     
-                var reader = new FileReader();
-                reader.readAsDataURL(res); 
-                reader.onloadend = function() {
-                    // image =reader.result;
-                    // console.log(image);
-                    return reader.result
-                }
-                }
-            )
-        }
+        //         var reader = new FileReader();
+        //         reader.readAsDataURL(res); 
+        //         reader.onloadend = function() {
+        //             // image =reader.result;
+        //             // console.log(image);
+        //             return reader.result
+        //         }
+        //         }
+        //     )
+        // }
 
        let formData= new FormData()
        formData.append('first_name',this.state.first_name)
@@ -204,14 +202,14 @@ export default class MyAccount extends Component {
        formData.append('phone_no', this.state.phone_no)
        formData.append('profile_pic', this.state.imagePicked ? this.state.profile_pic : image)
 
-       console.log(formData)
+    //    console.log(formData)
 
         post(API.updateDetails, {access_token: userData.user_data.access_token,}, formData, (res) => {
             alert(res.user_msg)
             
             userDataService.setUserData('user_data', res.data)
 
-            console.log(res)
+            // console.log(res)
 
             this.setState({
                 dataLoading: false,
@@ -280,8 +278,8 @@ export default class MyAccount extends Component {
             this.props.navigation.goBack();
           }}
         />
-        <SafeAreaView style={styles.mainContainer}>
-          <StatusBar barStyle="light-content" hidden={false} />
+        <SafeAreaView style={styles.anMainContainer}>
+          {/* <StatusBar barStyle="light-content" hidden={false} /> */}
 
           <ScrollView>
           <KeyboardAvoidingView style={ styles.container} behavior='position' enabled>

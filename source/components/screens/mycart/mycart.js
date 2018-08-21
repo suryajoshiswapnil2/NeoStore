@@ -3,7 +3,7 @@ import {View,AsyncStorage,Alert,Text,StatusBar,Image,ActivityIndicator,ScrollVie
 import {CustomHeader} from '../../header/header'
 
 import {styles} from './styles'
-import { API, apiCall, post } from '../../../lib/api';
+import { API, get, post } from '../../../lib/api';
 import { showError } from '../../../utils/validators'
 import Feather from 'react-native-vector-icons/Feather'
 import { SwipeListView } from 'react-native-swipe-list-view'
@@ -193,11 +193,8 @@ export default class MyCart extends Component {
          access_token: userData.user_data.access_token,   
        })
 
-       return apiCall(API.listCartItems, {
-            method: 'GET',
-            headers: {
+       return get(API.listCartItems, {
                 access_token: userData.user_data.access_token
-            }
             }, (res) => {
             if (res.status == 200) {
                 // console.log(res)
@@ -215,6 +212,13 @@ export default class MyCart extends Component {
                     isLoading: false
                 })
             }
+       }, err => {
+            this.setState({
+                isLoading: false
+            })
+           console.log(err)
+           alert(err.message)
+           
        })
 
 

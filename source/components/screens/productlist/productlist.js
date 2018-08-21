@@ -28,36 +28,36 @@ export default class ProductList extends Component {
       product_category_id: this.props.navigation.state.params._id
     };
    
-    this.data = {
-        page: 1,
-    }
+    // this.data = {
+    //     page: 1,
+    // }
   }
 
-  fetchResults = () => {
-    this.setState({
-      isLoading: true
-    });
+//   fetchResults = () => {
+//     this.setState({
+//       isLoading: true
+//     });
 
-    const { limit, offset, list, dataSource } = this.state;
-    // console.log('>called',offset, limit)
-    if (offset >= limit) {
-      this.setState({
-        isLoading: false
-      });
-      return false;
-    } else
-      this.setState({
-        list: list.concat(
-          dataSource.slice(offset, offset + 7 > limit ? limit : offset + 7)
-        ),
-        offset: offset + 7 > limit ? limit : offset + 7
-      });
+//     const { limit, offset, list, dataSource } = this.state;
+//     // console.log('>called',offset, limit)
+//     if (offset >= limit) {
+//       this.setState({
+//         isLoading: false
+//       });
+//       return false;
+//     } else
+//       this.setState({
+//           list: list.concat(
+//           dataSource.slice(offset, offset + 7 > limit ? limit : offset + 7)
+//         ),
+//         offset: offset + 7 > limit ? limit : offset + 7
+//       });
 
-    this.setState({
-      isLoading: false
-    });
-    // return list
-  };
+//     this.setState({
+//       isLoading: false
+//     });
+//     // return list
+//   };
 
 
   lazyLoad = () => {

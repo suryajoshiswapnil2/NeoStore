@@ -52,6 +52,15 @@ export const styles = StyleSheet.create(
             zIndex: 1,
             paddingTop: Device.isIOS ? 22 :0,
           },
+          anMainContainer:{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            // backgroundColor: 'blue',
+            width: '100%',
+            zIndex: 1,
+            paddingTop: 25,
+          },
         container: {
             flex: 1,
             justifyContent: 'center',
