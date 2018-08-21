@@ -94,6 +94,7 @@ export class CustomHeader extends Component {
         <Modal
             visible={ this.state.isSearching } 
             transparent={true}
+            onRequestClose={() => { this.setState({isSearching: false,})}}
             >
             
             <TouchableWithoutFeedback onPress={() => this.close_search()}>
