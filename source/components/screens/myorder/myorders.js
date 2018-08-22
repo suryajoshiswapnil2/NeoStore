@@ -5,6 +5,8 @@ import {CustomHeader} from '../../header/header'
 import {styles} from './styles'
 import { API, get } from '../../../lib/api';
 import { userData } from '../../../lib/serviceProvider';
+import Icon from '../../../utils/icon'
+
 
 export default class MyOrders extends Component {
 
@@ -20,8 +22,9 @@ export default class MyOrders extends Component {
 
     renderPrice = (value) => {
         return (<View style={styles.costContainer}>
-                    <Text style={styles.icon}>&#8377; </Text>
-                    <Text style={styles.cost}>{value}.00</Text>
+                    {/* <Text style={styles.icon}>&#8377; </Text> */}
+                    <Text style={styles.cost}>
+                    <Icon name='rupee' size={15}/> {value}.00</Text>
                 </View>)
     } 
 
@@ -114,7 +117,7 @@ export default class MyOrders extends Component {
         if(this.state.isLoading){
             return(
                 <View style={styles.container}>
-                <CustomHeader leftIcon='chevron-left' style={{fontSize: 20,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Orders' rightIcon='search'/>
+                <CustomHeader leftIcon='angle-left' style={{fontSize: 20,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Orders' rightIcon='search'/>
                 <View style={{flex:1, justifyContent: 'center'}}>
                     <ActivityIndicator size='large' color='blue' />    
                 </View>    
@@ -126,7 +129,7 @@ export default class MyOrders extends Component {
             
             <View style={styles.container}>
             {/* <StatusBar barStyle = 'dark-content' hidden={false} /> */}
-            <CustomHeader leftIcon='chevron-left' style={{fontSize: 20,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Orders' rightIcon='search'/>
+            <CustomHeader leftIcon='angle-left' style={{fontSize: 20,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Orders' rightIcon='search'/>
             <View style={styles.mainContainer}>
             { this.state.data.length == 0 ? <Text>No products in list</Text> : 
                 <FlatList 

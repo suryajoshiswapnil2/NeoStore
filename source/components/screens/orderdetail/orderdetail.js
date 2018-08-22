@@ -7,7 +7,7 @@ import {
   ActivityIndicator
 } from "react-native";
 import { CustomHeader } from "../../header/header";
-
+import Icon from '../../../utils/icon'
 import { styles } from "./styles";
 import { API, get } from "../../../lib/api";
 import { userData } from "../../../lib/serviceProvider";
@@ -47,7 +47,7 @@ export default class OrderDetail extends Component {
       return (
             <View style={styles.container}>
                 <CustomHeader
-                    leftIcon="chevron-left"
+                    leftIcon="angle-left"
                     style={{ fontSize: 20 }}
                     leftAction={() => {
                         this.props.navigation.goBack();
@@ -66,7 +66,7 @@ export default class OrderDetail extends Component {
       <View style={styles.container}>
         {/* <StatusBar barStyle="light-content" hidden={false} /> */}
         <CustomHeader
-          leftIcon="chevron-left"
+          leftIcon="angle-left"
           style={{ fontSize: 19 }}
           leftAction={() => {
             this.props.navigation.goBack();
@@ -103,8 +103,8 @@ export default class OrderDetail extends Component {
                     <View style={styles.bottomContainer}>
                       <Text style={styles.cost}>QTY : {item.quantity}</Text>
                       <Text style={styles.cost}>
-                        &#8377; {item.total}
-                        .00
+                        {/* &#8377; */}
+                        <Icon name='rupee' size={15}/> {item.total}.00
                       </Text>
                     </View>
                   </View>
@@ -116,8 +116,8 @@ export default class OrderDetail extends Component {
             <View style={styles.totalContainer}>
               <Text style={styles.total}>TOTAL</Text>
               <Text style={styles.total}>
-                &#8377; {this.state.data.cost}
-                .00
+                {/* &#8377;  */}
+                <Icon name='rupee' size={15} color='#000'/> {this.state.data.cost}.00
               </Text>
             </View>
           </View>

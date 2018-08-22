@@ -1,15 +1,15 @@
 
 import React, {Component} from 'react';
-import {View,Image, Text, TouchableOpacity,AsyncStorage, ScrollView, StatusBar } from 'react-native';
+import {View,Image, Text, TouchableOpacity,AsyncStorage, ScrollView,  } from 'react-native';
 
 import {styles} from './styles';
-import FeatherIcon from 'react-native-vector-icons/Feather'
- 
-import {SafeAreaView, DrawerItems, NavigationActions, StackActions } from 'react-navigation'; 
+
+import Icon from '../../../utils/icon'
+
+import {SafeAreaView, } from 'react-navigation'; 
 import {user} from '../../../assets/images'
-import {API, apiCall} from '../../../lib/api'
 import { showError } from '../../../utils/validators';
-import { userData, sync, userDataService } from '../../../lib/serviceProvider';
+import { userData ,userDataService} from '../../../lib/serviceProvider';
 
 let accountData = null
 
@@ -28,7 +28,7 @@ export default class SideBar extends Component{
         this.props.navigation.navigate('LoginStack');
     }    
 
-  async componentDidMount(){
+    async componentDidMount(){
 
     //    setTimeout(() => {
     //        console.log("Sidebar Fired");
@@ -56,32 +56,32 @@ export default class SideBar extends Component{
         let arr = [
            {
                title: 'My Carts',
-               icon: 'shopping-cart',	
+               icon: 'cart',	
                notifications: true,
                value: userData.total_carts,
                navigate: () => { navigate('MyCart',)},
            },
            {
                title: 'Tables',
-               icon: 'tablet',	
+               icon: 'table',	
                notifications: false,
                navigate: () => { navigate('ProductList', {title: 'Tables', _id:1 })  },
             },
            {
                title: 'Sofa',
-               icon: 'airplay',	
+               icon: 'sofa',	
                notifications: false,
                navigate: () => { navigate('ProductList', {title: 'Sofa', _id:2 })  },
            },
            {
                title: 'Chairs',
-               icon: 'copy',
+               icon: 'chair',
                notifications: false,
                navigate: () => { navigate('ProductList', {title: 'Chairs', _id:3 })  },
            },
            {
                title: 'Cupboards',
-               icon: 'sidebar',
+               icon: 'cupboard',
                notifications: false,
                navigate: () => { navigate('ProductList', {title: 'Tables', _id:4 })  },
            },
@@ -93,20 +93,20 @@ export default class SideBar extends Component{
            },
            {
                title: 'Store Locator',
-               icon: 'map-pin',
+               icon: 'map-marker',
                notifications: false,
                navigate: () => { navigate('StoreLocator') },
            },
            {
                title: 'My Orders',
-               icon: 'list',
+               icon: 'order-list',
                notifications: false, // default is true
                value: userData.total_orders, // count of number of orders
                navigate: () => { navigate('MyOrders')  },
            },
            {
                title: 'Logout',
-               icon: 'log-out',
+               icon: 'logout',
                notifications: false,
                navigate: () => { this.logout() },
            }
@@ -117,7 +117,7 @@ export default class SideBar extends Component{
    arr.forEach((element,key) => {
        elems.push(
            <TouchableOpacity key={key} style={styles.drawerItems} onPress={element.navigate}>
-           <FeatherIcon style={styles.drawerIcon} name={element.icon} size={20} color='#fff' />
+           <Icon style={styles.drawerIcon} name={element.icon} size={20} color='#fff' />
                <Text style={styles.drawerText}>{element.title}</Text>
                {
                    element.notifications 

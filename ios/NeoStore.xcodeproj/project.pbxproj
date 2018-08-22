@@ -58,6 +58,7 @@
 		F23372BE212BDFDF000FAD90 /* GothamBook.otf in Resources */ = {isa = PBXBuildFile; fileRef = F23372BB212BDFDF000FAD90 /* GothamBook.otf */; };
 		F23372BF212BDFDF000FAD90 /* GothamMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = F23372BC212BDFDF000FAD90 /* GothamMedium.otf */; };
 		F23372C0212BDFDF000FAD90 /* GothamBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F23372BD212BDFDF000FAD90 /* GothamBold.otf */; };
+		F234A5C9212D4DC9003E814C /* Neostore.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F234A5A1212D4DC9003E814C /* Neostore.ttf */; };
 		F2D83AC12109AF2F00FE8C9B /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D83A972109AF2E00FE8C9B /* Entypo.ttf */; };
 		F2D83AC22109AF2F00FE8C9B /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D83ABD2109AF2E00FE8C9B /* Foundation.ttf */; };
 		F2D83AC32109AF2F00FE8C9B /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D83ABE2109AF2E00FE8C9B /* Feather.ttf */; };
@@ -412,6 +413,7 @@
 		F23372BB212BDFDF000FAD90 /* GothamBook.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GothamBook.otf; path = ../source/assets/Fonts/Gotham/GothamBook.otf; sourceTree = "<group>"; };
 		F23372BC212BDFDF000FAD90 /* GothamMedium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GothamMedium.otf; path = ../source/assets/Fonts/Gotham/GothamMedium.otf; sourceTree = "<group>"; };
 		F23372BD212BDFDF000FAD90 /* GothamBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GothamBold.otf; path = ../source/assets/Fonts/Gotham/GothamBold.otf; sourceTree = "<group>"; };
+		F234A5A1212D4DC9003E814C /* Neostore.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Neostore.ttf; path = ../source/assets/Fonts/Neostore.ttf; sourceTree = "<group>"; };
 		F2D83A972109AF2E00FE8C9B /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = ../source/assets/Fonts/Entypo.ttf; sourceTree = "<group>"; };
 		F2D83ABD2109AF2E00FE8C9B /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Foundation.ttf; path = ../source/assets/Fonts/Foundation.ttf; sourceTree = "<group>"; };
 		F2D83ABE2109AF2E00FE8C9B /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Feather.ttf; path = ../source/assets/Fonts/Feather.ttf; sourceTree = "<group>"; };
@@ -661,6 +663,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				F234A5A1212D4DC9003E814C /* Neostore.ttf */,
 				F23372BD212BDFDF000FAD90 /* GothamBold.otf */,
 				F23372BB212BDFDF000FAD90 /* GothamBook.otf */,
 				F23372BC212BDFDF000FAD90 /* GothamMedium.otf */,
@@ -1256,6 +1259,7 @@
 				B2F5DB3BC5B74E018003E915 /* Foundation.ttf in Resources */,
 				062062D42A034EDF8DAC5C30 /* Ionicons.ttf in Resources */,
 				8EDC818A4A614409888CE3D6 /* MaterialCommunityIcons.ttf in Resources */,
+				F234A5C9212D4DC9003E814C /* Neostore.ttf in Resources */,
 				BB9D8261DBE14C1BA8F9443D /* MaterialIcons.ttf in Resources */,
 				BFE2902A92924868A87833A7 /* Octicons.ttf in Resources */,
 				F23372C0212BDFDF000FAD90 /* GothamBold.otf in Resources */,

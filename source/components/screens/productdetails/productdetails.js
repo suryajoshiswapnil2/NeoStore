@@ -20,7 +20,7 @@ import { CustomHeader } from "../../header/header";
 import { styles } from "./styles";
 import { API, post } from "../../../lib/api";
 import { showError } from "../../../utils/validators";
-import Feather from "react-native-vector-icons/Feather";
+import Icon from "../../../utils/icon";
 import { Rating, AirbnbRating } from "react-native-ratings";
 
 export default class ProductDetails extends Component {
@@ -223,7 +223,7 @@ export default class ProductDetails extends Component {
       return (
             <View style={styles.container}>
                 <CustomHeader
-                    leftIcon="chevron-left"
+                    leftIcon="angle-left"
                     style={{ fontSize: 20 }}
                     leftAction={() => {
                         this.props.navigation.goBack();
@@ -242,7 +242,7 @@ export default class ProductDetails extends Component {
       <View style={styles.container}>
         <StatusBar barStyle="light-content" hidden={false} />
         <CustomHeader
-          leftIcon="chevron-left"
+          leftIcon="angle-left"
           style={{ fontSize: 19 }}
           leftAction={() => {
             this.props.navigation.goBack();
@@ -284,7 +284,7 @@ export default class ProductDetails extends Component {
                     </Text>
                     { this.state.isOOS ? <Text style={styles.oos}>Out of Stock</Text> : null}
                     <TouchableOpacity onPress={() => this.shareData()}>
-                      <Feather name="share-2" size={25} color="gray" />
+                      <Icon name="share" size={25} color="gray" />
                     </TouchableOpacity>
                   </View>
                   <TouchableOpacity onPress={ () => this.setState({ imageContainer: true})}>

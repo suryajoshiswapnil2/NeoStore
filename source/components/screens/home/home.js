@@ -17,7 +17,7 @@ import {
 } from "react-native";
 
 import { styles } from "./styles";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from '../../../utils/icon'
 import { CustomHeader } from "../../header/header";
 
 // import {Header} from 'react-native-elements';
@@ -113,19 +113,13 @@ export default class Home extends Component {
                 }
               >
                 <Text
-                  style={{
-                    ...font.family.medium, 
-                    textAlign: "right",
-                    fontWeight: "500",
-                    fontSize: 21,
-                    color: "#ffffff"
-                  }}
+                  style={styles.__right}
                 >
                   Tables
                 </Text>
                 <Icon
-                  name="tablet"
-                  style={{ textAlign: "left" }}
+                  name="table"
+                  style={styles._left}
                   color="#ffffff"
                   size={70}
                 />
@@ -137,19 +131,13 @@ export default class Home extends Component {
                 }
               >
                 <Icon
-                  style={{ textAlign: "right" }}
-                  name="clipboard"
+                  style={styles._right}
+                  name="sofa"
                   color="#ffffff"
                   size={70}
                 />
                 <Text
-                  style={{
-                    ...font.family.medium,  
-                    textAlign: "left",
-                    fontWeight: "500",
-                    fontSize: 21,
-                    color: "#ffffff"
-                  }}
+                  style={styles.__left}
                 >
                   Sofas
                 </Text>
@@ -163,20 +151,14 @@ export default class Home extends Component {
                 }
               >
                 <Text
-                  style={{
-                    ...font.family.medium, 
-                    textAlign: "left",
-                    fontWeight: "500",
-                    fontSize: 21,
-                    color: "#ffffff"
-                  }}
+                  style={styles.__left}
                 >
                   Chairs
                 </Text>
                 <Icon
-                  name="wheelchair"
+                  name="chair"
                   color="#ffffff"
-                  style={{ textAlign: "right" }}
+                  style={styles._right}
                   size={70}
                 />
               </TouchableOpacity>
@@ -187,19 +169,13 @@ export default class Home extends Component {
                 }
               >
                 <Icon
-                  name="desktop"
-                  style={{ textAlign: "left" }}
+                  name="cupboard"
+                  style={styles._left}
                   color="#ffffff"
                   size={70}
                 />
                 <Text
-                  style={{
-                    ...font.family.medium, 
-                    textAlign: "right",
-                    fontWeight: "500",
-                    fontSize: 21,
-                    color: "#ffffff"
-                  }}
+                  style={styles.__right}
                 >
                   Cupboards
                 </Text>

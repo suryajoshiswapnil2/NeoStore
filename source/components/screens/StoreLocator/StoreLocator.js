@@ -3,7 +3,7 @@ import {View, Text, ActivityIndicator} from 'react-native'
 import {CustomHeader} from '../../header/header'
 import {styles} from './styles'
 
-import Feather from 'react-native-vector-icons/Feather'
+import Icon from '../../../utils/icon'
 import MapView, {Marker} from 'react-native-maps';
 
 
@@ -59,7 +59,7 @@ export default class StoreLocator extends Component {
         if(this.state.isLoading){
             return(
                 <View style={styles.container}>
-                    <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='Store Locator' rightIcon='search'/>
+                    <CustomHeader leftIcon='angle-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='Store Locator' rightIcon='search'/>
                     <View style={styles.mainContainer}>
                         <ActivityIndicator size='large' color="#0000ff"/>
                     </View>
@@ -69,7 +69,7 @@ export default class StoreLocator extends Component {
 
         return(
             <View style={styles.container}>
-                <CustomHeader leftIcon='chevron-left' style={{fontSize: 20,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='Store Locator' rightIcon='search'/>
+                <CustomHeader leftIcon='angle-left' style={{fontSize: 20,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='Store Locator' rightIcon='search'/>
                 <View style={styles.mainContainer}>
                     <View style={styles.mapContainer}>
                         <MapView
@@ -95,7 +95,7 @@ export default class StoreLocator extends Component {
                          {this.addr.map((elem, index) => {
                              return(
                                  <View style={styles.addrItem} key={index}> 
-                                    <Feather color='#333333' style={{paddingTop: 3}} name='map-pin' size={23}/>
+                                    <Icon color='#333333' name='map-marker' size={23}/>
                                     <View style={styles.text}>
                                         <Text style={styles.n}>{elem.name}</Text>
                                         <Text style={styles.ad}>{elem.addr}</Text>

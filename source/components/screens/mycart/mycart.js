@@ -5,7 +5,7 @@ import {CustomHeader} from '../../header/header'
 import {styles} from './styles'
 import { API, get, post } from '../../../lib/api';
 import { showError } from '../../../utils/validators'
-import Feather from 'react-native-vector-icons/Feather'
+import Icon from '../../../utils/icon'
 import { SwipeListView } from 'react-native-swipe-list-view'
 import ModalDropdown from 'react-native-modal-dropdown';
 import { userData, userDataService } from '../../../lib/serviceProvider';
@@ -285,7 +285,7 @@ export default class MyCart extends Component {
         if(this.state.isLoading){
             return(
                 <View style={styles.container}>
-                    <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Cart' rightIcon='search'/>
+                    <CustomHeader leftIcon='angle-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Cart' rightIcon='search'/>
                     <View style={{flex:1, justifyContent: 'center'}}>
                         <ActivityIndicator size='large' color='blue' />    
                     </View>    
@@ -298,7 +298,7 @@ export default class MyCart extends Component {
             
             <View style={styles.container}>
             {/* <StatusBar barStyle = 'light-content' hidden={false} /> */}
-            <CustomHeader leftIcon='chevron-left' style={{fontSize: 21,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Cart' rightIcon='search'/>
+            <CustomHeader leftIcon='angle-left' style={{fontSize: 21,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Cart' rightIcon='search'/>
             
             { this.state.data == null || this.state.data.length == 0 ?
                 (<View style={styles.mainContainer}>
@@ -333,13 +333,13 @@ export default class MyCart extends Component {
                                         >
                                         <View style={{flexDirection: 'row'}}> 
                                             <Text style={{fontSize: 16}}>{item.quantity} </Text>
-                                            <Feather name='chevron-down' size={20} />
+                                            <Icon name='angle-down' style={{marginTop: 2}} size={15} />
                                         </View>
                                     </ModalDropdown>
                                 </View>
                                     
                                     {/* <Text style={styles.cost}>{item.quantity}</Text> */}
-                                    <Text style={styles.cost}>&#8377; {item.product.cost * item.quantity }.00</Text>
+                                    <Text style={styles.cost}><Icon name='rupee' size={15}/> {item.product.cost * item.quantity }.00</Text>
                                 </View>
                             </View>
                     </View>
@@ -347,7 +347,7 @@ export default class MyCart extends Component {
                     renderHiddenItem={ (data, rowMap) => (
                         <View style={styles.rowBack}>
                             <TouchableOpacity onPress={() => { this._deleteItem(rowMap, data.item.product_id) }}>
-                                <Feather name='trash' style={styles.iconDelete} size={25}></Feather>
+                                <Icon name='delete' style={styles.iconDelete} size={25}/>
                             </TouchableOpacity>
                         </View>
                     )}
@@ -358,7 +358,7 @@ export default class MyCart extends Component {
             
                 <View style={styles.totalContainer}>
                        <Text style={styles.total}>TOTAL</Text>
-                       <Text style={styles.total}>&#8377; {this.state.total}.00</Text>
+                       <Text style={styles.total}><Icon name='rupee' size={15}/> {this.state.total}.00</Text>
                 </View>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={[styles.button, {backgroundColor:'red'}]}  onPress={() => { this.props.navigation.navigate('AddressList') }}>

@@ -162,7 +162,7 @@ export default class AddAddress extends Component {
             return (
                 <View style={styles.container}>
                     <CustomHeader
-                        leftIcon="chevron-left"
+                        leftIcon="angle-left"
                         style={{ fontSize: 20 }}
                         leftAction={() => {
                             this.props.navigation.goBack();
@@ -181,7 +181,7 @@ export default class AddAddress extends Component {
         <View style={styles.container}>
             
             <CustomHeader
-                leftIcon="chevron-left"
+                leftIcon="angle-left"
                 style={{ fontSize: 20 }}
                 leftAction={() => {
                     this.props.navigation.goBack();

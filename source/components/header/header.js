@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Feather from "react-native-vector-icons/Feather";
+import Icon from "../../utils/icon";
 import { View,TextInput, Text,Modal, TouchableWithoutFeedback, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 
@@ -18,8 +18,8 @@ export default class Header extends Component {
           style={styles.leftContainer}
           onPress={this.props.back}
         >
-          <Feather
-            name="chevron-left"
+          <Icon
+            name="angle-left"
             color="#ffffff"
             style={{ fontWeight: "bold" }}
             size={this.props.size ? this.props.size : 26}
@@ -67,10 +67,10 @@ export class CustomHeader extends Component {
           style={styles.leftCustomContainer}
           onPress={this.props.leftAction}
         >
-          <Feather
+          <Icon
             name={this.props.leftIcon}
             color="#ffffff"
-            size={this.props.size ? this.props.size : 25 }
+            size={this.props.size ? this.props.size : 22 }
           />
         </TouchableOpacity>
         <Text style={[styles.custHeadText, this.props.style]}>
@@ -82,10 +82,10 @@ export class CustomHeader extends Component {
             // onPress={this.props.rightAction}
             onPress={ this.props.rightAction == undefined ? () =>  this.open_search() : this.props.rightAction }
          >
-            <Feather
+            <Icon
               name={this.props.rightIcon}
               color="#ffffff"
-              size={this.props.size ? this.props.size : 25}
+              size={this.props.size ? this.props.size : 22}
             />
           </TouchableOpacity>
         )}
@@ -95,15 +95,14 @@ export class CustomHeader extends Component {
             visible={ this.state.isSearching } 
             transparent={true}
             onRequestClose={() => { this.setState({isSearching: false,})}}
-            >
-            
+            > 
             <TouchableWithoutFeedback onPress={() => this.close_search()}>
             <View style={{flex:1,}}>
                 <View  style={styles.modalContainer}>
                     <TouchableWithoutFeedback>
                         <View style={styles.rowContainer}>
                             {/* <View style={{width: 50, height: 50,marginLeft: 3,marginTop:2, justifyContent:'center', alignItems: 'center'}}>
-                                <Feather  onPress={() => this.close_search()} name={this.props.leftIcon} color="#ffffff" size={this.props.size ? this.props.size : 25}/>
+                                <Icon  onPress={() => this.close_search()} name={this.props.leftIcon} color="#ffffff" size={this.props.size ? this.props.size : 25}/>
                             </View> */}
                             <TextInput
                                 placeholder='Search..'
@@ -114,7 +113,7 @@ export class CustomHeader extends Component {
                                 style={{marginLeft: 20, height: 50, width: '70%', color: 'white', fontSize: 17}}
                             />
                             <View style={{width: 50, height: 50,marginRight: 2,marginTop:2, justifyContent:'center', alignItems: 'center'}}>
-                                <Feather  onPress={() => this.close_search()} name={this.props.rightIcon} color="#ffffff" size={this.props.size ? this.props.size : 25}/>
+                                <Icon  onPress={() => this.close_search()} name={this.props.rightIcon} color="#ffffff" size={this.props.size ? this.props.size : 22}/>
                             </View>
                         </View>
                     </TouchableWithoutFeedback>

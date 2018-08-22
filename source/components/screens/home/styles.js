@@ -7,6 +7,27 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
+
+        _left: { 
+            textAlign: "left" 
+        },
+        _right: { 
+            textAlign: "right" 
+        },
+        __left: {
+            ...font.family.medium, 
+            textAlign: "left",
+            fontWeight: "500",
+            fontSize: 21,
+            color: "#ffffff"
+        },
+        __right:{
+            ...font.family.medium, 
+            textAlign: "right",
+            fontWeight: "500",
+            fontSize: 21,
+            color: "#ffffff"
+        },
         mainContainer: {
             flex: 1,
             // justifyContent: 'center',

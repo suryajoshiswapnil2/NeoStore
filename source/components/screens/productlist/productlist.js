@@ -152,7 +152,7 @@ export default class ProductList extends Component {
       return (
                 <View style={{ flex:1, paddingTop: 22 }}>
                     <CustomHeader
-                        leftIcon="chevron-left"
+                        leftIcon="angle-left"
                         style={{ fontSize: 20 }}
                         leftAction={() => {
                             this.props.navigation.navigate("Home");
@@ -173,7 +173,7 @@ export default class ProductList extends Component {
       <View style={styles.container}>
         <StatusBar barStyle="light-content" hidden={false} />
         <CustomHeader
-          leftIcon="chevron-left"
+          leftIcon="angle-left"
           style={{ fontSize: 20 }}
           leftAction={() => {
             this.props.navigation.navigate("Home");

@@ -1,4 +1,3 @@
-import {apiCall, API} from './api'
 
 export let userData = { 
     user_data: {

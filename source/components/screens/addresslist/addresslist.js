@@ -104,7 +104,7 @@ export default class AddressList extends Component {
 
             return ( <View style={styles.container}>
                         <CustomHeader
-                            leftIcon="chevron-left"
+                            leftIcon="angle-left"
                             style={{ fontSize: 20 }}
                             leftAction={() => {
                                 this.props.navigation.goBack();
@@ -122,7 +122,7 @@ export default class AddressList extends Component {
         return (
         <View style={styles.container}>
             <CustomHeader
-                leftIcon="chevron-left"
+                leftIcon="angle-left"
                 style={{ fontSize: 20 }}
                 leftAction={() => {
                     this.props.navigation.goBack();
