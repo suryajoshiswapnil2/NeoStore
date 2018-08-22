@@ -159,11 +159,22 @@ export default class AddAddress extends Component {
         // ]
 
         if(this.state.isLoading){
-
-            return (<View style={styles.loaderContainer}>
+            return (
+                <View style={styles.container}>
+                    <CustomHeader
+                        leftIcon="chevron-left"
+                        style={{ fontSize: 20 }}
+                        leftAction={() => {
+                            this.props.navigation.goBack();
+                        }}
+                        title="Add Address"
+                        rightIcon="search"
+                    />    
+                    <View style={styles.loaderContainer}>
                         <ActivityIndicator size='large' color='#00f'/>
-                    </View>)
-
+                    </View>
+                </View>
+            )
         }
 
         return (
@@ -180,7 +191,7 @@ export default class AddAddress extends Component {
             />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <ScrollView >
-            <KeyboardAvoidingView behavior={Device.isIOS? 'position' : 'padding' }enabled>
+            <KeyboardAvoidingView behavior={Device.isIOS? 'position' : 'padding' } enabled>
             <View style={styles.mainContainer}> 
                 <View style={styles.inputContainer}>
                     <View style={styles.titleContainer}>
@@ -304,7 +315,7 @@ export default class AddAddress extends Component {
                     </View>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={[styles.button, {backgroundColor:'red'}]}  onPress={() => {this._add_addr()}}>
+                    <TouchableOpacity style={[styles.button, { backgroundColor:'red' }]}  onPress={() => {this._add_addr()}}>
                         <Text style={[styles.buttonText, {fontWeight: 'bold', textAlign:'center'}]} >SAVE ADDRESS</Text>
                     </TouchableOpacity>
                 </View> 

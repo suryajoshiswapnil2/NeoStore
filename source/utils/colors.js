@@ -4,7 +4,7 @@ export default colors = {
    darkRed : '#bb0100',
    red: '#e91c1a',
    lightRed: '#fe3f3f',
-
+   redd: "#ff0000",
    yellow: '#fe3f3f',
    
    darkWhite: '#ededed', 

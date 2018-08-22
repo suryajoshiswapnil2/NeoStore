@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import {
   View,
-  AsyncStorage,
-  Alert,
   Text,
-  StatusBar,
   FlatList,
   Image,
   ActivityIndicator
@@ -13,9 +10,6 @@ import { CustomHeader } from "../../header/header";
 
 import { styles } from "./styles";
 import { API, get } from "../../../lib/api";
-import { showError } from "../../../utils/validators";
-import Feather from "react-native-vector-icons/Feather";
-import { Rating } from "react-native-ratings";
 import { userData } from "../../../lib/serviceProvider";
 
 export default class OrderDetail extends Component {

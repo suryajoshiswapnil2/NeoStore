@@ -118,11 +118,16 @@ export default class ProductDetails extends Component {
       });
   }
   shareData = () => {
+
+    let {data, curImg} =  this.state
+
+    let msg = `${userData.user_data.first_name} want to share with you a product from NeoSTORE\n${data.name} ( ${data.producer} )\n${data.description}\n${curImg}`
     
-    // console.log(this.state.data)
+    // console.log(msg)
+
     Share.share(
       {
-        message: this.state.data.description ,
+        message: msg,
         url: "https://neosofttech.in",
         title: this.state.data.name,
       },
@@ -261,7 +266,6 @@ export default class ProductDetails extends Component {
                     ratingCount={5}
                     startingValue={this.state.data.rating}
                     imageSize={15}
-                    style={{}}
                     readonly
                     ratingBackgroundColor="#7f7f7f"
                     ratingColor="#ffba00"
@@ -272,26 +276,13 @@ export default class ProductDetails extends Component {
               <View style={styles.detailContainer}>
                 <View style={styles.imageHolder}>
                   <View
-                    style={{
-                      flexDirection: "row",
-                      width: "85%",
-                      justifyContent: "space-between",
-                      alignItems: 'center',
-                      marginTop: 15,
-                      marginBottom: 5
-                    }}
+                    style={styles.imageView}
                   >
                     <Text
-                      style={{
-                        // fontFamily: 'Gotham-medium',  
-                        fontSize: 25,
-                        color: "#ff0000",
-                        fontWeight: "500"
-                      }}
-                    >
+                      style={styles.costt}>
                       Rs. {this.state.data.cost}
                     </Text>
-                    { this.state.isOOS ? <Text style={{color:'red', fontSize: 14, fontWeight: '500'}}>Out of Stock</Text> : null}
+                    { this.state.isOOS ? <Text style={styles.oos}>Out of Stock</Text> : null}
                     <TouchableOpacity onPress={() => this.shareData()}>
                       <Feather name="share-2" size={25} color="gray" />
                     </TouchableOpacity>

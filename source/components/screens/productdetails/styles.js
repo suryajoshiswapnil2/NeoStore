@@ -6,6 +6,24 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
+        costt: {  
+            fontSize: 25,
+            color: colors.redd,
+            fontWeight: "500"
+        },
+        oos:{
+            color: colors.red,
+            fontSize: 14, 
+            fontWeight: '500'
+        },
+        imageView:{
+            flexDirection: "row",
+            width: "85%",
+            justifyContent: "space-between",
+            alignItems: 'center',
+            marginTop: 15,
+            marginBottom: 5
+        },
         modalImage:{
             width: '100%',
             height: '100%',
@@ -44,8 +62,8 @@ export const styles = StyleSheet.create(
             fontSize: 15,
           },
           bottomContainer:{
-                flexDirection: 'row',
-                justifyContent: 'space-between'
+            flexDirection: 'row',
+            justifyContent: 'space-between'
           },
           rating:{
 
@@ -188,7 +206,7 @@ export const styles = StyleSheet.create(
           },
           containerContent: {
             flex: 1,
-            zIndex: 2147483647,
+            // zIndex: 2147483647,
             backgroundColor: "rgba(0,0,0,0.3)",
             justifyContent: "center",
             alignItems: "center"

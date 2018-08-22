@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import {View, AsyncStorage, Text,StatusBar,FlatList,ActivityIndicator, TouchableOpacity} from 'react-native'
+import {View, Text,FlatList,ActivityIndicator, TouchableOpacity} from 'react-native'
 import {CustomHeader} from '../../header/header'
 
 import {styles} from './styles'
-import { API, apiCall, get } from '../../../lib/api';
-import { showError } from '../../../utils/validators'
+import { API, get } from '../../../lib/api';
 import { userData } from '../../../lib/serviceProvider';
 
 export default class MyOrders extends Component {
@@ -127,7 +126,7 @@ export default class MyOrders extends Component {
             
             <View style={styles.container}>
             {/* <StatusBar barStyle = 'dark-content' hidden={false} /> */}
-            <CustomHeader leftIcon='chevron-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Orders' rightIcon='search'/>
+            <CustomHeader leftIcon='chevron-left' style={{fontSize: 20,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Orders' rightIcon='search'/>
             <View style={styles.mainContainer}>
             { this.state.data.length == 0 ? <Text>No products in list</Text> : 
                 <FlatList 
