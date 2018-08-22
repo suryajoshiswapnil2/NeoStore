@@ -5,7 +5,7 @@
  * @format
  * @flow
  */
-import font from '../../../utils/fontSize'
+
 import React, { Component } from "react";
 import {
   View,
@@ -38,9 +38,12 @@ export default class Home extends Component {
  
 
   componentDidMount(){
+    //   setTimeout(() => {
         this.setState({
             isLoading: false,
         })
+ 
+    //   }, 2000)
   }
 
   render() {
@@ -65,7 +68,7 @@ export default class Home extends Component {
     return (
         
       // <ImageBackground style={styles.mainContainer} source={background} ></ImageBackground>
-      <View style={styles.mainContainer}>
+      <View style={styles.mainContainer} >
         <StatusBar
           barStyle="dark-content"
           hidden={false}

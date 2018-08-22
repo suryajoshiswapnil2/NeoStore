@@ -7,18 +7,16 @@
  */
 
 import React, {Component} from 'react';
-import {View, Text, ScrollView, TextInput, TouchableOpacity,ImageBackground,StatusBar, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from 'react-native';
+import {View, Text, ActivityIndicator, ScrollView, TextInput, TouchableOpacity,ImageBackground,StatusBar, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from 'react-native';
 import {background} from '../../../assets/images';
 import {SafeAreaView} from 'react-navigation'; 
 import {styles} from './styles';
-import Icon from 'react-native-vector-icons/FontAwesome';
-//import Feather from 'react-native-vector-icons/Feather';
+import Icon from '../../../utils/icon';
+
 import Header from "../../header/header";
 import * as Device from '../../../lib/globals'
-// 
-//import { } from 'react-native-elements';
-import {Radio, CheckBox, RadioGroup} from './components';
-import {API, apiCall} from '../../../lib/api';
+
+import {API, post} from '../../../lib/api';
 import {validator,showError} from '../../../utils/validators'
  
 
@@ -27,6 +25,7 @@ export default class Register extends Component{
   constructor(props){
     super(props);
     this.state ={
+      loading: false,
       fname: '',
       lname: '',
       mobile: '',
@@ -74,6 +73,10 @@ export default class Register extends Component{
       else
       {
 
+        this.setState({
+            loading: true,
+        })
+
         let formData = new FormData();
         let data = {
           first_name: this.state.fname,
@@ -88,46 +91,43 @@ export default class Register extends Component{
         for (let i in data)
             formData.append(i, data[i]);    
 
-        apiCall(API.registration, {
-            method: 'POST',
-            body: formData,
-        } , (res) => alert(res.message))
-      
-      
-        // await fetch(API.registration, {
 
-        //   method: 'POST',
-        //   body: formData,
-
-        // }).then(res => res.json()).then(  
-
-        //   res => 
-        //     alert(res.message)
-        // );
-
-        }
+        post(API.registration, {}, formData, (res) =>{ 
+            alert(res.message)
+            this.setState({
+                loading: false,
+            })
+        } , err => {
+            console.log(err)
+            alert(err.message)
+            this.setState({
+                loading: false,
+            })
+        })
+      }
 
     }
   };
 
 
   render() {
-  //  const {navigate} = this.props.navigation;
     return (
       
     <ImageBackground style={styles.mainContainer} source={background} >
     <Header title='Register' back={()=>{this.props.navigation.goBack()}} />
     <StatusBar barStyle = 'light-content' hidden={false}/>
-    {/* <ScrollView style={styles.scrollContainer} scrollEnabled= { Device.isAndroid ? true : false} > */}
-   
     <KeyboardAvoidingView style={styles.container} behavior='padding' enabled = {Device.isIOS ? true : false}>     
+    <ScrollView  
+       showsVerticalScrollIndicator={false}
+       style={styles.scrollContainer} 
+       scrollEnabled= { Device.isAndroid ? true : true} >
     <TouchableWithoutFeedback onPress={ Keyboard.dismiss }>
-      <View style={ styles.container}>
+      <View style={ styles.container} pointerEvents={this.state.loading ? "none" : 'auto'}>
         <View style={ styles.containerHalf}>
           <Text style={ styles.logoTitle }>NeoSTORE</Text>
           <View style={styles.inputBoxes}>
           <View style={ styles.inputContainer }>
-            <Icon style={styles.icons}  name="user" size={25} color="white" />
+            <Icon style={styles.icons}  name="user" size={20} color="white" />
             <TextInput
                 autoCorrect = {false}
                 autoCapitalize= 'none'
@@ -143,7 +143,7 @@ export default class Register extends Component{
             />
           </View>
           <View style={ styles.inputContainer }>
-            <Icon style={styles.icons}  name="user" size={25} color="white" />
+            <Icon style={styles.icons}  name="user" size={20} color="white" />
             <TextInput
                 style={ styles.input }
                 autoCorrect = {false}
@@ -159,7 +159,7 @@ export default class Register extends Component{
             />
           </View>
           <View style={ styles.inputContainer }>
-            <Icon style={styles.icons}  name="envelope" size={20} color="white" />
+            <Icon style={styles.icons}  name="email" size={20} color="white" />
             <TextInput
                 style={ styles.input } 
                 maxLength= {50}
@@ -176,7 +176,7 @@ export default class Register extends Component{
             />
           </View>
           <View style={ styles.inputContainer }>
-            <Icon style={styles.icons}  name="lock" size={25} color="white" />
+            <Icon style={styles.icons}  name="lock" size={20} color="white" />
             <TextInput
                 style={ styles.input } 
                 secureTextEntry= {true}
@@ -192,7 +192,7 @@ export default class Register extends Component{
           </View>
           
           <View style={ styles.inputContainer }>
-            <Icon style={styles.icons}  name="lock" size={25} color="white" />
+            <Icon style={styles.icons}  name="lock" size={20} color="white" />
             <TextInput
                 style={ styles.input } 
                 secureTextEntry= {true}
@@ -237,7 +237,7 @@ export default class Register extends Component{
             </RadioGroup> */}
           </View>
           <View style={ styles.inputContainer }>
-            <Icon style={styles.icons}  name="mobile" size={30} color="white" />
+            <Icon style={styles.icons}  name="mobile" size={20} color="white" />
             <TextInput
                 style={ styles.input }
                 autoCorrect = {false}
@@ -270,15 +270,15 @@ export default class Register extends Component{
           </View>
           </View>
           <TouchableOpacity style={styles.loginButton}  onPress={this._doRegister}>
-              <Text style={{ color: '#e91c1a', fontSize: 20, fontWeight: 'bold'}}>REGISTER</Text>
+          {this.state.loading ? <ActivityIndicator size='small' color='blue' /> : <Text style={{ color: '#e91c1a', fontSize: 20, fontWeight: 'bold'}}>REGISTER</Text>}
           </TouchableOpacity>
         </View>
         
       </View>
       </TouchableWithoutFeedback>  
-   
+      </ScrollView>
       </KeyboardAvoidingView>
-      {/* </ScrollView> */}
+      
 
       </ImageBackground>
      

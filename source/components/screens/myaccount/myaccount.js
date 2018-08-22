@@ -23,7 +23,7 @@ import { background } from "../../../assets/images";
 import Header from "../../header/header";
 import { user } from "../../../assets/images";
 import { styles } from "./styles";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "../../../utils/icon";
 import { userData, sync, userDataService } from '../../../lib/serviceProvider';
 
 
@@ -31,13 +31,25 @@ export default class MyAccount extends Component {
   constructor(props) {
     super(props);
     console.log(props)
+    // console.log(props.navigation.isFocused())
     this.state = {
         isLoading: true,
+        force: null,
     }
+    props.navigation.addListener(
+        'willFocus',
+        () => {
+            console.log('im back')
+            // this.setState({
+            //     force: 's',
+            // })
+        }
+    ) 
     // this.state = userData.user_data;
   }
 
   componentDidMount(){
+    //   console.log('called ')
       this.setState({
           isLoading: false,
       })
@@ -45,6 +57,7 @@ export default class MyAccount extends Component {
 
   render() {
     console.log('render profile')
+
     const { navigate } = this.props.navigation;
 
     if(this.state.isLoading)
@@ -90,7 +103,8 @@ export default class MyAccount extends Component {
                 <Image
                   style={styles.image}
                   source={
-                    userData.user_data.profile_pic == null
+                    userData.user_data.profile_pic == null ||
+                    userData.user_data.profile_pic == '' 
                       ? user
                       : { uri: userData.user_data.profile_pic }
                   }
@@ -132,7 +146,7 @@ export default class MyAccount extends Component {
                 <View style={styles.inputContainer}>
                   <Icon
                     style={styles.icons}
-                    name="envelope"
+                    name="email"
                     size={20}
                     color="white"
                   />

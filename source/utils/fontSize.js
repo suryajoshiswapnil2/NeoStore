@@ -15,7 +15,7 @@ export const Gotham = {
 export default font = {
     Medium : 23,
     Book: 13, 
-    logoTitle: 48,
+    logoTitle: 42,
     weight: {
         bold: 'bold',
         bolder: '700',

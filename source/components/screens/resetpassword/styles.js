@@ -51,7 +51,7 @@ export const styles = StyleSheet.create(
               fontSize: 20,
               color: colors.white ,
               height: 30,
-              marginHorizontal: 15, 
+              marginHorizontal: 10, 
               padding: 5           
           },
           icons: {

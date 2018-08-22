@@ -7,15 +7,15 @@
  */
 
 import React, {Component} from 'react';
-import {View, Text, TextInput, TouchableOpacity,ImageBackground, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native';
+import {View, Text, TextInput,ActivityIndicator, TouchableOpacity,ImageBackground, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native';
 import {background} from '../../../assets/images';
 
 import {styles} from './styles';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from '../../../utils/icon';
 import Header from "../../header/header";
 import {validator,showError} from '../../../utils/validators'
-import {API, apiCall} from '../../../lib/api'
-import FlashMessage from "react-native-flash-message"
+import {API, post} from '../../../lib/api'
+
 
 export default class Forgot extends Component{
 
@@ -25,50 +25,46 @@ export default class Forgot extends Component{
       email: '',
       password: '',
       cpassword: '',
+      loader: false,
     }
   }
 
 
 
-  _doForgot = async () =>  {
+  _doForgot = () =>  {
 
     if( validator.emptyField(this.state.email) )
-    return showError('Username is empty!', '')
-  else if(validator.emptyField(this.state.password))
-    return showError('Password is empty!')
-  else if( validator.emailField(this.state.email))
-    return showError('Email is invalid!!')
-  else if( validator.passwordField(this.state.password))
-    return showError('Password should be 7-15 alpha-numeric characters!')
-  else if(validator.passConfirm(this.state.password, this.state.cpassword))
-    return showError('password mismatched!')
+        return showError('Username is empty!', '')
+    else if(validator.emptyField(this.state.password))
+        return showError('Password is empty!')
+    else if( validator.emailField(this.state.email))
+        return showError('Email is invalid!!')
+    else if( validator.passwordField(this.state.password))
+        return showError('Password should be 7-15 alpha-numeric characters!')
+    else if(validator.passConfirm(this.state.password, this.state.cpassword))
+        return showError('password mismatched!')
   
+    this.setState({
+        loader: true,
+    })    
+
     let formData = new FormData()
     formData.append('email', this.state.email)
 
-  //  let data = apiCall(API.forgot, { 
-  //   method: 'POST',
-  //   headers: {},
-  //   body: formData,
-  //  });
-    try {
-        apiCall(API.forgot, {
-            method: 'POST',
-            body: formData,
-        }, (res) => {
+    post(API.forgot, {},formData, (res) => {
             showError(res.user_msg)
-        })
-    }
-    catch(err)
-    {
-        console.log(err)
-    }
-//   await fetch(API.forgot, {
-//     method: 'POST',
-//     body: formData,
-//   })
-//   .then( res => res.json()  )
-//   .then( res => showError(res.user_msg))
+            this.setState({
+                loader: false,
+            })
+        }, err => {
+            console.log(err)
+            alert(err.message)
+            this.setState({
+                loader: false,
+            })
+    })
+
+
 
   }
 
@@ -77,12 +73,10 @@ export default class Forgot extends Component{
     return (
 
     <ImageBackground style={styles.mainContainer} source={background} >
-  
-    {/* <Header title='Forgot Password' style={{fontSize: 20}} size={24}  back={()=>{this.props.navigation.goBack()}}/> */}
     <Header title='Forgot Password' back={()=>{this.props.navigation.goBack()}} />
     <StatusBar barStyle='light-content' hidden={false} />
     <TouchableWithoutFeedback onPress={ Keyboard.dismiss }>
-      <View style={ styles.container}>
+      <View style={ styles.container} pointerEvents={this.state.loading ? "none" : 'auto'}>
         <View style={ styles.containerHalf}>
           <Text style={ styles.logoTitle }>NeoSTORE</Text>
           <View style={styles.inputBoxes}>
@@ -93,7 +87,7 @@ export default class Forgot extends Component{
                 autoCapitalize= 'none'
                 style={styles.input}
                 placeholder="Username"
-                maxLength= {15}
+                maxLength= {50}
                 placeholderTextColor='#ffffff'
                 keyboardType= 'email-address'
                 returnKeyType ='next' 
@@ -107,7 +101,7 @@ export default class Forgot extends Component{
             <TextInput
                 style={ styles.input } 
                 secureTextEntry= {true}
-                maxLength= {15}
+                maxLength= {30}
                 placeholder="New Password"
                 placeholderTextColor='#ffffff'
                 // keyboardType= 'email-address'
@@ -123,7 +117,7 @@ export default class Forgot extends Component{
             <TextInput
                 style={ styles.input } 
                 secureTextEntry= {true}
-                maxLength= {15}
+                maxLength= {30}
                 placeholder="Confirm Password"
                 placeholderTextColor='#ffffff'
                 returnKeyType ='done' 
@@ -133,22 +127,15 @@ export default class Forgot extends Component{
           </View>
           </View>
           <TouchableOpacity style={styles.loginButton}  onPress={this._doForgot}>
-              <Text style={{ color: '#e91c1a', fontSize: 20 , fontWeight: 'bold'}}>RESET NOW</Text>
+          {this.state.loader ? <ActivityIndicator size='small' color='blue' /> :   <Text style={{ color: '#e91c1a', fontSize: 20 , fontWeight: 'bold'}}>RESET NOW</Text>}
           </TouchableOpacity>
           <TouchableOpacity  onPress={ () => navigate('Login') }>
               <Text style={{ color: '#ffffff', fontSize: 20,}}>Login with password?</Text>
           </TouchableOpacity>
         </View>
-        {/* <View style={styles.bottomContainer}>
-            <Text style={{ color: '#ffffff', fontSize: 19}}>DONT HAVE AN ACCOUNT? </Text>
-            <TouchableOpacity  onPress={() => navigate('Register')}>
-            <Feather name='plus' style={{ fontFamily: 'Feather'}} color='#ffffff' size={138/3}></Feather>
-          </TouchableOpacity>
-            
-        </View> */}
       </View>
       </TouchableWithoutFeedback>
-      <FlashMessage position="top" />
+
       </ImageBackground>
     );
   }

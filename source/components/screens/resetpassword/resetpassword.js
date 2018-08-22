@@ -20,11 +20,12 @@ import {
 } from "react-native";
 import { background } from "../../../assets/images";
 import { styles } from "./styles";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "../../../utils/icon";
 import Header from "../../header/header";
-import { API, apiCall } from "../../../lib/api";
+import { API, post } from "../../../lib/api";
 import { validator, showError } from "../../../utils/validators";
-import { userData, sync, userDataService } from '../../../lib/serviceProvider';
+import { userData } from '../../../lib/serviceProvider';
+
 export default class ResetPassword extends Component {
   constructor(props) {
     super(props);
@@ -37,8 +38,6 @@ export default class ResetPassword extends Component {
   }
 
   _resetPassword = async () => {
-
-
 
     if (validator.emptyField(this.state.old_password))
       return showError("Old password is empty!");
@@ -55,7 +54,6 @@ export default class ResetPassword extends Component {
         isLoading: true,
     })
 
-    let accountData = {};
     let formData = new FormData();
 
     formData.append("old_password", this.state.old_password);
@@ -63,51 +61,36 @@ export default class ResetPassword extends Component {
     formData.append("confirm_password", this.state.confirm_password);
 
 
-    apiCall(API.changePassword, {
-        method: "POST",
-        headers: {
-          access_token: userData.user_data.access_token
-        },
-        body: formData
-    }, (res) => {
-        console.log(res)
-        if (res.status == 200) {
-            alert(res.user_msg);
-            this.props.navigation.goBack();
-        } 
-        else 
-            alert(res.user_msg);
-    })
+    post(API.changePassword, { access_token: userData.user_data.access_token},
+        formData, 
+        (res) => {
+            if (res.status == 200) {
+                alert(res.user_msg);
+                this.props.navigation.goBack();
+            } 
+            else {
+                alert(res.user_msg);
+            }
+            this.setState({
+                isLoading: false,
+            })    
+        }, 
+        err => {
 
-    // await fetch(API.changePassword, {
-    //   method: "POST",
-    //   headers: {
-    //     access_token: this.state.access_token
-    //   },
-    //   body: formData
-    // })
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     if (res.status == 200) {
-    //       alert(res.user_msg);
-    //       this.props.navigation.goBack();
-    //     } else alert(res.user_msg);
-    //   });
+            alert(err.message)
+            this.setState({
+                isLoading: false,
+            })
+        }
+    )
 
-    this.setState({
-        isLoading: false,
-    })
   };
-
-// componentDidMount() {
-// 
-// }
 
   render() {
 
     const { navigate } = this.props.navigation;
     return (
-      <ImageBackground style={styles.mainContainer} source={background}>
+      <ImageBackground style={styles.mainContainer} source={background} >
         <Header
           title="Reset Password"
           back={() => {
@@ -116,7 +99,7 @@ export default class ResetPassword extends Component {
         />
         <StatusBar barStyle="light-content" hidden={false} />
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.container}>
+          <View style={styles.container} pointerEvents={this.state.isLoading ? "none" : 'auto'}>
             <View style={styles.containerHalf}>
               <Text style={styles.logoTitle}>NeoSTORE</Text>
               <View style={styles.inputBoxes}>

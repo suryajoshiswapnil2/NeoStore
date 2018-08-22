@@ -39,13 +39,13 @@ export const styles = StyleSheet.create(
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            paddingTop: Device.isIOS ? 20 :0,
+            paddingTop: Device.isIOS ? 22 :0,
             // backgroundColor: '#F5FCFF',
           },
 
         scrollContainer: {
-            flex: 1,
-            // height: Device.window.height,
+            // flex: 1,
+            // height: Device.window.height ,
             // zIndex: 1,
         },
         container: {
@@ -53,7 +53,8 @@ export const styles = StyleSheet.create(
             zIndex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            height: Device.window.height,
+            marginTop: 10,
+            // height: Device.window.height,
            // marginHorizontal: 40/3,
             // backgroundColor: '#F5FCFF',
           },
@@ -64,9 +65,10 @@ export const styles = StyleSheet.create(
             // backgroundColor: '#F5FCFF',
           },
           logoTitle: {
+            ...font.family.bold,
             fontSize: 45,
             color: colors.white,
-            fontWeight: font.weight.bold,
+            // fontWeight: font.weight.bold,
             marginBottom: Device.isAndroid ? 15 : 20,
           },
           inputContainer: {

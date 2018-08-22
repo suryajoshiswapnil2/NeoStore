@@ -89,7 +89,7 @@ export default class SideBar extends Component{
                title: 'My Account',
                icon: 'user',
                notifications: false,
-               navigate: () => { navigate('MyAccount', userData)  },
+               navigate: () => { navigate('MyAccount')  },
            },
            {
                title: 'Store Locator',
@@ -174,7 +174,7 @@ export default class SideBar extends Component{
   {/* <StatusBar barStyle = 'light-content' hidden={false}/> */}
       <View style={styles.profileContainer}>
        <TouchableOpacity onPress={ () => navigate('MyAccount') }>
-        <Image source={userData.user_data.profile_pic == null ? user : {uri: userData.user_data.profile_pic}}  style={styles.profileAvatar}/>
+        <Image source={userData.user_data.profile_pic == null || userData.user_data.profile_pic == '' ? user : {uri: userData.user_data.profile_pic}}  style={styles.profileAvatar}/>
         </TouchableOpacity>
         <Text style={styles.title}>{userData.user_data.first_name} {userData.user_data.last_name}</Text>
         <Text style={styles.email}>{userData.user_data.email}</Text>

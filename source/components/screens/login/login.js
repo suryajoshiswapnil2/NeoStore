@@ -11,12 +11,11 @@ import {View, Text,Alert, TextInput,BackHandler, ActivityIndicator,AsyncStorage,
 import {background} from '../../../assets/images';
 
 import {styles} from './styles';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from '../../../utils/icon';
 import Feather from 'react-native-vector-icons/Feather';
 import {SafeAreaView} from 'react-navigation'; 
 import {API, get, post} from '../../../lib/api';
 import {validator,showError} from '../../../utils/validators'
-import FlashMessage from "react-native-flash-message";
 import {userDataService} from "../../../lib/serviceProvider";
 
 
@@ -173,8 +172,9 @@ export default class Login extends Component{
       )
 
     return (
+    
       <ImageBackground style={styles.mainContainer} source={background} >
-      <SafeAreaView style={styles.mainContainer}>
+      <View style={styles.mainContainer} pointerEvents={this.state.loading ? "none" : 'auto'} >
       {/* <Header title='login'/> */}
       {/* <ScrollView> */}
         {/* <KeyboardAvoidingView style={ styles.container} behavior='position' enabled> */}
@@ -237,14 +237,15 @@ export default class Login extends Component{
           <View style={styles.bottomContainer}>
               <Text style={{ color: '#ffffff', fontSize: 19}}>DONT HAVE AN ACCOUNT? </Text>
               <TouchableOpacity  onPress={ () => navigate('Register')}>
-              <Feather name='plus' style={{ fontFamily: 'Feather', backgroundColor:'#E31616'}} color='#ffffff' size={138/3}></Feather>
+              <Icon name='plus-bold' style={{ backgroundColor:'#E31616', padding: 10}} color='#ffffff' size={25}/>
             </TouchableOpacity>
           </View>
           
         {/* </ScrollView> */}
-          </SafeAreaView>
-          <FlashMessage position="top" />
+          </View>
+        
         </ImageBackground>
+        
       )
   }
 }

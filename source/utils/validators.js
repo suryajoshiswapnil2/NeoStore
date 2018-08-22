@@ -1,5 +1,5 @@
 import {Alert} from 'react-native'
-import { showMessage, hideMessage } from "react-native-flash-message";
+
 
 
 export let validator= {

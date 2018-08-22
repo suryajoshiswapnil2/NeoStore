@@ -7,6 +7,10 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
+        appContainer: {
+            // flex:1,
+            // width: Device.window.width,
+        },
         loaderContainer:{
             flex: 1,
             justifyContent: 'center',
@@ -56,7 +60,7 @@ export const styles = StyleSheet.create(
               fontSize: 20,
               color: colors.white ,
             //   height: 30,
-              marginHorizontal: 15, 
+              marginHorizontal: 10, 
               padding: 5           
           },
           icons: {

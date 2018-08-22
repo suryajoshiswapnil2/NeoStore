@@ -153,8 +153,8 @@ export const styles = StyleSheet.create(
         },
         iconDelete: {
             backgroundColor: colors.red,
-            borderRadius: 18,
-            padding: 5,
+            borderRadius: 20,
+            padding: 10,
             color: colors.white,
             textAlign:'center',
         }

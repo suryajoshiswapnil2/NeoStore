@@ -3,6 +3,7 @@ import {
 } from 'react-native';
 import * as Device from '../../lib/globals'
 import font from '../../utils/fontSize'
+import colors from '../../utils/colors';
 
 export const styles = StyleSheet.create({
     headerContainer: {
@@ -11,7 +12,8 @@ export const styles = StyleSheet.create({
         height: Device.isIOS ? 50 : 55,
         marginTop: Device.isX ? 15 : 0,
         width: Device.window.width,
-        alignItems: Device.isAndroid ? 'center' : 'flex-end',
+        alignItems: 'center',
+        // alignItems: Device.isAndroid ? 'center' : 'flex-end',
         justifyContent: 'center',
         padding: 10,
         zIndex: 2,
@@ -20,11 +22,11 @@ export const styles = StyleSheet.create({
               // backgroundColor: 'blue',
               textAlign: 'center',
               ...font.family.medium, 
-              color: '#ffffff',
-            //   height: 30,
+              color: colors.white,
+              height: Device.isIOS ? 25 : 30,
               marginTop: Device.isIOS ? 0 : 0,
               // marginLeft: '35%' ,
-              fontSize: Device.isIOS ? 20 : 21,
+              fontSize: Device.isIOS ? 21 : 23,
               // fontWeight: 'bold',
     },
     custHeadText: {
@@ -35,23 +37,25 @@ export const styles = StyleSheet.create({
         // height: 30,
         marginTop: Device.isIOS ? 8 : undefined,
         // marginLeft: '35%' ,
-        fontSize: Device.isIOS ? 20 : 25,
+        fontSize: Device.isIOS ? 21 : 25,
         // fontWeight: 'bold',
     },
     leftContainer: {
         position: 'absolute',
         left: Device.isIOS ? 15 : 15,
-        bottom: Device.isIOS ? 12 : 15,
+        // bottom: Device.isIOS ? 12 : 15,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     leftCustomContainer: {
         position: 'absolute',
         left: Device.isIOS ? 15 : 15,
-        bottom: Device.isIOS ? 12 : 15,
+        // bottom: Device.isIOS ? 12 : 15,
     },
     rightContainer: {
         position: 'absolute',
         right: Device.isIOS ? 15 : 15,
-        bottom: Device.isIOS ? 12 : 15,
+        // bottom: Device.isIOS ? 12 : 15,
         // bottom:  Device.isIOS ? 10 : 10,
     },
     customHeaderContainer: {

@@ -255,6 +255,7 @@ export default class MyCart extends Component {
 
     }
 
+
     _cal_total = () => {
         if(this.state.data == null)
             this.setState({
@@ -282,7 +283,7 @@ export default class MyCart extends Component {
             { value: 8, } 
         ];
 
-        if(this.state.isLoading){
+        if( this.state.isLoading ) {
             return(
                 <View style={styles.container}>
                     <CustomHeader leftIcon='angle-left' style={{fontSize: 19,}} leftAction={ () => { this.props.navigation.navigate('Home')}} title='My Cart' rightIcon='search'/>
@@ -291,7 +292,7 @@ export default class MyCart extends Component {
                     </View>    
                 </View>
             )
-          }
+        }
         // console.log(this.state.data)  
 
         return(
@@ -346,8 +347,8 @@ export default class MyCart extends Component {
                     }
                     renderHiddenItem={ (data, rowMap) => (
                         <View style={styles.rowBack}>
-                            <TouchableOpacity onPress={() => { this._deleteItem(rowMap, data.item.product_id) }}>
-                                <Icon name='delete' style={styles.iconDelete} size={25}/>
+                            <TouchableOpacity style={styles.iconDelete} onPress={() => { this._deleteItem(rowMap, data.item.product_id) }}>
+                                <Icon name='delete' color='white'  size={17}/>
                             </TouchableOpacity>
                         </View>
                     )}

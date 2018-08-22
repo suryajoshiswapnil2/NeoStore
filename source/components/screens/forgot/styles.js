@@ -12,7 +12,7 @@ export const styles = StyleSheet.create(
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            paddingTop: Device.isIOS ? 20 :0,
+            paddingTop: Device.isIOS ? 22 :0,
             // backgroundColor: '#F5FCFF',
           },
         container: {
@@ -29,6 +29,7 @@ export const styles = StyleSheet.create(
             // backgroundColor: '#F5FCFF',
           },
           logoTitle: {
+            ...font.family.bold,  
             fontSize: font.logoTitle,
             color: colors.white,
             fontWeight: font.weight.bold,
@@ -51,7 +52,7 @@ export const styles = StyleSheet.create(
               fontSize: 20,
               color: colors.white ,
             //   height: 30,
-              marginHorizontal: 15, 
+              marginHorizontal: 10, 
               padding: 5           
           },
           icons: {

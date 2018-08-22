@@ -29,14 +29,15 @@ import { background } from "../../../assets/images";
 import Header from "../../header/header";
 import { user } from "../../../assets/images";
 import { styles } from "./styles";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "../../../utils/icon";
 import { SafeAreaView } from "react-navigation";
 import { API, post, get } from "../../../lib/api";
 import { userData, userDataService } from '../../../lib/serviceProvider';
 import ImagePicker from 'react-native-image-picker'
+
 export default class MyAccount extends Component {
   constructor(props) {
-    // console.log(props);
+    console.log(props);
     super(props);
     this.state = {
         ...props.navigation.state.params,
@@ -48,9 +49,6 @@ export default class MyAccount extends Component {
         loading: true,
         imageLoading: true,
     };
-    // console.log('date to string',this.toStr(new Date()))
-    // console.log('this',props.navigation.state.params.profile_pic)
-  
   }
 
   componentDidMount(){
@@ -105,9 +103,6 @@ export default class MyAccount extends Component {
     })
     var options = {
         title: 'Select Avatar',
-        // customButtons: [
-        //   {name: 'fb', title: 'Choose Photo from Facebook'},
-        // ],
         maxWidth: 300 ,
         maxHeight: 300,
         quality: 0.5,
@@ -205,15 +200,20 @@ export default class MyAccount extends Component {
     //    console.log(formData)
 
         post(API.updateDetails, {access_token: userData.user_data.access_token,}, formData, (res) => {
-            alert(res.user_msg)
-            
-            userDataService.setUserData('user_data', res.data)
-
-            // console.log(res)
-
-            this.setState({
-                dataLoading: false,
-            })
+            if( res.status == 200 ) {
+                alert(res.user_msg)
+                userDataService.setUserData('user_data', res.data)
+                // console.log(res)
+                this.setState({
+                    dataLoading: false,
+                })
+            }
+            else{
+                alert(res.user_msg)
+                this.setState({
+                    dataLoading: false,
+                })
+            }
 
         }, err =>{ 
             alert(err.message) 
@@ -247,7 +247,6 @@ export default class MyAccount extends Component {
 
   render() {
      
-    // console.log('date',this.state.chosenDate)
 
     const { navigate } = this.props.navigation;
 
@@ -285,7 +284,7 @@ export default class MyAccount extends Component {
           <KeyboardAvoidingView style={ styles.container} behavior='position' enabled>
 
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1 }} pointerEvents={this.state.dataLoading ? "none" : 'auto'}>
               <View style={styles.containerHalf}>
                 <View style={styles.imageHolder}>
                   {/* <Image style={styles.image} source={require('../../../assets/images/icon.png')}/> */}
@@ -294,7 +293,8 @@ export default class MyAccount extends Component {
                     <Image
                         style={styles.image}
                         source={
-                        this.state.profile_pic == null
+                        this.state.profile_pic == null ||
+                        this.state.profile_pic == ''
                             ? user
                             : { uri: this.state.profile_pic }
                         }
@@ -357,7 +357,7 @@ export default class MyAccount extends Component {
                   <View style={styles.inputContainer}>
                     <Icon
                       style={styles.icons}
-                      name="envelope"
+                      name="email"
                       size={20}
                       color="white"
                     />
