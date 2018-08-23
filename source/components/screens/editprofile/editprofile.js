@@ -98,9 +98,10 @@ export default class MyAccount extends Component {
     //     if (buttonIndex === 1) { /* destructive action */ }
     //   });
 
-    this.setState({
-        imageLoading: true,
-    })
+    // this.setState({
+    //     imageLoading: true,
+    // })
+
     var options = {
         title: 'Select Avatar',
         maxWidth: 300 ,
@@ -127,12 +128,17 @@ export default class MyAccount extends Component {
         else {
         //   let source = { uri: response.uri };
         //   let source = { uri: 'data:image/jpeg;base64,' + response.data };
+          
+        //   this.setState({
+        //      imageLoading: true,
+        //   })  
+        
           let source = 'data:image/jpeg;base64,' + response.data;
       
           this.setState({
             imagePicked: true,
             profile_pic: source,
-            imageLoading: false,
+            // imageLoading: false,
           });
         }
         this.setState({

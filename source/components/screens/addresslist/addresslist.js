@@ -1,5 +1,7 @@
+//Complete
+
+
 import React, { Component } from "react";
-import {validator, showError} from '../../../utils/validators'
 import {
     View,
     AsyncStorage,
@@ -7,20 +9,15 @@ import {
     Text,
     ScrollView,
     ActivityIndicator,
-    TouchableOpacity
+    TouchableOpacity,
+    Vibration
 } from "react-native";
 
 import Feather from 'react-native-vector-icons/Feather'
-
-
 import  {userData} from '../../../lib/serviceProvider'
-
 import { CustomHeader } from "../../header/header";
-
 import { styles } from "./styles";
 import { post, API } from "../../../lib/api";
-
-
 
 export default class AddressList extends Component {
     constructor(props) {
@@ -29,9 +26,9 @@ export default class AddressList extends Component {
             isLoading: true,
             addr_arr: [],
             selected: 0,
+            loading: false,
         }
-        this.deleteItem.bind(this)
-        
+        this.deleteItem = this.deleteItem.bind(this)
     }
  
 
@@ -55,6 +52,10 @@ export default class AddressList extends Component {
 
     _place_order = () => {
 
+        this.setState({
+            loading: true,
+        })
+
         let form = new FormData()
         let {addr_arr, selected} = this.state
 
@@ -62,22 +63,33 @@ export default class AddressList extends Component {
         form.append('address', addr_arr.addr + ', ' + addr_arr.landmark + ', ' + addr_arr.city + '-' + addr_arr.zip_code + ', ' + addr_arr.country )
 
         post(API.order, { access_token: userData.user_data.access_token }, form, res => {
-            Alert.alert('Info','Address added Successfully!', 
-            [
-                {text:'Ok', onPress: () => { 
-                    this.props.navigation.navigate('Home');
-                } }
-            ]
-            )  
+            if( res.status == 200) {
+                Alert.alert('Info',res.user_msg, 
+                [
+                    {text:'Ok', onPress: () => { 
+                        this.props.navigation.navigate('Home');
+                    } }
+                ]
+                )  
+            }
+            else{
+                alert(res.user_msg)
+                this.setState({loading: false,}) 
+            }
             
-            // alert(res.user_msg)
         } ,
-        err => alert(err.message)  )
+        err => {
+            alert(err.message)
+            this.setState({
+                loading: false,
+            })
+        })
 
     }
 
     deleteItem = (index) => {
 
+        Vibration.vibrate(200)
         Alert.alert(
             'Delete address', 
             'Are you sure to delete?',
@@ -89,20 +101,17 @@ export default class AddressList extends Component {
                             addr_arr: this.state.addr_arr.filter(( _value, i ) => i !== index ) 
                         })
                         // Make Permanent changes to AsyncStorage
-                        // AsyncStorage.setItem('addr', JSON.stringify(this.state.addr_arr))
-                        
+                        // AsyncStorage.setItem('addr', JSON.stringify(this.state.addr_arr))   
                 }},
               ],
               { cancelable: false }
         )
-
     }
 
     render() {
 
         if(this.state.isLoading){
-
-            return ( <View style={styles.container}>
+            return (<View style={styles.container}>
                         <CustomHeader
                             leftIcon="angle-left"
                             style={{ fontSize: 20 }}
@@ -111,12 +120,11 @@ export default class AddressList extends Component {
                             }}
                             title="Address List"
                             rightIcon="plus"
-                            rightAction= { () => { this.props.navigation.navigate('AddAddress')}}
-                        />
+                            rightAction= { () => { this.props.navigation.navigate('AddAddress')}}/>
                         <View style={styles.loaderContainer}>
                             <ActivityIndicator size='large' color='#00f'/>
                         </View>    
-                    </View> )
+                    </View>)
         }
 
         return (
@@ -129,16 +137,14 @@ export default class AddressList extends Component {
                 }}
                 title="Address List"
                 rightIcon="plus"
-                rightAction= { () => { this.props.navigation.navigate('AddAddress')}}
-            />
+                rightAction= { () => { this.props.navigation.navigate('AddAddress')}}/>
             <View style={styles.mainContainer}>
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>Shipping Address</Text>
                 </View>
                 <ScrollView>
-                {  this.state.addr_arr == null ? 
-
-                    <View style={{flex:1, justifyContent: 'center'}}>
+                { this.state.addr_arr == null ? 
+                    <View style={styles.noAddress}>
                         <Text>No Address in list, Please add.</Text>
                     </View>
                     :
@@ -169,7 +175,6 @@ export default class AddressList extends Component {
                     :
                     null
                 }
-
             </View>    
         </View>
         );

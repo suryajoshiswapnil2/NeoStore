@@ -11,7 +11,6 @@ import {user} from '../../../assets/images'
 import { showError } from '../../../utils/validators';
 import { userData ,userDataService} from '../../../lib/serviceProvider';
 
-let accountData = null
 
 export default class SideBar extends Component{
 
@@ -134,31 +133,9 @@ export default class SideBar extends Component{
 //         isLoading: false,
 //    })
 
-   return elems
-   
-}
-
-    //  fetchData = async () => {
-
-    //     sync(this.state.access_token)
-
-        
-    //     accountData = await apiCall(API.accountDetails, {
-    //             method: 'GET',
-    //             headers:  {
-    //             access_token: this.state.access_token,
-    //         }
-    //     });
-
-    //     if(accountData == null)
-    //     return
-
-    //     this.accountData = accountData
-
-    //     // console.log('sidebar called', this.accountData)
-
-    // }
-
+        return elems
+    
+    }
 
 
  render() {

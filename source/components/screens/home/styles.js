@@ -7,7 +7,11 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
-
+        imageContent: {
+            resizeMode: "cover",
+            height: "100%",
+            width: "100%"
+        },
         _left: { 
             textAlign: "left" 
         },
@@ -108,7 +112,7 @@ export const styles = StyleSheet.create(
               alignSelf: "stretch", 
               justifyContent: 'center',
               alignItems: 'center',
-              borderColor: 'white',
+              borderColor: colors.white,
               borderWidth: 1,
               marginBottom: 15,
               padding: 5,

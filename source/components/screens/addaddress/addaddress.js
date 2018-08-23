@@ -1,12 +1,14 @@
+// Complete
+
 import React, { Component } from "react";
 import * as Device from '../../../lib/globals'
 import {validator, showError} from '../../../utils/validators'
+
 import {
     View,
     AsyncStorage,
     Alert,
     Text,
-    StatusBar,
     ScrollView,
     KeyboardAvoidingView,
     ActivityIndicator,
@@ -17,7 +19,6 @@ import {
 } from "react-native";
 
 import { CustomHeader } from "../../header/header";
-
 import { styles } from "./styles";
 import { userData } from "../../../lib/serviceProvider";
 
@@ -60,10 +61,8 @@ export default class AddAddress extends Component {
         if(validator.digitsOnlyZip(this.state.zip_code))
             return showError('Zip code can only have 6 integers!', this.zip)
 
-        // console.log('completed validations')
-
         AsyncStorage.getItem('addr').then((r) => {
-            // console.log(r)
+
         let arr = []    
         if(r == null) {
             arr =  [{
@@ -84,8 +83,6 @@ export default class AddAddress extends Component {
                 } }
             ]
             )  
-            // alert('Address added Successfully!')
-            // console.log('result1',arr)
         }
         else {
             arr = JSON.parse(r)
@@ -109,15 +106,12 @@ export default class AddAddress extends Component {
                 } }
             ]
             )  
-            // alert('Address added Successfully!')
-            // console.log('result2',arr)
         }
 
         })
     }
 
     render() {
-
 
         // let arr = [ { 
         //     title: 'ADDRESS',

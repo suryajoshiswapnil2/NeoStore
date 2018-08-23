@@ -9,6 +9,7 @@
 import React, {Component} from 'react';
 import {View, Text,Alert, TextInput,BackHandler, ActivityIndicator,AsyncStorage, TouchableOpacity,ImageBackground,ScrollView, KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, StatusBar  } from 'react-native';
 import {background} from '../../../assets/images';
+import SplashScreen from 'react-native-splash-screen'
 
 import {styles} from './styles';
 import Icon from '../../../utils/icon';
@@ -32,9 +33,12 @@ export default class Login extends Component{
     }
 
     componentDidMount(){
+
+      SplashScreen.hide()  
       this.setState({
         isLoading: false,
       })
+      
     }
 
   _doLogin = async (e) => {
