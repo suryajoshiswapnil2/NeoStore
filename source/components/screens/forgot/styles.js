@@ -4,10 +4,19 @@ import {StyleSheet} from 'react-native';
 import * as Device  from  '../../../lib/globals'
 import colors from '../../../utils/colors'
 import font from '../../../utils/fontSize'
-import fontSize from '../../../utils/fontSize';
+
 
 export const styles = StyleSheet.create(
     {
+        buttonText: { 
+            color: colors.red, 
+            fontSize: 20 , 
+            fontWeight: 'bold'
+        },
+        text: {
+            color: colors.white, 
+            fontSize: 20,
+        },
         mainContainer: {
             flex: 1,
             justifyContent: 'center',

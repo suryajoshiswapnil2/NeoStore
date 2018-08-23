@@ -6,18 +6,19 @@
  * @flow
  */
 
+// Complete
+
 import React, { Component } from "react";
 import {
-  View,
-  Text,
-  TextInput,
-  ActivityIndicator,
-  TouchableOpacity,
-  ImageBackground,
-  TouchableWithoutFeedback,
-  Keyboard,
-  StatusBar
-} from "react-native";
+        View,
+        Text,
+        TextInput,
+        ActivityIndicator,
+        TouchableOpacity,
+        ImageBackground,
+        TouchableWithoutFeedback,
+        Keyboard,
+        StatusBar } from "react-native";
 import { background } from "../../../assets/images";
 import { styles } from "./styles";
 import Icon from "../../../utils/icon";
@@ -45,9 +46,7 @@ export default class ResetPassword extends Component {
       return showError("Password is empty!");
     else if (validator.emptyField(this.state.confirm_password))
       return showError("Confirm password field is empty!");
-    else if (
-      validator.passConfirm(this.state.password, this.state.confirm_password)
-    )
+    else if (validator.passConfirm(this.state.password, this.state.confirm_password))
       return showError("New password and confirm password mismatched!");
 
     this.setState({
@@ -59,7 +58,6 @@ export default class ResetPassword extends Component {
     formData.append("old_password", this.state.old_password);
     formData.append("password", this.state.password);
     formData.append("confirm_password", this.state.confirm_password);
-
 
     post(API.changePassword, { access_token: userData.user_data.access_token},
         formData, 
@@ -88,13 +86,13 @@ export default class ResetPassword extends Component {
 
   render() {
 
-    const { navigate } = this.props.navigation;
+    const { goBack } = this.props.navigation;
     return (
       <ImageBackground style={styles.mainContainer} source={background} >
         <Header
           title="Reset Password"
           back={() => {
-            this.props.navigation.goBack();
+            goBack();
           }}
         />
         <StatusBar barStyle="light-content" hidden={false} />
@@ -177,7 +175,7 @@ export default class ResetPassword extends Component {
               <TouchableOpacity
                     style={styles.loginButton}
                     onPress={this._resetPassword}>
-                    {this.state.isLoading ? <ActivityIndicator size="small" color="#0000ff" />  : <Text style={{ color: "#e91c1a", fontSize: 20, fontWeight: "bold" }}>RESET</Text>}
+                    {this.state.isLoading ? <ActivityIndicator size="small" color="#0000ff" />  : <Text style={styles.text}>RESET</Text>}
               </TouchableOpacity>
             </View>
           </View>

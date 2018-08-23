@@ -1,16 +1,15 @@
 
+// Complete
+
 import React, {Component} from 'react';
 import {View,Image, Text, TouchableOpacity,AsyncStorage, ScrollView,  } from 'react-native';
 
 import {styles} from './styles';
-
 import Icon from '../../../utils/icon'
-
 import {SafeAreaView, } from 'react-navigation'; 
 import {user} from '../../../assets/images'
 import { showError } from '../../../utils/validators';
-import { userData ,userDataService} from '../../../lib/serviceProvider';
-
+import { userData } from '../../../lib/serviceProvider';
 
 export default class SideBar extends Component{
 
@@ -27,19 +26,13 @@ export default class SideBar extends Component{
         this.props.navigation.navigate('LoginStack');
     }    
 
-    async componentDidMount(){
+    componentDidMount(){
 
-    //    setTimeout(() => {
-    //        console.log("Sidebar Fired");
-    //         userDataService.setUserData('total_carts', 7);
-    //    }, 5000);
+        //    setTimeout(() => {
+        //        console.log("Sidebar Fired");
+        //         userDataService.setUserData('total_carts', 7);
+        //    }, 5000);
 
-        // let data = await AsyncStorage.getItem('access_token');
-        // this.setState({
-        //     access_token:data,
-        // })
-
-        // return this.fetchData()
         this.setState({
             isLoading: false,
         })
@@ -47,10 +40,7 @@ export default class SideBar extends Component{
     }
 
     renderMenuItems = () => {
-        // this.setState({
-        //     isLoading: true,
-        // })
-        // console.log(userData.total_orders)
+
         const {navigate} = this.props.navigation;
         let arr = [
            {
@@ -100,8 +90,8 @@ export default class SideBar extends Component{
                title: 'My Orders',
                icon: 'order-list',
                notifications: false, // default is true
-               value: userData.total_orders, // count of number of orders
-               navigate: () => { navigate('MyOrders')  },
+               value: userData.total_orders, // count of number of orders, No data in API
+               navigate: () => { navigate('MyOrders') },
            },
            {
                title: 'Logout',
@@ -111,27 +101,23 @@ export default class SideBar extends Component{
            }
        ]
    
-   let elems = []
-       
-   arr.forEach((element,key) => {
-       elems.push(
-           <TouchableOpacity key={key} style={styles.drawerItems} onPress={element.navigate}>
-           <Icon style={styles.drawerIcon} name={element.icon} size={20} color='#fff' />
-               <Text style={styles.drawerText}>{element.title}</Text>
-               {
-                   element.notifications 
-                   && 
-                   (element.value > 0  
-                       && 
-                           <View style={styles.notifications}><Text style={styles.notifications}>{element.value}</Text></View>)
-               }
-           </TouchableOpacity>
-       ) 
-   })
-  
-//    this.setState({
-//         isLoading: false,
-//    })
+        let elems = []
+            
+        arr.forEach((element,key) => {
+            elems.push(
+                <TouchableOpacity key={key} style={styles.drawerItems} onPress={element.navigate}>
+                <Icon style={styles.drawerIcon} name={element.icon} size={20} color='#fff' />
+                    <Text style={styles.drawerText}>{element.title}</Text>
+                    {
+                        element.notifications 
+                        && 
+                        (element.value > 0  
+                            && 
+                                <View style={styles.notifications}><Text style={styles.notifications}>{element.value}</Text></View>)
+                    }
+                </TouchableOpacity>
+            ) 
+        })
 
         return elems
     
@@ -139,9 +125,6 @@ export default class SideBar extends Component{
 
 
  render() {
-  
-    // this.fetchData()
-    // sync(this.state.access_token)
     
     const {navigate} = this.props.navigation;
   
@@ -158,7 +141,6 @@ export default class SideBar extends Component{
       </View>
      
       <View style={styles.containerBottom}>
-        {/* <DrawerItems {...this.props.pro}/> */}
         <ScrollView style={ { flex:1}}>
         {/* <TouchableOpacity style={styles.drawerItems}>
         <FeatherIcon style={styles.drawerIcon} name='shopping-cart' size={20} color='#fff' > </FeatherIcon>

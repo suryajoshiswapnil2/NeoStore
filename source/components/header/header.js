@@ -1,3 +1,5 @@
+// Complete
+
 import React, { Component } from "react";
 import Icon from "../../utils/icon";
 import { View,TextInput, Text,Modal, TouchableWithoutFeedback, TouchableOpacity } from "react-native";
@@ -16,8 +18,7 @@ export default class Header extends Component {
       <View style={styles.headerContainer}>
         <TouchableOpacity
           style={styles.leftContainer}
-          onPress={this.props.back}
-        >
+          onPress={this.props.back}>
           <Icon
             name="angle-left"
             color="#ffffff"
@@ -28,7 +29,7 @@ export default class Header extends Component {
         <Text style={[styles.headText, this.props.style]}>
           {this.state.title}
         </Text>
-        <View />
+        <View/>
       </View>
     );
   }
@@ -41,7 +42,6 @@ export class CustomHeader extends Component {
       title: this.props.title,
       icon: this.props.icon,
       isSearching: false,   
-
       //   backScreen: this.props.back != undefined ? this.props.back : null ,
     };
     this.open_search = this.open_search.bind(this)
@@ -65,8 +65,7 @@ export class CustomHeader extends Component {
       <View style={styles.customHeaderContainer}>
         <TouchableOpacity
           style={styles.leftCustomContainer}
-          onPress={this.props.leftAction}
-        >
+          onPress={this.props.leftAction}>
           <Icon
             name={this.props.leftIcon}
             color="#ffffff"
@@ -79,9 +78,7 @@ export class CustomHeader extends Component {
         {this.props.rightIcon != undefined && (
           <TouchableOpacity
             style={styles.rightContainer}
-            // onPress={this.props.rightAction}
-            onPress={ this.props.rightAction == undefined ? () =>  this.open_search() : this.props.rightAction }
-         >
+            onPress={ this.props.rightAction == undefined ? () =>  this.open_search() : this.props.rightAction }>
             <Icon
               name={this.props.rightIcon}
               color="#ffffff"
@@ -90,12 +87,10 @@ export class CustomHeader extends Component {
           </TouchableOpacity>
         )}
 
-
         <Modal
             visible={ this.state.isSearching } 
             transparent={true}
-            onRequestClose={() => { this.setState({isSearching: false,})}}
-            > 
+            onRequestClose={() => { this.setState({isSearching: false,})}}> 
             <TouchableWithoutFeedback onPress={() => this.close_search()}>
             <View style={{flex:1,}}>
                 <View  style={styles.modalContainer}>
@@ -110,17 +105,15 @@ export class CustomHeader extends Component {
                                 placeholderTextColor='white'
                                 autoCapitalize='none'
                                 autoCorrect={false}
-                                style={{marginLeft: 20, height: 50, width: '70%', color: 'white', fontSize: 17}}
-                            />
-                            <View style={{width: 50, height: 50,marginRight: 2,marginTop:2, justifyContent:'center', alignItems: 'center'}}>
-                                <Icon  onPress={() => this.close_search()} name={this.props.rightIcon} color="#ffffff" size={this.props.size ? this.props.size : 25}/>
+                                style={styles.modalInput}/>
+                            <View style={styles.modalView}>
+                                <Icon onPress={() => this.close_search()} name={this.props.rightIcon} color="#ffffff" size={this.props.size ? this.props.size : 25}/>
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
                 </View>
             </TouchableWithoutFeedback>
-            
         </Modal>
       </View>
 

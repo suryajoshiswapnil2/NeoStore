@@ -1,3 +1,6 @@
+
+// Complete
+
 import React, { Component } from "react";
 import {
   View,
@@ -25,16 +28,15 @@ export default class OrderDetail extends Component {
   }
 
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
 
     get(API.orderDetail + '?order_id=' + this.state.order_id, {access_token: userData.user_data.access_token}, 
         res => {
-            console.log('swa', res)
             if(res.status == 200)
                 this.setState({ data: res.data, isLoading: false,})
             else
                 alert(res.user_msg)
-        }, err => alert(res.user_msg))
+        }, err => alert(err.message))
 
   };
 

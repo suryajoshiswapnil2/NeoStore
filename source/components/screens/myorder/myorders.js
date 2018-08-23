@@ -1,3 +1,6 @@
+
+// Complete
+
 import React, { Component } from 'react'
 import {View, Text,FlatList,ActivityIndicator, TouchableOpacity} from 'react-native'
 import {CustomHeader} from '../../header/header'
@@ -7,13 +10,12 @@ import { API, get } from '../../../lib/api';
 import { userData } from '../../../lib/serviceProvider';
 import Icon from '../../../utils/icon'
 
-
 export default class MyOrders extends Component {
 
     constructor(props)
     {
         super(props)
-        this.state ={
+        this.state = {
             isLoading : true,
             // access_token: '',
             data:[],
@@ -28,12 +30,8 @@ export default class MyOrders extends Component {
                 </View>)
     } 
 
-
     componentDidMount = () => {
-        
-                    
-    //    let data = await AsyncStorage.getItem('access_token');
-        
+                
         get(API.orderList, { access_token: userData.user_data.access_token,} , res => {
             if(res.status == 200)
             {
@@ -55,58 +53,6 @@ export default class MyOrders extends Component {
                 isLoading: false,
             })
         } );
-
-
-    //    try{
-    //         apiCall(API.orderList, {
-    //             method: 'GET',
-    //             headers: {
-    //                 access_token: userData.user_data.access_token
-    //             }
-    //         }, (res) => {
-    //             if (res.status == 200) {
-    //                 console.log(res)
-    //                 this.setState({
-    //                     isLoading: false,
-    //                     data: res.data,      
-    //                 });
-    //             }
-    //             else {
-    //             showError(res.user_msg)
-    //             this.setState({
-    //                 isLoading: false
-    //             })
-    //             }
-    //         })
-    //     }
-    //     catch(err){
-    //         console.log(err)
-    //     }
-        // return fetch(API.orderList,{
-        //     method: 'GET',
-        //     headers: {
-        //         access_token: data
-        //     }
-        // })
-        // .then((response) => response.json())
-        // .then((responseJson) => {
-        //   if (responseJson.status == 200) {
-        //       console.log(responseJson)
-        //     this.setState({
-        //         isLoading: false,
-        //         data: responseJson.data,      
-        //     });
-        // }
-        //   else {
-        //      showError(responseJson.user_msg)
-        //      this.setState({
-        //         isLoading: false
-        //     })
-        //   }
-        // })
-        // .catch((error) =>{
-        //   console.error(error);
-        // });
 
     }
 

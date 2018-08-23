@@ -3,11 +3,16 @@
 import {StyleSheet} from 'react-native';
 import colors from '../../../utils/colors';
 import * as Device from '../../../lib/globals'
-// import font from '../../../utils/fontSize';
+import font from '../../../utils/fontSize';
 
 
 export const styles = StyleSheet.create(
     {
+        text: { 
+            color: colors.red, 
+            fontSize: 20, 
+            fontWeight: font.weight.bold 
+        },
         mainContainer: {
             flex: 1,
             justifyContent: 'center',
@@ -32,7 +37,7 @@ export const styles = StyleSheet.create(
           logoTitle: {
             fontSize: 45,
             color: colors.white,
-            fontWeight: 'bold',
+            fontWeight: font.weight.bold,
             marginBottom: 30,
           },
           inputContainer: {

@@ -6,24 +6,25 @@
  * @flow
  */
 
+ // Complete
+
 import React, { Component } from "react" 
 import * as Device from '../../../lib/globals'
 import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  ImageBackground,
-  DatePickerIOS,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Modal,
-  DatePickerAndroid,
-  ActivityIndicator,
-} from "react-native";
+        View,
+        Text,
+        Image,
+        TextInput,
+        ScrollView,
+        TouchableOpacity,
+        KeyboardAvoidingView,
+        ImageBackground,
+        DatePickerIOS,
+        TouchableWithoutFeedback,
+        Keyboard,
+        Modal,
+        DatePickerAndroid,
+        ActivityIndicator, } from "react-native";
 
 import { background } from "../../../assets/images";
 import Header from "../../header/header";
@@ -58,12 +59,15 @@ export default class MyAccount extends Component {
       })
   }
 
+
+  // Convert string to Date
   toDate = (str) => {
         let arr = str.split('-')
         arr[1] = Number.parseInt(arr[1]) - 1
         return new Date(arr.reverse()) 
   }
 
+  // Date to String
   toStr = (date) => {
       return date.getDate() + '-' + ( date.getMonth() + 1 ) + '-' + date.getFullYear()
   }
@@ -72,8 +76,6 @@ export default class MyAccount extends Component {
   openDatePicker = async () => {
     try {
         const {action, year, month, day} = await DatePickerAndroid.open({
-          // Use `new Date()` for current date.
-          // May 25 2020. Month 0 is January.
           date: new Date()
         });
         if (action !== DatePickerAndroid.dismissedAction) {
@@ -114,7 +116,6 @@ export default class MyAccount extends Component {
         }
       };
       ImagePicker.showImagePicker(options, (response) => {
-        // console.log('Response = ', response);
       
         if (response.didCancel) {
           console.log('User cancelled image picker');
@@ -126,13 +127,13 @@ export default class MyAccount extends Component {
           console.log('User tapped custom button: ', response.customButton);
         }
         else {
-        //   let source = { uri: response.uri };
-        //   let source = { uri: 'data:image/jpeg;base64,' + response.data };
-          
-        //   this.setState({
-        //      imageLoading: true,
-        //   })  
-        
+            //   let source = { uri: response.uri };
+            //   let source = { uri: 'data:image/jpeg;base64,' + response.data };
+            
+            //   this.setState({
+            //      imageLoading: true,
+            //   })  
+            
           let source = 'data:image/jpeg;base64,' + response.data;
       
           this.setState({
@@ -156,27 +157,14 @@ export default class MyAccount extends Component {
 
   _doUpdate = () => {
 
-        // console.log('thiss',this.state.profile_pic)
-        
-
         this.setState({
             dataLoading: true,
         }) 
 
-        // let usr_data = {
-        //     profile_pic: this.state.profile_pic,
-        //     first_name: this.state.first_name,
-        //     last_name: this.state.last_name,
-        //     email: this.state.email,
-        //     phone_no: this.state.phone_no,
-        //     dob: this.state.dob,
-        //     access_token: userData.user_data.access_token,
-        // };
-
-        let image = null
-
-        // if( !this.state.imagePicked ){
-        //     // console.log(this.state.profile_pic)    
+        
+        // let image = null
+        // 
+        // if( !this.state.imagePicked ){  
         //    image =  fetch(this.state.profile_pic, {
         //         method: 'GET',
         //         headers: {}
@@ -187,8 +175,6 @@ export default class MyAccount extends Component {
         //         var reader = new FileReader();
         //         reader.readAsDataURL(res); 
         //         reader.onloadend = function() {
-        //             // image =reader.result;
-        //             // console.log(image);
         //             return reader.result
         //         }
         //         }
@@ -203,13 +189,12 @@ export default class MyAccount extends Component {
        formData.append('phone_no', this.state.phone_no)
        formData.append('profile_pic', this.state.imagePicked ? this.state.profile_pic : image)
 
-    //    console.log(formData)
 
         post(API.updateDetails, {access_token: userData.user_data.access_token,}, formData, (res) => {
             if( res.status == 200 ) {
                 alert(res.user_msg)
                 userDataService.setUserData('user_data', res.data)
-                // console.log(res)
+
                 this.setState({
                     dataLoading: false,
                 })
@@ -231,32 +216,12 @@ export default class MyAccount extends Component {
         // this.setState({
         //     dataLoading: false,
         //   })
-        
-    //    apiCall(API.updateDetails, {
-    //        method: 'POST',
-    //        headers: {
-    //           access_token: userData.user_data.access_token,
-    //        },
-    //        body: formData,
-    //    }, (res) => {
-    //         // console.log(res)
-    //         if(res.status == 200) {
-                
-    //             alert(res.user_msg)
-    //         }
-
-    //    }).catch(err => console.log(err)) 
-
    
-
   };
 
   render() {
      
-
-    const { navigate } = this.props.navigation;
-
-    // problem in the following statement 
+    const { goBack } = this.props.navigation;
 
     if(this.state.loading)
     {
@@ -265,9 +230,8 @@ export default class MyAccount extends Component {
                 <Header
                 title="Edit Profile"
                 back={() => {
-                    this.props.navigation.goBack();
-                }}
-                />
+                    goBack();
+                }}/>
             <View style={styles.loaderContainer}>
                 <ActivityIndicator size="large" color="#0000ff" />
             </View>
@@ -280,15 +244,12 @@ export default class MyAccount extends Component {
         <Header
           title="Edit Profile"
           back={() => {
-            this.props.navigation.goBack();
+               goBack();
           }}
         />
         <SafeAreaView style={styles.anMainContainer}>
-          {/* <StatusBar barStyle="light-content" hidden={false} /> */}
-
           <ScrollView>
           <KeyboardAvoidingView style={ styles.container} behavior='position' enabled>
-
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1 }} pointerEvents={this.state.dataLoading ? "none" : 'auto'}>
               <View style={styles.containerHalf}>
@@ -346,7 +307,6 @@ export default class MyAccount extends Component {
                       maxLength={20}
                       autoCorrect={false}
                       autoCapitalize="none"
-                    //   editable={false}
                       value={this.state.last_name}
                       placeholder="Last Name"
                       placeholderTextColor="#ffffff"
@@ -416,62 +376,43 @@ export default class MyAccount extends Component {
                       style={styles.icons}
                       name="birthday-cake"
                       size={20}
-                      color="white"
-                    />
-                    {/* <TextInput
-                      autoCorrect={false}
-                      autoCapitalize="none"
-                      style={styles.input}
-                      placeholder="DOB"
-                      maxLength={15}
-                      placeholderTextColor="#ffffff"
-                      keyboardType="email-address"
-                      returnKeyType="next"
-                      onSubmitEditing={() => {
-                        this.passwordInput.focus();
-                      }}
-                      blurOnSubmit={false}
-                      onChangeText={text => this.setState({ dob: text })}
-                    /> */}
+                      color="white"/>
                     <TouchableOpacity onPress={() => {
                         Device.isIOS ? this.setState({openIOSPicker: true}) : this.openDatePicker();
                         }}>
                         <Text style={styles.input}>{this.state.dob}</Text>
-                    </TouchableOpacity>
-                     
+                    </TouchableOpacity> 
                   </View>
                 </View>
                 <TouchableOpacity
-                  style={styles.loginButton}
-                  onPress={this._doUpdate}
-                  ref={input => {
-                    this.loginButton = input;
-                  }}>
+                    style={styles.loginButton}
+                    onPress={this._doUpdate}
+                    ref={input => {
+                        this.loginButton = input;
+                    }}>
                     {this.state.dataLoading ? <ActivityIndicator size='small' color='blue' /> : <Text style={{ color: "#e91c1a", fontSize: 20 }}>SUBMIT</Text>}
                 </TouchableOpacity>
               </View>
             </View>
           </TouchableWithoutFeedback>
           
-          
          {Device.isIOS ? <Modal
             visible={this.state.openIOSPicker}
             transparent={true}
             animationType="slide"
             >
-            <View style={{flex: 1,justifyContent: 'flex-end',}}>
+            <View style={styles.modalContainer}>
                 <View style={{flex:1}} onTouchEnd={() => this.setState({openIOSPicker: false,})}></View>
-                <View style={{height: 50, backgroundColor:'white', justifyContent: 'space-between', flexDirection:'row'}}>
+                <View style={styles.modelContent}>
                     <TouchableOpacity onPress={() => this.setState({openIOSPicker: false, })} style={styles.button}><Text>Cancel</Text></TouchableOpacity>
                     <TouchableOpacity onPress={() => this.setDate()} style={styles.button}><Text>Done</Text></TouchableOpacity>                 
                 </View>
                 <DatePickerIOS
-                    style={{zIndex: 1, backgroundColor: 'rgba(256,256,256,0.96)'}}
+                    style={styles.datePicker}
                     date={this.state.chosenDate}
                     maximumDate={new Date()}
                     onDateChange={(date) =>{ this.setState({ chosenDate: date})}}
-                    mode='date'
-                    />
+                    mode='date'/>
             </View>
           </Modal> : null}
           </KeyboardAvoidingView>

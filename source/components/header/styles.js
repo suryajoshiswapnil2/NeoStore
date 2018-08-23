@@ -1,14 +1,30 @@
-import {
-    StyleSheet
-} from 'react-native';
+// Complete
+
+import {StyleSheet} from 'react-native';
 import * as Device from '../../lib/globals'
 import font from '../../utils/fontSize'
 import colors from '../../utils/colors';
 
 export const styles = StyleSheet.create({
+
+    modalView:{
+        width: 50, 
+        height: 50,
+        marginRight: 2,
+        marginTop:2, 
+        justifyContent:'center', 
+        alignItems: 'center'
+    },
+    modalInput: {
+        marginLeft: 20, 
+        height: 50, 
+        width: '70%', 
+        color: colors.white, 
+        fontSize: 17
+    },
     headerContainer: {
         flexDirection: 'row',
-        backgroundColor: '#e91c1a',
+        backgroundColor: colors.red,
         height: Device.isIOS ? 50 : 55,
         marginTop: Device.isX ? 15 : 0,
         width: Device.window.width,
@@ -19,21 +35,21 @@ export const styles = StyleSheet.create({
         zIndex: 2,
     },
     headText: {
-              // backgroundColor: 'blue',
-              textAlign: 'center',
-              ...font.family.medium, 
-              color: colors.white,
-              height: Device.isIOS ? 25 : 30,
-              marginTop: Device.isIOS ? 0 : 0,
-              // marginLeft: '35%' ,
-              fontSize: Device.isIOS ? 21 : 23,
-              // fontWeight: 'bold',
+        // backgroundColor: 'blue',
+        textAlign: 'center',
+        ...font.family.medium, 
+        color: colors.white,
+        height: Device.isIOS ? 25 : 30,
+        marginTop: 0,
+        // marginLeft: '35%' ,
+        fontSize: Device.isIOS ? 21 : 23,
+        // fontWeight: 'bold',
     },
     custHeadText: {
         // backgroundColor: 'blue',
         textAlign: 'center',
         ...font.family.medium, 
-        color: '#ffffff',
+        color: colors.white,
         // height: 30,
         marginTop: Device.isIOS ? 8 : undefined,
         // marginLeft: '35%' ,
@@ -60,7 +76,7 @@ export const styles = StyleSheet.create({
     },
     customHeaderContainer: {
         flexDirection: 'row',
-        backgroundColor: '#e91c1a', 
+        backgroundColor: colors.red, 
         height: Device.isIOS ? 50 : 55,
         marginTop: Device.isX ? 15 : 0,
         width: Device.window.width,
@@ -76,7 +92,7 @@ export const styles = StyleSheet.create({
     },
     modalContainer: {
         flexDirection: 'row',
-        backgroundColor: '#e91c1a', 
+        backgroundColor: colors.red, 
         height: Device.isIOS ? 50 : 55,
         // marginTop: Device.iosMargin,
         marginTop: Device.isX ? Device.iosMargin + 15 : Device.iosMargin,

@@ -6,6 +6,9 @@
  * @flow
  */
 
+ // Complete
+
+
 import React, {Component} from 'react';
 import {View, Text,Alert, TextInput,BackHandler, ActivityIndicator,AsyncStorage, TouchableOpacity,ImageBackground,ScrollView, KeyboardAvoidingView,TouchableWithoutFeedback, Keyboard, StatusBar  } from 'react-native';
 import {background} from '../../../assets/images';
@@ -13,8 +16,6 @@ import SplashScreen from 'react-native-splash-screen'
 
 import {styles} from './styles';
 import Icon from '../../../utils/icon';
-import Feather from 'react-native-vector-icons/Feather';
-import {SafeAreaView} from 'react-navigation'; 
 import {API, get, post} from '../../../lib/api';
 import {validator,showError} from '../../../utils/validators'
 import {userDataService} from "../../../lib/serviceProvider";
@@ -100,69 +101,6 @@ export default class Login extends Component{
         ])
     } )
 
-
-
-    // apiCall(API.login,{
-    //     method: 'POST',
-    //     body: formData,
-    // },
-    //   (res) => {
-       
-    //   if( res.status != 200) 
-    //     Alert.alert(res.user_msg) 
-    //   else {
-    //     AsyncStorage.setItem('access_token', res.data.access_token);
-          
-    //     apiCall(API.accountDetails, {
-    //         method: 'GET',    
-    //         headers: {
-    //           access_token: res.data.access_token
-    //         }
-    //      }, (res) => {
-    //         if(res.status == 200 ) {
-    //             userDataService.setData(res.data)
-    //             this.props.navigation.navigate('Home',res.data)
-    //         }    
-    //      })   
-
-        
-    //   } 
-    // })
-
-
-
-    // await fetch(API.login, {
-    //   method: 'POST',
-    //   body: formData,
-    // })
-    // .then( res => res.json())
-    // .then( async res => {
-    //   console.log(res,'login')  
-    //   if( res.status != 200) 
-    //     Alert.alert(res.user_msg) 
-    //   else {
-    //     await AsyncStorage.setItem('access_token', res.data.access_token);
-
-    //     await fetch(API.accountDetails, {
-    //       method: 'GET',    
-    //       headers: {
-    //         access_token: res.data.access_token
-    //       }  
-    //     })
-    //     .then(res => res.json())
-    //     .then( res => {
-    //       console.log(res,'account details')  
-
-    //       if(res.status == 200 ) {
-    //           this.props.navigation.navigate('Home',res.data)
-    //       }         
-    //     })
-    //     .catch(err => console.log(err.message))
-
-    //   }       
-    // }
-    // );
-
   } 
 
   render() {
@@ -179,14 +117,8 @@ export default class Login extends Component{
     
       <ImageBackground style={styles.mainContainer} source={background} >
       <View style={styles.mainContainer} pointerEvents={this.state.loading ? "none" : 'auto'} >
-      {/* <Header title='login'/> */}
       {/* <ScrollView> */}
-        {/* <KeyboardAvoidingView style={ styles.container} behavior='position' enabled> */}
-        {/* <KeyboardAwareScrollView
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        contentContainerStyle={styles.container}
-        scrollEnabled={false}
-      > */}
+      {/* <KeyboardAvoidingView style={ styles.container} behavior='position' enabled> */}
       <StatusBar barStyle = 'light-content'  hidden={true}/>
         <TouchableWithoutFeedback onPress={ Keyboard.dismiss }>
           <View style={ styles.containerHalf}>
@@ -228,28 +160,24 @@ export default class Login extends Component{
                 style={styles.loginButton}  
                 onPress={this._doLogin}
                 ref={(input) => { this.loginButton = input; }}>
-                {this.state.loading ? <ActivityIndicator size='small' color='blue'/>:<Text style={{ color: '#e91c1a', fontSize: 25 , fontWeight: 'bold'}}>LOGIN</Text>}
+                {this.state.loading ? <ActivityIndicator size='small' color='blue'/>:<Text style={styles.loginText}>LOGIN</Text>}
             </TouchableOpacity>
             <TouchableOpacity  onPress={ () => navigate('Forgot')}>
-                <Text style={{ color: '#ffffff', fontSize: 20,}}>Forgot Password?</Text>
+                <Text style={styles.text}>Forgot Password?</Text>
             </TouchableOpacity>
           </View>
           </TouchableWithoutFeedback>
-        {/* </KeyboardAwareScrollView>  */}
         {/* </KeyboardAvoidingView> */}
       
           <View style={styles.bottomContainer}>
-              <Text style={{ color: '#ffffff', fontSize: 19}}>DONT HAVE AN ACCOUNT? </Text>
+              <Text style={styles.text}>DONT HAVE AN ACCOUNT? </Text>
               <TouchableOpacity  onPress={ () => navigate('Register')}>
-              <Icon name='plus-bold' style={{ backgroundColor:'#E31616', padding: 10}} color='#ffffff' size={25}/>
+              <Icon name='plus-bold' style={{backgroundColor:'#E31616', padding: 10}} color='#ffffff' size={25}/>
             </TouchableOpacity>
           </View>
-          
         {/* </ScrollView> */}
           </View>
-        
         </ImageBackground>
-        
       )
   }
 }

@@ -6,6 +6,18 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
+        dropDownStyle:{
+            width: 50, 
+            marginLeft: -9,
+        },
+        modelContent:{
+            width: 50, 
+            fontSize: 25, 
+            padding: 5,  
+            height: 30, 
+            backgroundColor: colors.darkWhite, 
+            alignItems: 'center'
+        },
         loaderContainer: {
             flex: 1,
             // marginTop: Device.iosMargin,
@@ -121,7 +133,7 @@ export const styles = StyleSheet.create(
           },
           button: {
             marginVertical: 30,
-            backgroundColor: colors.gray,
+            backgroundColor: colors.red,
             height: 50,
             width: '100%',
             justifyContent: 'center',
@@ -133,6 +145,7 @@ export const styles = StyleSheet.create(
         buttonText:{
             fontSize: 20,
             color: colors.white,
+            textAlign: 'center'
         },
         buttonContainer:{
             width: '90%',

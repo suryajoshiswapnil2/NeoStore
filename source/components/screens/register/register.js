@@ -6,6 +6,8 @@
  * @flow
  */
 
+// Complete
+
 import React, {Component} from 'react';
 import {View, Text, ActivityIndicator, ScrollView, TextInput, TouchableOpacity,ImageBackground,StatusBar, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from 'react-native';
 import {background} from '../../../assets/images';
@@ -22,7 +24,7 @@ import {validator,showError} from '../../../utils/validators'
 
 export default class Register extends Component{
   
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state ={
       loading: false,
@@ -44,68 +46,65 @@ export default class Register extends Component{
   _doRegister =  async () => 
   {
 
-    // for ( let i in this.state)
-    //     if( validator.emptyField(this.state[i]) )
-    //         return showError(i + ' field is empty!')
+        // for ( let i in this.state)
+        //     if( validator.emptyField(this.state[i]) )
+        //         return showError(i + ' field is empty!')
 
+        if( validator.emptyField(this.state.fname) )
+        return showError('please input first name!')
+        else if(validator.emptyField(this.state.lname))
+        return showError('please input last name!')
+        else if(validator.emptyField(this.state.email))
+        return showError('please input email address!')
+        else if(validator.emptyField(this.state.password))
+        return showError('please input password!')
+        else if(validator.emptyField(this.state.cpasword))
+        return showError('please input cofirm password!')
+        else if( validator.emptyField(this.state.mobile))
+        return showError('please input mobile number!')
+        else if( validator.emailField(this.state.email))
+        return showError('Invalid email address!')
+        else if(this.state.gender == '' )
+        return showError('please select gender');
+        else if( this.state.agreed == '')
+        return showError('please agree terms and condition');
+        else{
+        if(this.state.password != this.state.cpasword)
+            return showError('password and confirm password mismatched!');
+        else
+        {
 
-    if( validator.emptyField(this.state.fname) )
-      return showError('please input first name!')
-    else if(validator.emptyField(this.state.lname))
-      return showError('please input last name!')
-    else if(validator.emptyField(this.state.email))
-      return showError('please input email address!')
-    else if(validator.emptyField(this.state.password))
-      return showError('please input password!')
-    else if(validator.emptyField(this.state.cpasword))
-      return showError('please input cofirm password!')
-    else if( validator.emptyField(this.state.mobile))
-      return showError('please input mobile number!')
-    else if( validator.emailField(this.state.email))
-      return showError('Invalid email address!')
-    else if(this.state.gender == '' )
-      return showError('please select gender');
-    else if( this.state.agreed == '')
-      return showError('please agree terms and condition');
-    else{
-      if(this.state.password != this.state.cpasword)
-        return showError('password and confirm password mismatched!');
-      else
-      {
+            this.setState({
+                loading: true,
+            })
 
-        this.setState({
-            loading: true,
-        })
+            let formData = new FormData();
+            let data = {
+                first_name: this.state.fname,
+                last_name: this.state.lname,
+                email:this.state.email,
+                password: this.state.password,
+                confirm_password: this.state.cpasword,
+                gender: this.state.gender[0],
+                phone_no: this.state.mobile,
+            }
+            
+            for (let i in data)
+                formData.append(i, data[i]);    
 
-        let formData = new FormData();
-        let data = {
-          first_name: this.state.fname,
-          last_name: this.state.lname,
-          email:this.state.email,
-          password: this.state.password,
-          confirm_password: this.state.cpasword,
-          gender: this.state.gender[0],
-          phone_no: this.state.mobile,
+            post(API.registration, {}, formData, (res) =>{ 
+                alert(res.message)
+                this.setState({
+                    loading: false,
+                })
+                } , err => {
+                    console.log(err)
+                    alert(err.message)
+                    this.setState({
+                        loading: false,
+                    })
+                })
         }
-        
-        for (let i in data)
-            formData.append(i, data[i]);    
-
-
-        post(API.registration, {}, formData, (res) =>{ 
-            alert(res.message)
-            this.setState({
-                loading: false,
-            })
-        } , err => {
-            console.log(err)
-            alert(err.message)
-            this.setState({
-                loading: false,
-            })
-        })
-      }
-
     }
   };
 
@@ -139,7 +138,7 @@ export default class Register extends Component{
                 returnKeyType ='next' 
                 onSubmitEditing={() => { this.lastNameInput.focus(); }}
                 blurOnSubmit={false}
-                onChangeText={(text) => this.setState({ fname: text  })}
+                onChangeText={(text) => this.setState({ fname: text })}
             />
           </View>
           <View style={ styles.inputContainer }>
@@ -172,7 +171,7 @@ export default class Register extends Component{
                 ref={(input) => { this.emailInput = input; }}
                 onSubmitEditing={() => { this.passwordInput.focus(); }}
                 blurOnSubmit={false}
-                onChangeText={(text) => this.setState({ email: text   })}
+                onChangeText={(text) => this.setState({ email: text })}
             />
           </View>
           <View style={ styles.inputContainer }>
@@ -208,7 +207,7 @@ export default class Register extends Component{
             />
           </View>
           <View style={ styles.genderContainer}>
-            <Text style={{ fontSize: 18, color: '#ffffff', fontWeight: 'bold'}}>Gender</Text>
+            <Text style={styles.text}>Gender</Text>
             <View style={{flexDirection: 'row'}}>
             <TouchableOpacity style={styles.radioContainer} 
                 onPress= { () =>  { 
@@ -217,7 +216,7 @@ export default class Register extends Component{
                 <View style={[styles.circle, this.state.checked1 ? {backgroundColor: 'rgba(256,256,256,1.0)',} : {backgroundColor: 'rgba(256,256,256,0)',}, ]} >
             </View>
             <View>
-                <Text style={ { color: "#fff", fontSize: 17, marginRight: 10, fontWeight: 'bold' }}>Male</Text>
+                <Text style={ styles.genderText}>Male</Text>
             </View>
             </TouchableOpacity>
             <TouchableOpacity style={styles.radioContainer} 
@@ -227,7 +226,7 @@ export default class Register extends Component{
                 <View style={[styles.circle, this.state.checked2 ? {backgroundColor: 'rgba(256,256,256,1.0)',} : {backgroundColor: 'rgba(256,256,256,0)',}, ]} >
             </View>
             <View>
-                <Text style={ { color: '#fff', fontSize: 17, marginRight: 10, fontWeight: 'bold' }}>Female</Text>
+                <Text style={ styles.genderText}>Female</Text>
             </View>
              </TouchableOpacity>
             </View>
@@ -260,7 +259,7 @@ export default class Register extends Component{
             </View>
             <View  style={{flexDirection:'row', justifyContent:'center', alignItems: 'center'}} >
                 {/* <Text style={ { color: this.props.color, fontSize: 17, marginRight: 10, fontWeight: 'bold' }}>{this.props.label}</Text> */}
-            <Text style={{ textAlign: 'center' ,color: '#ffffff', fontWeight: 'bold'}}>I agree the <Text style={{textDecorationLine:'underline'}}>Terms & conditions</Text></Text>
+            <Text style={styles.terms}>I agree the <Text style={{textDecorationLine:'underline'}}>Terms & conditions</Text></Text>
                 <Text style={{marginLeft: 10}}>{this.props.children}</Text>
             </View>
         </TouchableOpacity>
@@ -270,7 +269,7 @@ export default class Register extends Component{
           </View>
           </View>
           <TouchableOpacity style={styles.loginButton}  onPress={this._doRegister}>
-          {this.state.loading ? <ActivityIndicator size='small' color='blue' /> : <Text style={{ color: '#e91c1a', fontSize: 20, fontWeight: 'bold'}}>REGISTER</Text>}
+          {this.state.loading ? <ActivityIndicator size='small' color='blue' /> : <Text style={styles.buttonText}>REGISTER</Text>}
           </TouchableOpacity>
         </View>
         
@@ -278,8 +277,6 @@ export default class Register extends Component{
       </TouchableWithoutFeedback>  
       </ScrollView>
       </KeyboardAvoidingView>
-      
-
       </ImageBackground>
      
     );

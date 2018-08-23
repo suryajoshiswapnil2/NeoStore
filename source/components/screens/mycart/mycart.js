@@ -1,5 +1,7 @@
+//  Complete
+
 import React, { Component } from 'react'
-import {View,Vibration,Alert,Text,StatusBar,Image,ActivityIndicator,ScrollView, TouchableOpacity} from 'react-native'
+import {View,Vibration,Alert,Text,Image,ActivityIndicator,ScrollView, TouchableOpacity} from 'react-native'
 import {CustomHeader} from '../../header/header'
 
 import {styles} from './styles'
@@ -24,40 +26,44 @@ export default class MyCart extends Component {
         }
     }
 
-    _editCart = (a, b) => { // a -> product_id , b-> value
 
-        // console.log('edit cart called')
+    // API call for edit cart
+    _editCart = (a, b) => { // a -> product_id , b-> value
         
         let {data, total} = this.state
-        
-        console.log('data = ',this.state.data)
 
         let index = data.findIndex( elem => elem.product_id == a )
-        data[index].quantity = b 
-        // cost of all other items excluding this 
-        let cost = total - data[index].product.sub_total
         
-        
-
-        let sum = data[index].product.cost * b
-        data[index].product.sub_total = sum
-        cost += sum
-        
-        this.setState({
-            // data: data,
-            total: cost,
-        })
-        // console.log(data, cost)
-
         let formData = new FormData()
         formData.append('product_id', data[index].product_id )
         formData.append('quantity', data[index].quantity)
 
-        // console.log(formData)
+        post(API.editCart, {access_token: userData.user_data.access_token}, formData, res => {
+            console.log(res)
+            if( res.status == 200 ) {
 
-        post(API.editCart, {access_token: userData.user_data.access_token}, formData, res => console.log(res), err => alert(err.message) )
+                data[index].quantity = b 
+                let cost = total - data[index].product.sub_total
 
-        // console.log('stage changed', this.state.data)
+                let sum = data[index].product.cost * b
+                // Destructuring gives references instead of local values
+                data[index].product.sub_total = sum
+                cost += sum
+                
+                this.setState({
+                    // data: data,
+                    total: cost,
+                })
+                return true
+            } 
+            else {
+                return false
+            }
+
+        }, err =>{ 
+            alert(err.message)
+            return false
+        } )
 
     }
 
@@ -68,7 +74,7 @@ export default class MyCart extends Component {
 		}
 	}
 
-    // Delete row from flatlist 
+    // Delete row from Flat-List 
     // Accept Two arguments rowMap which contain data and Key for identification
     _deleteItem = async (rowMap, rowKey) => {
 
@@ -80,48 +86,13 @@ export default class MyCart extends Component {
             [
               {text: 'Cancel', onPress: () => null, style: 'cancel'},
               {text: 'Delete', onPress:async () => {
-                // console.log(rowMap, rowKey)
 
                     this.setState({
                         isLoading: true,
                     })
 
-                    // console.log(rowKey)
-
                     let formData = new FormData()
                     formData.append('product_id', rowKey)
-
-                    // apiCall(API.deleteCart, { 
-                    //     method: 'POST',
-                    //     headers: {
-                    //         access_token: this.state.access_token
-                    //     },
-                    //     body: formData
-                    // }, (res) => {
-                    //     // console.log(res)
-                    //     if(res.status == 200)
-                    //     {
-                    //         this.closeRow(rowMap, rowKey);
-                    //         const newData = [...this.state.data];
-                    //         const prevIndex = this.state.data.findIndex(item => item.product_id === rowKey);
-                    //         newData.splice(prevIndex, 1);
-                    //         // this.setState({data: newData});
-                    //         userDataService.setUserData('total_carts', res.total_carts)
-                    //         alert(res.user_msg)
-                    //         this.setState({
-                    //             data: newData,
-                    //             isLoading: false,
-                    //         })
-                            
-                    //         // this.render()
-                    //     }
-                    //     else{
-                    //         alert(res.user_msg)
-                    //         this.setState({
-                    //             isLoading: false,
-                    //         })
-                    //     }
-                    // })
 
                     post(API.deleteCart, { access_token: this.state.access_token }, formData, (res) => {
                         if(res.status == 200)
@@ -130,7 +101,7 @@ export default class MyCart extends Component {
                             const newData = [...this.state.data];
                             const prevIndex = this.state.data.findIndex(item => item.product_id === rowKey);
                             newData.splice(prevIndex, 1);
-                            // this.setState({data: newData});
+                            
                             userDataService.setUserData('total_carts', res.total_carts)
                             alert(res.user_msg)
                             this.setState({
@@ -145,40 +116,12 @@ export default class MyCart extends Component {
                                 isLoading: false,
                             })
                         }
-                    }, err => {alert(err.message); this.setState({ isLoading: false,}) })
-
-                    
-                    // await fetch(API.deleteCart, {
-                    //     method: 'POST',
-                    //     headers: {
-                    //         access_token: this.state.access_token
-                    //     },
-                    //     body: formData
-                    // })
-                    // .then( res => res.json())
-                    // .then( res => {
-                    //     console.log(res)
-                    //     if(res.status == 200)
-                    //     {
-                    //         this.closeRow(rowMap, rowKey);
-                    //         const newData = [...this.state.data];
-                    //         const prevIndex = this.state.data.findIndex(item => item.key === rowKey);
-                    //         newData.splice(prevIndex, 1);
-                    //         this.setState({data: newData});
-                    //         alert(res.user_msg)
-                    //         this.setState({
-                    //             isLoading: false,
-                    //         })
-                    //         this.render()
-                    //     }
-                    //     else{
-                    //         alert(res.user_msg)
-                    //         this.setState({
-                    //             isLoading: false,
-                    //         })
-                    //     }
-                    // })
-                    // .catch(err => console.log(err))
+                    }, err => {
+                        alert(err.message); 
+                        this.setState({ 
+                            isLoading: false,
+                        }) 
+                    })
               } },
             ],
             { cancelable: false }
@@ -188,8 +131,7 @@ export default class MyCart extends Component {
     }
 
     componentDidMount = async () => {
-      
-    //    let data = await AsyncStorage.getItem('access_token');
+
 
        this.setState( { 
          access_token: userData.user_data.access_token,   
@@ -199,13 +141,15 @@ export default class MyCart extends Component {
                 access_token: userData.user_data.access_token
             }, (res) => {
             if (res.status == 200) {
-                // console.log(res)
+
                 this.setState({
                     isLoading: false,
                     data: res.data,      
                 });
+
                 if(res.data == null)
                     return
+
                 this._cal_total()
             }
             else {
@@ -219,39 +163,8 @@ export default class MyCart extends Component {
                 isLoading: false
             })
            console.log(err)
-           alert(err.message)
-           
+           alert(err.message) 
        })
-
-
-        // return fetch(API.listCartItems,{
-        //     method: 'GET',
-        //     headers: {
-        //         access_token: data
-        //     }
-        // })
-        // .then((response) => response.json())
-        // .then((responseJson) => {
-        //   if (responseJson.status == 200) {
-        //       console.log(responseJson)
-        //     this.setState({
-        //         isLoading: false,
-        //         data: responseJson.data,      
-        //     });
-        //     if(responseJson.data == null)
-        //         return
-        //     this._cal_total()
-        // }
-        //   else {
-        //      showError(responseJson.user_msg)
-        //      this.setState({
-        //         isLoading: false
-        //     })
-        //   }
-        // })
-        // .catch((error) =>{
-        //   console.error(error);
-        // });
 
     }
 
@@ -272,17 +185,6 @@ export default class MyCart extends Component {
 
     render(){
 
-        let data = [
-            { value: 1, }, 
-            { value: 2, }, 
-            { value: 3, },
-            { value: 4, }, 
-            { value: 5, }, 
-            { value: 6, },
-            { value: 7, }, 
-            { value: 8, } 
-        ];
-
         if( this.state.isLoading ) {
             return(
                 <View style={styles.container}>
@@ -293,7 +195,6 @@ export default class MyCart extends Component {
                 </View>
             )
         }
-        // console.log(this.state.data)  
 
         return(
             
@@ -325,11 +226,11 @@ export default class MyCart extends Component {
                                 <View style={styles.bottomContainer}>
                                 <View style={{ width: 96,}}>
                                     <ModalDropdown 
-                                        dropdownStyle={{width: 50, marginLeft: -9,}} 
-                                        style={{width: 50, fontSize: 25, padding: 5,  height: 30, backgroundColor: '#ededed', alignItems: 'center'}} 
+                                        dropdownStyle={styles.dropDownStyle} 
+                                        style={styles.modelContent} 
                                         options={[1,2,3,4,5,6,7,8]}
                                         onSelect= { (index, value) => {                                        
-                                            this._editCart(item.product_id, value);
+                                            return this._editCart(item.product_id, value);
                                         }}
                                         >
                                         <View style={{flexDirection: 'row'}}> 
@@ -362,8 +263,8 @@ export default class MyCart extends Component {
                        <Text style={styles.total}><Icon name='rupee' size={15}/> {this.state.total}.00</Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={[styles.button, {backgroundColor:'red'}]}  onPress={() => { this.props.navigation.navigate('AddressList') }}>
-                        <Text style={[styles.buttonText, {fontWeight: 'bold', textAlign:'center'}]} >ORDER NOW</Text>
+                    <TouchableOpacity style={[styles.button]}  onPress={() => { this.props.navigation.navigate('AddressList') }}>
+                        <Text style={[styles.buttonText]} >ORDER NOW</Text>
                     </TouchableOpacity>
                 </View> 
                 </ScrollView>)

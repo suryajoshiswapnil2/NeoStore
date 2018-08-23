@@ -1,3 +1,6 @@
+
+// Not used anywhere in app
+
 import React, { Component } from 'react'
 import {View, Text, ActivityIndicator} from 'react-native'
 import CustomHeader, { Header } from '../header/header'

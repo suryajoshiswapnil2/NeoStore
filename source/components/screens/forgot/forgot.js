@@ -6,10 +6,11 @@
  * @flow
  */
 
+// Complete
+
 import React, {Component} from 'react';
 import {View, Text, TextInput,ActivityIndicator, TouchableOpacity,ImageBackground, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native';
 import {background} from '../../../assets/images';
-
 import {styles} from './styles';
 import Icon from '../../../utils/icon';
 import Header from "../../header/header";
@@ -28,8 +29,6 @@ export default class Forgot extends Component{
       loader: false,
     }
   }
-
-
 
   _doForgot = () =>  {
 
@@ -89,7 +88,7 @@ export default class Forgot extends Component{
                 placeholder="Username"
                 maxLength= {50}
                 placeholderTextColor='#ffffff'
-                keyboardType= 'email-address'
+                keyboardType='email-address'
                 returnKeyType ='next' 
                 onSubmitEditing={() => { this.passwordInput.focus(); }}
                 blurOnSubmit={false}
@@ -104,7 +103,6 @@ export default class Forgot extends Component{
                 maxLength= {30}
                 placeholder="New Password"
                 placeholderTextColor='#ffffff'
-                // keyboardType= 'email-address'
                 returnKeyType ='next' 
                 onSubmitEditing={() => { this.confirmPasswordInput.focus(); }}
                 blurOnSubmit={false}
@@ -127,15 +125,14 @@ export default class Forgot extends Component{
           </View>
           </View>
           <TouchableOpacity style={styles.loginButton}  onPress={this._doForgot}>
-          {this.state.loader ? <ActivityIndicator size='small' color='blue' /> :   <Text style={{ color: '#e91c1a', fontSize: 20 , fontWeight: 'bold'}}>RESET NOW</Text>}
+          {this.state.loader ? <ActivityIndicator size='small' color='blue' /> : <Text style={styles.buttonText}>RESET NOW</Text>}
           </TouchableOpacity>
           <TouchableOpacity  onPress={ () => navigate('Login') }>
-              <Text style={{ color: '#ffffff', fontSize: 20,}}>Login with password?</Text>
+              <Text style={styles.text}>Login with password?</Text>
           </TouchableOpacity>
         </View>
       </View>
       </TouchableWithoutFeedback>
-
       </ImageBackground>
     );
   }

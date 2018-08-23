@@ -1,19 +1,22 @@
+
+// Complete
+
 import React, { Component } from "react";
 import {
-  View,
-  ScrollView,
-  Alert,
-  Keyboard,
-  TextInput,
-  Modal,
-  TouchableWithoutFeedback,
-  Share,
-  Text,
-  StatusBar,
-  Image,
-  ActivityIndicator,
-  TouchableOpacity
-} from "react-native";
+        View,
+        ScrollView,
+        Alert,
+        Keyboard,
+        TextInput,
+        Modal,
+        TouchableWithoutFeedback,
+        Share,
+        Text,
+        StatusBar,
+        Image,
+        ActivityIndicator,
+        TouchableOpacity
+        } from "react-native";
 
 import { userData, userDataService, getCategory } from '../../../lib/serviceProvider';
 import { CustomHeader } from "../../header/header";
@@ -40,59 +43,35 @@ export default class ProductDetails extends Component {
     };
   }
 
-  _addToCart = async () => {
-    let formData = new FormData();
-    formData.append("product_id", this.state.product_id);
-    formData.append("quantity", this.state.product_quantity);
+  _addToCart = () => {
+        let formData = new FormData();
+        formData.append("product_id", this.state.product_id);
+        formData.append("quantity", this.state.product_quantity);
 
-    post(API.addToCart, {access_token: userData.user_data.access_token}, formData, res => {
-        if (res.status == 200) {
-            userDataService.setUserData('total_carts', res.total_carts)    
-            Alert.alert('Info',res.user_msg, 
-            [
-                {text:'Ok', onPress: () => { this.setState({
-                    isBuying: false,
-                  })  
-                } 
+        post(API.addToCart, {access_token: userData.user_data.access_token}, formData, res => {
+            if (res.status == 200) {
+                userDataService.setUserData('total_carts', res.total_carts)    
+                Alert.alert('Info',res.user_msg, 
+                [
+                    {text:'Ok', onPress: () => { this.setState({
+                        isBuying: false,
+                    })  
+                    } 
+                }
+                ]
+            )
             }
-            ]
-         )
-        }
-        else alert(res.user_msg);
-    }, err => {
-        console.log(err)
-        alert(err.message)
-    })
-
-    // this.setModalVisible(false)
+            else alert(res.user_msg);
+            }, err => {
+                console.log(err)
+                alert(err.message)
+        })
 
     return false
 
-    // await fetch(API.addToCart, {
-    //   method: "POST",
-    //   headers: {
-    //     access_token: userData.user_data.access_token
-    //   },
-    //   body: formData
-    // })
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     console.log(res);
-    //     if (res.status == 200) {
-    //         userDataService.setUserData('total_carts', res.total_carts)    
-    //         showError(res.user_msg);
-    //     }
-    //     else showError(res.user_msg);
-    //   })
-    //   .catch(err => console.error(err.message));
   };
 
  componentDidMount() {
-    // let data = await AsyncStorage.getItem("access_token");
-
-    // this.setState({
-    //   access_token: data
-    // });
 
     let url = API.productDetails + "?product_id=" + this.state.product_id;
     return fetch(url, {
@@ -119,23 +98,18 @@ export default class ProductDetails extends Component {
   }
   shareData = () => {
 
-    let {data, curImg} =  this.state
+        let {data, curImg} =  this.state
+        let msg = `${userData.user_data.first_name} want to share with you a product from NeoSTORE\n${data.name} ( ${data.producer} )\n${data.description}\n${curImg}`
 
-    let msg = `${userData.user_data.first_name} want to share with you a product from NeoSTORE\n${data.name} ( ${data.producer} )\n${data.description}\n${curImg}`
-    
-    // console.log(msg)
-
-    Share.share(
-      {
-        message: msg,
-        url: "https://neosofttech.in",
-        title: this.state.data.name,
-      },
-      {
-        // Android only:
-        dialogTitle: "NeoSTORE share"
-      }
-    );
+        Share.share({
+                message: msg,
+                url: "https://neosofttech.in",
+                title: this.state.data.name,
+            },
+            {
+                // Android only:
+                dialogTitle: "NeoSTORE share"
+        });
   };
 
   renderImages = () => {
@@ -143,8 +117,7 @@ export default class ProductDetails extends Component {
     this.state.data.product_images.forEach((element, index) => {
       JSX.push(
         <TouchableOpacity key={index}
-          onPress={() => this.setState({ curImg: element.image })}
-        >
+          onPress={() => this.setState({ curImg: element.image })}>
           <Image
             source={{ uri: element.image }}
             style={styles.content}
@@ -155,68 +128,38 @@ export default class ProductDetails extends Component {
     return JSX;
   };
 
-  setModalVisible(visible) {
-    this.setState({ isBuying: false });
-    console.log('moving back', this.state.isBuying)
-  }
-
   _postRating = () => {
-    let formData = new FormData();
-    formData.append("product_id", this.state.product_id);
-    formData.append("rating", this.state.newRating);
 
-    // return fetch(API.setRatings, {
-    //   method: "POST",
-    //   body: formData
-    // })
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     if (res.status == 200) {
-    //     //   console.log(res);
-    //       alert(res.user_msg);
-    //     } else alert(res.user_msg);
-    //   })
-    //   .catch(error => console.log(error.message));
+      let formData = new FormData();
+      formData.append("product_id", this.state.product_id);
+      formData.append("rating", this.state.newRating);
 
       post(API.setRatings, {}, formData, res => {
         if (res.status == 200) {
-            //   console.log(res);
-            // alert(res.user_msg);
+
             Alert.alert('Info',res.user_msg, 
-                [
-                    {
-                        text:'Ok', onPress: () => { this.setState({
-                        isRating: false,
-                      })
-                    } 
-                }
-                ]
-             )
-
-            } else alert(res.user_msg);
+                [{
+                    text:'Ok', onPress: () => { 
+                        this.setState({
+                            isRating: false,
+                            })
+                    }}]
+             )} 
+        else 
+            alert(res.user_msg);
       }, err => alert(err.message))
-
-
 
       return true
 
-
   };
-  // _change_quantity = (input) => {
-  //     if(input == 0 || input == 9)
-  //         alert('Enter Quantity between 1-8')
-  //     else if( input > 0 && input < 9)
-  //         this.setState({product_quantity: input})
-  //     else
-  //         alert('Enter Quantity in Numbers only!')
-  // }
 
-  rateItems = rating => {
-    // alert(rating)
-    this.setState({
-      newRating: rating
-    });
-  };
+    rateItems = rating => {
+        
+        this.setState({
+        newRating: rating
+        });
+  
+    };
 
   render() {
     if (this.state.isLoading) {
@@ -295,16 +238,9 @@ export default class ProductDetails extends Component {
                             />
                     </View>
                   </TouchableOpacity>
-                  {/* <View style={styles.images}> */}
                   <ScrollView horizontal={true} style={styles.images}>
                     {this.renderImages()}
-                    {/* {
-                            this.state.data.product_images.map(element => {
-                                return <Image source={{uri: element.image}}  style={{width: 105, height: 90, resizeMode: 'contain', borderColor: 'gray', borderWidth: 1, marginRight:10}}/>
-                            })
-                        } */}
                   </ScrollView>
-                  {/* </View> */}
                 </View>
                 <View style={styles.description}>
                   <Text style={styles.descTitle}>DESCRIPTION</Text>
@@ -318,7 +254,6 @@ export default class ProductDetails extends Component {
             <TouchableOpacity
               style={[styles.button, { backgroundColor: "red" }]}
               onPress={() => {
-                //   true
                 this.setState({ isBuying: true });
               }}
             >
@@ -341,21 +276,15 @@ export default class ProductDetails extends Component {
             visible={this.state.isBuying}
             onRequestClose={() => {
               this.setState({isBuying: false});
-            }}
-          >
+            }}>
             <TouchableWithoutFeedback
               onPress={() => {
                 this.setState({ isBuying: false });
-              }}
-            >
-              <View
-                style={styles.containerContent}
-              >
+              }}>
+              <View style={styles.containerContent}>
               <TouchableWithoutFeedback onPress={ () => Keyboard.dismiss()}>
                 <View
-                //   onTouchEnd={() => this.setState({ isBuying: true })}
-                  style={styles.modalContent}
-                >
+                  style={styles.modalContent} >
                   <Text style={styles.nameModal}>{this.state.data.name}</Text>
                   <View style={styles.imageModal}>
                     <Image
@@ -363,33 +292,29 @@ export default class ProductDetails extends Component {
                       style={[styles.selectedImage]}
                     />
                   </View>
-                  <Text style={{ marginTop: 15, fontSize: 18, fontFamily: 'Gotham-Book' }}>Enter Qty</Text>
+                  <Text style={styles.qty}>Enter Qty</Text>
                   <TextInput
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    maxLength={1}
-                    style={styles.qinput}
-                    keyboardType="numeric"
-                    onChangeText={input => {
-                      this.setState({ product_quantity: input });
-                    }}
-                  />
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        maxLength={1}
+                        style={styles.qinput}
+                        keyboardType="numeric"
+                        onChangeText={input => {
+                            this.setState({ product_quantity: input });
+                        }}/>
                   <TouchableOpacity
                     style={[
                       styles.button,
                       { backgroundColor: "red", width: 180 }
                     ]}
-                    onPress={() => {
-                    
+                    onPress={() => {   
                       this._addToCart();
-                    }}
-                  >
+                    }}>
                     <Text
                       style={[
                         styles.buttonText,
                         { fontWeight: "bold", textAlign: "center" }
-                      ]}
-                    >
+                      ]}>
                       SUBMIT
                     </Text>
                   </TouchableOpacity>
@@ -410,16 +335,12 @@ export default class ProductDetails extends Component {
             <TouchableWithoutFeedback
               onPress={() => {
                 this.setState({ isRating: false });
-              }}
-            >
+              }}>
               <View
-                style={styles.containerContent}
-              >
+                style={styles.containerContent}>
               <TouchableWithoutFeedback>
                 <View
-                //   onTouchEnd={() => this.setState({ isRating: true })}
-                  style={styles.modalContent}
-                >
+                  style={styles.modalContent}>
                   <Text style={styles.nameModal}>{this.state.data.name}</Text>
                   <Image
                     source={{ uri: this.state.curImg }}
@@ -430,7 +351,6 @@ export default class ProductDetails extends Component {
                             type="custom"
                             ratingCount={5}
                             startingValue={this.state.newRating}
-                            // style={{ marginVertical: 20 }}
                             onFinishRating={this.rateItems}
                             imageSize={45}
                             fractions={0}
@@ -446,9 +366,6 @@ export default class ProductDetails extends Component {
                     ]}
                     onPress={() => {
                         this._postRating()
-                    //   if (this._postRating())
-                        // this.setState({ isRating: false })
-                        
                     }}
                   >
                     <Text style={[styles.buttonText, { fontWeight: "bold" }]}>

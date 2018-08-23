@@ -1,3 +1,6 @@
+
+// Complete
+
 import React, { Component } from "react";
 import {
   View,
@@ -10,7 +13,6 @@ import { CustomHeader } from "../../header/header";
 
 import { styles } from "./styles";
 import { API, get } from "../../../lib/api";
-import { showError } from "../../../utils/validators";
 import ProductItem from "./productItem";
 
 export default class ProductList extends Component {
@@ -28,42 +30,12 @@ export default class ProductList extends Component {
       product_category_id: this.props.navigation.state.params._id
     };
    
-    // this.data = {
-    //     page: 1,
-    // }
   }
-
-//   fetchResults = () => {
-//     this.setState({
-//       isLoading: true
-//     });
-
-//     const { limit, offset, list, dataSource } = this.state;
-//     // console.log('>called',offset, limit)
-//     if (offset >= limit) {
-//       this.setState({
-//         isLoading: false
-//       });
-//       return false;
-//     } else
-//       this.setState({
-//           list: list.concat(
-//           dataSource.slice(offset, offset + 7 > limit ? limit : offset + 7)
-//         ),
-//         offset: offset + 7 > limit ? limit : offset + 7
-//       });
-
-//     this.setState({
-//       isLoading: false
-//     });
-//     // return list
-//   };
 
 
   lazyLoad = () => {
-    //   console.log('called',this.state.list)
-    // console.log('called')
-      if(this.state.end)
+
+     if(this.state.end)
         return  
 
       this.setState({
@@ -74,10 +46,8 @@ export default class ProductList extends Component {
       url = API.productList + '?product_category_id=' + this.state.product_category_id +
         '&limit=6' + '&page=' + page;
 
-    //   console.log(url)  
 
       return get(url, null, res => {
-        //   console.log('asdas',res)
           
          if( res.status != 200 )
             this.setState({
@@ -93,10 +63,10 @@ export default class ProductList extends Component {
                 page: page + 1,
                 isListLoading: false,
             })
-            // this.data.page += 1
+
         }
       }, (e) => {
-            // console.log(e)
+            alert(e.message)
             this.setState({
                 end: true,
                 isListLoading: false,
@@ -106,64 +76,32 @@ export default class ProductList extends Component {
 
 
   componentDidMount() {
-    // console.log('called ComponentDidMount')
 
     this.lazyLoad();
     this.setState({
         isLoading: false,
     })
 
-    // let url =
-    //   API.productList +
-    //   "?product_category_id=" +
-    //   this.state.product_category_id +'&limit=6&page='+this.data.page;
-    // // alert(url)
-    // return fetch(url, {
-    //   method: "GET"
-    // })
-    //   .then(response => response.json())
-    //   .then(responseJson => {
-    //     if (responseJson.status == 200) {
-    //       this.data.page += 1
-    //       this.setState({
-    //         isLoading: false,
-    //         dataSource: responseJson.data,
-    //         limit: responseJson.data.length,
-    //         offset: 0
-    //         // list: responseJson.data.slice(0,5),
-    //       });
-    //       this.fetchResults();
-    //     } else {
-    //       showError(responseJson.user_msg);
-    //       this.setState({
-    //         isListLoading: false
-    //       });
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
   }
 
   render() {
-    // console.log('render called')
 
     if (this.state.isLoading) {
       return (
-                <View style={{ flex:1, paddingTop: 22 }}>
-                    <CustomHeader
-                        leftIcon="angle-left"
-                        style={{ fontSize: 20 }}
-                        leftAction={() => {
-                            this.props.navigation.navigate("Home");
-                        }}
-                        title={this.props.navigation.state.params.title}
-                        rightIcon="search"
-                        />                    
-                    <View style={{flex:1, justifyContent: 'center'}}>
-                    <ActivityIndicator size='large' color='blue' />    
-                    </View>    
-                </View>
+            <View style={{ flex:1, paddingTop: 22 }}>
+                <CustomHeader
+                    leftIcon="angle-left"
+                    style={{ fontSize: 20 }}
+                    leftAction={() => {
+                        this.props.navigation.navigate("Home");
+                    }}
+                    title={this.props.navigation.state.params.title}
+                    rightIcon="search"
+                    />                    
+                <View style={{flex:1, justifyContent: 'center'}}>
+                <ActivityIndicator size='large' color='blue' />    
+                </View>    
+            </View>
       );
     }
 
@@ -197,9 +135,6 @@ export default class ProductList extends Component {
             />
           )}
           onEndReached={(info ) => {
-            //  console.log('end reached')
-            // this.fetchResults();
-            console.log(info)
             this.lazyLoad()
           }}
           onEndReachedThreshold={0.1}
@@ -229,8 +164,6 @@ export default class ProductList extends Component {
             {this.state.offset} OF {this.state.limit}
           </Text>
         </View>)}
-
-
       </View>
     );
   }

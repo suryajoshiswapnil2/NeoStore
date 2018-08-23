@@ -7,6 +7,27 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
+        buttonText:{ 
+            color: colors.red, 
+            fontSize: 20, 
+            fontWeight: font.weight.bold
+        },
+        terms: { 
+            textAlign: 'center' ,
+            color: colors.white, 
+            fontWeight: font.weight.bold
+        },
+        genderText: { 
+            color: colors.white, 
+            fontSize: 17, 
+            marginRight: 10, 
+            fontWeight: font.weight.bold 
+        },
+        text: { 
+            fontSize: 18, 
+            color: colors.white, 
+            fontWeight: font.weight.bold,
+        },
         square: {
             width: 7,
             height: 7,

@@ -7,6 +7,20 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
+        modelContent:{
+            height: 50, 
+            backgroundColor:'white', 
+            justifyContent: 'space-between', 
+            flexDirection:'row'
+        },
+        datePicker:{
+            zIndex: 1, 
+            backgroundColor: 'rgba(256,256,256,0.96)'
+        },
+        modalContainer: {
+            flex: 1,
+            justifyContent: 'flex-end'
+        },
         button:{
             padding: 10,
             // backgroundColor: 'green',

@@ -6,6 +6,8 @@
  * @flow
  */
 
+// Complete
+
 import React, { Component } from "react";
 import {
   View,
@@ -17,21 +19,19 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ActivityIndicator,
-  StatusBar
 } from "react-native";
 import { background } from "../../../assets/images";
 import Header from "../../header/header";
 import { user } from "../../../assets/images";
 import { styles } from "./styles";
 import Icon from "../../../utils/icon";
-import { userData, sync, userDataService } from '../../../lib/serviceProvider';
+import { userData } from '../../../lib/serviceProvider';
 
 
 export default class MyAccount extends Component {
   constructor(props) {
     super(props);
-    console.log(props)
-    // console.log(props.navigation.isFocused())
+
     this.state = {
         isLoading: true,
         force: null,
@@ -39,24 +39,20 @@ export default class MyAccount extends Component {
     props.navigation.addListener(
         'willFocus',
         () => {
-            console.log('im back')
             // this.setState({
             //     force: 's',
             // })
         }
     ) 
-    // this.state = userData.user_data;
   }
 
   componentDidMount(){
-    //   console.log('called ')
       this.setState({
           isLoading: false,
       })
   }
 
   render() {
-    console.log('render profile')
 
     const { navigate } = this.props.navigation;
 
@@ -67,7 +63,7 @@ export default class MyAccount extends Component {
                 <Header
                 title="My Account"
                 back={() => {
-                    this.props.navigation.navigate("Home");
+                    navigate("Home");
                 }}
                 />
             <View style={styles.mainContainer}>
@@ -82,19 +78,11 @@ export default class MyAccount extends Component {
         <Header
           title="My Account"
           back={() => {
-            this.props.navigation.navigate("Home");
-          }}
-        />
+            navigate("Home");
+          }}/>
         {/* <SafeAreaView style={styles.mainContainer}> */}
-        {/* <StatusBar barStyle="light-content" hidden={false} /> */}
-
         {/* <ScrollView> */}
         {/* <KeyboardAvoidingView style={ styles.container} behavior='position' enabled> */}
-        {/* <KeyboardAwareScrollView
-      resetScrollToCoords={{ x: 0, y: 0 }}
-      contentContainerStyle={styles.container}
-      scrollEnabled={false}
-    > */}
 
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={{ flex: 1 }}>
@@ -199,9 +187,8 @@ export default class MyAccount extends Component {
                 }}
                 ref={input => {
                   this.loginButton = input;
-                }}
-              >
-                <Text style={{ color: "#e91c1a", fontSize: 20 }}>
+                }}>
+                <Text style={styles.text}>
                   EDIT PROFILE
                 </Text>
               </TouchableOpacity>
@@ -217,7 +204,7 @@ export default class MyAccount extends Component {
                   this.loginButton = input;
                 }}
               >
-                <Text style={{ color: "#000", fontSize: 21 }}>
+                <Text style={styles.text}>
                   RESET PASSWORD
                 </Text>
               </TouchableOpacity>

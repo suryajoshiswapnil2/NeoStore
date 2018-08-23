@@ -7,7 +7,6 @@ import { userDataService } from "../lib/serviceProvider";
 import styles from "./styles";
 import { API, get } from "../lib/api";
 import {background} from '../assets/images'
-// import SplashScreen from 'react-native-splash-screen'
 
 
 export default class Startup extends Component {

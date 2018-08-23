@@ -1,4 +1,4 @@
-//
+// Complete
 
 import {StyleSheet} from 'react-native';
 import * as Device from '../../../lib/globals'
@@ -7,6 +7,10 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
+        text:{ 
+            color: colors.red, 
+            fontSize: 20 
+        },
         imageHolder:{
             marginVertical: 60/3,
             borderColor: colors.white,

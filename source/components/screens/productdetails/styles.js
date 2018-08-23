@@ -6,6 +6,11 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
+        qty: { 
+            marginTop: 15, 
+            fontSize: 18, 
+            fontFamily: font.family.book, 
+        },
         costt: {  
             fontSize: 25,
             color: colors.redd,

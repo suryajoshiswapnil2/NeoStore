@@ -1,3 +1,6 @@
+
+// Complete
+
 import React, { Component } from 'react'
 import {View, Text, ActivityIndicator} from 'react-native'
 import {CustomHeader} from '../../header/header'
@@ -5,8 +8,6 @@ import {styles} from './styles'
 
 import Icon from '../../../utils/icon'
 import MapView, {Marker} from 'react-native-maps';
-
-
 
 export default class StoreLocator extends Component {
 

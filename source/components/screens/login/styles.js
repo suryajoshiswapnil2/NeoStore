@@ -7,6 +7,15 @@ import font from '../../../utils/fontSize'
 
 export const styles = StyleSheet.create(
     {
+        text: { 
+            color: colors.white, 
+            fontSize: 19,
+        },
+        loginText:{ 
+            color: colors.red, 
+            fontSize: 25 , 
+            fontWeight: font.weight.bold
+        },
         appContainer: {
             // flex:1,
             // width: Device.window.width,
