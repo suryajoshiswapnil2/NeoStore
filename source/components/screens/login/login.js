@@ -42,21 +42,33 @@ export default class Login extends Component{
       
     }
 
+    _validate = () => {
+
+        if( validator.emptyField(this.state.email) )
+            showError('Username is empty!', '',this.usernameInput)
+        else if(validator.emptyField(this.state.password))
+            showError('Password is empty!', '' , this.passwordInput)
+        else if( validator.emailField(this.state.email))
+            showError('Email is invalid!!', '',this.usernameInput)
+        else if( validator.passwordField(this.state.password))
+            showError('Password should be 7-15 alpha-numeric characters!', '' , this.passwordInput) 
+        else
+            return false 
+        
+        this.setState({
+            loading: false,
+        })
+        return true
+    }
+
   _doLogin = async (e) => {
-
-    if( validator.emptyField(this.state.email) )
-      return showError('Username is empty!', '',this.usernameInput)
-    else if(validator.emptyField(this.state.password))
-      return showError('Password is empty!', '' , this.passwordInput)
-    else if( validator.emailField(this.state.email))
-      return showError('Email is invalid!!', '',this.usernameInput)
-    else if( validator.passwordField(this.state.password))
-      return showError('Password should be 7-15 alpha-numeric characters!', '' , this.passwordInput)
-      
-
+    
     this.setState({
         loading: true,
-    })  
+    })
+
+    if(this._validate())
+        return false
 
     let formData = new FormData();
     formData.append('email', this.state.email)
@@ -79,7 +91,6 @@ export default class Login extends Component{
                     userDataService.setData(res.data)
                     this.props.navigation.navigate('Home',res.data)
                 }else { 
-
                     this.setState({
                         loading: false,
                     })  
@@ -90,7 +101,7 @@ export default class Login extends Component{
                 Alert.alert('Error', 'No Internet connection available!', [
                     {text: 'Retry', onPress: () => this._doLogin() },
                     {text: 'Exit', onPress: () => BackHandler.exitApp() }
-                ])
+                ], { cancelable: false })
             })
         } 
     }, err => {
@@ -98,8 +109,12 @@ export default class Login extends Component{
         Alert.alert('Error', 'No Internet connection available!', [
             {text: 'Retry', onPress: () => this._doLogin() },
             {text: 'Exit', onPress: () => BackHandler.exitApp() }
-        ])
+        ], { cancelable: false })
     } )
+
+    // this.setState({
+    //     loading: false,
+    // })  
 
   } 
 

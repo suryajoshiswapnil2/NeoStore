@@ -114,11 +114,13 @@ export const styles = StyleSheet.create(
         },
         delete:{
             position: 'absolute',
-            
-            // alignSelf: 'flex-end',
             right: 5,
-            // color: colors.gray,
-            top: 5,
+            top: 3,
+        },
+        edit: {
+            position: 'absolute',
+            right: 7,
+            bottom: 5,
         },
         iconss:{
             ...font.family.book,

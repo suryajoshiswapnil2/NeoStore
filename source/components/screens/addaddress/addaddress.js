@@ -27,15 +27,25 @@ import { userData } from "../../../lib/serviceProvider";
 export default class AddAddress extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isLoading: true,
-            addr: '',
-            landmark: '',
-            city: '',
-            state: '',
-            zip_code: '',
-            country: '',
-        };
+
+        if(props.navigation.state.params === undefined){
+            this.state = {
+                isLoading: true,
+                addr: '',
+                landmark: '',
+                city: '',
+                state: '',
+                zip_code: '',
+                country: '',
+            };
+        }else{
+            this.state = {
+                isLoading: true,
+                ...props.navigation.state.params.data,
+                editIndex: props.navigation.state.params.editIndex,
+            }
+        }
+                
     }
 
     componentDidMount(){
@@ -63,17 +73,19 @@ export default class AddAddress extends Component {
 
         AsyncStorage.getItem('addr').then((r) => {
 
-        let arr = []    
+        let arr = []
+        let newData = [{
+            name: userData.user_data.first_name + ' ' + userData.user_data.last_name,    
+            addr: this.state.addr,
+            landmark: this.state.landmark,
+            city: this.state.city,
+            state: this.state.state,
+            zip_code: this.state.zip_code,
+            country: this.state.country,
+        }]
+        
         if(r == null) {
-            arr =  [{
-                name: userData.user_data.first_name + ' ' + userData.user_data.last_name,
-                addr: this.state.addr,
-                landmark: this.state.landmark,
-                city: this.state.city,
-                state: this.state.state,
-                zip_code: this.state.zip_code,
-                country: this.state.country,
-            }];
+            arr = newData
             AsyncStorage.setItem('addr', JSON.stringify(arr))
 
             Alert.alert('Info','Address added Successfully!', 
@@ -85,19 +97,16 @@ export default class AddAddress extends Component {
             )  
         }
         else {
+
             arr = JSON.parse(r)
-            arr = 
-            arr.concat(
-                [{
-                name: userData.user_data.first_name + ' ' + userData.user_data.last_name,    
-                addr: this.state.addr,
-                landmark: this.state.landmark,
-                city: this.state.city,
-                state: this.state.state,
-                zip_code: this.state.zip_code,
-                country: this.state.country,
-            }]
-        )
+            if(this.state.editIndex === undefined) {
+                arr =  arr.concat(newData)
+            }
+            else{
+                arr.splice( this.state.editIndex, 1, ...newData )
+            }
+
+            // Make permanent changes to AsyncStorage
             AsyncStorage.setItem('addr', JSON.stringify(arr))
             Alert.alert('Info','Address added Successfully!', 
             [
@@ -107,8 +116,7 @@ export default class AddAddress extends Component {
             ]
             )  
         }
-
-        })
+      })
     }
 
     render() {
@@ -200,6 +208,7 @@ export default class AddAddress extends Component {
                                 autoCapitalize='none'
                                 numberOfLines={5}
                                 autoCorrect={false}
+                                value={this.state.addr}
                                 // autoFocus={true}
                                 returnKeyType='next'
                                 onSubmitEditing= { () => this.land.focus()}
@@ -221,6 +230,7 @@ export default class AddAddress extends Component {
                                 autoCapitalize='none'
                                 autoCorrect={false}
                                 returnKeyType='next'
+                                value={this.state.landmark}
                                 ref= {(input) => this.land = input}
                                 onSubmitEditing= { () => this.city.focus()}
                                 onChangeText={ (t) => this.setState({ landmark: t})}
@@ -241,6 +251,7 @@ export default class AddAddress extends Component {
                                 autoCapitalize='none'
                                 autoCorrect={false}
                                 returnKeyType='next'
+                                value={this.state.city}
                                 ref= {(input) => this.city = input}
                                 onSubmitEditing= { () => this._state.focus()}
                                 onChangeText={ (t) => this.setState({ city: t})}
@@ -259,6 +270,7 @@ export default class AddAddress extends Component {
                                 placeholderTextColor= '#333333'
                                 autoCapitalize='none'
                                 autoCorrect={false}
+                                value={this.state.state}
                                 returnKeyType='next'
                                 ref= {(input) => this._state = input}
                                 onSubmitEditing= { () => this.zip.focus()}
@@ -281,6 +293,7 @@ export default class AddAddress extends Component {
                                 autoCapitalize='none'
                                 autoCorrect={false}
                                 returnKeyType='next'
+                                value={this.state.zip_code}
                                 maxLength={6}
                                 keyboardType='numeric'
                                 ref= {(input) => this.zip = input}
@@ -302,6 +315,7 @@ export default class AddAddress extends Component {
                                 autoCapitalize='none'
                                 autoCorrect={false}
                                 returnKeyType='done'
+                                value={this.state.country}
                                 ref= {(input) => this.country = input}
                                 onChangeText={ (t) => this.setState({ country: t})}
                             />

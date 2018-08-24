@@ -41,6 +41,7 @@ export default class AddressList extends Component {
                 })
                 return
             }
+            // console.log(val)
             this.setState({
                 addr_arr: JSON.parse(val), 
                 isLoading: false,
@@ -86,9 +87,29 @@ export default class AddressList extends Component {
 
     }
 
+    editItem = (elem, index) => {
+
+        Vibration.vibrate(100)
+        Alert.alert(
+            'Edit address', 
+            'Are you sure to edit?',
+            [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'Edit', onPress: () =>   {
+
+                    console.log(elem)
+                    this.props.navigation.navigate('AddAddress',{data: elem, editIndex: index })
+
+                }},
+              ],
+              { cancelable: false }
+        )
+    }
+
+
     deleteItem = (index) => {
 
-        Vibration.vibrate(200)
+        Vibration.vibrate(100)
         Alert.alert(
             'Delete address', 
             'Are you sure to delete?',
@@ -109,7 +130,7 @@ export default class AddressList extends Component {
 
     renderItems = () => {
 
-        this.state.addr_arr.map((elem ,index) => (
+        return this.state.addr_arr.map((elem ,index) => (
             <View key={index} style={styles.addressContainer}>
                 <TouchableOpacity onPress={ () => this.setState({selected: index}) }> 
                     <View style={[styles.radioButton, this.state.selected == index ? styles.selected: null]}>
@@ -122,6 +143,9 @@ export default class AddressList extends Component {
                     </Text>
                      <TouchableOpacity onPress={() => this.deleteItem(index)} style={styles.delete} >
                         <Feather name='x' style={styles.iconss} color='#8e8e8e' size= {20}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.editItem(elem, index)} style={styles.edit} >
+                        <Feather name='edit-2' style={styles.iconss} color='#8e8e8e' size= {15}/>
                     </TouchableOpacity>
                 </View>
             </View>

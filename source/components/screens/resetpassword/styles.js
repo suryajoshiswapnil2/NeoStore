@@ -1,4 +1,4 @@
-//
+// Complete
 
 import {StyleSheet} from 'react-native';
 import colors from '../../../utils/colors';
@@ -9,9 +9,12 @@ import font from '../../../utils/fontSize';
 export const styles = StyleSheet.create(
     {
         text: { 
+            ...font.family.book,
             color: colors.red, 
             fontSize: 20, 
-            fontWeight: font.weight.bold 
+            textAlign: 'center',
+            height: 20,
+            // fontWeight: font.weight.bold 
         },
         mainContainer: {
             flex: 1,
@@ -72,6 +75,7 @@ export const styles = StyleSheet.create(
               width: 275    ,
               paddingVertical: 12,
               borderRadius: 5,
+              height: 50,
             //   marginBottom: 12
           },
           bottomContainer: {

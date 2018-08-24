@@ -43,7 +43,7 @@ export default class Startup extends Component {
         Alert.alert('Error', 'No Internet connection available!', [
             {text: 'Retry', onPress: () => this.do_processing() },
             {text: 'Exit', onPress: () => BackHandler.exitApp() }
-        ])
+        ], { cancelable: false })
         
         // AsyncStorage.removeItem("access_token");
         // Network issue, Exit from app

@@ -23,11 +23,16 @@ export default class MyCart extends Component {
             data:[], 
             total: 0,
             product_quantity: 0,
+            editingIndex: -1,
         }
     }
 
     // API call for edit cart
     _editCart = (a, b) => { // a -> product_id , b-> value
+
+        this.setState({
+            editingIndex: a,
+        })
 
         let {data, total} = this.state
 
@@ -52,15 +57,22 @@ export default class MyCart extends Component {
                 
                 this.setState({
                     // data: data,
+                    editingIndex: -1,
                     total: cost,
                 })
                 return true
             } 
             else {
+                this.setState({
+                    editingIndex: -1,
+                })
                 return false
             }
 
         }, err =>{ 
+            this.setState({
+                editingIndex: -1,
+            })
             alert(err.message)
             return false
         } )
@@ -130,7 +142,7 @@ export default class MyCart extends Component {
       
     }
 
-    componentDidMount = async () => {
+    componentDidMount = () => {
 
 
        this.setState( { 
@@ -233,13 +245,16 @@ export default class MyCart extends Component {
                                             return this._editCart(item.product_id, value);
                                         }}
                                         >
+                                        { this.state.editingIndex == item.product_id? 
+                                        <View styles={styles.loading}> 
+                                            <ActivityIndicator size='small' color='green'/> 
+                                        </View>:
                                         <View style={{flexDirection: 'row'}}> 
                                             <Text style={{fontSize: 16}}>{item.quantity} </Text>
                                             <Icon name='angle-down' style={{marginTop: 2}} size={15} />
-                                        </View>
+                                        </View> }
                                     </ModalDropdown>
                                 </View>
-                                    
                                     {/* <Text style={styles.cost}>{item.quantity}</Text> */}
                                     <Text style={styles.cost}><Icon name='rupee' size={15}/> {item.product.cost * item.quantity }.00</Text>
                                 </View>
@@ -257,7 +272,6 @@ export default class MyCart extends Component {
                     disableRightSwipe={true}
                     keyExtractor={ item => item.product.id.toString() } 
                 />
-            
                 <View style={styles.totalContainer}>
                        <Text style={styles.total}>TOTAL</Text>
                        <Text style={styles.total}><Icon name='rupee' size={15}/> {this.state.total}.00</Text>

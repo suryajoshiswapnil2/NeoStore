@@ -2,7 +2,7 @@
 // Complete
 
 import React, {Component} from 'react';
-import {View,Image, Text, TouchableOpacity,AsyncStorage, ScrollView,  } from 'react-native';
+import {View,Image, Text,Vibration, Alert, TouchableOpacity,AsyncStorage, ScrollView,  } from 'react-native';
 
 import {styles} from './styles';
 import Icon from '../../../utils/icon'
@@ -20,10 +20,24 @@ export default class SideBar extends Component{
         };        
     }
 
-    logout = async () => {
-        await AsyncStorage.removeItem('access_token');
-        showError('Logout Successful!')
-        this.props.navigation.navigate('LoginStack');
+    logout = () => {
+
+        Vibration.vibrate(100)
+        Alert.alert(
+            'Logout', 
+            'Are you sure want to logout?',
+            [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'Logout', onPress: async () =>   {
+
+                    await AsyncStorage.removeItem('access_token');
+                    // showError('Logout Successful!')
+                    this.props.navigation.navigate('LoginStack');
+  
+                }},
+              ],
+              { cancelable: false }
+        )
     }    
 
     componentDidMount(){
