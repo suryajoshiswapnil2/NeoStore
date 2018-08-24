@@ -35,6 +35,7 @@ import { SafeAreaView } from "react-navigation";
 import { API, post, get } from "../../../lib/api";
 import { userData, userDataService } from '../../../lib/serviceProvider';
 import ImagePicker from 'react-native-image-picker'
+import {validator, showError} from '../../../utils/validators'
 
 export default class MyAccount extends Component {
   constructor(props) {
@@ -155,12 +156,33 @@ export default class MyAccount extends Component {
       })
   }
 
+    _validate_form = () => {
+
+        if(validator.emptyField(this.state.first_name))
+            showError('First Name field should not be Empty!')
+        else if(validator.emptyField(this.state.last_name))
+            showError('Last Name field should not be Empty!')
+        else if(validator.emptyField(this.state.email))
+            showError('Please Enter Email Address!')
+        else if(validator.emptyField(this.state.phone_no) || validator.digitsOnly(this.state.phone_no))
+            showError('Please Enter 10 Digit Mobile Number!')
+        else
+            return false 
+        
+        this.setState({
+            dataLoading: false,
+        })  
+        return true
+    }
+
   _doUpdate = () => {
 
         this.setState({
             dataLoading: true,
         }) 
 
+        if(this._validate_form())
+            return false
         
         // let image = null
         // 
@@ -181,14 +203,13 @@ export default class MyAccount extends Component {
         //     )
         // }
 
-       let formData= new FormData()
-       formData.append('first_name',this.state.first_name)
-       formData.append('last_name', this.state.last_name)
-       formData.append('email', this.state.email)
-       formData.append('dob', this.state.dob)
-       formData.append('phone_no', this.state.phone_no)
-       formData.append('profile_pic', this.state.imagePicked ? this.state.profile_pic : image)
-
+        let formData= new FormData()
+        formData.append('first_name',this.state.first_name)
+        formData.append('last_name', this.state.last_name)
+        formData.append('email', this.state.email)
+        formData.append('dob', this.state.dob)
+        formData.append('phone_no', this.state.phone_no)
+        formData.append('profile_pic', this.state.imagePicked ? this.state.profile_pic : null)
 
         post(API.updateDetails, {access_token: userData.user_data.access_token,}, formData, (res) => {
             if( res.status == 200 ) {

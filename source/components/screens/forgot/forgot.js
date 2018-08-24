@@ -30,22 +30,35 @@ export default class Forgot extends Component{
     }
   }
 
+  _validate = () => {
+      
+        if( validator.emptyField(this.state.email) )
+            showError('Username is empty!', '')
+        else if( validator.emptyField(this.state.password) )
+            showError('Password is empty!')
+        else if( validator.emailField(this.state.email) )
+            showError('Email is invalid!!')
+        else if( validator.passwordField(this.state.password) )
+            showError('Password should be 7-15 alpha-numeric characters!')
+        else if( validator.passConfirm(this.state.password, this.state.cpassword) )
+            showError('password mismatched!')
+        else
+            return false
+        
+        this.setState({
+            loader: false,
+        })  
+        return true
+  }
+
   _doForgot = () =>  {
 
-    if( validator.emptyField(this.state.email) )
-        return showError('Username is empty!', '')
-    else if(validator.emptyField(this.state.password))
-        return showError('Password is empty!')
-    else if( validator.emailField(this.state.email))
-        return showError('Email is invalid!!')
-    else if( validator.passwordField(this.state.password))
-        return showError('Password should be 7-15 alpha-numeric characters!')
-    else if(validator.passConfirm(this.state.password, this.state.cpassword))
-        return showError('password mismatched!')
-  
     this.setState({
         loader: true,
     })    
+
+    if(this._validate())
+        return false
 
     let formData = new FormData()
     formData.append('email', this.state.email)
@@ -62,9 +75,6 @@ export default class Forgot extends Component{
                 loader: false,
             })
     })
-
-
-
   }
 
   render() {

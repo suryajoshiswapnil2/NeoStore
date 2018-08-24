@@ -58,7 +58,9 @@ export default class ProductDetails extends Component {
                     })  
                     } 
                 }
-                ]
+                ],{ 
+                    cancelable: false
+                }
             )
             }
             else alert(res.user_msg);
@@ -143,7 +145,7 @@ export default class ProductDetails extends Component {
                         this.setState({
                             isRating: false,
                             })
-                    }}]
+                    }}],{ cancelable: false }
              )} 
         else 
             alert(res.user_msg);

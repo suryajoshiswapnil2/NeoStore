@@ -43,69 +43,67 @@ export default class Register extends Component{
   }
   
 
-  _doRegister =  async () => 
+  _doRegister = () => 
   {
-
         // for ( let i in this.state)
         //     if( validator.emptyField(this.state[i]) )
         //         return showError(i + ' field is empty!')
 
         if( validator.emptyField(this.state.fname) )
-        return showError('please input first name!')
+            return showError('please input first name!')
         else if(validator.emptyField(this.state.lname))
-        return showError('please input last name!')
+            return showError('please input last name!')
         else if(validator.emptyField(this.state.email))
-        return showError('please input email address!')
+            return showError('please input email address!')
         else if(validator.emptyField(this.state.password))
-        return showError('please input password!')
+            return showError('please input password!')
         else if(validator.emptyField(this.state.cpasword))
-        return showError('please input cofirm password!')
+            return showError('please input confirm password!')
         else if( validator.emptyField(this.state.mobile))
-        return showError('please input mobile number!')
+            return showError('please input mobile number!')
         else if( validator.emailField(this.state.email))
-        return showError('Invalid email address!')
+            return showError('Invalid email address!')
         else if(this.state.gender == '' )
-        return showError('please select gender');
+            return showError('please select gender');
         else if( this.state.agreed == '')
-        return showError('please agree terms and condition');
-        else{
-        if(this.state.password != this.state.cpasword)
-            return showError('password and confirm password mismatched!');
-        else
-        {
-
-            this.setState({
-                loading: true,
-            })
-
-            let formData = new FormData();
-            let data = {
-                first_name: this.state.fname,
-                last_name: this.state.lname,
-                email:this.state.email,
-                password: this.state.password,
-                confirm_password: this.state.cpasword,
-                gender: this.state.gender[0],
-                phone_no: this.state.mobile,
-            }
-            
-            for (let i in data)
-                formData.append(i, data[i]);    
-
-            post(API.registration, {}, formData, (res) =>{ 
-                alert(res.message)
+            return showError('please agree terms and condition');
+        else {
+            if(this.state.password != this.state.cpasword)
+                return showError('password and confirm password mismatched!');
+            else
+            {
                 this.setState({
-                    loading: false,
+                    loading: true,
                 })
-                } , err => {
-                    console.log(err)
-                    alert(err.message)
+
+                let formData = new FormData();
+                let data = {
+                    first_name: this.state.fname,
+                    last_name: this.state.lname,
+                    email:this.state.email,
+                    password: this.state.password,
+                    confirm_password: this.state.cpasword,
+                    gender: this.state.gender[0],
+                    phone_no: this.state.mobile,
+                }
+                
+                for (let i in data)
+                    formData.append(i, data[i]);    
+
+                post(API.registration, {}, formData, (res) => { 
+                    alert(res.message)
                     this.setState({
                         loading: false,
                     })
+                    } , err => {
+                        console.log(err)
+                        alert(err.message)
+                        this.setState({
+                            loading: false,
+                        })
                 })
+            }
         }
-    }
   };
 
 

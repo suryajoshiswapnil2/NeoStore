@@ -11,10 +11,14 @@ import React, { Component } from "react";
 import {
   View,
   Text,
+  Alert,
   StatusBar,
+  Platform,
+  ToastAndroid,
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  BackHandler
 } from "react-native";
 
 import { styles } from "./styles";
@@ -32,15 +36,60 @@ export default class Home extends Component {
     this.state = {
         isLoading: true,
     }
+    this.delay = 1500
+    this.backTime = 0
+    this.handleBackButton = this.handleBackButton.bind(this)
+
   } 
+
+  handleBackButton = () => {
+
+    // Alert.alert(
+    //     'Exit App',
+    //     'Exiting the application?', [{
+    //         text: 'Cancel',
+    //         onPress: () => console.log('Cancel Pressed'),
+    //         style: 'cancel'
+    //     }, {
+    //         text: 'OK',
+    //         onPress: () => {
+    //             BackHandler.exitApp()
+    //         }
+    //     }, ], {
+    //         cancelable: false
+    //     }
+    //  )
+
+    if(!this.props.navigation.isFocused())
+        return false
+
+    if ( this.delay + this.backTime > new Date().getTime() )
+        BackHandler.exitApp()
+    else {   
+        ToastAndroid.show('Press again to exit App.', ToastAndroid.SHORT);
+        this.backTime = new Date().getTime()
+     }
+     return true;
+   } 
 
   componentDidMount(){
 
         SplashScreen.hide()
+
+        Platform.OS == 'android' && BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
+
         this.setState({
             isLoading: false,
         })
   }
+
+
+
+    componentWillUnmount() {
+        
+        Platform.OS == 'android' && BackHandler.removeEventListener('hardwareBackPress',this.handleBackPress)
+
+    }
 
   render() {
     const { navigate } = this.props.navigation;

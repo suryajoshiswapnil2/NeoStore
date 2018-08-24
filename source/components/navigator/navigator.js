@@ -1,4 +1,4 @@
-import Startup from './source/root/startup'
+import Startup from '../../root/startup'
 import Login from '../screens/login/login';
 import Forgot from '../screens/forgot/forgot';
 import Register from '../screens/register/register';
@@ -18,6 +18,7 @@ import StoreLocator from '../screens/StoreLocator/StoreLocator'
 
 import React, {Component} from 'react'
 import { createSwitchNavigator, createDrawerNavigator , createStackNavigator } from  'react-navigation'
+
 
 
 const ProductStack = createStackNavigator(
@@ -145,30 +146,30 @@ const ProductStack = createStackNavigator(
               header: null,
               }
           },
-          // AddressStack: {
-          //     screen: AddressStack,
-          //     navigationOptions:{
-          //         header: null,
-          //     }
-          // },  
-          AddressList: {
-              screen: AddressList,
-              navigationOptions:{ 
-                  header: null,
-              }
-          },
-          AddAddress: {
-              screen: AddAddress,
-              navigationOptions: {
-                  header: null,
-              }
-          },
+        //   AddressStack: {
+        //       screen: AddressStack,
+        //       navigationOptions:{
+        //           header: null,
+        //       }
+        //   },  
+        //   AddressList: {
+        //       screen: AddressList,
+        //       navigationOptions:{ 
+        //           header: null,
+        //       }
+        //   },
+        //   AddAddress: {
+        //       screen: AddAddress,
+        //       navigationOptions: {
+        //           header: null,
+        //       }
+        //   },
       },
       {
           initialRouteName: 'MyCart'  
     })  
  
-const DashboardNav = createDrawerNavigator({
+const HomeStack = createDrawerNavigator({
     Home: {
       screen: Home,
       navigationOptions: {
@@ -186,31 +187,12 @@ const DashboardNav = createDrawerNavigator({
   
 
 
-const StartupStack = createSwitchNavigator({
-     Startup:{
-         screen: Startup,
-         navigationOptions:{
-             header: null,
-         }
-     },
-      LoginStack: {
-        screen : LoginStack,
-        navigationOptions : {
-          header : null,
-        }
-      },
-      DashboardNav : {
-        screen : DashboardNav,
-        navigationOptions : {
-          header : null,
-        }
-      }
-})
 
-export const MainStack = createStackNavigator({
+
+export const DashboardNav = createStackNavigator({
   
-    StartupStack: {
-      screen : StartupStack,
+    HomeStack: {
+      screen : HomeStack,
       navigationOptions : {
         header : null,
       }
@@ -253,18 +235,43 @@ export const MainStack = createStackNavigator({
             navigationOptions: {
                 header: null,
             }
-        }
-
-
+        },
+          AddressStack: {
+              screen: AddressStack,
+              navigationOptions:{
+                  header: null,
+              }
+          },  
   },
   {
-    initialRouteName : "StartupStack"
+    initialRouteName : "HomeStack"
   }
 );
 
 
-export default class App extends Component {
+const Stack = createSwitchNavigator({
+    Startup:{
+        screen: Startup,
+        navigationOptions:{
+            header: null,
+        }
+    },
+     LoginStack: {
+       screen : LoginStack,
+       navigationOptions : {
+         header : null,
+       }
+     },
+     DashboardNav : {
+       screen : DashboardNav,
+       navigationOptions : {
+         header : null,
+       }
+     }
+})
 
+
+export default class Navigator extends Component {
     render() {
       return <Stack/>
     }

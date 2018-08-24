@@ -100,6 +100,12 @@ export default class SideBar extends Component{
                notifications: false,
                navigate: () => { navigate('StoreLocator') },
            },
+        //    {
+        //         title: 'Address List',
+        //         icon: 'map-marker',
+        //         notifications: false,
+        //         navigate: () => { navigate('AddressList') },
+        //    },
            {
                title: 'My Orders',
                icon: 'order-list',

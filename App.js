@@ -26,6 +26,7 @@ import OrderDetail from './source/components/screens/orderdetail/orderdetail'
 import AddAddress from './source/components/screens/addaddress/addaddress'
 import AddressList from './source/components/screens/addresslist/addresslist'
 import StoreLocator from './source/components/screens/StoreLocator/StoreLocator'
+import Navigator from './source/components/navigator/navigator'
 
 const ProductStack = createStackNavigator(
   {
@@ -146,24 +147,28 @@ const ProductStack = createStackNavigator(
 )
 
   const MyCartStack = createStackNavigator({
+
         MyCart: {
             screen: MyCart,
             navigationOptions: {
                 header: null,
             }
         },
+
         // AddressStack: {
         //     screen: AddressStack,
         //     navigationOptions:{
         //         header: null,
         //     }
         // },  
+
         AddressList: {
             screen: AddressList,
             navigationOptions:{ 
                 header: null,
             }
         },
+
         AddAddress: {
             screen: AddAddress,
             navigationOptions: {
@@ -177,6 +182,7 @@ const ProductStack = createStackNavigator(
 
   
   const DashboardNav = createDrawerNavigator({
+
     Home: {
       screen: Home,
       navigationOptions: {
@@ -184,6 +190,31 @@ const ProductStack = createStackNavigator(
         drawerLockMode: 'unlocked',
       },
     },
+
+    // AddressList: {
+    //     screen: AddressList,
+    //     navigationOptions:{ 
+    //         header: null,
+    //         drawerLockMode: 'locked-closed',
+    //     }
+    // },
+
+    // AddAddress: {
+    //     screen: AddAddress,
+    //     navigationOptions: {
+    //         header: null,
+    //         drawerLockMode: 'locked-closed',
+    //     }
+    // },
+
+    // // Complete
+    // AddressStack: {
+    //     screen: AddressStack,
+    //     navigationOptions:{
+    //         header: null,
+    //         drawerLockMode: 'locked-closed'
+    //     }
+    // },  
 
     // Complete
     MyAccountStack: {
@@ -271,7 +302,7 @@ export default class App extends Component {
   render() {
     
     return <Stack/>
-    
+    // return <Navigator/>
   }
 }
 
