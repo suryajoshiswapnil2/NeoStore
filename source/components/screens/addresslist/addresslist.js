@@ -107,6 +107,28 @@ export default class AddressList extends Component {
         )
     }
 
+    renderItems = () => {
+
+        this.state.addr_arr.map((elem ,index) => (
+            <View key={index} style={styles.addressContainer}>
+                <TouchableOpacity onPress={ () => this.setState({selected: index}) }> 
+                    <View style={[styles.radioButton, this.state.selected == index ? styles.selected: null]}>
+                    </View>
+                </TouchableOpacity>
+                <View style={styles.content}>
+                    <Text style={styles.name}>{elem.name}</Text>
+                    <Text style={styles.address}>
+                        {elem.addr}, {elem.landmark}, {elem.city}, {elem.state} - {elem.zip_code}, {elem.country}
+                    </Text>
+                     <TouchableOpacity onPress={() => this.deleteItem(index)} style={styles.delete} >
+                        <Feather name='x' style={styles.iconss} color='#8e8e8e' size= {20}/>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        ))
+
+    }
+
     render() {
 
         if(this.state.isLoading){
@@ -141,30 +163,16 @@ export default class AddressList extends Component {
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>Shipping Address</Text>
                 </View>
-                <ScrollView>
                 { this.state.addr_arr == null ? 
                     <View style={styles.noAddress}>
                         <Text>No Address in list, Please add.</Text>
                     </View>
                     :
-                    this.state.addr_arr.map((elem ,index) => (
-                        <View key={index} style={styles.addressContainer}>
-                            <TouchableOpacity onPress={ () => this.setState({selected: index}) }> 
-                                <View style={[styles.radioButton, this.state.selected == index ? styles.selected: null]}>
-                                </View>
-                            </TouchableOpacity>
-                            <View style={styles.content}>
-                                <Text style={styles.name}>{elem.name}</Text>
-                                <Text style={styles.address}>
-                                    {elem.addr}, {elem.landmark}, {elem.city}, {elem.state} - {elem.zip_code}, {elem.country}
-                                </Text>
-                                 <TouchableOpacity onPress={() => this.deleteItem(index)} style={styles.delete} >
-                                    <Feather name='x' style={styles.iconss} color='#8e8e8e' size= {20}/>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                ))}
-                </ScrollView>
+                    <ScrollView>
+                        {this.renderItems()}
+                    </ScrollView>
+                }
+                
                 { this.state.addr_arr != null ?
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={[styles.button, {backgroundColor:'red'}]}  onPress={() => {this._place_order()}}>

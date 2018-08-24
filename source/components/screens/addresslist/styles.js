@@ -9,8 +9,9 @@ import font from '../../../utils/fontSize'
 export const styles = StyleSheet.create(
     {
         noAddress: {
-            flex:1, 
-            justifyContent: 'center'
+            // flex:1, 
+            height: 450,
+            justifyContent: 'center',
         },
         container: {
             flex: 1,

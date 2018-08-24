@@ -11,6 +11,7 @@ import React, { Component } from "react";
 import {
   View,
   Text,
+  StatusBar,
   TouchableOpacity,
   Image,
   ActivityIndicator,
@@ -47,6 +48,7 @@ export default class Home extends Component {
     if(this.state.isLoading)
         return(
             <View style={styles.mainContainer}>
+                <StatusBar barStyle = 'light-content' hidden={false}/>
                 <CustomHeader
                     leftIcon="menu"
                     leftAction={this.props.navigation.openDrawer}
@@ -62,6 +64,7 @@ export default class Home extends Component {
     return (
 
       <View style={styles.mainContainer} >
+        <StatusBar barStyle = 'light-content' hidden={false}/>
         <CustomHeader
           leftIcon="menu"
           leftAction={this.props.navigation.openDrawer}

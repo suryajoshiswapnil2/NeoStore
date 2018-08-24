@@ -149,7 +149,7 @@ const ProductStack = createStackNavigator(
         MyCart: {
             screen: MyCart,
             navigationOptions: {
-            header: null,
+                header: null,
             }
         },
         // AddressStack: {
@@ -181,6 +181,7 @@ const ProductStack = createStackNavigator(
       screen: Home,
       navigationOptions: {
         header:null,
+        drawerLockMode: 'unlocked',
       },
     },
 
@@ -189,15 +190,17 @@ const ProductStack = createStackNavigator(
         screen: MyAccountStack,
         navigationOptions:{
           header: null,
+          drawerLockMode: 'locked-closed'
     }
     },
     
     // Complete
     MyCartStack: {
-      screen: MyCartStack,
-      navigationOptions: {
-        header: null,
-      }
+        screen: MyCartStack,
+        navigationOptions: {
+            header: null,
+            drawerLockMode: 'locked-closed'
+        }
     },
 
     // Complete
@@ -205,6 +208,7 @@ const ProductStack = createStackNavigator(
       screen: ProductStack,
       navigationOptions: {
         header: null,
+        drawerLockMode: 'locked-closed'
       }
     },
 
@@ -213,6 +217,7 @@ const ProductStack = createStackNavigator(
       screen: OrderStack,
       navigationOptions:{
         header: null,
+        drawerLockMode: 'locked-closed'
       }
     },
 
@@ -221,6 +226,7 @@ const ProductStack = createStackNavigator(
         screen: StoreLocator,
         navigationOptions: {
             header: null,
+            drawerLockMode: 'locked-closed'
         }
     }
   },

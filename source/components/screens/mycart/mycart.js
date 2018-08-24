@@ -26,20 +26,20 @@ export default class MyCart extends Component {
         }
     }
 
-
     // API call for edit cart
     _editCart = (a, b) => { // a -> product_id , b-> value
-        
+
         let {data, total} = this.state
 
         let index = data.findIndex( elem => elem.product_id == a )
         
         let formData = new FormData()
         formData.append('product_id', data[index].product_id )
-        formData.append('quantity', data[index].quantity)
+        formData.append('quantity', b)
+
 
         post(API.editCart, {access_token: userData.user_data.access_token}, formData, res => {
-            console.log(res)
+
             if( res.status == 200 ) {
 
                 data[index].quantity = b 
