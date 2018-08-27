@@ -93,8 +93,7 @@ export default class Home extends Component {
     if (this.state.isLoading)
       return (
         <View style={styles.mainContainer}>
-          {/* <StatusBar barStyle="dark-content" hidden={false} /> */}
-          {StatusBar.setHidden(true)}
+          <StatusBar hidden={false} />
           <CustomHeader
             leftIcon="menu"
             leftAction={this.props.navigation.openDrawer}
@@ -109,7 +108,7 @@ export default class Home extends Component {
 
     return (
       <View style={styles.mainContainer}>
-        <StatusBar barStyle="dark-content" hidden={false} />
+        <StatusBar hidden={false} />
         <CustomHeader
           leftIcon="menu"
           leftAction={this.props.navigation.openDrawer}

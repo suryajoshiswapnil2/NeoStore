@@ -4,6 +4,9 @@ import colors from "../../../utils/colors";
 import font from "../../../utils/fontSize";
 
 export const styles = StyleSheet.create({
+  scroll: {
+    marginBottom: Device.isX ? 103 : 70
+  },
   qty: {
     marginTop: 15,
     fontSize: 18,
@@ -85,10 +88,12 @@ export const styles = StyleSheet.create({
     position: "absolute",
     justifyContent: "space-around",
     alignItems: "center",
+    // bottom: Device.isX ? 30 : 0,
     bottom: 0,
     backgroundColor: colors.white,
     width: Device.window.width,
-    height: 70
+    height: Device.isX ? 105 : 70,
+    paddingBottom: Device.isX ? 30 : 0
   },
   imageHolder: {
     borderBottomColor: colors.gray,

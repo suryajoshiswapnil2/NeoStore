@@ -1,16 +1,9 @@
-
 // Complete
 
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  ActivityIndicator
-} from "react-native";
+import { View, Text, FlatList, Image, ActivityIndicator } from "react-native";
 import { CustomHeader } from "../../header/header";
-import Icon from '../../../utils/icon'
+import Icon from "../../../utils/icon";
 import { styles } from "./styles";
 import { API, get } from "../../../lib/api";
 import { userData } from "../../../lib/serviceProvider";
@@ -23,50 +16,47 @@ export default class OrderDetail extends Component {
       access_token: "",
       data: [],
       total: 0,
-      order_id: this.props.navigation.state.params.order_id,
+      order_id: this.props.navigation.state.params.order_id
     };
   }
 
-
   componentDidMount = () => {
-
-    get(API.orderDetail + '?order_id=' + this.state.order_id, {access_token: userData.user_data.access_token}, 
-        res => {
-            if(res.status == 200)
-                this.setState({ data: res.data, isLoading: false,})
-            else
-                alert(res.user_msg)
-        }, err => alert(err.message))
-
+    get(
+      API.orderDetail + "?order_id=" + this.state.order_id,
+      { access_token: userData.user_data.access_token },
+      res => {
+        if (res.status == 200)
+          this.setState({ data: res.data, isLoading: false });
+        else alert(res.user_msg);
+      },
+      err => alert(err.message)
+    );
   };
 
-
   render() {
+    const { order_id } = this.props.navigation.state.params;
 
-    const {order_id} = this.props.navigation.state.params
-   
     if (this.state.isLoading) {
       return (
-            <View style={styles.container}>
-                <CustomHeader
-                    leftIcon="angle-left"
-                    style={{ fontSize: 20 }}
-                    leftAction={() => {
-                        this.props.navigation.goBack();
-                    }}
-                    title={"Order ID: " + order_id}
-                    rightIcon="search"
-                    />
-                <View style={{flex:1, justifyContent: 'center'}}>
-                    <ActivityIndicator size='large' color='blue' />    
-                </View>    
-            </View>
+        <View style={styles.container}>
+          <CustomHeader
+            leftIcon="angle-left"
+            style={{ fontSize: 20 }}
+            leftAction={() => {
+              this.props.navigation.goBack();
+            }}
+            title={"Order ID: " + order_id}
+            rightIcon="search"
+          />
+          <View style={{ flex: 1, justifyContent: "center" }}>
+            <ActivityIndicator size="large" color="blue" />
+          </View>
+        </View>
       );
     }
 
     return (
       <View style={styles.container}>
-        {/* <StatusBar barStyle="light-content" hidden={false} /> */}
         <CustomHeader
           leftIcon="angle-left"
           style={{ fontSize: 19 }}
@@ -106,7 +96,8 @@ export default class OrderDetail extends Component {
                       <Text style={styles.cost}>QTY : {item.quantity}</Text>
                       <Text style={styles.cost}>
                         {/* &#8377; */}
-                        <Icon name='rupee' size={15}/> {item.total}.00
+                        <Icon name="rupee" size={15} /> {item.total}
+                        .00
                       </Text>
                     </View>
                   </View>
@@ -119,7 +110,9 @@ export default class OrderDetail extends Component {
               <Text style={styles.total}>TOTAL</Text>
               <Text style={styles.total}>
                 {/* &#8377;  */}
-                <Icon name='rupee' size={15} color='#000'/> {this.state.data.cost}.00
+                <Icon name="rupee" size={15} color="#000" />{" "}
+                {this.state.data.cost}
+                .00
               </Text>
             </View>
           </View>

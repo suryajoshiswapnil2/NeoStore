@@ -6,6 +6,7 @@ import {
   AsyncStorage,
   Alert,
   Text,
+  StatusBar,
   ScrollView,
   ActivityIndicator,
   TouchableOpacity,

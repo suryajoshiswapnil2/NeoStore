@@ -13,6 +13,7 @@ import {
   Text,
   StatusBar,
   Image,
+  Animated,
   ActivityIndicator,
   TouchableOpacity
 } from "react-native";
@@ -208,7 +209,6 @@ export default class ProductDetails extends Component {
 
     return (
       <View style={styles.container}>
-        <StatusBar barStyle="light-content" hidden={false} />
         <CustomHeader
           leftIcon="angle-left"
           style={{ fontSize: 19 }}
@@ -219,60 +219,60 @@ export default class ProductDetails extends Component {
           rightIcon="search"
         />
         <View style={styles.mainContainer}>
-          <View>
-            <ScrollView style={{ marginBottom: 70 }}>
-              <View style={styles.header}>
-                <Text style={styles.name}>{this.state.data.name}</Text>
-                <Text style={styles.category}>
-                  Category - {getCategory(this.state.data.product_category_id)}
-                </Text>
-                <View style={styles.bottomContainer}>
-                  <Text style={styles.company}>{this.state.data.producer}</Text>
-                  {/* <Text style={styles.rating}>{this.state.data.rating}</Text> */}
-                  <Rating
-                    type="custom"
-                    ratingCount={5}
-                    startingValue={this.state.data.rating}
-                    imageSize={15}
-                    readonly
-                    ratingBackgroundColor="#7f7f7f"
-                    ratingColor="#ffba00"
-                  />
-                </View>
+          {/* <View> */}
+          <ScrollView style={styles.scroll}>
+            <View style={styles.header}>
+              <Text style={styles.name}>{this.state.data.name}</Text>
+              <Text style={styles.category}>
+                Category - {getCategory(this.state.data.product_category_id)}
+              </Text>
+              <View style={styles.bottomContainer}>
+                <Text style={styles.company}>{this.state.data.producer}</Text>
+                {/* <Text style={styles.rating}>{this.state.data.rating}</Text> */}
+                <Rating
+                  type="custom"
+                  ratingCount={5}
+                  startingValue={this.state.data.rating}
+                  imageSize={15}
+                  readonly
+                  ratingBackgroundColor="#7f7f7f"
+                  ratingColor="#ffba00"
+                />
               </View>
+            </View>
 
-              <View style={styles.detailContainer}>
-                <View style={styles.imageHolder}>
-                  <View style={styles.imageView}>
-                    <Text style={styles.costt}>Rs. {this.state.data.cost}</Text>
-                    {this.state.isOOS ? (
-                      <Text style={styles.oos}>Out of Stock</Text>
-                    ) : null}
-                    <TouchableOpacity onPress={() => this.shareData()}>
-                      <Icon name="share" size={25} color="gray" />
-                    </TouchableOpacity>
-                  </View>
-                  <TouchableOpacity
-                    onPress={() => this.setState({ imageContainer: true })}
-                  >
-                    <View style={styles.mainImage}>
-                      <Image
-                        source={{ uri: this.state.curImg }}
-                        style={styles.selectedImage}
-                      />
-                    </View>
+            <View style={styles.detailContainer}>
+              <View style={styles.imageHolder}>
+                <View style={styles.imageView}>
+                  <Text style={styles.costt}>Rs. {this.state.data.cost}</Text>
+                  {this.state.isOOS ? (
+                    <Text style={styles.oos}>Out of Stock</Text>
+                  ) : null}
+                  <TouchableOpacity onPress={() => this.shareData()}>
+                    <Icon name="share" size={25} color="gray" />
                   </TouchableOpacity>
-                  <ScrollView horizontal={true} style={styles.images}>
-                    {this.renderImages()}
-                  </ScrollView>
                 </View>
-                <View style={styles.description}>
-                  <Text style={styles.descTitle}>DESCRIPTION</Text>
-                  <Text style={styles.desc}>{this.state.data.description}</Text>
-                </View>
+                <TouchableOpacity
+                  onPress={() => this.setState({ imageContainer: true })}
+                >
+                  <View style={styles.mainImage}>
+                    <Image
+                      source={{ uri: this.state.curImg }}
+                      style={styles.selectedImage}
+                    />
+                  </View>
+                </TouchableOpacity>
+                <ScrollView horizontal={true} style={styles.images}>
+                  {this.renderImages()}
+                </ScrollView>
               </View>
-            </ScrollView>
-          </View>
+              <View style={styles.description}>
+                <Text style={styles.descTitle}>DESCRIPTION</Text>
+                <Text style={styles.desc}>{this.state.data.description}</Text>
+              </View>
+            </View>
+          </ScrollView>
+          {/* </View> */}
 
           <View style={styles.footer}>
             <TouchableOpacity
@@ -416,19 +416,19 @@ export default class ProductDetails extends Component {
             >
               <View style={styles.containerContent}>
                 <TouchableWithoutFeedback>
-                  <View style={styles.bigMainImage}>
+                  <Animated.View style={styles.bigMainImage}>
                     <ScrollView
                       style={{ flex: 1 }}
-                      horizontal={true}
                       minimumZoomScale={0.5}
                       maximumZoomScale={3}
+                      scrollEnabled={true}
                     >
                       <Image
                         source={{ uri: this.state.curImg }}
                         style={styles.modalImage}
                       />
                     </ScrollView>
-                  </View>
+                  </Animated.View>
                 </TouchableWithoutFeedback>
               </View>
             </TouchableWithoutFeedback>

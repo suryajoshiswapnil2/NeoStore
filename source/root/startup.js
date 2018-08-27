@@ -75,7 +75,6 @@ export default class Startup extends Component {
   render() {
     return (
       <ImageBackground style={styles.container} source={background}>
-        {StatusBar.setHidden(true)}
         <View style={styles.mainContainer}>
           <Text style={[styles.title, { fontSize: 30 }]}>Welcome to</Text>
           <Text style={[styles.title, { fontSize: 45, fontWeight: "700" }]}>
