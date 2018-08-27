@@ -297,7 +297,7 @@ export default class ProductDetails extends Component {
         </View>
         <View>
           <Modal
-            animationType="slide"
+            animationType="fade"
             transparent={true}
             visible={this.state.isBuying}
             onRequestClose={() => {
@@ -354,7 +354,7 @@ export default class ProductDetails extends Component {
             </TouchableWithoutFeedback>
           </Modal>
           <Modal
-            animationType="slide"
+            animationType="fade"
             transparent={true}
             visible={this.state.isRating}
             onRequestClose={() => {
@@ -426,7 +426,7 @@ export default class ProductDetails extends Component {
                     this.setState({ imageContainer: false });
                   }}
                 >
-                  <Feather name="x" size={20} />
+                  <Feather name="x" size={30} />
                 </TouchableOpacity>
                 {/* <ScrollView
                   style={{ flex: 1 }}

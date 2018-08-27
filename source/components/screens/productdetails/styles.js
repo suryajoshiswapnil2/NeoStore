@@ -164,7 +164,7 @@ export const styles = StyleSheet.create({
     // marginVertical: 50,
     // marginHorizontal: 10,
     width: "98%",
-    height: "60%"
+    height: "80%"
   },
   images: {
     flexDirection: "row",

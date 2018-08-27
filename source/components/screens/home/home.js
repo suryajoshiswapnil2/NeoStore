@@ -128,12 +128,20 @@ export default class Home extends Component {
             {this.props.navigation.state.params.product_categories.map(
               (elem, key) => {
                 return (
-                  <View key={key}>
+                  <TouchableOpacity
+                    key={key}
+                    onPress={() => {
+                      navigate("ProductList", {
+                        title: elem.name,
+                        _id: elem.id
+                      });
+                    }}
+                  >
                     <Image
                       source={{ uri: elem.icon_image }}
                       style={styles.imageContent}
                     />
-                  </View>
+                  </TouchableOpacity>
                 );
               }
             )}
