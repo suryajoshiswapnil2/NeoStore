@@ -4,6 +4,12 @@ import colors from "../../../utils/colors";
 import font from "../../../utils/fontSize";
 
 export const styles = StyleSheet.create({
+  closeButton: {
+    position: "absolute",
+    top: 2,
+    right: 2,
+    zIndex: 20
+  },
   scroll: {
     marginBottom: Device.isX ? 103 : 70
   },
@@ -33,8 +39,8 @@ export const styles = StyleSheet.create({
   modalImage: {
     // width: "100%",
     // height: "100%",
-    width: 300,
-    height: 300
+    width: 350,
+    height: 350
     // flex: 1,
     // resizeMode: "center"
   },
@@ -156,7 +162,7 @@ export const styles = StyleSheet.create({
     // marginVertical: 50,
     // marginHorizontal: 10,
     width: "98%",
-    height: "50%"
+    height: "60%"
   },
   images: {
     flexDirection: "row",

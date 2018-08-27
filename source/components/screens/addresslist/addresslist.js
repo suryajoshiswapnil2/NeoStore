@@ -26,12 +26,16 @@ export default class AddressList extends Component {
       isLoading: true,
       addr_arr: [],
       selected: 0,
-      loading: false
+      loading: false,
+      force: null
     };
+    this.props.navigation.addListener("willFocus", () => {
+      this._get_address();
+    });
     this.deleteItem = this.deleteItem.bind(this);
   }
 
-  componentDidMount() {
+  _get_address = () => {
     AsyncStorage.getItem("addr").then(val => {
       if (val == null) {
         this.setState({
@@ -46,6 +50,23 @@ export default class AddressList extends Component {
         isLoading: false
       });
     });
+  };
+
+  componentDidMount() {
+    // AsyncStorage.getItem("addr").then(val => {
+    //   if (val == null) {
+    //     this.setState({
+    //       isLoading: false,
+    //       addr_arr: null
+    //     });
+    //     return;
+    //   }
+    //   // console.log(val)
+    //   this.setState({
+    //     addr_arr: JSON.parse(val),
+    //     isLoading: false
+    //   });
+    // });
   }
 
   _place_order = () => {
@@ -112,7 +133,7 @@ export default class AddressList extends Component {
         {
           text: "Edit",
           onPress: () => {
-            console.log(elem);
+            // console.log(elem);
             this.props.navigation.navigate("AddAddress", {
               data: elem,
               editIndex: index

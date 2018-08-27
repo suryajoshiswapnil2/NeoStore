@@ -28,6 +28,7 @@ import { styles } from "./styles";
 import { API, post } from "../../../lib/api";
 import { showError } from "../../../utils/validators";
 import Icon from "../../../utils/icon";
+import Feather from "react-native-vector-icons/Feather";
 import { Rating, AirbnbRating } from "react-native-ratings";
 
 export default class ProductDetails extends Component {
@@ -412,27 +413,36 @@ export default class ProductDetails extends Component {
               this.setState({ imageContainer: false });
             }}
           >
-            <TouchableWithoutFeedback
+            {/* <TouchableWithoutFeedback
               onPress={() => this.setState({ imageContainer: false })}
-            >
-              <View style={styles.containerContent}>
-                <TouchableWithoutFeedback>
-                  <Animated.View style={styles.bigMainImage}>
-                    <ScrollView
-                      style={{ flex: 1 }}
-                      minimumZoomScale={0.5}
-                      maximumZoomScale={3}
-                      scrollEnabled={true}
-                    >
-                      <Image
-                        source={{ uri: this.state.curImg }}
-                        style={styles.modalImage}
-                      />
-                    </ScrollView>
-                  </Animated.View>
-                </TouchableWithoutFeedback>
+            > */}
+            <View style={styles.containerContent}>
+              {/* <TouchableWithoutFeedback> */}
+
+              <View style={styles.bigMainImage}>
+                <TouchableOpacity
+                  style={styles.closeButton}
+                  onPress={() => {
+                    this.setState({ imageContainer: false });
+                  }}
+                >
+                  <Feather name="x" size={20} />
+                </TouchableOpacity>
+                <ScrollView
+                  style={{ flex: 1 }}
+                  minimumZoomScale={1.0}
+                  maximumZoomScale={4.0}
+                  pinchGestureEnabled={true}
+                >
+                  <Image
+                    source={{ uri: this.state.curImg }}
+                    style={styles.modalImage}
+                  />
+                </ScrollView>
               </View>
-            </TouchableWithoutFeedback>
+              {/* </TouchableWithoutFeedback> */}
+            </View>
+            {/* </TouchableWithoutFeedback> */}
           </Modal>
         </View>
       </View>

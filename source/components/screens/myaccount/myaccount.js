@@ -18,59 +18,69 @@ import {
   ImageBackground,
   TouchableWithoutFeedback,
   Keyboard,
-  ActivityIndicator,
+  ActivityIndicator
 } from "react-native";
 import { background } from "../../../assets/images";
 import Header from "../../header/header";
 import { user } from "../../../assets/images";
 import { styles } from "./styles";
 import Icon from "../../../utils/icon";
-import { userData } from '../../../lib/serviceProvider';
-
+import { userData } from "../../../lib/serviceProvider";
 
 export default class MyAccount extends Component {
+  willFocusEventListener;
+
   constructor(props) {
     super(props);
+    console.log("constructor called");
 
     this.state = {
-        isLoading: true,
-        force: null,
-    }
-    props.navigation.addListener(
-        'willFocus',
-        () => {
-            // this.setState({
-            //     force: 's',
-            // })
-        }
-    ) 
+      isLoading: true,
+      force: 0
+    };
   }
 
-  componentDidMount(){
-      this.setState({
+  componentDidMount() {
+    //     this.setState({
+    //       isLoading: false
+    //     });
+    this.willFocusEventListener = this.props.navigation.addListener(
+      "willFocus",
+      () => {
+        console.log("will focus event", this.state);
+        let { force } = this.state;
+        this.setState({
           isLoading: false,
-      })
+          force: force + 1
+        });
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    this.willFocusEventListener.remove();
   }
 
   render() {
-
     const { navigate } = this.props.navigation;
 
-    if(this.state.isLoading)
-    {
-        return (
-            <ImageBackground style={[styles.mainContainer,{justifyContent: 'flex-start'}]} source={background}>
-                <Header
-                title="My Account"
-                back={() => {
-                    navigate("Home");
-                }}
-                />
-            <View style={styles.mainContainer}>
-                <ActivityIndicator size="large" color="#0000ff" />
-            </View>
-            </ImageBackground>           
-        )
+    if (this.state.isLoading) {
+      return (
+        <ImageBackground
+          style={[styles.mainContainer, { justifyContent: "flex-start" }]}
+          source={background}
+        >
+          <Header
+            title="My Account"
+            back={() => {
+              navigate("Home");
+            }}
+          />
+          <View style={styles.mainContainer}>
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        </ImageBackground>
+      );
     }
 
     return (
@@ -79,7 +89,8 @@ export default class MyAccount extends Component {
           title="My Account"
           back={() => {
             navigate("Home");
-          }}/>
+          }}
+        />
         {/* <SafeAreaView style={styles.mainContainer}> */}
         {/* <ScrollView> */}
         {/* <KeyboardAvoidingView style={ styles.container} behavior='position' enabled> */}
@@ -92,7 +103,7 @@ export default class MyAccount extends Component {
                   style={styles.image}
                   source={
                     userData.user_data.profile_pic == null ||
-                    userData.user_data.profile_pic == '' 
+                    userData.user_data.profile_pic == ""
                       ? user
                       : { uri: userData.user_data.profile_pic }
                   }
@@ -173,7 +184,11 @@ export default class MyAccount extends Component {
                   <TextInput
                     style={styles.input}
                     placeholder="DOB"
-                    value={userData.user_data.dob == null ? " " : userData.user_data.dob}
+                    value={
+                      userData.user_data.dob == null
+                        ? " "
+                        : userData.user_data.dob
+                    }
                     selectTextOnFocus={false}
                     editable={false}
                     placeholderTextColor="#ffffff"
@@ -187,10 +202,9 @@ export default class MyAccount extends Component {
                 }}
                 ref={input => {
                   this.loginButton = input;
-                }}>
-                <Text style={styles.text}>
-                  EDIT PROFILE
-                </Text>
+                }}
+              >
+                <Text style={styles.text}>EDIT PROFILE</Text>
               </TouchableOpacity>
             </View>
 
@@ -204,9 +218,7 @@ export default class MyAccount extends Component {
                   this.loginButton = input;
                 }}
               >
-                <Text style={styles.text}>
-                  RESET PASSWORD
-                </Text>
+                <Text style={styles.text}>RESET PASSWORD</Text>
               </TouchableOpacity>
             </View>
           </View>
