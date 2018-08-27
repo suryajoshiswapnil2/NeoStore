@@ -25,10 +25,31 @@ export default class ProductList extends Component {
       limit: 0,
       offset: 0,
       list: [],
+      dataList: [],
+      isSearched: false,
       page: 1,
       product_category_id: this.props.navigation.state.params._id
     };
   }
+
+  searchItems = search => {
+    let data = this.state.list.filter(value => {
+      for (let i in value) {
+        if (
+          value[i]
+            .toString()
+            .toLowerCase()
+            .indexOf(search.toLowerCase()) >= 0
+        )
+          return true;
+      }
+    });
+    this.setState({
+      isSearched: true,
+      dataList: data
+    });
+    // console.log("filtered data", data);
+  };
 
   lazyLoad = () => {
     if (this.state.end) return;
@@ -80,6 +101,10 @@ export default class ProductList extends Component {
     this.setState({
       isLoading: false
     });
+
+    // setTimeout(() => {
+    //   this.searchItems("luna");
+    // }, 5000);
   }
 
   render() {
@@ -112,10 +137,13 @@ export default class ProductList extends Component {
           }}
           title={this.props.navigation.state.params.title}
           rightIcon="search"
+          rightCallback={data => {
+            this.searchItems(data);
+          }}
         />
         <View style={styles.content}>
           <FlatList
-            data={this.state.list}
+            data={this.state.isSearched ? this.state.dataList : this.state.list}
             extraData={this.state}
             renderItem={({ item }) => (
               <ProductItem

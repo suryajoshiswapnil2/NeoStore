@@ -122,6 +122,13 @@ export class CustomHeader extends Component {
                       placeholderTextColor="white"
                       autoCapitalize="none"
                       autoCorrect={false}
+                      onChangeText={text => {
+                        console.log(text);
+                        console.log(this.props.rightCallback);
+                        this.props.rightCallback == undefined
+                          ? null
+                          : this.props.rightCallback(text);
+                      }}
                       style={styles.modalInput}
                     />
                     <View style={styles.modalView}>
