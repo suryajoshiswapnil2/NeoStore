@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.neostore">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,6 +11,7 @@
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
+      tools:replace="android:allowBackup"
       android:icon="@mipmap/ic_launcher"
       android:allowBackup="false"
       android:theme="@style/AppTheme">

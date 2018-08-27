@@ -11,13 +11,13 @@ import {
   TouchableWithoutFeedback,
   Share,
   Text,
-  StatusBar,
   Image,
   Animated,
   ActivityIndicator,
   TouchableOpacity
 } from "react-native";
 
+import PhotoView from "react-native-photo-view";
 import {
   userData,
   userDataService,
@@ -428,17 +428,26 @@ export default class ProductDetails extends Component {
                 >
                   <Feather name="x" size={20} />
                 </TouchableOpacity>
-                <ScrollView
+                {/* <ScrollView
                   style={{ flex: 1 }}
                   minimumZoomScale={1.0}
                   maximumZoomScale={4.0}
                   pinchGestureEnabled={true}
-                >
-                  <Image
+                > */}
+                <PhotoView
+                  source={{
+                    uri: this.state.curImg
+                  }}
+                  minimumZoomScale={1.0}
+                  maximumZoomScale={5.0}
+                  onLoad={() => console.log("Image loaded!")}
+                  style={styles.modalImage}
+                />
+                {/* <Image
                     source={{ uri: this.state.curImg }}
                     style={styles.modalImage}
                   />
-                </ScrollView>
+                </ScrollView> */}
               </View>
               {/* </TouchableWithoutFeedback> */}
             </View>

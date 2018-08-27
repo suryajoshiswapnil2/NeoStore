@@ -37,12 +37,14 @@ export const styles = StyleSheet.create({
     marginBottom: 5
   },
   modalImage: {
-    // width: "100%",
-    // height: "100%",
-    width: 350,
-    height: 350
+    // width: 350,
+    // height: 350
     // flex: 1,
-    // resizeMode: "center"
+    width: "100%",
+    height: "100%",
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center"
   },
   container: {
     flex: 1,
