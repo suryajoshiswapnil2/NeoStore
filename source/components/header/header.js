@@ -2,7 +2,14 @@
 
 import React, { Component } from "react";
 import Icon from "../../utils/icon";
-import { View,TextInput, Text,Modal, TouchableWithoutFeedback, TouchableOpacity } from "react-native";
+import {
+  View,
+  TextInput,
+  Text,
+  Modal,
+  TouchableWithoutFeedback,
+  TouchableOpacity
+} from "react-native";
 import { styles } from "./styles";
 
 export default class Header extends Component {
@@ -18,7 +25,8 @@ export default class Header extends Component {
       <View style={styles.headerContainer}>
         <TouchableOpacity
           style={styles.leftContainer}
-          onPress={this.props.back}>
+          onPress={this.props.back}
+        >
           <Icon
             name="angle-left"
             color="#ffffff"
@@ -29,7 +37,7 @@ export default class Header extends Component {
         <Text style={[styles.headText, this.props.style]}>
           {this.state.title}
         </Text>
-        <View/>
+        <View />
       </View>
     );
   }
@@ -41,44 +49,50 @@ export class CustomHeader extends Component {
     this.state = {
       title: this.props.title,
       icon: this.props.icon,
-      isSearching: false,   
+      isSearching: false
       //   backScreen: this.props.back != undefined ? this.props.back : null ,
     };
-    this.open_search = this.open_search.bind(this)
+    this.open_search = this.open_search.bind(this);
   }
 
-  open_search(){
-      this.setState({
-        isSearching: true,
-      })
+  open_search() {
+    this.setState({
+      isSearching: true
+    });
   }
 
-  close_search(){
-      this.setState({
-          isSearching: false,
-      })
+  close_search() {
+    this.setState({
+      isSearching: false
+    });
   }
-
 
   render() {
     return (
       <View style={styles.customHeaderContainer}>
         <TouchableOpacity
           style={styles.leftCustomContainer}
-          onPress={this.props.leftAction}>
+          onPress={this.props.leftAction}
+        >
           <Icon
             name={this.props.leftIcon}
             color="#ffffff"
-            size={this.props.size ? this.props.size : 20 }
+            size={this.props.size ? this.props.size : 20}
           />
         </TouchableOpacity>
         <Text style={[styles.custHeadText, this.props.style]}>
-          {this.state.title}
+          {/* {this.state.title} */}
+          {this.props.title}
         </Text>
         {this.props.rightIcon != undefined && (
           <TouchableOpacity
             style={styles.rightContainer}
-            onPress={ this.props.rightAction == undefined ? () =>  this.open_search() : this.props.rightAction }>
+            onPress={
+              this.props.rightAction == undefined
+                ? () => this.open_search()
+                : this.props.rightAction
+            }
+          >
             <Icon
               name={this.props.rightIcon}
               color="#ffffff"
@@ -88,35 +102,43 @@ export class CustomHeader extends Component {
         )}
 
         <Modal
-            visible={ this.state.isSearching } 
-            transparent={true}
-            onRequestClose={() => { this.setState({isSearching: false,})}}> 
-            <TouchableWithoutFeedback onPress={() => this.close_search()}>
-            <View style={{flex:1,}}>
-                <View  style={styles.modalContainer}>
-                    <TouchableWithoutFeedback>
-                        <View style={styles.rowContainer}>
-                            {/* <View style={{width: 50, height: 50,marginLeft: 3,marginTop:2, justifyContent:'center', alignItems: 'center'}}>
+          visible={this.state.isSearching}
+          transparent={true}
+          onRequestClose={() => {
+            this.setState({ isSearching: false });
+          }}
+        >
+          <TouchableWithoutFeedback onPress={() => this.close_search()}>
+            <View style={{ flex: 1 }}>
+              <View style={styles.modalContainer}>
+                <TouchableWithoutFeedback>
+                  <View style={styles.rowContainer}>
+                    {/* <View style={{width: 50, height: 50,marginLeft: 3,marginTop:2, justifyContent:'center', alignItems: 'center'}}>
                                 <Icon  onPress={() => this.close_search()} name={this.props.leftIcon} color="#ffffff" size={this.props.size ? this.props.size : 25}/>
                             </View> */}
-                            <TextInput
-                                placeholder='Search..'
-                                onPress={ () => true }
-                                placeholderTextColor='white'
-                                autoCapitalize='none'
-                                autoCorrect={false}
-                                style={styles.modalInput}/>
-                            <View style={styles.modalView}>
-                                <Icon onPress={() => this.close_search()} name={this.props.rightIcon} color="#ffffff" size={this.props.size ? this.props.size : 25}/>
-                            </View>
-                        </View>
-                    </TouchableWithoutFeedback>
-                </View>
-                </View>
-            </TouchableWithoutFeedback>
+                    <TextInput
+                      placeholder="Search.."
+                      onPress={() => true}
+                      placeholderTextColor="white"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      style={styles.modalInput}
+                    />
+                    <View style={styles.modalView}>
+                      <Icon
+                        onPress={() => this.close_search()}
+                        name={this.props.rightIcon}
+                        color="#ffffff"
+                        size={this.props.size ? this.props.size : 25}
+                      />
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
         </Modal>
       </View>
-
     );
   }
 }
