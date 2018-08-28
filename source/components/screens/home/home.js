@@ -16,6 +16,7 @@ import {
   Platform,
   ToastAndroid,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Image,
   ActivityIndicator,
   BackHandler
@@ -128,7 +129,7 @@ export default class Home extends Component {
             {this.props.navigation.state.params.product_categories.map(
               (elem, key) => {
                 return (
-                  <TouchableOpacity
+                  <TouchableWithoutFeedback
                     key={key}
                     onPress={() => {
                       navigate("ProductList", {
@@ -141,7 +142,7 @@ export default class Home extends Component {
                       source={{ uri: elem.icon_image }}
                       style={styles.imageContent}
                     />
-                  </TouchableOpacity>
+                  </TouchableWithoutFeedback>
                 );
               }
             )}

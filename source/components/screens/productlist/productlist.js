@@ -33,6 +33,11 @@ export default class ProductList extends Component {
   }
 
   searchItems = search => {
+    if (search.trim() === "")
+      return this.setState({
+        isSearched: false
+      });
+
     let data = this.state.list.filter(value => {
       for (let i in value) {
         if (

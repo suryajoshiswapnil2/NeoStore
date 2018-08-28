@@ -21,9 +21,35 @@ export default class MyOrders extends Component {
     this.state = {
       isLoading: true,
       // access_token: '',
-      data: []
+      data: [],
+      isSearched: false,
+      dataList: []
     };
   }
+
+  searchItems = search => {
+    if (search.trim() === "")
+      return this.setState({
+        isSearched: false
+      });
+
+    let data = this.state.data.filter(value => {
+      for (let i in value) {
+        if (
+          value[i]
+            .toString()
+            .toLowerCase()
+            .indexOf(search.toLowerCase()) >= 0
+        )
+          return true;
+      }
+    });
+    this.setState({
+      isSearched: true,
+      dataList: data
+    });
+    // console.log("filtered data", data);
+  };
 
   renderPrice = value => {
     return (
@@ -96,13 +122,18 @@ export default class MyOrders extends Component {
           }}
           title="My Orders"
           rightIcon="search"
+          rightCallback={data => {
+            this.searchItems(data);
+          }}
         />
         <View style={styles.mainContainer}>
           {this.state.data.length == 0 ? (
             <Text>No products in list</Text>
           ) : (
             <FlatList
-              data={this.state.data}
+              data={
+                this.state.isSearched ? this.state.dataList : this.state.data
+              }
               keyExtractor={item => item.id.toString()}
               renderItem={({ item }) => (
                 <TouchableOpacity

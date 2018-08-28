@@ -40,7 +40,7 @@ import { validator, showError } from "../../../utils/validators";
 
 export default class MyAccount extends Component {
   constructor(props) {
-    console.log(props);
+    // console.log(props);
     super(props);
     this.state = {
       ...props.navigation.state.params,

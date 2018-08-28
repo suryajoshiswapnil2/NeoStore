@@ -123,8 +123,8 @@ export class CustomHeader extends Component {
                       autoCapitalize="none"
                       autoCorrect={false}
                       onChangeText={text => {
-                        console.log(text);
-                        console.log(this.props.rightCallback);
+                        // console.log(text);
+                        // console.log(this.props.rightCallback);
                         this.props.rightCallback == undefined
                           ? null
                           : this.props.rightCallback(text);
