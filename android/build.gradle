@@ -15,6 +15,7 @@ buildscript {
 
         // https://github.com/react-community/react-native-maps/pull/2096
         // by todorone commented on Mar 28
+        // christocracy commented on Mar 28
         // solved issue of google maps on android
         classpath 'com.android.tools.build:gradle:3.1.0'
 
