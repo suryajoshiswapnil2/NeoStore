@@ -212,7 +212,7 @@ export default class MyCart extends Component {
         <View style={styles.container}>
           <CustomHeader
             leftIcon="angle-left"
-            style={{ fontSize: 19 }}
+            style={{ fontSize: 21 }}
             leftAction={() => {
               this.props.navigation.navigate("Home");
             }}
@@ -278,15 +278,17 @@ export default class MyCart extends Component {
                           dropdownTextStyle={{
                             color: "black",
                             fontSize: 15,
-                            textAlign: "center",
-                            backgroundColor: "#ededed"
+                            textAlign: "center"
+                            // backgroundColor: "white"
+                            // backgroundColor: "#ededed"
                           }}
                           showsVerticalScrollIndicator={false}
                           dropdownTextHighlightStyle={{
-                            color: "white",
+                            color: "blue",
                             fontSize: 18,
+                            fontWeight: "bold",
                             textAlign: "center",
-                            backgroundColor: "blue"
+                            backgroundColor: "#ededed"
                           }}
                         >
                           {this.state.editingIndex == item.product_id ? (

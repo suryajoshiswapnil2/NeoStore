@@ -59,7 +59,7 @@ export default class OrderDetail extends Component {
       <View style={styles.container}>
         <CustomHeader
           leftIcon="angle-left"
-          style={{ fontSize: 19 }}
+          style={{ fontSize: 20 }}
           leftAction={() => {
             this.props.navigation.goBack();
           }}

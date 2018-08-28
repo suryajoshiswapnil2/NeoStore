@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   dropDownStyle: {
     width: 49.9,
     marginLeft: -10.5,
-    marginTop: 6
+    marginTop: -24
     // height: 20
     // height: 200,
     // borderRadius: 10,

@@ -13,6 +13,7 @@ import {
   createStackNavigator
 } from "react-navigation";
 import { Root } from "native-base";
+// import { createStore } from "redux";
 
 import Startup from "./source/root/startup";
 import Login from "./source/components/screens/login/login";

@@ -1,39 +1,35 @@
-
-export let userData = { 
-    user_data: {
-        profile_pic: null,
-        first_name: '',
-        last_name: '',
-        email: '',
-        phone_no: '',
-        dob: '',
-        access_token: '',
-    },
-    product_categories: [],
-    total_carts: 0,
-    total_orders: 0,
-}
-
-export const userDataService = {
-    setUserData : (key, value) => {
-        userData[key] = value;
-    },
-    setData : (obj) => {
-        userData = obj
-    } 
+export let userData = {
+  user_data: {
+    profile_pic: null,
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_no: "",
+    dob: "",
+    access_token: ""
+  },
+  product_categories: [],
+  total_carts: 0,
+  total_orders: 0
 };
 
+export const userDataService = {
+  setUserData: (key, value) => {
+    userData[key] = value;
+  },
+  setData: obj => {
+    userData = obj;
+  },
+  _setUserData: (key, value) => {
+    userData.user_data[key] = value;
+  }
+};
 
-export const getCategory = (id) => {
+export const getCategory = id => {
+  if (userData.product_categories.length == 0) return null;
 
-    if(userData.product_categories.length == 0)
-        return null
-
-    return userData.product_categories.find(elem => elem.id == id ).name
-} 
-
-
-
+  return userData.product_categories.find(elem => elem.id == id).name;
+};
 
 // export const sync = (access_token) => {
 
@@ -48,6 +44,5 @@ export const getCategory = (id) => {
 //         if(res.status == 200)
 //             userData = res.data
 //     })
-    
 
 // }
