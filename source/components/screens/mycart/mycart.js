@@ -270,8 +270,23 @@ export default class MyCart extends Component {
                           dropdownStyle={styles.dropDownStyle}
                           style={styles.modelContent}
                           options={[1, 2, 3, 4, 5, 6, 7, 8]}
+                          defaultValue={item.quantity.toString()}
+                          defaultIndex={item.quantity - 1}
                           onSelect={(index, value) => {
                             return this._editCart(item.product_id, value);
+                          }}
+                          dropdownTextStyle={{
+                            color: "black",
+                            fontSize: 15,
+                            textAlign: "center",
+                            backgroundColor: "#ededed"
+                          }}
+                          showsVerticalScrollIndicator={false}
+                          dropdownTextHighlightStyle={{
+                            color: "white",
+                            fontSize: 18,
+                            textAlign: "center",
+                            backgroundColor: "blue"
                           }}
                         >
                           {this.state.editingIndex == item.product_id ? (
