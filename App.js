@@ -6,6 +6,7 @@
  * @flow
  */
 
+import "./source/utils/reactron";
 import React, { Component } from "react";
 import {
   createSwitchNavigator,
@@ -33,6 +34,10 @@ import AddAddress from "./source/components/screens/addaddress/addaddress";
 import AddressList from "./source/components/screens/addresslist/addresslist";
 import StoreLocator from "./source/components/screens/StoreLocator/StoreLocator";
 import Navigator from "./source/components/navigator/navigator";
+
+import { databaseService } from "./source/utils/addressAPI";
+
+// databaseService.createAddressTable();
 
 const ProductStack = createStackNavigator(
   {
@@ -294,6 +299,11 @@ const Stack = createSwitchNavigator(
 );
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    // databaseService.openDatabase();
+  }
+
   render() {
     return (
       <Root>

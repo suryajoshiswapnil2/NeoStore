@@ -169,6 +169,8 @@ android {
 }
 
 dependencies {
+    compile project(':tipsi-stripe')
+    compile project(':react-native-sqlite-storage')
     compile project(':react-native-photo-view')
     compile project(':react-native-splash-screen')
     compile project(':react-native-image-picker')

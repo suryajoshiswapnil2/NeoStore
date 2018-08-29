@@ -35,6 +35,8 @@ PODS:
     - React
   - react-native-maps (0.21.0):
     - React
+  - react-native-sqlite-storage (3.3.6):
+    - React
   - React/Core (0.56.0):
     - yoga (= 0.56.0.React)
   - React/CxxBridge (0.56.0):
@@ -80,6 +82,10 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - Stripe (11.2.0)
+  - tipsi-stripe (5.6.0):
+    - React
+    - Stripe (~> 11.2.0)
   - yoga (0.56.0.React)
 
 DEPENDENCIES:
@@ -90,6 +96,7 @@ DEPENDENCIES:
   - GoogleMaps
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-sqlite-storage (from `../node_modules/react-native-sqlite-storage`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -103,6 +110,8 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - Stripe (~> 11.2.0)
+  - tipsi-stripe (from `../node_modules/tipsi-stripe`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 SPEC REPOS:
@@ -110,6 +119,7 @@ SPEC REPOS:
     - boost-for-react-native
     - Google-Maps-iOS-Utils
     - GoogleMaps
+    - Stripe
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -124,6 +134,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-sqlite-storage:
+    :path: "../node_modules/react-native-sqlite-storage"
+  tipsi-stripe:
+    :path: "../node_modules/tipsi-stripe"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
 
@@ -137,8 +151,11 @@ SPEC CHECKSUMS:
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
   react-native-google-maps: 2cfe3b01f8422c7dae51d8764139fd70f888cfce
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
+  react-native-sqlite-storage: 848fb96c0b6d17b3f70e169ac41f84434cdad94c
+  Stripe: 898f83a95d72180c6eb4acd65b2ae6158fc6a8bd
+  tipsi-stripe: 5688e4b999acac90e97db93c83957dae0aa32cde
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: 6fa0cfa08a88a4b44cd51e28869c2191d7cf714e
+PODFILE CHECKSUM: c1a3e51cd69d19f066ccd19cdfc8f4e1c3c65431
 
 COCOAPODS: 1.5.3

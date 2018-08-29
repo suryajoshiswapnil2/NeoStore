@@ -14,7 +14,7 @@ import {
 } from "react-native";
 
 import Feather from "react-native-vector-icons/Feather";
-import { userData } from "../../../lib/serviceProvider";
+import { userData, userDataService } from "../../../lib/serviceProvider";
 import { CustomHeader } from "../../header/header";
 import { styles } from "./styles";
 import { post, API } from "../../../lib/api";
@@ -97,6 +97,7 @@ export default class AddressList extends Component {
       form,
       res => {
         if (res.status == 200) {
+          userDataService.setUserData("total_carts", 0);
           Alert.alert("Info", res.user_msg, [
             {
               text: "Ok",
@@ -163,7 +164,7 @@ export default class AddressList extends Component {
               addr_arr: this.state.addr_arr.filter((_value, i) => i !== index)
             });
             // Make Permanent changes to AsyncStorage
-            // AsyncStorage.setItem('addr', JSON.stringify(this.state.addr_arr))
+            // AsyncStorage.setItem("addr", JSON.stringify(this.state.addr_arr));
           }
         }
       ],

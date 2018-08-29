@@ -22,6 +22,7 @@ import {
 import { CustomHeader } from "../../header/header";
 import { styles } from "./styles";
 import { userData } from "../../../lib/serviceProvider";
+import { databaseService } from "../../../utils/addressAPI";
 
 export default class AddAddress extends Component {
   constructor(props) {
@@ -82,6 +83,8 @@ export default class AddAddress extends Component {
           country: this.state.country
         }
       ];
+
+      //   databaseService.addAddress(newData[0]);
 
       if (r == null) {
         arr = newData;

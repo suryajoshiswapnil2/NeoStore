@@ -189,7 +189,7 @@ export default class ProductDetails extends Component {
   };
 
   render() {
-    console.log("render called", this.state.data.name);
+
     if (this.state.isLoading) {
       return (
         <View style={styles.container}>
