@@ -34,8 +34,9 @@ import AddAddress from "./source/components/screens/addaddress/addaddress";
 import AddressList from "./source/components/screens/addresslist/addresslist";
 import StoreLocator from "./source/components/screens/StoreLocator/StoreLocator";
 import Navigator from "./source/components/navigator/navigator";
+import Payment from "./source/components/screens/payment/payment";
 
-import { databaseService } from "./source/utils/addressAPI";
+// import { databaseService } from "./source/utils/addressAPI";
 
 // databaseService.createAddressTable();
 
@@ -176,6 +177,12 @@ const MyCartStack = createStackNavigator(
 
     AddAddress: {
       screen: AddAddress,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Payment: {
+      screen: Payment,
       navigationOptions: {
         header: null
       }

@@ -70,6 +70,11 @@ export default class AddressList extends Component {
   }
 
   _place_order = () => {
+    if (true) {
+      this.props.navigation.navigate("Payment");
+      return true;
+    }
+
     this.setState({
       loading: true
     });
@@ -164,7 +169,7 @@ export default class AddressList extends Component {
               addr_arr: this.state.addr_arr.filter((_value, i) => i !== index)
             });
             // Make Permanent changes to AsyncStorage
-            // AsyncStorage.setItem("addr", JSON.stringify(this.state.addr_arr));
+            AsyncStorage.setItem("addr", JSON.stringify(this.state.addr_arr));
           }
         }
       ],
