@@ -31,12 +31,12 @@ export default class AddAddress extends Component {
     if (props.navigation.state.params === undefined) {
       this.state = {
         isLoading: true,
-        addr: "",
-        landmark: "",
-        city: "",
-        state: "",
-        zip_code: "",
-        country: ""
+        addr: "asdasd",
+        landmark: "adadas",
+        city: "adadas",
+        state: "asdasd",
+        zip_code: "444604",
+        country: "adasd"
       };
     } else {
       this.state = {
@@ -84,7 +84,11 @@ export default class AddAddress extends Component {
         }
       ];
 
-      //   databaseService.addAddress(newData[0]);
+      databaseService.createAddressTable();
+      databaseService.addAddress(newData[0]);
+      //   databaseService.select("Address");
+
+      return false;
 
       if (r == null) {
         arr = newData;

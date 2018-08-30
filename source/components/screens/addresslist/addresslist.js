@@ -19,6 +19,7 @@ import { userData, userDataService } from "../../../lib/serviceProvider";
 import { CustomHeader } from "../../header/header";
 import { styles } from "./styles";
 import { post, API } from "../../../lib/api";
+import { databaseService } from "../../../utils/addressAPI";
 
 export default class AddressList extends Component {
   constructor(props) {
@@ -31,12 +32,29 @@ export default class AddressList extends Component {
       force: null
     };
     this.props.navigation.addListener("willFocus", () => {
+      console.log("focused");
       this._get_address();
     });
     this.deleteItem = this.deleteItem.bind(this);
   }
 
   _get_address = () => {
+    // SQlite Code
+    // let a = databaseService.select("Address");
+    // console.log("a", a, "ssas", databaseService.getRows());
+    // setTimeout(() => {
+    //   a = databaseService.getRows();
+
+    //   if (a == []) return;
+
+    //   this.setState({ isLoading: false, addr_arr: a });
+    // }, 1000);
+    // this.setState({
+    //   isLoading: false,
+    //   addr_arr: a
+    // });
+    // return true;
+
     AsyncStorage.getItem("addr").then(val => {
       if (val == null) {
         this.setState({
@@ -179,6 +197,7 @@ export default class AddressList extends Component {
   };
 
   renderItems = () => {
+    // console.log("called", this.state.addr_arr);
     return this.state.addr_arr.map((elem, index) => (
       <View key={index} style={styles.addressContainer}>
         <TouchableOpacity onPress={() => this.setState({ selected: index })}>

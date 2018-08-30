@@ -1,6 +1,7 @@
 import SQLite from "react-native-sqlite-storage";
 
 let db = null;
+let rows = [];
 
 export const callback = {
   errorCB: err => {
@@ -22,16 +23,35 @@ export const callback = {
 };
 
 const sqlQuery = query => {
-  if (db == null) return;
-  db.transaction(tx => {
-    tx.executeSql(
+  if (db == null) {
+    console.log("opening database");
+    databaseService.openDatabase();
+    // databaseService.createAddressTable();
+    // databaseService.insert('Address', {})
+
+    // return;
+  }
+  return db.transaction(tx => {
+    return tx.executeSql(
       query,
       [],
       (tx, results) => {
-        console.log("Query completed");
+        rows = [];
+        console.log(query, "Query completed", results);
+        if (results.rows.length == 0) return;
+
+        var len = results.rows.length;
+        for (let i = 0; i < len; i++) {
+          let row = results.rows.item(i);
+          //   console.log(row);
+          rows.push(row);
+        }
+
+        return true;
       },
       err => {
         console.log(err);
+        return false;
       }
     );
   });
@@ -52,15 +72,9 @@ export var databaseService = {
     console.log(obj);
     let query = `INSERT INTO Address
      (name, addr, landmark, city, state, zip_code, country) 
-    VALUES (
-        '${obj.name}', 
-        '${obj.addr}',
-        '${obj.landmark}',
-        '${obj.city}',
-        '${obj.state}',
-        '${obj.zip_code}',
-        '${obj.country}',
-    );`;
+    VALUES ('${obj.name}', '${obj.addr}' , '${obj.landmark}' , '${
+      obj.city
+    }' , '${obj.state}', '${obj.zip_code}' ,'${obj.country}');`;
     console.log(query);
     sqlQuery(query);
   },
@@ -89,5 +103,16 @@ export var databaseService = {
     } else {
       console.log("Database was not opened");
     }
+  },
+  select: table_name => {
+    let query = `SELECT * from ${table_name};`;
+    let re = sqlQuery(query);
+
+    console.log(re, query);
+    console.log("asdjhaj", rows);
+    return rows;
+  },
+  getRows: () => {
+    return rows;
   }
 };
