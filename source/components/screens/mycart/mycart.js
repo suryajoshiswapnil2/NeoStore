@@ -169,12 +169,28 @@ export default class MyCart extends Component {
         if (res.status == 200) {
           this.setState({
             isLoading: false,
-            data: res.data
+            data: res.data,
+            total: res.total
           });
 
           if (res.data == null) return;
 
-          this._cal_total();
+          userDataService.setUserData(
+            "carts",
+            res.data.map(item => {
+              return {
+                description: item.product.name, // label
+                total_price: item.product.sub_total, // amount
+                unit_price: item.product.cost,
+                quantity: item.quantity,
+                currency_code: "INR"
+              };
+            })
+          );
+          userDataService.setUserData("count", res.count);
+          userDataService.setUserData("total", res.total);
+
+          //   this._cal_total();
         } else {
           showError(res.user_msg);
           this.setState({

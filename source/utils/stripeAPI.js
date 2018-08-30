@@ -1,15 +1,13 @@
 import stripe from "tipsi-stripe";
+import { userData, userDataService } from "../lib/serviceProvider";
 
-export let token = null;
 export let source = null;
 
 let initDone = false;
 
-const BASE_URL = "https://api.stripe.com";
-
 export const PUBLISHABLE_KEY = "pk_test_wIWeEpVEHRKtKXf6lS9sWX2V";
-export const MERCHANT_ID = "NO_ID"; // Optional
-export const ANDROID_PAY_MODE = "test"; // Android only ( test | production )
+export const MERCHANT_ID = "NO_ID";
+export const ANDROID_PAY_MODE = "test";
 
 export const setOptions = {
   publishableKey: PUBLISHABLE_KEY,
@@ -22,54 +20,55 @@ export const stripeInit = () => {
   initDone = true;
 };
 
-export const PayMode = () => {
-  return stripe.deviceSupportsAndroidPay().then(res => {
-    if (res) return true;
-    else return false;
-  })
-    ? "Google Pay"
-    : stripe.deviceSupportsApplePay().then(res => {
-        if (res) return true;
-        else false;
-      })
-      ? "Apple Pay"
-      : "No Support";
+export var supportNativePay = null;
+
+sendToBackend = token => {
+  const url = "http://localhost:9000/charge";
+  console.log(token);
+
+  form = fetch(url, {
+    method: "POST",
+    body: token.tokenId
+  }).then(res => {
+    console.log(res);
+  });
 };
 
 export const PaymentModes = {
-  PayWithApple: () => {
-    console.log("Pay with apple");
+  isNativePaySupported: async () => {
+    isSupportNativePay = await stripe.deviceSupportsNativePay();
+    return supportNativePay;
   },
-  PayWithGoogle: () => {
-    console.log("Pay with Google");
+  PayWithNative: () => {
+    // Check for native pay support
+    // stripe.deviceSupportsNativePay().then(res => {
+    //   console.log(res);
+    // });
+    console.log(isSupportNativePay);
+    stripe.openNativePaySetup();
   },
-  PayWithCard: async billing_address => {
-    console.log("called");
+
+  AddCard: async () => {
+    console.log("add card");
     if (!initDone) stripeInit();
 
-    let billingAddress =
-      billing_address == undefined
-        ? {
-            name: "swap surya",
-            line1: "Rabale",
-            line2: "Sigma IT park",
-            city: "Mumbai",
-            state: "Maharashtra",
-            country: "IN",
-            postalCode: "444604"
-          }
-        : billing_address;
+    let token = null;
 
-    const options = {
-      requiredBillingAddressFields: "full",
-      prefilledInformation: {
-        billingAddress: billingAddress
-      }
-    };
+    try {
+      token = await stripe.paymentRequestWithCardForm({});
+      sendToBackend(token);
+      console.log(token);
+    } catch (e) {
+      console.log(e);
+      alert("user cancelled");
+      return {
+        error: true,
+        success: false,
+        error_msg: "Payment is unsuccessful, Please try again after some time!"
+      };
+    }
 
-    token = await stripe.paymentRequestWithCardForm(options);
-
-    console.log(token);
-    return token;
+    userDataService.appendToken(token);
+    return { success: true, error: false, error_msg: "" };
   }
 };

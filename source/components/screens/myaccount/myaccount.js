@@ -62,6 +62,7 @@ export default class MyAccount extends Component {
   }
 
   render() {
+    // console.log("adasd");
     const { navigate } = this.props.navigation;
 
     if (this.state.isLoading) {

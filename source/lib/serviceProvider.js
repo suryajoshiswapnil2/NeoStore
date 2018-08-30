@@ -10,7 +10,11 @@ export let userData = {
   },
   product_categories: [],
   total_carts: 0,
-  total_orders: 0
+  total_orders: 0,
+  tokens: [],
+  carts: [],
+  total_price: 0,
+  count: 0
 };
 
 export const userDataService = {
@@ -18,10 +22,17 @@ export const userDataService = {
     userData[key] = value;
   },
   setData: obj => {
-    userData = obj;
+    // userData = obj;
+    for (let i in obj) {
+      userData[i] = obj[i];
+    }
+    // console.log(userData, obj);
   },
   _setUserData: (key, value) => {
     userData.user_data[key] = value;
+  },
+  appendToken: item => {
+    userData.tokens.push(item);
   }
 };
 

@@ -13,6 +13,7 @@ import {
   Vibration
 } from "react-native";
 
+import * as Device from "../../../lib/globals";
 import Feather from "react-native-vector-icons/Feather";
 import { userData, userDataService } from "../../../lib/serviceProvider";
 import { CustomHeader } from "../../header/header";
@@ -70,11 +71,6 @@ export default class AddressList extends Component {
   }
 
   _place_order = () => {
-    if (true) {
-      this.props.navigation.navigate("Payment");
-      return true;
-    }
-
     this.setState({
       loading: true
     });
@@ -95,6 +91,11 @@ export default class AddressList extends Component {
         ", " +
         addr_arr.country
     );
+
+    if (Device.isIOS) {
+      this.props.navigation.navigate("Payment", { address: form });
+      return true;
+    }
 
     post(
       API.order,
