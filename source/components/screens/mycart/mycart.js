@@ -259,7 +259,7 @@ export default class MyCart extends Component {
             <Text>No products in list</Text>
           </View>
         ) : (
-          <ScrollView style={{ flex: 1 }}>
+          <View style={{ flex: 1 }}>
             <SwipeListView
               useFlatList
               data={this.state.data}
@@ -368,7 +368,7 @@ export default class MyCart extends Component {
                 <Text style={[styles.buttonText]}>ORDER NOW</Text>
               </TouchableOpacity>
             </View>
-          </ScrollView>
+          </View>
         )}
       </View>
     );

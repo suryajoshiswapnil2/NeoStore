@@ -84,8 +84,9 @@ export default class AddAddress extends Component {
         }
       ];
 
-      databaseService.createAddressTable();
-      databaseService.addAddress(newData[0]);
+      //   SQLite codes
+      //   databaseService.createAddressTable();
+      //   databaseService.addAddress(newData[0]);
       //   databaseService.select("Address");
 
       return false;

@@ -139,10 +139,12 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
     borderBottomWidth: 0.5,
-    borderBottomColor: colors.gray
+    borderBottomColor: colors.gray,
+    borderTopWidth: 0.5,
+    borderTopColor: colors.gray
   },
   button: {
-    marginVertical: 30,
+    marginVertical: 20,
     backgroundColor: colors.red,
     height: 50,
     width: "100%",
