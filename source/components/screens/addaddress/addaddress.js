@@ -27,7 +27,7 @@ import { databaseService } from "../../../utils/addressAPI";
 export default class AddAddress extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
     if (props.navigation.state.params === undefined) {
       this.state = {
         isLoading: true,
@@ -56,9 +56,9 @@ export default class AddAddress extends Component {
     });
   }
 
-  componentWillUnmount() {
-      databaseService.closeDatabase();
-  }
+  //   componentWillUnmount() {
+  //       databaseService.closeDatabase();
+  //   }
 
   _add_addr = () => {
     if (validator.emptyField(this.state.addr))

@@ -87,9 +87,9 @@ export default class AddressList extends Component {
     // });
   }
 
-  componentWillUnmount() {
-    databaseService.closeDatabase();
-  }
+  //   componentWillUnmount() {
+  //     databaseService.closeDatabase();
+  //   }
 
   _place_order = () => {
     this.setState({

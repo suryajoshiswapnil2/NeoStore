@@ -108,8 +108,8 @@ export default class Login extends Component {
             res => {
               if (res.status == 200) {
                 userDataService.setData(res.data);
-                // databaseService.openDatabase();
-                // databaseService.createAddressTable();
+                databaseService.openDatabase();
+                databaseService.createAddressTable();
                 this.props.navigation.navigate("Home", res.data);
               } else {
                 this.setState({
