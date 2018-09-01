@@ -56,6 +56,10 @@ export default class AddAddress extends Component {
     });
   }
 
+  componentWillUnmount() {
+      databaseService.closeDatabase();
+  }
+
   _add_addr = () => {
     if (validator.emptyField(this.state.addr))
       return showError("Please input address!", this.addr);
