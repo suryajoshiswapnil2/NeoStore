@@ -28,9 +28,9 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(new MainReactPackage(), new PhotoViewPackage(), new ImagePickerPackage(),
-                    new VectorIconsPackage(), new MapsPackage(), new SQLitePluginPackage(),
-                    new SplashScreenReactPackage(), new StripeReactPackage());
+            return Arrays.<ReactPackage>asList(new MainReactPackage(), new StripeReactPackage(), new PhotoViewPackage(),
+                    new ImagePickerPackage(), new VectorIconsPackage(), new MapsPackage(), new SQLitePluginPackage(),
+                    new SplashScreenReactPackage());
         }
 
         @Override

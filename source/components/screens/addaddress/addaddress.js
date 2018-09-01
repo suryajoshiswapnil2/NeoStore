@@ -27,7 +27,7 @@ import { databaseService } from "../../../utils/addressAPI";
 export default class AddAddress extends Component {
   constructor(props) {
     super(props);
-
+    console.log(props);
     if (props.navigation.state.params === undefined) {
       this.state = {
         isLoading: true,
@@ -36,13 +36,16 @@ export default class AddAddress extends Component {
         city: "adadas",
         state: "asdasd",
         zip_code: "444604",
-        country: "adasd"
+        country: "adasd",
+        useSQLite: true
       };
     } else {
       this.state = {
         isLoading: true,
         ...props.navigation.state.params.data,
-        editIndex: props.navigation.state.params.editIndex
+        editIndex: props.navigation.state.params.editIndex,
+        id: props.navigation.state.params.id,
+        useSQLite: true
       };
     }
   }
@@ -69,28 +72,51 @@ export default class AddAddress extends Component {
     if (validator.digitsOnlyZip(this.state.zip_code))
       return showError("Zip code can only have 6 integers!", this.zip);
 
+    let arr = [];
+    let newData = [
+      {
+        name:
+          userData.user_data.first_name + " " + userData.user_data.last_name,
+        addr: this.state.addr,
+        landmark: this.state.landmark,
+        city: this.state.city,
+        state: this.state.state,
+        zip_code: this.state.zip_code,
+        country: this.state.country,
+        id: this.state.id
+      }
+    ];
+
+    //   SQLite codes
+
+    if (this.state.useSQLite) {
+      //   console.log(this.state.id);
+      if (this.state.id == undefined) {
+        databaseService.addAddress(newData[0]);
+        Alert.alert("Info", "Address added Successfully!", [
+          {
+            text: "Ok",
+            onPress: () => {
+              this.props.navigation.goBack();
+            }
+          }
+        ]);
+        return true;
+      } else {
+        databaseService.updateAddress(newData[0]);
+        Alert.alert("Info", "Address updated Successfully!", [
+          {
+            text: "Ok",
+            onPress: () => {
+              this.props.navigation.goBack();
+            }
+          }
+        ]);
+        return true;
+      }
+    }
+
     AsyncStorage.getItem("addr").then(r => {
-      let arr = [];
-      let newData = [
-        {
-          name:
-            userData.user_data.first_name + " " + userData.user_data.last_name,
-          addr: this.state.addr,
-          landmark: this.state.landmark,
-          city: this.state.city,
-          state: this.state.state,
-          zip_code: this.state.zip_code,
-          country: this.state.country
-        }
-      ];
-
-      //   SQLite codes
-      //   databaseService.createAddressTable();
-      //   databaseService.addAddress(newData[0]);
-      //   databaseService.select("Address");
-
-      return false;
-
       if (r == null) {
         arr = newData;
         AsyncStorage.setItem("addr", JSON.stringify(arr));

@@ -6,7 +6,6 @@ import {
   AsyncStorage,
   Alert,
   Text,
-  StatusBar,
   ScrollView,
   ActivityIndicator,
   TouchableOpacity,
@@ -19,7 +18,7 @@ import { userData, userDataService } from "../../../lib/serviceProvider";
 import { CustomHeader } from "../../header/header";
 import { styles } from "./styles";
 import { post, API } from "../../../lib/api";
-import { databaseService } from "../../../utils/addressAPI";
+import { databaseService, getRowsFromResult } from "../../../utils/addressAPI";
 
 export default class AddressList extends Component {
   constructor(props) {
@@ -29,32 +28,32 @@ export default class AddressList extends Component {
       addr_arr: [],
       selected: 0,
       loading: false,
-      force: null
+      useSQLite: true
     };
+
     this.props.navigation.addListener("willFocus", () => {
-      console.log("focused");
       this._get_address();
     });
+
     this.deleteItem = this.deleteItem.bind(this);
   }
 
   _get_address = () => {
-    // SQlite Code
-    // let a = databaseService.select("Address");
-    // console.log("a", a, "ssas", databaseService.getRows());
-    // setTimeout(() => {
-    //   a = databaseService.getRows();
+    this.setState({
+      isLoading: true
+    });
 
-    //   if (a == []) return;
+    if (this.state.useSQLite) {
+      // SQlite Code
+      databaseService.select("Address", results => {
+        let rows = getRowsFromResult(results);
+        this.setState({ isLoading: false, addr_arr: rows });
+      });
 
-    //   this.setState({ isLoading: false, addr_arr: a });
-    // }, 1000);
-    // this.setState({
-    //   isLoading: false,
-    //   addr_arr: a
-    // });
-    // return true;
+      return;
+    }
 
+    // AsyncStorage Code
     AsyncStorage.getItem("addr").then(val => {
       if (val == null) {
         this.setState({
@@ -63,7 +62,7 @@ export default class AddressList extends Component {
         });
         return;
       }
-      // console.log(val)
+
       this.setState({
         addr_arr: JSON.parse(val),
         isLoading: false
@@ -111,6 +110,7 @@ export default class AddressList extends Component {
     );
 
     if (Device.isIOS) {
+      // if (true) {
       this.props.navigation.navigate("Payment", { address: form });
       return true;
     }
@@ -144,7 +144,7 @@ export default class AddressList extends Component {
     );
   };
 
-  editItem = (elem, index) => {
+  editItem = (elem, index, id) => {
     Vibration.vibrate(100);
     Alert.alert(
       "Edit address",
@@ -161,7 +161,8 @@ export default class AddressList extends Component {
             // console.log(elem);
             this.props.navigation.navigate("AddAddress", {
               data: elem,
-              editIndex: index
+              editIndex: index,
+              id: id
             });
           }
         }
@@ -170,7 +171,7 @@ export default class AddressList extends Component {
     );
   };
 
-  deleteItem = index => {
+  deleteItem = (index, id) => {
     Vibration.vibrate(100);
     Alert.alert(
       "Delete address",
@@ -187,6 +188,12 @@ export default class AddressList extends Component {
             this.setState({
               addr_arr: this.state.addr_arr.filter((_value, i) => i !== index)
             });
+
+            if (this.state.useSQLite) {
+              databaseService.removeAddress(id);
+              return;
+            }
+
             // Make Permanent changes to AsyncStorage
             AsyncStorage.setItem("addr", JSON.stringify(this.state.addr_arr));
           }
@@ -215,13 +222,13 @@ export default class AddressList extends Component {
             {elem.zip_code}, {elem.country}
           </Text>
           <TouchableOpacity
-            onPress={() => this.deleteItem(index)}
+            onPress={() => this.deleteItem(index, elem.id)}
             style={styles.delete}
           >
             <Feather name="x" style={styles.iconss} color="#8e8e8e" size={20} />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.editItem(elem, index)}
+            onPress={() => this.editItem(elem, index, elem.id)}
             style={styles.edit}
           >
             <Feather
