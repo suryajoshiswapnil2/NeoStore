@@ -36,6 +36,38 @@ import StoreLocator from "./source/components/screens/StoreLocator/StoreLocator"
 import Navigator from "./source/components/navigator/navigator";
 import Payment from "./source/components/screens/payment/payment";
 
+import EditProfileContainer from "./source/container/EditProfileContainer";
+
+import { Provider } from "react-redux";
+import { createStore, combineReducers } from "redux";
+
+let initialState = {
+  name: "shivam"
+};
+
+action = {
+  type: "CHANGE_NAME", // Required
+  data: "swapnil"
+};
+
+reducerss = (state = initialState, action) => {
+  switch (action.type) {
+    case "CHANGE_NAME":
+      return {
+        ...state,
+        name: action.data
+      };
+    default:
+      return state;
+  }
+};
+
+const store = createStore(
+  combineReducers({
+    reducerss
+  })
+);
+
 // import { databaseService } from "./source/utils/addressAPI";
 
 // databaseService.createAddressTable();
@@ -89,7 +121,8 @@ const MyAccountStack = createStackNavigator(
       }
     },
     EditProfile: {
-      screen: EditProfile,
+      // screen: EditProfile,
+      screen: EditProfileContainer,
       navigationOptions: {
         header: null
       }
@@ -312,10 +345,13 @@ export default class App extends Component {
   }
 
   render() {
+    console.log(store.getState());
     return (
-      <Root>
-        <Stack />
-      </Root>
+      <Provider store={store}>
+        <Root>
+          <Stack />
+        </Root>
+      </Provider>
     );
     // return <Navigator/>
   }

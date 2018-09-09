@@ -27,12 +27,18 @@ import { styles } from "./styles";
 import Icon from "../../../utils/icon";
 import { userData } from "../../../lib/serviceProvider";
 
-export default class MyAccount extends Component {
+import { connect } from "react-redux";
+
+const mapStateToProps = state => {
+  return state;
+};
+
+class MyAccount extends Component {
   willFocusEventListener;
 
   constructor(props) {
     super(props);
-    console.log("constructor called");
+    console.log(props);
 
     this.state = {
       isLoading: true,
@@ -41,24 +47,24 @@ export default class MyAccount extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      isLoading: false
+    });
+    // this.willFocusEventListener = this.props.navigation.addListener(
+    //   "willFocus",
+    //   () => {
+    //     console.log("will focus event", this.state);
+    //     let { force } = this.state;
     //     this.setState({
-    //       isLoading: false
+    //       isLoading: false,
+    //       force: force + 1
     //     });
-    this.willFocusEventListener = this.props.navigation.addListener(
-      "willFocus",
-      () => {
-        console.log("will focus event", this.state);
-        let { force } = this.state;
-        this.setState({
-          isLoading: false,
-          force: force + 1
-        });
-      }
-    );
+    //   }
+    // );
   }
 
   componentWillUnmount() {
-    this.willFocusEventListener.remove();
+    // this.willFocusEventListener.remove();
   }
 
   render() {
@@ -123,7 +129,8 @@ export default class MyAccount extends Component {
                     placeholder="First Name"
                     selectTextOnFocus={false}
                     editable={false}
-                    value={userData.user_data.first_name}
+                    // value={userData.user_data.first_name}
+                    value={this.props.reducerss.name}
                     placeholderTextColor="#ffffff"
                   />
                 </View>
@@ -231,3 +238,5 @@ export default class MyAccount extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(MyAccount);

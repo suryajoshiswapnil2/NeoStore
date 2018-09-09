@@ -40,7 +40,7 @@ import { validator, showError } from "../../../utils/validators";
 
 export default class MyAccount extends Component {
   constructor(props) {
-    // console.log(props);
+    console.log("edit", props);
     super(props);
     this.state = {
       ...props.navigation.state.params,
@@ -227,7 +227,13 @@ export default class MyAccount extends Component {
       formData,
       res => {
         if (res.status == 200) {
+          let action = {
+            type: "CHANGE_NAME", // Required
+            data: this.state.first_name
+          };
           alert(res.user_msg);
+          this.props.dispatch(action);
+
           userDataService.setUserData("user_data", res.data);
 
           this.setState({

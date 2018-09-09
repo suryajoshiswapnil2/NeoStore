@@ -95,6 +95,7 @@ export default class StoreLocator extends Component {
 
   getDirections = (start, end) => {
     console.log("called", start, end);
+
     fetch(
       `https://maps.googleapis.com/maps/api/directions/json?origin=${start}&destination=${end}`
     )
@@ -121,6 +122,13 @@ export default class StoreLocator extends Component {
   parseStr = obj => {
     return !!obj ? obj.latitude + "," + obj.longitude : null;
   };
+
+  fitToCord = (Marker) => {
+    this.map.fitToCoordinates([Marker], {
+      edgePadding: { top: 40, right: 40, bottom: 40, left: 40 },
+      animated: true,
+    });
+  }
 
   render() {
     if (this.state.isLoading) {
@@ -164,6 +172,7 @@ export default class StoreLocator extends Component {
                 latitudeDelta: 1.1922,
                 longitudeDelta: 0.1421
               }}
+              ref={(input) => this.map = input}
               //   initialRegion={{
               //     latitude: this.state.latitude,
               //     longitude: this.state.longitude,
@@ -200,11 +209,12 @@ export default class StoreLocator extends Component {
               return (
                 <TouchableOpacity
                   key={index}
-                  onPress={() =>
+                  onPress={() =>{
+                    this.fitToCord(elem.latlng);
                     this.getDirections(
-                      this.parseStr(this.state.myCords),
-                      this.parseStr(elem.latlng)
-                    )
+                        this.parseStr(this.state.myCords),
+                        this.parseStr(elem.latlng)
+                    )}
                   }
                 >
                   <View style={styles.addrItem}>

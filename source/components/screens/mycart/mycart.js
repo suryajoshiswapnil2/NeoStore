@@ -25,6 +25,7 @@ import { userData, userDataService } from "../../../lib/serviceProvider";
 export default class MyCart extends Component {
   constructor(props) {
     super(props);
+    console.log("mycart", props);
     this.state = {
       isLoading: true,
       access_token: "",
