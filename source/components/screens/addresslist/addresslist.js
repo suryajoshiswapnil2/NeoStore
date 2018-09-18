@@ -45,6 +45,9 @@ export default class AddressList extends Component {
 
     if (this.state.useSQLite) {
       // SQlite Code
+
+      databaseService.createAddressTable();
+
       databaseService.select("Address", results => {
         let rows = getRowsFromResult(results);
         this.setState({ isLoading: false, addr_arr: rows });

@@ -129,8 +129,8 @@ class MyAccount extends Component {
                     placeholder="First Name"
                     selectTextOnFocus={false}
                     editable={false}
-                    // value={userData.user_data.first_name}
-                    value={this.props.reducerss.name}
+                    value={userData.user_data.first_name}
+                    // value={this.props.reducerss.name}
                     placeholderTextColor="#ffffff"
                   />
                 </View>

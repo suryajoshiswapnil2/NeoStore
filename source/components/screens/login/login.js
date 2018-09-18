@@ -53,9 +53,9 @@ export default class Login extends Component {
     });
   }
 
-  componentWillUnmount() {
-    databaseService.closeDatabase();
-  }
+//   componentWillUnmount() {
+//     databaseService.closeDatabase();
+//   }
 
   _validate = () => {
     if (validator.emptyField(this.state.email))

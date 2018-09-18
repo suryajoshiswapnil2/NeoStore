@@ -96,6 +96,7 @@ export default class AddAddress extends Component {
     if (this.state.useSQLite) {
       //   console.log(this.state.id);
       if (this.state.id == undefined) {
+        databaseService.createAddressTable();
         databaseService.addAddress(newData[0]);
         Alert.alert("Info", "Address added Successfully!", [
           {

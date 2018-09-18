@@ -50,6 +50,10 @@ export var databaseService = {
   },
 
   addAddress: (obj, success, error) => {
+    // databaseService.openDatabase();
+
+    // databaseService.createAddressTable();
+
     let query = `INSERT INTO Address
      (name, addr, landmark, city, state, zip_code, country) 
     VALUES ('${obj.name}', '${obj.addr}' , '${obj.landmark}' , '${
@@ -101,6 +105,10 @@ export var databaseService = {
   },
 
   select: (table_name, success, error) => {
+    // databaseService.openDatabase();
+
+    // databaseService.createAddressTable();
+
     let query = `SELECT * from ${table_name};`;
 
     if (success == undefined) sqlQuery(query);
